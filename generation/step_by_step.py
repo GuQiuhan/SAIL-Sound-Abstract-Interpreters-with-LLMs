@@ -12,27 +12,60 @@ import shutil
 from datetime import datetime
 from typing import Callable, List, Optional
 
-import validator.executor as executor
-import validator.validator as validator
+
 from request import Client
+from abc import ABC, abstractmethod
 
 # set max retry time every turn
 MAX_RETRIES = 10
 
 MODEL_ENDPOINTS = {
-    "gemma-7b": "http://10.192.122.120:8082",
-    "deepseek-6.7b": "http://10.192.122.120:8083",
-    "llama3-1B": "http://10.192.122.120:8085",
-    "llama3-70B": "http://10.192.122.120:8086",
+    #"gemma-7b": "http://10.192.122.120:8082",
+    #"deepseek-6.7b": "http://10.192.122.120:8083",
+    "llama3-1B": "http://ggnds-serv-01.cs.illinois.edu:8080",
+    #"llama3-70B": "http://10.192.122.120:8086",
 }
+
+DEEPPOLY_CONTEXT = """
+Def shape as (Real l, Real u, PolyExp L, PolyExp U) {
+    [curr[l] <= curr, curr[u] >= curr, curr[L] <= curr, curr[U] >= curr]
+};
+
+Func concretize_lower(Neuron n, Real c) = (c >= 0) ? (c * n[l]) : (c * n[u]);
+Func concretize_upper(Neuron n, Real c) = (c >= 0) ? (c * n[u]) : (c * n[l]);
+
+Func replace_lower(Neuron n, Real c) = (c >= 0) ? (c * n[L]) : (c * n[U]);
+Func replace_upper(Neuron n, Real c) = (c >= 0) ? (c * n[U]) : (c * n[L]);
+
+Func priority(Neuron n) = n[layer];
+
+Func backsubs_lower(PolyExp e, Neuron n) = 
+    (e.traverse(backward, priority, false, replace_lower){e <= n}).map(concretize_lower);
+
+Func backsubs_upper(PolyExp e, Neuron n) = 
+    (e.traverse(backward, priority, false, replace_upper){e >= n}).map(concretize_upper);
+
+Transformer DeepPoly(curr, prev){
+ReLU -> prev[l] > 0 ? (prev[l], prev[u], prev, prev) :
+         (prev[u] < 0 ? (0, 0, 0, 0) :
+         (0, prev[u], 0, ((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l]))));
+
+Affine -> (
+    backsubs_lower(prev.dot(curr[w]) + curr[b], curr),
+    backsubs_upper(prev.dot(curr[w]) + curr[b], curr),
+    prev.dot(curr[w]) + curr[b],
+    prev.dot(curr[w]) + curr[b]
+);
+"""
+
 
 
 class Step:
-    def __init__(self, prompter, composer, eos=None, validator=None):
+    def __init__(self, prompter, composer=None, eos=None, validator=None):
         self.prompter: Callable[[str, Optional[str]], str] = prompter
         self.eos: List[str] = eos or []
         # (prompt, completion, old code) =composer=> new code
-        self.composer: Callable[[str, str], str] = composer
+        self.composer: Callable[[str, str, str], Union[str, bool]] = composer
         self.validator: Callable[[str], None] = validator  # validate the code
         # add augmentation prompting
         self.aug_prompt = ""
@@ -73,78 +106,62 @@ class Step:
 
 def step_by_step_gen(client: Client, steps: List[Step]):
     """
-    For each step, we have:
-        (i) step-wise prompt;
-        (ii) parser the output to code;
-        (iii) prompt augmentaiton if fail
+    Executes a sequence of steps for DSL generation.
+    Step 1: DeepPoly support check (returns bool)
+    Step 2: DSL transformer generation (returns DSL code if applicable)
 
-    Return: (T/F, code, error msg)
+    Returns:
+        (success: bool, result: str, error_message: str)
     """
     code = ""
     for index, step in enumerate(steps, start=1):
-        logging.info(f"EXECUTING STEP {index}/{len(steps)}")
+        logging.info(f"[STEP {index}] Starting step {index}/{len(steps)}")
         retry_count = 0
         success = False
 
-        result = False
-        type = 0
-        msg = ""
-
         while retry_count < MAX_RETRIES and not success:
-            prompt = step.prompter(code)
-            # prompt_augmentation
-            prompt = step.prompter_with_augmentation(prompt)
-            # print("----------")
-            # print(prompt)
+            try:
+                prompt = step.prompter(code)
+                prompt = step.prompter_with_augmentation(prompt)
 
-            completion = client.textgen(prompt=prompt, stop_sequences=step.eos)
+                print(prompt)
 
-            print("----------")
-            print(completion)
+                completion = client.textgen(prompt=prompt, stop_sequences=step.eos)
 
-            # somthing wrong in response
-            if "Model Generation Error" in completion:
-                return ("", completion)
+                print(completion)
 
-            new_code = step.composer(
-                prompt, completion, code
-            )  # new_code=code+completion
-            print("***********")
-            print(new_code)
+                if "Model Generation Error" in completion:
+                    return False, "", f"[STEP {index}] Model Generation Error during completion."
 
-            if step.validator:
-                # if index == 1 or index == 2 or index == 3 or index == 4:
-                #    result, msg = step.validator(new_code)
-                # else:
-                result = step.validator(new_code)
+                result = step.composer(prompt, completion, code)
+                print(f"--- STEP {index} COMPLETION ---\n{completion}\n")
+                print(f"--- STEP {index} PARSED RESULT ---\n{result}\n")
 
-                if result:
-                    success = True
-                    logging.info(f"Validation passed.")
+                # Step 1 returns bool
+                if index == 1 and isinstance(result, bool):
+                    if result:
+                        logging.info("[STEP 1] Operator is supported by DeepPoly.")
+                        success = True
+                        code = ""  # reset for step 2
+                    else:
+                        return False, "", "[STEP 1] Operator is not supported by DeepPoly. Skipping transformer generation."
                 else:
-                    retry_count += 1
-                    # clear and augment again
-                    step.set_augmentation_prompt("", "")
-                    step.set_augmentation_prompt(msg, new_code)
+                    # Step 2 or others: update code directly
+                    code = result
+                    success = True
 
-                    logging.info(
-                        f"Validation failed, retrying {retry_count}/{MAX_RETRIES} with augmentation..."
-                    )
-            else:
-                success = True
+            except Exception as e:
+                retry_count += 1
+                logging.warning(f"[STEP {index}] Exception: {e}, retrying {retry_count}/{MAX_RETRIES}")
 
-        code = new_code
-        # need to be modified
         if not success:
-            return (
-                False,
-                code,
-                f"Model Generation Error: Failed to generate valid code after {MAX_RETRIES} attempts due to (failing to) {msg}",
-            )  # ensure there is an "Model Generation Error" in the message
+            return False, "", f"[STEP {index}] Failed after {MAX_RETRIES} retries."
 
-    return (True, code, "")
+    return True, code, ""
 
 
+
+        
 if __name__ == "__main__":
     import argparse
     import os
@@ -202,67 +219,7 @@ if __name__ == "__main__":
         TimeRemainingColumn(),
     )
 
-    def combine_remove_comments(prmpt, cmpln, old) -> str:
-        """Combine and remove comments from the given Python code."""
-        cmpln = re.sub(r"'''(.*?)'''", "", cmpln, flags=re.DOTALL)
-        cmpln = re.sub(r'"""(.*?)"""', "", cmpln, flags=re.DOTALL)
-        old = "\n".join(
-            line
-            for line in old.splitlines()
-            if "```python" not in line and "```" not in line
-        )
-        cmpln = "\n".join(
-            line
-            for line in cmpln.splitlines()
-            if "```python" not in line and "```" not in line
-        )
-
-        return old + "\n\n" + cmpln
-        # return cmpln
-
-    def remove_comments(prmpt, cmpln, old) -> str:
-        """Remove comments from the given Python code."""
-        cmpln = re.sub(r"'''(.*?)'''", "", cmpln, flags=re.DOTALL)
-        cmpln = re.sub(r'"""(.*?)"""', "", cmpln, flags=re.DOTALL)
-
-        cmpln = "\n".join(
-            line
-            for line in cmpln.splitlines()
-            if "```python" not in line and "```" not in line
-        )
-
-        return cmpln
-
-    def generate_spec(api, doc, dsl=None, debug=False) -> str:
-        steps = []
-        # @qiuhan: TODO: need to be expanded to multi steps to improve the performance
-        # step 1:
-        # - few-shot prompting
-        # - chain of thoughts
-        steps.append(
-            Step(
-                prompter=lambda code: f"""
-API: {api}
-Domain Knowledge: {doc}
-DSL: {dsl}
-Tips for Generation:
-- Ensure that the transformer over-approximates all possible outputs for the given input interval.
-- Use linear constraints that closely follow the true shape of the target function to improve tightness.
-- Minimize the distance between the upper and lower bounds while maintaining soundness.
-- Avoid redundant or overly loose constraints that do not contribute to bounding precision.
-- Include comments or variable names that indicate semantic alignment with the original operator (e.g., slope, bias).
-- Return only the updated DSL rule
-Error Example:
-Class Context:
-Generation:
-""",
-                composer=remove_comments,
-                eos=["\n# END"],
-                validator=None,  # @qiuhan: Constraintflow
-            )
-        )
-
-        return step_by_step_gen(client, steps)
+ 
 
     prefix = os.path.join(os.path.dirname(__file__), "prompt/prompts")
 
@@ -285,9 +242,80 @@ Generation:
 
                 logging.info(f"\nAPI: {api_name} -> Model: {model_name} @ {url}")
                 client = TGIClient(model=url, max_new_tokens=2048)
-                result, code, error = generate_spec(
+
+
+                def generate_dsl(api, doc, dsl=None, debug=False) -> str:
+                    steps = []
+
+                    def convert(prmpt, cmpln, old) -> bool:
+                        result = completion.strip()
+                        return True if result.startswith("1") else False
+
+                    steps.append(
+                        Step(
+                            prompter=lambda code: f"""
+# DeepPoly Compatibility Check
+
+You are a formal methods expert working on neural network verification. Your task is to determine whether the following PyTorch operator is compatible with the DeepPoly abstract domain.
+
+DeepPoly supports any operator for which:
+- The output can be overapproximated using affine bounds (symbolic linear expressions).
+- The operator is monotonic or piecewise-linear (e.g., ReLU, LeakyReLU, HardTanh).
+- The operator can be decomposed into affine and element-wise operations (e.g., Add, Mul, Clamp).
+- The operator acts in an element-wise or structured way (e.g., pooling, affine transforms).
+
+DeepPoly does NOT support:
+- Operators with non-elementwise behavior that cannot be soundly approximated with affine bounds.
+- Non-monotonic or highly nonlinear operators like Softmax, Argmax, Dropout, Sampling, or control flow.
+
+API: {api}
+****************************
+Documentation: {doc}
+****************************
+
+Return:
+- `1` if the operator is supported.
+- `0` if the operator is not supported.
+""",
+                            composer=convert,
+                            eos=["\n# END"],
+                            validator=None,  # @qiuhan: Constraintflow
+                        )
+                    )
+
+                    def extract_transformer_rule(prompt: str, completion: str, old_code: str) -> str:
+                        # Extract a single line like: MyOp -> (...);
+                        for line in completion.splitlines():
+                            if "->" in line and line.strip().endswith(";"):
+                                return old_code.rstrip("}") + "  " + line.strip() + "\n}"
+                        # fallback if nothing parsed
+                        return old_code
+
+                    steps.append(
+                        Step(
+                            prompter=lambda code: f"""
+# DeepPoly DSL Transformer Generation
+
+You are a formal methods expert writing a new transformer rule for a PyTorch operator in the DeepPoly DSL. Below is the abstract domain shape and two existing examples (ReLU and Affine). Now generate a new DSL transformer for the operator below.
+
+{DEEPPOLY_CONTEXT}
+
+API: {api}
+Documentation: {doc}
+
+Add your transformer below. Only generate the Transformer rule (no comments, no extra output):
+""",
+                            composer=extract_transformer_rule,
+                            eos=["\n# END"],
+                            validator=None,  # @qiuhan: Constraintflow
+                        )
+                    )
+
+                    return step_by_step_gen(client, steps)
+
+                result, code, error = generate_dsl(
                     doc["api"], doc["doc"]
-                )  # @qiuhan: How to constrcut the DSL here?
+                )  
                 if not result:
                     target_path = os.path.join(failure_dir, f"{doc['api']}.txt")
                     with open(target_path, "w") as f:

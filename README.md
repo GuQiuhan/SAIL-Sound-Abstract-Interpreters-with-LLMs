@@ -9,15 +9,15 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 ## 📁 Project Structure
 
 ```
-├── generation           # Core LLM generation logic
-│   ├── controller.py    # Controls generation steps and retry logic
-│   ├── models.py        # Unified model interface for Llama, Gemini, etc.
-│   ├── request.py       # Prompt formatting and model communication
-│   └── step_by_step.py  # Step-by-step constraint generation workflow
-├── prompt
-│   ├── prompts          # (Few-shot) prompt examples and templates
-│   └── doc_collector.py # Collects operator documentation to support grounding
-├── results/             # Outputs of models' generation
+├── generation                # Core LLM generation logic
+│   ├── prompt
+│   │   ├── prompts           # (Few-shot) prompt examples and templates
+│   │   └── doc_collector.py  # Collects operator documentation to support grounding
+│   ├── controller.py         # Controls generation steps and retry logic
+│   ├── models.py             # Unified model interface for Llama, Gemini, etc.
+│   ├── request.py            # Prompt formatting and model communication
+│   └── step_by_step.py       # Step-by-step constraint generation workflow
+├── results/                  # Outputs of models' generation
 │   ├── gemma-7b/
 │   │   ├── success/
 │   │   └── failure/
@@ -34,16 +34,16 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 ### Configuration
 
 #### Model Deployment
-* Login in huggingface with your token, make sure have access to Llama3.2, Llama3.3.
+* Login in huggingface with your token, make sure have access to Llama3, Llama4, etc..
 * Change the IP address of `MODEL_ENDPOINTS` in `generation/step_by_step.py` before deploying models.
 ### Documentation Collection
 ```bash
-python constraintflow/prompt/doc_collector.py
+python generation/prompt/doc_collector.py
 ```
 This tool scrapes and organizes PyTorch operator documentation for use in grounded prompting.
 
 ### Step-by-Step DSL Generation
 ```bash
-python constraintflow/generation/step_by_step.py
+python generation/step_by_step.py
 ```
 This script guides the model to generate DSLs for neural operators using multi-stage reasoning and validation.
