@@ -16,6 +16,8 @@ from typing import Callable, List, Optional
 from request import Client
 from abc import ABC, abstractmethod
 
+from validator.constraintflow import constraintflow_validator
+
 # set max retry time every turn
 MAX_RETRIES = 10
 
@@ -279,7 +281,7 @@ Return:
 """,
                             composer=convert,
                             eos=["\n# END"],
-                            validator=None,  # @qiuhan: Constraintflow
+                            validator=None,  # @qiuhan: add a simple validator
                         )
                     )
 
@@ -307,7 +309,32 @@ Add your transformer below. Only generate the Transformer rule (no comments, no 
 """,
                             composer=extract_transformer_rule,
                             eos=["\n# END"],
-                            validator=None,  # @qiuhan: Constraintflow
+                            validator=constraintflow_validator,  # @qiuhan: Constraintflow
+                        )
+                    )
+
+                    steps.append(
+                        Step(
+                            prompter=lambda code: f"""
+# DSL Transformer Tightening
+
+You are improving the over-approximation tightness of an existing DeepPoly DSL transformer. Your goal is to reduce the gap between the upper and lower bounds, while ensuring soundness.
+
+Context:
+{DEEPPOLY_CONTEXT}
+
+Previous transformer rule:
+{code}
+
+API: {api}
+Documentation: {doc}
+
+Now generate a tighter transformer rule that preserves soundness.
+Only output the new transformer rule (no comments, no explanations):
+""",
+                            composer=extract_transformer_rule,
+                            eos=["\n# END"],
+                            validator=constraintflow_validator,  # @qiuhan: Constraintflow
                         )
                     )
 
