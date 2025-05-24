@@ -47,3 +47,10 @@ This tool scrapes and organizes PyTorch operator documentation for use in ground
 python generation/step_by_step.py
 ```
 This script guides the model to generate DSLs for neural operators using multi-stage reasoning and validation.
+
+
+
+# TODO:
+
+* read code of constraintflow and print out the counterexamples to prompt model
+* package consranitflow

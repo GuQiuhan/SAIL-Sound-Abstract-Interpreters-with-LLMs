@@ -21,7 +21,12 @@ def constraintflow_validator(code: str, nprev: int = 4, nsymb: int = 4) -> bool:
     with tempfile.NamedTemporaryFile(mode="w", suffix=".dsl", delete=False) as tmp_file:
         tmp_file.write(code)
         tmp_path = tmp_file.name
+        print(tmp_path)
 
+    print("here")
+
+
+'''
     try:
         result = subprocess.run(
             ["python", EXPERIMENTS_SCRIPT, tmp_path, str(nprev), str(nsymb)],
@@ -41,9 +46,9 @@ def constraintflow_validator(code: str, nprev: int = 4, nsymb: int = 4) -> bool:
         print(f"[Validator Error] {e}")
         return False
 
-    finally:
-        os.remove(tmp_path)
-
+    #finally:
+        #os.remove(tmp_path)
+'''
 
 if __name__ == "__main__":
 
