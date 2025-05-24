@@ -33,6 +33,11 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 
 ### Configuration
 
+#### Configure Constraintflow
+```bash
+pip install -e .`
+```
+
 #### Model Deployment
 * Login in huggingface with your token, make sure have access to Llama3, Llama4, etc..
 * Change the IP address of `MODEL_ENDPOINTS` in `generation/step_by_step.py` before deploying models.

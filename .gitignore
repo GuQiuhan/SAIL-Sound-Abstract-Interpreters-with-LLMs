@@ -5,4 +5,5 @@
 *test*
 *output*
 *.pkl_memoize_py3*
-
+list_structure.py
+*.egg-info/
