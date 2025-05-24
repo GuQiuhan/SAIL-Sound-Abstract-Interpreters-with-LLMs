@@ -35,7 +35,7 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 
 #### Configure Constraintflow
 ```bash
-pip install -e .`
+pip install -e .
 ```
 
 #### Model Deployment
@@ -57,5 +57,5 @@ This script guides the model to generate DSLs for neural operators using multi-s
 
 # TODO:
 
-* read code of constraintflow and print out the counterexamples to prompt model
-* package consranitflow
+[ ] read code of constraintflow and print out the counterexamples to prompt model
+[x] package constraitflow
