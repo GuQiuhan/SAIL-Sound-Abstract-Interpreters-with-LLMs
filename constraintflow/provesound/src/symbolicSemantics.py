@@ -3,10 +3,10 @@ import itertools
 import sys
 import time
 
-from constraintflow import astVisitor
-from constraintflow import astcf as AST
-from provesound.src.value import *
-from provesound.lib.utils import *
+from constraintflow.core import astVisitor
+from constraintflow.core import astcf as AST
+from constraintflow.provesound.src.value import *
+from constraintflow.provesound.lib.utils import *
 
 sys.setrecursionlimit(5000) 
 

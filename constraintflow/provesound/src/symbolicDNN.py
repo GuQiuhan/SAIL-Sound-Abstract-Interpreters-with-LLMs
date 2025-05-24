@@ -1,11 +1,11 @@
 from z3 import *
 
-from constraintflow import astVisitor
-from constraintflow import astcf as AST
+from constraintflow.core import astVisitor
+from constraintflow.core import astcf as AST
 
-from provesound.src.value import *
-from provesound.src.symbolicSemantics import *
-from provesound.lib.globals import *
+from constraintflow.provesound.src.value import *
+from constraintflow.provesound.src.symbolicSemantics import *
+from constraintflow.provesound.lib.globals import *
 
 
 # The following class implements the symbolic DNN expansion and uses the symbolic 

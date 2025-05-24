@@ -1,6 +1,6 @@
 from z3 import *
 
-from provesound.lib.utils import *
+from constraintflow.provesound.lib.utils import *
 
 class Node():
     def __init__(self, counter, v):

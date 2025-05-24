@@ -1,15 +1,15 @@
 from z3 import *
 import time
 
-from constraintflow import astVisitor
-from constraintflow import astcf as AST
+from constraintflow.core import astVisitor
+from constraintflow.core import astcf as AST
 
-from provesound.src.value import *
-from provesound.src.symbolicDNN import SymbolicDNN, populate_vars
+from constraintflow.provesound.src.value import *
+from constraintflow.provesound.src.symbolicDNN import SymbolicDNN, populate_vars
 
-from provesound.lib.utils import *
-from provesound.lib.optSolver import OptSolver
-from provesound.lib.globals import *
+from constraintflow.provesound.lib.utils import *
+from constraintflow.provesound.lib.optSolver import OptSolver
+from constraintflow.provesound.lib.globals import *
 
 exptemp = None
 op_ = None 

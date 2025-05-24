@@ -2,13 +2,13 @@ import antlr4 as antlr
 import sys
 from tabulate import tabulate
 
-from constraintflow import dslLexer
-from constraintflow import dslParser
-from constraintflow import astBuilder
-from constraintflow import astTC
-from constraintflow.buggy_ast import BuggyAst
+from constraintflow.core import dslLexer
+from constraintflow.core import dslParser
+from constraintflow.core import astBuilder
+from constraintflow.core import astTC
+from constraintflow.core.buggy_ast import BuggyAst
 
-from provesound.src import verify
+from constraintflow.provesound.src import verify
 
 def run_verifier(inputfile, nprev, nsymb):
     lexer = dslLexer.dslLexer(antlr.FileStream(inputfile))

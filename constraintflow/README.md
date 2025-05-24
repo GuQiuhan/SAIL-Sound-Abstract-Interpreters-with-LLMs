@@ -3,7 +3,7 @@
 ## Directory Structure
 ```
 oopsla_artifact/
-├── constraintflow/              # Implements ConstraintDlow DSL
+├── core/                        # Implements ConstraintDlow DSL
 ├── dnn_certifiers/              # Contains DNN certifiers 
 ├── experiments/                 # Experiments for the artifact
 ├── provesound/                  # Implements ProveSound

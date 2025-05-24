@@ -1,7 +1,7 @@
 from z3 import *
 
-from provesound.lib.optGraph import OptGraph
-from provesound.lib.utils import *
+from constraintflow.provesound.lib.optGraph import OptGraph
+from constraintflow.provesound.lib.utils import *
 
 
 # This class implements a Z3 based constraint solver. It is used to solve constraints
