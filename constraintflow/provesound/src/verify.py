@@ -465,13 +465,34 @@ class Verify(astVisitor.ASTVisitor):
 				vallist = self.visitTransRetBasic(op.ret, s)
 			leftC = computation + s.ss.C 
 			
-			try:    
+			#try:    
+			#	self.applyTrans(leftC, vallist, s, curr_prime, computation)
+			#	print(f"Proved {op_}")
+			#except:
+			#	print(f"Transformer unsound for {op_}")
+
+			#ret_dict[node.oplist.olist[op_i].op.op_name] = (get_verification_time(), get_generation_time())
+
+			# @qiuhan
+			counterex = None
+			try:
 				self.applyTrans(leftC, vallist, s, curr_prime, computation)
 				print(f"Proved {op_}")
-			except:
+			except Exception as e:
 				print(f"Transformer unsound for {op_}")
+				if len(e.args) > 1:
+					z3_model = e.args[1]
+					if isinstance(z3_model, z3.ModelRef):
+						counterex = {}
+						for d in z3_model.decls():
+							counterex[d.name()] = z3_model[d]
+			
+			ret_dict[node.oplist.olist[op_i].op.op_name] = (
+				get_verification_time(),
+				get_generation_time(),
+				counterex # @qiuhan: save the counterexample
+			)
 
-			ret_dict[node.oplist.olist[op_i].op.op_name] = (get_verification_time(), get_generation_time())
 			reset_time()
 		return ret_dict
 
@@ -510,8 +531,20 @@ class Verify(astVisitor.ASTVisitor):
 				w = self.solver.solve(lhs, rhs)
 				end_time = time.time()
 				update_verification_time()
-				if(not w):
-					raise Exception(f"Constraint Unsound. Proved in {end_time - gen_time : .5f}s")
+				#if(not w):
+				#	raise Exception(f"Constraint Unsound. Proved in {end_time - gen_time : .5f}s")
+
+				# @qiuhan: catch counterexample
+				model = None
+				if (not w):
+					print("here")
+					# Try to extract the counterexample from the last model
+					# Change the `OptSolver` class to save the last model
+					if hasattr(self.solver, 'last_model') and self.solver.last_model is not None:
+						model = self.solver.last_model
+					raise Exception(f"Constraint Unsound", model)
+
+
 				s.ss.tempC = []
 
 		else:
@@ -550,3 +583,18 @@ class Verify(astVisitor.ASTVisitor):
 		self.visit(node.shape)
 		return self.visit(node.stmt)
 
+
+'''
+DSL Transformer (DSL Code)
+      ↓ 
+AST (Abstract Syntax Tree)
+      ↓ 
+SymbolicDNN (Construct Symbolic Neural Network)
+      ↓ 
+Symbolic Semantics (Translate DSL Expressions to Z3 Expressions)
+      ↓ 
+Z3 Solver for Soundness Verification
+      ↓ 
+Record Verification Time and Result for Each Operator
+
+'''

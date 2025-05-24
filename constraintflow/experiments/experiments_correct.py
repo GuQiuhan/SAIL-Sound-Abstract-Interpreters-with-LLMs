@@ -60,7 +60,24 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
 
     row = ["<DSL_STRING>"]
     for b in basicops:
-        row += [round(ret_dict[b][1], 3), round(ret_dict[b][0], 3)]  # G, V
+        
+
+        #row += [round(ret_dict[b][1], 3), round(ret_dict[b][0], 3)]  # G, V
+
+        result = ret_dict[b] # ret_dict[b] = (G, V, counterexample)
+        if len(result) == 3:
+            g, v_, counterex = result
+            row += [round(g, 3), round(v_, 3)]
+
+            if v_ < 1.0 and counterex:
+                print(f"\nOperator '{b}' is UNSOUND")
+                print("Counterexample:")
+                for var, val in counterex.items():
+                    print(f"  {var} = {val}")
+        else:
+            g, v_ = result
+            row += [round(g, 3), round(v_, 3)]
+
     table.append(row)
 
     return table # print(tabulate(table))
@@ -98,26 +115,7 @@ func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 
 transformer deeppoly{
-    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
-
-    Maxpool -> len(argmax(prev, f)) > 0 ? (max(prev[l]), max(prev[u]),  avg(argmax(prev, f)), avg(argmax(prev, f))) : (max(prev[l]), max(prev[u]), max(prev[l]), max(prev[u]));
-
-    Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))) ));
-
-    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(prev[u], 0-prev[l]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
-    
-    HardSwish -> (prev[l] < -3) ? 
-                    (prev[u] < -3 ? 
-                        (0, 0, 0, 0) : 
-                        (prev[u] < 0 ? 
-                            (-3/8, 0, -3/8, 0) : 
-                            (-3/8, f1(prev[u]), -3/8, f1(prev[u]) * (prev - prev[l])))) : 
-                    ((prev[l] < 3) ? 
-                        ((prev[u] < 3) ? 
-                            (-3/8, f3(prev), -3/8, slope(prev[u], prev[l]) * prev + intercept(prev[u], prev[l])) : 
-                            (-3/8, prev[u], -3/8, prev[u] * ((prev + 3) / (prev[u] + 3)))) :
-                        (prev[l], prev[u], prev, prev)); 
-
+    Relu -> ((prev[l]) >= 0) ? ((1), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))) ));
 }
 
 flow(forward, priority, true, deeppoly);    

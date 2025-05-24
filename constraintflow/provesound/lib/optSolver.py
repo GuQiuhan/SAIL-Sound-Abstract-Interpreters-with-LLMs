@@ -17,6 +17,9 @@ class OptSolver:
         self.result_event = None
         self.final_answer = None
 
+        # @qiuhan:
+        self.last_model = None # to get the counterexample
+
     def clear(self):
         self.solved = []
         self.counter = -1
@@ -201,6 +204,10 @@ class OptSolver:
     
     
     def solve(self, lhs, rhs):
+        # @qiuhan:
+        self.last_model = None  # Reset last model on each call
+
+
         if self.check_quantifier(lhs, rhs):
             return self.check(lhs, rhs)
 
@@ -209,5 +216,11 @@ class OptSolver:
         for i in m_if:
             ret = self.solve_temp(*i)
             if not ret:
-                return False 
+                #return False 
+                # @qiuhan: Unsound->try to get counterexample
+                solver = Solver()
+                solver.add(Not(Implies(i[0], i[1])))
+                if solver.check() == sat:
+                    self.last_model = solver.model()
+                return False
         return True
