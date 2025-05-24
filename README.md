@@ -57,5 +57,5 @@ This script guides the model to generate DSLs for neural operators using multi-s
 
 # TODO:
 
-[ ] read code of constraintflow and print out the counterexamples to prompt model
-[x] package constraitflow
+* [ ] read code of constraintflow and print out the counterexamples to prompt model
+* [x] package constraitflow 
