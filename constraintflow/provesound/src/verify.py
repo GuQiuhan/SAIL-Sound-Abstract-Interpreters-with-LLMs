@@ -537,7 +537,6 @@ class Verify(astVisitor.ASTVisitor):
 				# @qiuhan: catch counterexample
 				model = None
 				if (not w):
-					print("here")
 					# Try to extract the counterexample from the last model
 					# Change the `OptSolver` class to save the last model
 					if hasattr(self.solver, 'last_model') and self.solver.last_model is not None:

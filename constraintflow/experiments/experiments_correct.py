@@ -47,40 +47,21 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
     v.Nsym = nsymb
     ret_dict = v.visit(ast)
 
-    basicops = list(ret_dict.keys())
+    # Collect counterexamples
+    ce= []
 
-    table = []
-    row1 = []
-    for b in basicops:
-        row1.append(b)
-        row1.append("")
-    table.append(["Certifier"] + row1)
-    heading = ['G', 'V'] * len(basicops)
-    table.append([" "] + heading)
-
-    row = ["<DSL_STRING>"]
-    for b in basicops:
-        
-
-        #row += [round(ret_dict[b][1], 3), round(ret_dict[b][0], 3)]  # G, V
-
-        result = ret_dict[b] # ret_dict[b] = (G, V, counterexample)
+    for op_name, result in ret_dict.items():
         if len(result) == 3:
-            g, v_, counterex = result
-            row += [round(g, 3), round(v_, 3)]
-
+            _, v_, counterex = result
             if v_ < 1.0 and counterex:
-                print(f"\nOperator '{b}' is UNSOUND")
-                print("Counterexample:")
+                ce.append("Counterexample:")
                 for var, val in counterex.items():
-                    print(f"  {var} = {val}")
-        else:
-            g, v_ = result
-            row += [round(g, 3), round(v_, 3)]
+                    ce.append(f"  {var} = {val}")
 
-    table.append(row)
-
-    return table # print(tabulate(table))
+    if ce:
+        return False, "\n".join(ce)
+    else:
+        return True, None
 
 
 if __name__ == "__main__":
@@ -122,7 +103,7 @@ flow(forward, priority, true, deeppoly);
     """
 
 
-    print(tabulate(run_verifier_from_str(dsl)))
+    print(run_verifier_from_str(dsl))
 '''
     certifier = sys.argv[1]
     nprev = int(sys.argv[2])

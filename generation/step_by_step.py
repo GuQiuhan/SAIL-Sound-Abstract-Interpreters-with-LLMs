@@ -16,7 +16,7 @@ from typing import Callable, List, Optional
 from request import Client
 from abc import ABC, abstractmethod
 
-from validator.constraintflow import constraintflow_validator
+from validator.validate_dsl import constraintflow_validator
 
 # set max retry time every turn
 MAX_RETRIES = 10
@@ -47,7 +47,7 @@ Func backsubs_lower(PolyExp e, Neuron n) =
 Func backsubs_upper(PolyExp e, Neuron n) = 
     (e.traverse(backward, priority, false, replace_upper){e >= n}).map(concretize_upper);
 
-Transformer DeepPoly(curr, prev){
+Transformer deeppoly(curr, prev){
 ReLU -> prev[l] > 0 ? (prev[l], prev[u], prev, prev) :
          (prev[u] < 0 ? (0, 0, 0, 0) :
          (0, prev[u], 0, ((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l]))));
@@ -71,38 +71,50 @@ class Step:
         self.validator: Callable[[str], None] = validator  # validate the code
         # add augmentation prompting
         self.aug_prompt = ""
-        self.error_examples = ""  # List to store error examples
+        self.error_generation = ""  # List to store error generation
+        self.counter_example = ""  # List to store counter examples
         self.given_code = ""  # provided code
 
-    def set_augmentation_prompt(self, aug_prompt: str, error_example: str):
+    def set_augmentation_prompt(self, aug_prompt: str, error_generation: str, counter_example: str):
         self.aug_prompt = aug_prompt
-        self.error_examples = error_example
+        self.error_generation = error_generation
+        self.counter_example = counter_example
 
     def prompter_with_augmentation(self, old_prmpt: str) -> str:
-        """Generates the prompt with augmentation and error examples."""
+        """Generates the prompt with augmentation, error generation and counter examples."""
         augmented_prompt = old_prmpt
         if self.aug_prompt:
             last_api_index = augmented_prompt.rfind("API: ")
-            error_index = augmented_prompt.find("Error Example:", last_api_index)
+            error_index = augmented_prompt.find("Error Generation:", last_api_index)
             if error_index != -1:
                 augmented_prompt = (
                     augmented_prompt[:error_index]
-                    + "\n"
+                    + "- "
                     + self.aug_prompt
                     + "\n"
                     + augmented_prompt[error_index:]
                 )
+            
             last_api_index = augmented_prompt.rfind("API: ")
-            generation_index = augmented_prompt.find("Class Context:", last_api_index)
+            generation_index = augmented_prompt.find("Counter Example:", last_api_index)
             if generation_index != -1:
                 augmented_prompt = (
                     augmented_prompt[:generation_index]
-                    + "\n```python\n"
-                    + self.error_examples
-                    + "\n```\n"
+                    + self.error_generation
+                    + "\n"
                     + augmented_prompt[generation_index:]
                 )
 
+            last_api_index = augmented_prompt.rfind("API: ")
+            ce_index = augmented_prompt.rfind("Generation:", last_api_index)
+            if ce_index != -1:
+                augmented_prompt = (
+                    augmented_prompt[:ce_index]
+                    + self.counter_example
+                    + "\n"
+                    + augmented_prompt[ce_index:]
+                )
+            
         return augmented_prompt
 
 
@@ -115,7 +127,7 @@ def step_by_step_gen(client: Client, steps: List[Step]):
     Returns:
         (success: bool, result: str, error_message: str)
     """
-    code = ""
+    
     for index, step in enumerate(steps, start=1):
         logging.info(f"[STEP {index}] Starting step {index}/{len(steps)}")
         retry_count = 0
@@ -123,21 +135,24 @@ def step_by_step_gen(client: Client, steps: List[Step]):
 
         while retry_count < MAX_RETRIES and not success:
             try:
+                code = ""
                 prompt = step.prompter(code)
                 prompt = step.prompter_with_augmentation(prompt)
 
-                print(prompt)
+                
 
-                completion = client.textgen(prompt=prompt, stop_sequences=step.eos)
+                completion = client.textgen(prompt=prompt)
 
+
+                print("here")
                 print(completion)
 
                 if "Model Generation Error" in completion:
                     return False, "", f"[STEP {index}] Model Generation Error during completion."
 
-                result = step.composer(prompt, completion, code)
+                code = step.composer(prompt, completion, code)
                 print(f"--- STEP {index} COMPLETION ---\n{completion}\n")
-                print(f"--- STEP {index} PARSED RESULT ---\n{result}\n")
+                print(f"--- STEP {index} PARSED RESULT ---\n{code}\n")
 
                 # Step 1 returns bool
                 if index == 1 and isinstance(result, bool):
@@ -147,9 +162,23 @@ def step_by_step_gen(client: Client, steps: List[Step]):
                         code = ""  # reset for step 2
                     else:
                         return False, "", "[STEP 1] Operator is not supported by DeepPoly. Skipping transformer generation."
-                else:
-                    # Step 2 or others: update code directly
-                    code = result
+                # Step 2
+                elif index==2:
+                    if step.validator:
+                        result, ce = step.validator(code)
+                        if result:
+                            success = True
+                            logging.info(f"Validation passed.")
+                        else:
+                            retry_count += 1
+                            # clear and augment again
+                            step.set_augmentation_prompt("", "", "")
+                            step.set_augmentation_prompt("Transformer unsound", code, ce)
+
+                            logging.info(
+                                f"Validation failed, retrying {retry_count}/{MAX_RETRIES} with augmentation..."
+                            )
+                    #code = result
                     success = True
 
             except Exception as e:
@@ -271,9 +300,7 @@ DeepPoly does NOT support:
 - Non-monotonic or highly nonlinear operators like Softmax, Argmax, Dropout, Sampling, or control flow.
 
 API: {api}
-****************************
 Documentation: {doc}
-****************************
 
 Return:
 - `1` if the operator is supported.
@@ -304,8 +331,10 @@ You are a formal methods expert writing a new transformer rule for a PyTorch ope
 
 API: {api}
 Documentation: {doc}
-
-Add your transformer below. Only generate the Transformer rule (no comments, no extra output):
+Tips:
+Error Generation:
+Counter Example:
+Generation: (Add your transformer below. Only generate the Transformer rule (no comments, no extra output)):
 """,
                             composer=extract_transformer_rule,
                             eos=["\n# END"],
@@ -328,9 +357,10 @@ Previous transformer rule:
 
 API: {api}
 Documentation: {doc}
-
-Now generate a tighter transformer rule that preserves soundness.
-Only output the new transformer rule (no comments, no explanations):
+Tips:
+Error Generation:
+Counter Example:
+Generation: (Now generate a tighter transformer rule that preserves soundness. Only output the new transformer rule (no comments, no explanations)):
 """,
                             composer=extract_transformer_rule,
                             eos=["\n# END"],
@@ -343,6 +373,7 @@ Only output the new transformer rule (no comments, no explanations):
                 result, code, error = generate_dsl(
                     doc["api"], doc["doc"]
                 )  
+                print(code)
                 if not result:
                     target_path = os.path.join(failure_dir, f"{doc['api']}.txt")
                     with open(target_path, "w") as f:
