@@ -53,188 +53,54 @@ class TGIClient(Client):
 if __name__ == "__main__":
     client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8080")
 
-    DEEPPOLY_CONTEXT = """
-Def shape as (Real l, Real u, PolyExp L, PolyExp U) {
-    [curr[l] <= curr, curr[u] >= curr, curr[L] <= curr, curr[U] >= curr]
-};
+    CONSTRAINTFLOW = """
+    DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
+    They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
+    So every transformer in each case of the case analysis must return four values.
+    """
 
-Func concretize_lower(Neuron n, Real c) = (c >= 0) ? (c * n[l]) : (c * n[u]);
-Func concretize_upper(Neuron n, Real c) = (c >= 0) ? (c * n[u]) : (c * n[l]);
+    prmpt_relu= """
+    def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
-Func replace_lower(Neuron n, Real c) = (c >= 0) ? (c * n[L]) : (c * n[U]);
-Func replace_upper(Neuron n, Real c) = (c >= 0) ? (c * n[U]) : (c * n[L]);
+    transformer deeppoly{
+        Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))) ));
+    } 
+    """
 
-Func priority(Neuron n) = n[layer];
+    prmpt_abs = """
+    def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
-Func backsubs_lower(PolyExp e, Neuron n) = 
-    (e.traverse(backward, priority, false, replace_lower){e <= n}).map(concretize_lower);
+    transformer deeppoly{
+        Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(prev[u], 0-prev[l]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
+    }
+    """
 
-Func backsubs_upper(PolyExp e, Neuron n) = 
-    (e.traverse(backward, priority, false, replace_upper){e >= n}).map(concretize_upper);
-
-Transformer DeepPoly(curr, prev){
-ReLU -> prev[l] > 0 ? (prev[l], prev[u], prev, prev) :
-         (prev[u] < 0 ? (0, 0, 0, 0) :
-         (0, prev[u], 0, ((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l]))));
-
-Affine -> (
-    backsubs_lower(prev.dot(curr[w]) + curr[b], curr),
-    backsubs_upper(prev.dot(curr[w]) + curr[b], curr),
-    prev.dot(curr[w]) + curr[b],
-    prev.dot(curr[w]) + curr[b]
-);
-"""
     output = client.textgen(prompt = f"""
-# DeepPoly DSL Transformer Generation
+You are a formal methods expert working on neural network verification.
+Your task is to generate the DeepPoly transformers for DNN operators.
+Generate the transformer in Constraintflow DSL.
 
-You are a formal methods expert writing a new transformer rule for a PyTorch operator in the DeepPoly DSL. Below is the abstract domain shape and two existing examples (ReLU and Affine). Now generate a new DSL transformer for the operator below.
+{CONSTRAINTFLOW}
 
-{DEEPPOLY_CONTEXT}
+### Example: ReLU operator
+Input: Generate the transformer for `relu` operator
+Output:
+```dsl
+{prmpt_relu}
+```
 
-API: torch.fft.fft
-**********************
-Documentation: 
+### Example: Abs operator
+Input: Generate the transformer for `abs` operator
+Output:
+```dsl
+{prmpt_abs}
+```
 
-torch.fft.fft(input, n=None, dim=-1, norm=None, *, out=None) → Tensor¶
-Computes the one dimensional discrete Fourier transform of input.
-
-Note
-The Fourier domain representation of any real signal satisfies the
-Hermitian property: X[i] = conj(X[-i]). This function always returns both
-the positive and negative frequency terms even though, for real inputs, the
-negative frequencies are redundant. rfft() returns the
-more compact one-sided representation where only the positive frequencies
-are returned.
-
-
-Note
-Supports torch.half and torch.chalf on CUDA with GPU Architecture SM53 or greater.
-However it only supports powers of 2 signal length in every transformed dimension.
-
-
-Parameters
-
-input (Tensor) – the input tensor
-n (int, optional) – Signal length. If given, the input will either be zero-padded
-or trimmed to this length before computing the FFT.
-dim (int, optional) – The dimension along which to take the one dimensional FFT.
-norm (str, optional) – Normalization mode. For the forward transform
-(fft()), these correspond to:
-
-"forward" - normalize by 1/n
-"backward" - no normalization
-"ortho" - normalize by 1/sqrt(n) (making the FFT orthonormal)
-
-Calling the backward transform (ifft()) with the same
-normalization mode will apply an overall normalization of 1/n between
-the two transforms. This is required to make ifft()
-the exact inverse.
-Default is "backward" (no normalization).
-
-
-
-Keyword Arguments
-out (Tensor, optional) – the output tensor.
-
-
-Example
->>> t = torch.arange(4)
->>> t
-tensor([0, 1, 2, 3])
->>> torch.fft.fft(t)
-tensor([ 6.+0.j, -2.+2.j, -2.+0.j, -2.-2.j])
-
-
->>> t = torch.tensor([0.+1.j, 2.+3.j, 4.+5.j, 6.+7.j])
->>> torch.fft.fft(t)
-tensor([12.+16.j, -8.+0.j, -4.-4.j,  0.-8.j])
-************************
-
-Add your transformer below. Only generate the Transformer rule (no comments, no extra output):    
-    
-""")
+### Now generate the transformer for `relu6` operator
+Input: Generate the transformer for `relu6` operator
+Output:
+"""
+    )
     print(output)
 
 
-'''
-    output = client.textgen(prompt=f"""
-# DeepPoly Compatibility Check
-
-You are a formal methods expert working on neural network verification. Your task is to determine whether the following PyTorch operator is compatible with the 
-DeepPoly abstract domain.
-
-DeepPoly supports any operator for which:
-- The output can be overapproximated using affine bounds (symbolic linear expressions).
-- The operator is monotonic or piecewise-linear (e.g., ReLU, LeakyReLU, HardTanh).
-- The operator can be decomposed into affine and element-wise operations (e.g., Add, Mul, Clamp).
-- The operator acts in an element-wise or structured way (e.g., pooling, affine transforms).
-
-DeepPoly does NOT support:
-- Operators with non-elementwise behavior that cannot be soundly approximated with affine bounds.
-- Non-monotonic or highly nonlinear operators like Softmax, Argmax, Dropout, Sampling, or control flow.
-
-API: torch.fft.fft
-**********************
-Documentation: 
-
-torch.fft.fft(input, n=None, dim=-1, norm=None, *, out=None) → Tensor¶
-Computes the one dimensional discrete Fourier transform of input.
-
-Note
-The Fourier domain representation of any real signal satisfies the
-Hermitian property: X[i] = conj(X[-i]). This function always returns both
-the positive and negative frequency terms even though, for real inputs, the
-negative frequencies are redundant. rfft() returns the
-more compact one-sided representation where only the positive frequencies
-are returned.
-
-
-Note
-Supports torch.half and torch.chalf on CUDA with GPU Architecture SM53 or greater.
-However it only supports powers of 2 signal length in every transformed dimension.
-
-
-Parameters
-
-input (Tensor) – the input tensor
-n (int, optional) – Signal length. If given, the input will either be zero-padded
-or trimmed to this length before computing the FFT.
-dim (int, optional) – The dimension along which to take the one dimensional FFT.
-norm (str, optional) – Normalization mode. For the forward transform
-(fft()), these correspond to:
-
-"forward" - normalize by 1/n
-"backward" - no normalization
-"ortho" - normalize by 1/sqrt(n) (making the FFT orthonormal)
-
-Calling the backward transform (ifft()) with the same
-normalization mode will apply an overall normalization of 1/n between
-the two transforms. This is required to make ifft()
-the exact inverse.
-Default is "backward" (no normalization).
-
-
-
-Keyword Arguments
-out (Tensor, optional) – the output tensor.
-
-
-Example
->>> t = torch.arange(4)
->>> t
-tensor([0, 1, 2, 3])
->>> torch.fft.fft(t)
-tensor([ 6.+0.j, -2.+2.j, -2.+0.j, -2.-2.j])
-
-
->>> t = torch.tensor([0.+1.j, 2.+3.j, 4.+5.j, 6.+7.j])
->>> torch.fft.fft(t)
-tensor([12.+16.j, -8.+0.j, -4.-4.j,  0.-8.j])
-************************
-
-Generation Requirement:
-Just output a number!!
-- `1` if the operator is supported.
-- `0` if the operator is not supported.
-    """)
-'''

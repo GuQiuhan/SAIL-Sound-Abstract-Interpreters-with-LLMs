@@ -1,9 +1,5 @@
 """
-## Step-by-step Prompting for Long DSL Generation
-0. Let output spec code S = "class "
-1. Decompose the DSL generation task into multiple steps. (TBD)
-2. In each step, use a step-specific prompt comprised of {few-shot examples, constraints, and instructions}.
-3. Parse the prompt+output to S, continue to a new step of 2.
+## Few-shot Prompting for Long DSL Generation
 """
 
 import logging
@@ -28,101 +24,33 @@ MODEL_ENDPOINTS = {
     #"llama3-70B": "http://10.192.122.120:8086",
 }
 
-DEEPPOLY_CONTEXT = """
-Def shape as (Real l, Real u, PolyExp L, PolyExp U) {
-    [curr[l] <= curr, curr[u] >= curr, curr[L] <= curr, curr[U] >= curr]
-};
+CONSTRAINTFLOW = """
+DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
+They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
+So every transformer in each case of the case analysis must return four values.
+"""
 
-Func concretize_lower(Neuron n, Real c) = (c >= 0) ? (c * n[l]) : (c * n[u]);
-Func concretize_upper(Neuron n, Real c) = (c >= 0) ? (c * n[u]) : (c * n[l]);
+prmpt_relu= """
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
-Func replace_lower(Neuron n, Real c) = (c >= 0) ? (c * n[L]) : (c * n[U]);
-Func replace_upper(Neuron n, Real c) = (c >= 0) ? (c * n[U]) : (c * n[L]);
+transformer deeppoly{
+    Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))) ));
+} 
+"""
 
-Func priority(Neuron n) = n[layer];
+prmpt_abs = """
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
-Func backsubs_lower(PolyExp e, Neuron n) = 
-    (e.traverse(backward, priority, false, replace_lower){e <= n}).map(concretize_lower);
-
-Func backsubs_upper(PolyExp e, Neuron n) = 
-    (e.traverse(backward, priority, false, replace_upper){e >= n}).map(concretize_upper);
-
-Transformer deeppoly(curr, prev){
-ReLU -> prev[l] > 0 ? (prev[l], prev[u], prev, prev) :
-         (prev[u] < 0 ? (0, 0, 0, 0) :
-         (0, prev[u], 0, ((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l]))));
-
-Affine -> (
-    backsubs_lower(prev.dot(curr[w]) + curr[b], curr),
-    backsubs_upper(prev.dot(curr[w]) + curr[b], curr),
-    prev.dot(curr[w]) + curr[b],
-    prev.dot(curr[w]) + curr[b]
-);
+transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(prev[u], 0-prev[l]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
+}
 """
 
 
 
-class Step:
-    def __init__(self, prompter, composer=None, eos=None, validator=None):
-        self.prompter: Callable[[str, Optional[str]], str] = prompter
-        self.eos: List[str] = eos or []
-        # (prompt, completion, old code) =composer=> new code
-        self.composer: Callable[[str, str, str], Union[str, bool]] = composer
-        self.validator: Callable[[str], None] = validator  # validate the code
-        # add augmentation prompting
-        self.aug_prompt = ""
-        self.error_generation = ""  # List to store error generation
-        self.counter_example = ""  # List to store counter examples
-        self.given_code = ""  # provided code
-
-    def set_augmentation_prompt(self, aug_prompt: str, error_generation: str, counter_example: str):
-        self.aug_prompt = aug_prompt
-        self.error_generation = error_generation
-        self.counter_example = counter_example
-
-    def prompter_with_augmentation(self, old_prmpt: str) -> str:
-        """Generates the prompt with augmentation, error generation and counter examples."""
-        augmented_prompt = old_prmpt
-        if self.aug_prompt:
-            last_api_index = augmented_prompt.rfind("API: ")
-            error_index = augmented_prompt.find("Error Generation:", last_api_index)
-            if error_index != -1:
-                augmented_prompt = (
-                    augmented_prompt[:error_index]
-                    + "- "
-                    + self.aug_prompt
-                    + "\n"
-                    + augmented_prompt[error_index:]
-                )
-            
-            last_api_index = augmented_prompt.rfind("API: ")
-            generation_index = augmented_prompt.find("Counter Example:", last_api_index)
-            if generation_index != -1:
-                augmented_prompt = (
-                    augmented_prompt[:generation_index]
-                    + self.error_generation
-                    + "\n"
-                    + augmented_prompt[generation_index:]
-                )
-
-            last_api_index = augmented_prompt.rfind("API: ")
-            ce_index = augmented_prompt.rfind("Generation:", last_api_index)
-            if ce_index != -1:
-                augmented_prompt = (
-                    augmented_prompt[:ce_index]
-                    + self.counter_example
-                    + "\n"
-                    + augmented_prompt[ce_index:]
-                )
-            
-        return augmented_prompt
-
-
-def step_by_step_gen(client: Client, steps: List[Step]):
+def gen(client: Client):
     """
-    Executes a sequence of steps for DSL generation.
-    Step 1: DeepPoly support check (returns bool)
-    Step 2: DSL transformer generation (returns DSL code if applicable)
+    DSL transformer generation
 
     Returns:
         (success: bool, result: str, error_message: str)
