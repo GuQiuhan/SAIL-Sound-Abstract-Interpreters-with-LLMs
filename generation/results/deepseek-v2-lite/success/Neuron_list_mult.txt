@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Neuron_list_mult -> (prev[l] * prev[l], prev[u] * prev[u], prev * prev, prev * prev);
+}

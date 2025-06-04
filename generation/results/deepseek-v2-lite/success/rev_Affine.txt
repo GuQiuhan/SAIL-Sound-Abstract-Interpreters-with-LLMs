@@ -1,0 +1,3 @@
+transformer deeppoly{
+    RevAffine -> ((prev[l]) >= 0) ? ((prev[u]), (prev[l]), (prev), (prev)) : (((prev[u]) <= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : ((prev[l]), (prev[u]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
+}

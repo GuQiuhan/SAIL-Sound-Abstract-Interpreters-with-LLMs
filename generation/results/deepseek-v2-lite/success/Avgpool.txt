@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Avgpool -> ((prev[l]) <= 0) ? ((prev[l]/size), (prev[u]/size), (prev[L]/size), (prev[U]/size)) : (((prev[u]) >= 0) ? ((prev[l]/size), (prev[u]/size), (prev[L]/size), (prev[U]/size)) : (0, 0, 0, 0));
+}

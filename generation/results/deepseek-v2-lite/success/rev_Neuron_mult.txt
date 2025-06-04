@@ -1,0 +1,7 @@
+transformer deeppoly{
+    RevNeuronMult(weight) -> 
+        if (weight >= 0) then
+            (prev[l] * weight, prev[u] * weight, prev * weight^L, prev * weight^U)
+        else
+            (prev[u] * weight, prev[l] * weight, prev * weight^(U), prev * weight^(L));
+}

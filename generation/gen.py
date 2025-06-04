@@ -1,5 +1,9 @@
 """
-## Few-shot Prompting for Long DSL Generation
+## Step-by-step Prompting for Long DSL Generation
+0. Let output spec code S = "class "
+1. Decompose the DSL generation task into multiple steps. (TBD)
+2. In each step, use a step-specific prompt comprised of {few-shot examples, constraints, and instructions}.
+3. Parse the prompt+output to S, continue to a new step of 2.
 """
 
 import logging
@@ -20,15 +24,16 @@ MAX_RETRIES = 10
 MODEL_ENDPOINTS = {
     #"gemma-7b": "http://10.192.122.120:8082",
     #"deepseek-6.7b": "http://10.192.122.120:8083",
-    "llama3-1B": "http://ggnds-serv-01.cs.illinois.edu:8080",
+    "deepseek-v2-lite": "http://ggnds-serv-01.cs.illinois.edu:8080",
     #"llama3-70B": "http://10.192.122.120:8086",
 }
 
+
 CONSTRAINTFLOW = """
-DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
-They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
-So every transformer in each case of the case analysis must return four values.
-"""
+    DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
+    They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
+    So every transformer in each case of the case analysis must return four values.
+    """
 
 prmpt_relu= """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
@@ -46,11 +51,96 @@ transformer deeppoly{
 }
 """
 
+opt_list = [
+    "Abs",
+    "Affine",
+    "Avgpool",
+    "HardSigmoid",
+    "HardSwish",
+    "HardTanh",
+    "Maxpool",
+    "Minpool",
+    "Neuron_add",
+    "Neuron_list_mult",
+    "Neuron_max",
+    "Neuron_min",
+    "Neuron_mult",
+    "Relu",
+    "Relu6",
+    "rev_Abs",
+    "rev_Affine",
+    "rev_HardSigmoid",
+    "rev_HardSwish",
+    "rev_HardTanh",
+    "rev_Maxpool",
+    "rev_Neuron_add",
+    "rev_Neuron_max",
+    "rev_Neuron_min",
+    "rev_Neuron_mult",
+    "rev_Relu",
+    "rev_Relu6"
+]
+
+class Step:
+    def __init__(self, prompter, composer=None, eos=None, validator=None):
+        self.prompter: Callable[[str, Optional[str]], str] = prompter
+        self.eos: List[str] = eos or []
+        # (prompt, completion, old code) =composer=> new code
+        self.composer: Callable[[str, str, str], Union[str, bool]] = composer
+        self.validator: Callable[[str], None] = validator  # validate the code
+        # add augmentation prompting
+        self.aug_prompt = ""
+        self.error_generation = ""  # List to store error generation
+        self.counter_example = ""  # List to store counter examples
+        self.given_code = ""  # provided code
+
+    def set_augmentation_prompt(self, aug_prompt: str, error_generation: str, counter_example: str):
+        self.aug_prompt = aug_prompt
+        self.error_generation = error_generation
+        self.counter_example = counter_example
+
+    def prompter_with_augmentation(self, old_prmpt: str) -> str:
+        """Generates the prompt with augmentation, error generation and counter examples."""
+        augmented_prompt = old_prmpt
+        if self.aug_prompt:
+            last_api_index = augmented_prompt.rfind("API: ")
+            error_index = augmented_prompt.find("Error Generation:", last_api_index)
+            if error_index != -1:
+                augmented_prompt = (
+                    augmented_prompt[:error_index]
+                    + "- "
+                    + self.aug_prompt
+                    + "\n"
+                    + augmented_prompt[error_index:]
+                )
+            
+            last_api_index = augmented_prompt.rfind("API: ")
+            generation_index = augmented_prompt.find("Counter Example:", last_api_index)
+            if generation_index != -1:
+                augmented_prompt = (
+                    augmented_prompt[:generation_index]
+                    + self.error_generation
+                    + "\n"
+                    + augmented_prompt[generation_index:]
+                )
+
+            last_api_index = augmented_prompt.rfind("API: ")
+            ce_index = augmented_prompt.rfind("Generation:", last_api_index)
+            if ce_index != -1:
+                augmented_prompt = (
+                    augmented_prompt[:ce_index]
+                    + self.counter_example
+                    + "\n"
+                    + augmented_prompt[ce_index:]
+                )
+            
+        return augmented_prompt
 
 
-def gen(client: Client):
+def step_by_step_gen(client: Client, steps: List[Step]):
     """
-    DSL transformer generation
+    Executes a sequence of steps for DSL generation.
+    Step 1: DSL transformer generation (returns DSL code)
 
     Returns:
         (success: bool, result: str, error_message: str)
@@ -61,62 +151,51 @@ def gen(client: Client):
         retry_count = 0
         success = False
 
+        code = ""
+        new_code =""
         while retry_count < MAX_RETRIES and not success:
-            try:
-                code = ""
-                prompt = step.prompter(code)
-                prompt = step.prompter_with_augmentation(prompt)
+            
+            code = ""
+            prompt = step.prompter(code)
+            prompt = step.prompter_with_augmentation(prompt)
 
-                
-
-                completion = client.textgen(prompt=prompt)
+            completion = client.textgen(prompt=prompt)
 
 
-                print("here")
-                print(completion)
+            print("here")
+            print(completion)
 
-                if "Model Generation Error" in completion:
-                    return False, "", f"[STEP {index}] Model Generation Error during completion."
+            if "Model Generation Error" in completion:
+                return False, "", f"[STEP {index}] Model Generation Error during completion."
 
-                code = step.composer(prompt, completion, code)
-                print(f"--- STEP {index} COMPLETION ---\n{completion}\n")
-                print(f"--- STEP {index} PARSED RESULT ---\n{code}\n")
+            new_code = step.composer(prompt, completion, code)
+            print(f"--- STEP {index} COMPLETION ---\n{completion}\n")
+            print(f"--- STEP {index} PARSED RESULT ---\n{new_code}\n")
 
-                # Step 1 returns bool
-                if index == 1 and isinstance(result, bool):
-                    if result:
-                        logging.info("[STEP 1] Operator is supported by DeepPoly.")
-                        success = True
-                        code = ""  # reset for step 2
-                    else:
-                        return False, "", "[STEP 1] Operator is not supported by DeepPoly. Skipping transformer generation."
-                # Step 2
-                elif index==2:
-                    if step.validator:
-                        result, ce = step.validator(code)
-                        if result:
-                            success = True
-                            logging.info(f"Validation passed.")
-                        else:
-                            retry_count += 1
-                            # clear and augment again
-                            step.set_augmentation_prompt("", "", "")
-                            step.set_augmentation_prompt("Transformer unsound", code, ce)
-
-                            logging.info(
-                                f"Validation failed, retrying {retry_count}/{MAX_RETRIES} with augmentation..."
-                            )
-                    #code = result
+            # here we just have one step
+            if step.validator:
+                result, ce = step.validator(new_code)
+                if result:
                     success = True
+                    logging.info(f"Validation passed.")
+                else:
+                    retry_count += 1
+                    # clear and augment again
+                    step.set_augmentation_prompt("", "", "")
+                    step.set_augmentation_prompt("Transformer unsound", code, ce)
 
-            except Exception as e:
-                retry_count += 1
-                logging.warning(f"[STEP {index}] Exception: {e}, retrying {retry_count}/{MAX_RETRIES}")
+                    logging.info(
+                        f"Validation failed, retrying {retry_count}/{MAX_RETRIES} with augmentation..."
+                    )
+            else:
+                success = True
+
+
 
         if not success:
-            return False, "", f"[STEP {index}] Failed after {MAX_RETRIES} retries."
+            return False, code, f"[STEP {index}] Failed after {MAX_RETRIES} retries."
 
-    return True, code, ""
+    return True, new_code, ""
 
 
 
@@ -158,7 +237,7 @@ if __name__ == "__main__":
     if os.path.exists(args.log_dir):
         shutil.rmtree(args.log_dir)
     os.makedirs(args.log_dir, exist_ok=True)
-    log_path = os.path.join(args.log_dir, "generation.log")
+    log_path = os.path.join(args.log_dir, "deepseek_generation.log")
     if os.path.exists(log_path):
         os.remove(log_path)
     logging.basicConfig(
@@ -183,17 +262,12 @@ if __name__ == "__main__":
     prefix = os.path.join(os.path.dirname(__file__), "prompt/prompts")
 
     with progress_bar as p:
-        for yaml_file in p.track(sorted(os.listdir(prefix))):
-            full_path = os.path.join(prefix, yaml_file)
-            with open(full_path, "r") as f:
-                doc = yaml.load(f, Loader=yaml.FullLoader)
-            # if doc["api"] != "torch.signal.windows.nuttall":
-            #    continue
+        for op_name in p.track(sorted(opt_list)):
+            doc = {"api": op_name}
 
             logging.info(f"{datetime.now()} - Extracting {doc['api']}")
 
             for model_name, url in MODEL_ENDPOINTS.items():
-
                 model_out_dir = os.path.join(args.output_dir, model_name)
                 success_dir = os.path.join(model_out_dir, "success")
                 failure_dir = os.path.join(model_out_dir, "failure")
@@ -203,99 +277,65 @@ if __name__ == "__main__":
                 client = TGIClient(model=url, max_new_tokens=2048)
 
 
-                def generate_dsl(api, doc, dsl=None, debug=False) -> str:
+                def generate_dsl(api, dsl=None, debug=False) -> str:
                     steps = []
 
-                    def convert(prmpt, cmpln, old) -> bool:
-                        result = completion.strip()
-                        return True if result.startswith("1") else False
+                    def extract_constraintflow_block(prmpt, cmpl, code) -> str:
+                        """
+                        Extract everything starting from the 'deeppoly' keyword until the closing brace '}' that balances the opening one.
+                        """
+                        match = re.search(r'(deeppoly\s*\{)', cmpl)
+                        if not match:
+                            return ""
+
+                        start_idx = match.start()
+                        brace_count = 0
+                        for i in range(start_idx, len(cmpl)):
+                            if cmpl[i] == '{':
+                                brace_count += 1
+                            elif cmpl[i] == '}':
+                                brace_count -= 1
+                                if brace_count == 0:
+                                    return "transformer "+ cmpl[start_idx:i+1].strip()
+                        
+                        return "transformer "+cmpl[start_idx:].strip()
 
                     steps.append(
                         Step(
                             prompter=lambda code: f"""
-# DeepPoly Compatibility Check
-
 You are a formal methods expert working on neural network verification.
+Your task is to generate the DeepPoly transformers for DNN operators.
+Generate the transformer in Constraintflow DSL.
 
-Operator: Relu
-Generation: 1
+{CONSTRAINTFLOW}
 
-Operator: Absolute
-Generation: 0
+### Example: ReLU operator
+Input: Generate the transformer for `relu` operator
+Output:
+{prmpt_relu}
 
-Oper
+### Example: Abs operator
+Input: Generate the transformer for `abs` operator
+Output:
+{prmpt_abs}
 
-
-
+### Now generate the transformer for {api} operator
+Input: Generate the transformer for {api} operator
+Output:
 """,
-                            composer=convert,
+                            composer=extract_constraintflow_block,
                             eos=["\n# END"],
-                            validator=None,  # @qiuhan: add a simple validator
-                        )
-                    )
-
-                    def extract_transformer_rule(prompt: str, completion: str, old_code: str) -> str:
-                        # Extract a single line like: MyOp -> (...);
-                        for line in completion.splitlines():
-                            if "->" in line and line.strip().endswith(";"):
-                                return old_code.rstrip("}") + "  " + line.strip() + "\n}"
-                        # fallback if nothing parsed
-                        return old_code
-
-                    steps.append(
-                        Step(
-                            prompter=lambda code: f"""
-# DeepPoly DSL Transformer Generation
-
-You are a formal methods expert writing a new transformer rule for a PyTorch operator in the DeepPoly DSL. Below is the abstract domain shape and two existing examples (ReLU and Affine). Now generate a new DSL transformer for the operator below.
-
-{DEEPPOLY_CONTEXT}
-
-API: {api}
-Documentation: {doc}
-Tips:
-Error Generation:
-Counter Example:
-Generation: (Add your transformer below. Only generate the Transformer rule (no comments, no extra output)):
-""",
-                            composer=extract_transformer_rule,
-                            eos=["\n# END"],
-                            validator=constraintflow_validator,  # @qiuhan: Constraintflow
-                        )
-                    )
-
-                    steps.append(
-                        Step(
-                            prompter=lambda code: f"""
-# DSL Transformer Tightening
-
-You are improving the over-approximation tightness of an existing DeepPoly DSL transformer. Your goal is to reduce the gap between the upper and lower bounds, while ensuring soundness.
-
-Context:
-{DEEPPOLY_CONTEXT}
-
-Previous transformer rule:
-{code}
-
-API: {api}
-Documentation: {doc}
-Tips:
-Error Generation:
-Counter Example:
-Generation: (Now generate a tighter transformer rule that preserves soundness. Only output the new transformer rule (no comments, no explanations)):
-""",
-                            composer=extract_transformer_rule,
-                            eos=["\n# END"],
-                            validator=constraintflow_validator,  # @qiuhan: Constraintflow
+                            #validator= constraintflow_validator,  # @qiuhan: add a simple validator
+                            validator=None,
                         )
                     )
 
                     return step_by_step_gen(client, steps)
 
-                result, code, error = generate_dsl(
-                    doc["api"], doc["doc"]
-                )  
-                print(code)
+                result, code, error = generate_dsl(doc["api"])  
+
+                
+
                 if not result:
                     target_path = os.path.join(failure_dir, f"{doc['api']}.txt")
                     with open(target_path, "w") as f:
@@ -304,17 +344,7 @@ Generation: (Now generate a tighter transformer rule that preserves soundness. O
                         f"Failed with Error:{error}\n during generating code:\n{code}\n"
                     )
                 else:
-                    exe, msg = executor.executor(code)
-                    if exe:
-                        target_path = os.path.join(success_dir, f"{doc['api']}.txt")
-                        with open(target_path, "w") as f:
-                            f.write(code)
-                            logging.info(f"Succeed. Saved to {target_path}\n")
-                    else:
-                        target_path = os.path.join(failure_dir, f"{doc['api']}.txt")
-
-                        with open(target_path, "w") as f:
-                            f.write(code)
-                            logging.info(
-                                f"Execution Failure. Saved to {target_path}\n. Error Msg: {msg}.\n"
-                            )
+                    target_path = os.path.join(success_dir, f"{doc['api']}.txt")
+                    with open(target_path, "w") as f:
+                        f.write(code)
+                    logging.info(f"Succeed. Saved to {target_path}\n")

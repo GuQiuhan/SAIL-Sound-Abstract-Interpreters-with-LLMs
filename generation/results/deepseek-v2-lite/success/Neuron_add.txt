@@ -1,0 +1,7 @@
+transformer deeppoly{
+    Neuron_add -> ( 
+        let (sum_l = (prev1[l] + prev2[l]), sum_u = (prev1[u] + prev2[u]), sum_L = (prev1[L] + prev2[L]), sum_U = (prev1[U] + prev2[U])) in
+        (curr[l] <= (prev1[l] + prev2[l])) && (curr[u] >= (prev1[u] + prev2[u])) && (curr[L] <= (prev1[L] + prev2[L])) && (curr[U] >= (prev1[U] + prev2[U])) ?
+        (sum_l, sum_u, sum_L, sum_U) : undefined
+    );
+}
