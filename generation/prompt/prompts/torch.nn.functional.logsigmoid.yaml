@@ -1,0 +1,5 @@
+api: torch.nn.functional.logsigmoid
+doc: "\n\ntorch.nn.functional.logsigmoid(input) \u2192 Tensor\xB6\nApplies element-wise\
+  \ LogSigmoid(xi)=log\u2061(11+exp\u2061(\u2212xi))\\text{LogSigmoid}(x_i) = \\log\
+  \ \\left(\\frac{1}{1 + \\exp(-x_i)}\\right)LogSigmoid(xi\u200B)=log(1+exp(\u2212\
+  xi\u200B)1\u200B)\nSee LogSigmoid for more details.\n"

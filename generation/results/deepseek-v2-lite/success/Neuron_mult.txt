@@ -1,5 +1,0 @@
-transformer deeppoly{
-    Neuron_mult -> (
-        // Add your implementation here
-    )
-}

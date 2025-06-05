@@ -1,5 +1,0 @@
-transformer deeppoly{
-    Affine -> (weight, bias) => {
-        return (((prev[l])*(weight[l])) + (bias[l]), ((prev[u])*(weight[u])) + (bias[u]), ((prev[L])*(weight[L])) + (bias[L]), ((prev[U])*(weight[U])) + (bias[U]));
-    };
-}

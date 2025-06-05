@@ -1,8 +1,0 @@
-transformer deeppoly{
-    Rev_Maxpool -> (pool_size, stride) -> {
-        // Assuming pool_size and stride are given and pool_size is a tuple (h, w) for height and width
-        // This transformer needs to handle the reverse max pooling operation
-        // The output should be a shape that matches the input size but with the max values replaced by their positions
-        // This is a placeholder transformer and needs specific implementation based on the pooling strategy
-    }
-}

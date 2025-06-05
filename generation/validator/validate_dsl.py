@@ -7,12 +7,7 @@ from tabulate import tabulate
 
 from constraintflow.experiments.experiments_correct import run_verifier_from_str
 
-def constraintflow_validator(dsl:str):
-    return run_verifier_from_str(dsl)
-
-if __name__ == "__main__":
-
-    dsl1="""
+DSL1='''
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
 func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
@@ -28,15 +23,25 @@ func backsubs_lower(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true
 func backsubs_upper(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_upper){e >= n}).map(simplify_upper);
 
 func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+'''
 
-transformer deeppoly{
-    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1, 1) : (((prev[u]) <= -1) ? (-1, -1, -1, -1) : (0, max(prev[u], -1, 0-prev[l]), prev, prev*(prev[u]-prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
-}
-
+DSL2='''
 flow(forward, priority, true, deeppoly); 
+'''
+
+def constraintflow_validator(dsl:str):
+    dsl= DSL1+dsl+DSL2
+    return run_verifier_from_str(dsl)
+
+if __name__ == "__main__":
+
+    dsl1="""
+transformer deeppoly{
+   Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(prev[u], 0-prev[l]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
+}
     """
 
 
-    result, ce = run_verifier_from_str(dsl1)
+    result, ce = constraintflow_validator(dsl1)
     print(result)
     print(ce)

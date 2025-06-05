@@ -1,6 +1,0 @@
-transformer deeppoly{
-    Maxpool -> ( // Assuming maxpool is with a window size of 2x2 and stride of 2
-        let maxpool_bounds(x) = (x[l], x[u], x[L], x[U]);
-        [maxpool_bounds(prev[0:3:2,0:3:2]), maxpool_bounds(prev[0:3:2,1:3:2]), maxpool_bounds(prev[1:3:2,0:3:2]), maxpool_bounds(prev[1:3:2,1:3:2])]
-    );
-}

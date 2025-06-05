@@ -1,0 +1,20 @@
+transformer deeppoly{
+    Neuron_list_mult -> (
+        // This operator multiplies a list of neurons together, L is the list of bounds for each neuron in the operation
+        // We assume L and U are provided or have been computed earlier
+        (
+            // First, we need to handle the special case where one of the bounds is 0
+            // This simplifies the multiplication as any product with 0 is 0
+            (L[0] == 0 || L[1] == 0) ? 
+            (0, 0, 0, 0) : 
+            (
+                (L[0] < 0 && L[1] > 0) || (L[0] > 0 && L[1] < 0) ? 
+                (min(prev[l]*L[0], prev[l]*L[1], prev[u]*L[0], prev[u]*L[1], prev[L]*L[0], prev[L]*L[1], prev[U]*L[0], prev[U]*L[1]), 
+                max(prev[l]*L[0], prev[l]*L[1], prev[u]*L[0], prev[u]*L[1], prev[L]*L[0], prev[L]*L[1], prev[U]*L[0], prev[U]*L[1]), 
+                0, 
+                max(prev[L]*L[0], prev[L]*L[1], prev[U]*L[0], prev[U]*L[1]) ) : 
+                (prev[l]*L[0]*L[1], prev[u]*L[0]*L[1], prev[L]*L[0]*L[1], prev[U]*L[0]*L[1])
+            )
+        )
+    )
+}

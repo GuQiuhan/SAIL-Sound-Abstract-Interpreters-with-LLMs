@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Rev_Neuron_max -> (For all neurons prev[i] in prev: (curr[l] <= prev[i] <= curr[u]) & (curr[L] <= prev[i] <= curr[U]));
-}

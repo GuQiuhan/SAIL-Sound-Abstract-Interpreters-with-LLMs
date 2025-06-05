@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Rev_Neuron_add -> (constant, (prev[l] + constant), (prev[u] + constant), (prev[L] + constant), (prev[U] + constant));
-}

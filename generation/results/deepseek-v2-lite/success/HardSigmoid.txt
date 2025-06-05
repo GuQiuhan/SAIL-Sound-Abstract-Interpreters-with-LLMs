@@ -1,4 +1,0 @@
-transformer deeppoly{
-    HardSigmoid -> (Float l = -3.0, Float u = 3.0, PolyExp L = 0, PolyExp U = 1);
-    return (((prev[l]) < (-l)) ? (0) : (((prev[u]) > (u)) ? (1) : (((prev[u]) <= (0)) ? ((prev[l]) * ((prev) / (l))) : (((prev[l]) >= (0)) ? ((prev[u]) * ((prev) / (u))) : ((prev) * (prev + l) / (l + u))));
-}

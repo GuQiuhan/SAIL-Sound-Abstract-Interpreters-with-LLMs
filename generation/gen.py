@@ -161,28 +161,29 @@ def step_by_step_gen(client: Client, steps: List[Step]):
 
             completion = client.textgen(prompt=prompt)
 
-
-            print("here")
-            print(completion)
-
             if "Model Generation Error" in completion:
                 return False, "", f"[STEP {index}] Model Generation Error during completion."
 
-            new_code = step.composer(prompt, completion, code)
+            code = step.composer(prompt, completion, code)
             print(f"--- STEP {index} COMPLETION ---\n{completion}\n")
-            print(f"--- STEP {index} PARSED RESULT ---\n{new_code}\n")
+            print(f"--- STEP {index} PARSED RESULT ---\n{code}\n")
 
             # here we just have one step
             if step.validator:
-                result, ce = step.validator(new_code)
+                try:
+                    result, ce = step.validator(code)
+                except Exception as e:
+                    logging.warning(f"Validator raised an exception: {e}")
+                    result, ce = False, None
+
                 if result:
                     success = True
                     logging.info(f"Validation passed.")
                 else:
                     retry_count += 1
                     # clear and augment again
-                    step.set_augmentation_prompt("", "", "")
-                    step.set_augmentation_prompt("Transformer unsound", code, ce)
+                    #step.set_augmentation_prompt("", "", "")
+                    #step.set_augmentation_prompt("Transformer unsound", code, ce)
 
                     logging.info(
                         f"Validation failed, retrying {retry_count}/{MAX_RETRIES} with augmentation..."
@@ -195,7 +196,7 @@ def step_by_step_gen(client: Client, steps: List[Step]):
         if not success:
             return False, code, f"[STEP {index}] Failed after {MAX_RETRIES} retries."
 
-    return True, new_code, ""
+    return True, code, ""
 
 
 
@@ -227,19 +228,20 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    run_timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    run_dir = os.path.join("logs", run_timestamp)
+    result_dir = os.path.join(run_dir, "results")
+    log_path = os.path.join(run_dir, "generation.log")
+
     for model_name in MODEL_ENDPOINTS:
-        model_out_dir = os.path.join(args.output_dir, model_name)
+        model_out_dir = os.path.join(result_dir, model_name)
         if os.path.exists(model_out_dir):
             shutil.rmtree(model_out_dir)
         os.makedirs(os.path.join(model_out_dir, "success"), exist_ok=True)
         os.makedirs(os.path.join(model_out_dir, "failure"), exist_ok=True)
 
-    if os.path.exists(args.log_dir):
-        shutil.rmtree(args.log_dir)
-    os.makedirs(args.log_dir, exist_ok=True)
-    log_path = os.path.join(args.log_dir, "deepseek_generation.log")
-    if os.path.exists(log_path):
-        os.remove(log_path)
+
+
     logging.basicConfig(
         filename=log_path,
         level=logging.INFO,
@@ -268,7 +270,7 @@ if __name__ == "__main__":
             logging.info(f"{datetime.now()} - Extracting {doc['api']}")
 
             for model_name, url in MODEL_ENDPOINTS.items():
-                model_out_dir = os.path.join(args.output_dir, model_name)
+                model_out_dir = os.path.join(result_dir, model_name)
                 success_dir = os.path.join(model_out_dir, "success")
                 failure_dir = os.path.join(model_out_dir, "failure")
                 api_name = doc["api"]
@@ -325,8 +327,8 @@ Output:
 """,
                             composer=extract_constraintflow_block,
                             eos=["\n# END"],
-                            #validator= constraintflow_validator,  # @qiuhan: add a simple validator
-                            validator=None,
+                            validator= constraintflow_validator,  # @qiuhan: add a simple validator
+                            #validator=None,
                         )
                     )
 

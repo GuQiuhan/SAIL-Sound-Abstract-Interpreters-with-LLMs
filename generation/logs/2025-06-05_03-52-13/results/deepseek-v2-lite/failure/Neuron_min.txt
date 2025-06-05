@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Neuron_min -> ((prev[l]) >= (prev2[l])) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= (prev2[u])) ? (prev2[l], prev2[u], prev2, prev2) : (((prev[l]) <= (prev2[u])) && ((prev[u]) >= (prev2[l]))) ? ((prev[l]), (prev2[u]), (prev), (prev2)) : (((prev[u]) <= (prev2[l])) ? (prev2[l], prev2[u], prev2, prev2) : (((prev[l]) >= (prev2[u])) ? (prev2[l], prev2[u], prev2, prev2) : ((prev[l], prev[u], prev, prev) )) ));
+}

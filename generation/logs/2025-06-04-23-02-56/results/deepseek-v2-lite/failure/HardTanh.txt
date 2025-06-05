@@ -1,0 +1,3 @@
+transformer deeppoly{
+    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1, 1) : (((prev[u]) <= -1) ? (-1, -1, -1, -1) : (((prev[l]) <= -1 && (prev[u]) >= 1) ? (prev[l], prev[u], prev[l], prev[u]) : ((prev[l]) <= prev && prev <= (prev[u]) ? (prev, prev, prev, prev) : (((prev[l]) <= prev && prev < 1 && (-1) < prev) ? (-1, 1, -1, prev*(1-(-1))/(prev[u]-prev[l]) + (-1)*(prev[u]-prev)/(prev[u]-prev[l])) : (((prev[u]) >= prev && prev > -1 && (-1) < prev) ? (-1, 1, prev*(1-(-1))/(prev[u]-prev[l]) + (-1)*(prev[u]-prev)/(prev[u]-prev[l]), 1)) )));
+}

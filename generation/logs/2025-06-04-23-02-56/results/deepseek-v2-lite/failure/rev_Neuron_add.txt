@@ -1,0 +1,3 @@
+transformer deeppoly{
+    RevNeuronAdd -> (curr[l] = prev[l] + op[l], curr[u] = prev[u] + op[u], curr[L] = prev[L] + op[L], curr[U] = prev[U] + op[U]);
+}
