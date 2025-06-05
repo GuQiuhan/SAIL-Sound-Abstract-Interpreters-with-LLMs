@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Rev_HardSigmoid -> (rev_HardSigmoid[l], rev_HardSigmoid[u], rev_HardSigmoid[L], rev_HardSigmoid[U]);
+}

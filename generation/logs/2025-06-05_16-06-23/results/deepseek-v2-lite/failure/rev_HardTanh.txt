@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Rev_HardTanh -> (backsubs_lower((curr[l] < prev) ? curr[l] : ((curr[u] > prev) ? curr[u] : prev), curr, curr[layer]), backsubs_upper((curr[l] < prev) ? curr[l] : ((curr[u] > prev) ? curr[u] : prev), curr, curr[layer]), (curr[l] < prev) ? curr[l] : ((curr[u] > prev) ? curr[u] : prev), (curr[l] < prev) ? curr[l] : ((curr[u] > prev) ? curr[u] : prev));
+}

@@ -1,0 +1,3 @@
+transformer deeppoly{
+    HardSwish -> (backsubs_lower((prev), curr), backsubs_upper((prev), curr), (prev), (prev));
+}

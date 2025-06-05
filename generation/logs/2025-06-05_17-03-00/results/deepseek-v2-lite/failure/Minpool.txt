@@ -1,0 +1,4 @@
+transformer deeppoly{
+    Minpool -> ((prev[l]) <= (prev[l])@min) ? ((prev[l])@min, (prev[l])@min, (prev[l])@min, (prev[l])@min) : (((prev[u]) >= (prev[u])@min) ? ((prev[u])@min, (prev[u])@min, (prev[u])@min, (prev[u])@min) : 
+        ((prev[l])@min, (prev[u])@min, (prev[l])@min, (prev[u])@min));
+}

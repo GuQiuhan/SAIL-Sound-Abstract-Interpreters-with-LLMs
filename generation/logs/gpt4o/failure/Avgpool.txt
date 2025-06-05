@@ -1,0 +1,8 @@
+transformer deeppoly{
+    Avgpool -> (
+        (1.0 / len(prev)) * sum(prev.map(n => simplify_lower(n, 1.0))),
+        (1.0 / len(prev)) * sum(prev.map(n => simplify_upper(n, 1.0))),
+        (1.0 / len(prev)) * sum(prev.map(n => replace_lower(n, 1.0))),
+        (1.0 / len(prev)) * sum(prev.map(n => replace_upper(n, 1.0)))
+    );
+}

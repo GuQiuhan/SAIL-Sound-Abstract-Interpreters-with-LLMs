@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Mult -> (backsubs_lower(prev*curr[weight], curr, curr[layer]), backsubs_upper(prev*curr[weight], curr, curr[layer]), prev*curr[weight], prev*curr[weight]);
+}

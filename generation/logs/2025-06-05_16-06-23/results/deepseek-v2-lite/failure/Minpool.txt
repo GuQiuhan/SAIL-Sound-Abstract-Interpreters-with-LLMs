@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Minpool -> (min(curr[l], prev[l]), min(curr[u], prev[u]), min(curr[L], prev[L]), min(curr[U], prev[U]));
+}

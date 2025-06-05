@@ -1,0 +1,3 @@
+transformer deeppoly{
+    HardSigmoid -> (backsubs_lower((prev[l] * (3/10)) + (3/5), prev), backsubs_upper((prev[u] * (3/10)) + (3/5), prev), (prev[L] * (3/10)) + (3/5), (prev[U] * (3/10)) + (3/5));
+}

@@ -1,0 +1,3 @@
+transformer deeppoly{
+    RevRelu -> ((curr[l]) <= 0) ? ((curr[l]), (curr[u]), (curr[L]), (curr[U])) : (((curr[u]) >= 0) ? ((curr[u]), (curr[u]), (curr[U]), (curr[U])) : ((0), (curr[u]), (0), (curr[U]) * (curr[U] - curr[l]) / (curr[U] + curr[l])));
+}

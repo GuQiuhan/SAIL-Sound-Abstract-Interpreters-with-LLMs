@@ -14,7 +14,7 @@ print("✅ Model loaded. Ready for generation.")
 
 CONSTRAINTFLOW = """
 DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
-They must follow the constraint that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
+They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
 So every transformer in each case of the case analysis must return four values.
 """
 

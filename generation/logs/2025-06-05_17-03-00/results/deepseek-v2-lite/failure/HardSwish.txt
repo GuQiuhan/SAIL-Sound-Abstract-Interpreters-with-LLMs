@@ -1,0 +1,7 @@
+transformer deeppoly{
+    HardSwish -> (p = prev,
+      backsubs_lower(min(max((p * (3 / 8)), p[l]), p[u]), p, p[layer]),
+      backsubs_upper(min(max((p * (3 / 8)), p[l]), p[u]), p, p[layer]),
+      min(max((p * (3 / 8)), p[L]), p[U]),
+      min(max((p * (3 / 8)), p[L]), p[U]));
+}

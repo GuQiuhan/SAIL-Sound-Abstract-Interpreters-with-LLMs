@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Avgpool -> (avg(prev[l]), avg(prev[u]), avg(prev[L]), avg(prev[U]));
+}

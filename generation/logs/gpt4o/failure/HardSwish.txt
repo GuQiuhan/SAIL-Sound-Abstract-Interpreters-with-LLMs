@@ -1,0 +1,14 @@
+transformer deeppoly{
+    HardSwish ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) :
+        (
+            let l = prev[l];
+            let u = prev[u];
+            let l_hs = ((l + 3.0) / 6.0) * l;
+            let u_hs = ((u + 3.0) / 6.0) * u;
+            let L_hs = ((prev + 3.0) / 6.0) * prev;
+            let U_hs = ((prev + 3.0) / 6.0) * prev;
+            (l_hs, u_hs, L_hs, U_hs)
+        );
+}

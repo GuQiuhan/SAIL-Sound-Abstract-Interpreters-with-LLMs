@@ -1,0 +1,12 @@
+transformer deeppoly{
+    Affine -> (W, b) => (l, u, L, U) => {
+        // Calculate the bounds of the affine transformation
+        let curr_l = prev[l] * W[l] + prev[u] * W[u] + b[l];
+        let curr_u = prev[u] * W[u] + prev[u] * W[u] + b[u];
+        let curr_L = prev[L] * W[L] + prev[U] * W[U] + b[L];
+        let curr_U = prev[U] * W[U] + prev[U] * W[U] + b[U];
+
+        // Return the bounds
+        (curr_l, curr_u, curr_L, curr_U)
+    };
+}

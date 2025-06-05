@@ -37,7 +37,12 @@ if __name__ == "__main__":
 
     dsl1="""
 transformer deeppoly{
-   Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(prev[u], 0-prev[l]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
+    Maxpool -> (
+    max(prev[0][l], prev[1][l]),
+    max(prev[0][u], prev[1][u]),
+    max(prev[0][L], prev[1][L]),
+    max(prev[0][U], prev[1][U])
+);
 }
     """
 

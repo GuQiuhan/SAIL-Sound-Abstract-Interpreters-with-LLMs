@@ -11,6 +11,7 @@ import re
 import shutil
 from datetime import datetime
 from typing import Callable, List, Optional
+import traceback
 
 
 from request import Client
@@ -30,10 +31,21 @@ MODEL_ENDPOINTS = {
 
 
 CONSTRAINTFLOW = """
-    DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
-    They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
-    So every transformer in each case of the case analysis must return four values.
-    """
+DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
+They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
+So every transformer in each case of the case analysis must return four values.
+Function you can use:
+- func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+- func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+- func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+- func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+- func priority(Neuron n) = n[layer];
+- func priority2(Neuron n) = -n[layer];
+- func backsubs_lower(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_lower){e <= n}).map(simplify_lower);
+- func backsubs_upper(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_upper){e >= n}).map(simplify_upper);
+- func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+Don't generate comments.
+"""
 
 prmpt_relu= """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
@@ -51,34 +63,29 @@ transformer deeppoly{
 }
 """
 
+prmpt_affine = """
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+"""
+
 opt_list = [
     "Abs",
+    "Add",
     "Affine",
     "Avgpool",
     "HardSigmoid",
     "HardSwish",
     "HardTanh",
+    "Max",
     "Maxpool",
+    "Min",
     "Minpool",
-    "Neuron_add",
-    "Neuron_list_mult",
-    "Neuron_max",
-    "Neuron_min",
-    "Neuron_mult",
+    "Mult",
     "Relu",
     "Relu6",
-    "rev_Abs",
-    "rev_Affine",
-    "rev_HardSigmoid",
-    "rev_HardSwish",
-    "rev_HardTanh",
-    "rev_Maxpool",
-    "rev_Neuron_add",
-    "rev_Neuron_max",
-    "rev_Neuron_min",
-    "rev_Neuron_mult",
-    "rev_Relu",
-    "rev_Relu6"
 ]
 
 class Step:
@@ -152,45 +159,48 @@ def step_by_step_gen(client: Client, steps: List[Step]):
         success = False
 
         code = ""
-        new_code =""
         while retry_count < MAX_RETRIES and not success:
             
             code = ""
             prompt = step.prompter(code)
             prompt = step.prompter_with_augmentation(prompt)
 
-            completion = client.textgen(prompt=prompt)
+            #completion = client.textgen(prompt=prompt)
+            completions = [client.textgen(prompt=prompt) for _ in range(3)] # multiple(3) samples
 
-            if "Model Generation Error" in completion:
-                return False, "", f"[STEP {index}] Model Generation Error during completion."
+            for sample_id, completion in enumerate(completions, start=1):
+                if "Model Generation Error" in completion:
+                    logging.warning(f"[STEP {index}] Sample {sample_id}: Model Generation Error")
+                    continue
 
-            code = step.composer(prompt, completion, code)
-            print(f"--- STEP {index} COMPLETION ---\n{completion}\n")
-            print(f"--- STEP {index} PARSED RESULT ---\n{code}\n")
+                code = step.composer(prompt, completion, code)
+                print(f"[STEP {index}] Sample {sample_id}: Completion:\n{completion}")
+                print(f"[STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}")
 
-            # here we just have one step
-            if step.validator:
-                try:
-                    result, ce = step.validator(code)
-                except Exception as e:
-                    logging.warning(f"Validator raised an exception: {e}")
-                    result, ce = False, None
+                if step.validator:
+                    try:
+                        result, ce = step.validator(code)
+                    except Exception as e:
+                        #logging.warning(f"[STEP {index}] Sample {sample_id}: Validator exception: {e}. Code: \n {code}\n")
+                        logging.warning(f"[STEP {index}] Sample {sample_id}: Validator exception. Full traceback:\n{traceback.format_exc()}\nCode:\n{code}\n")
 
-                if result:
-                    success = True
-                    logging.info(f"Validation passed.")
+                        result, ce = False, None
+
+                    if result:
+                        success = True
+                        logging.info(f"[STEP {index}] Sample {sample_id}: Validation passed.")
+                        break
+                    else:
+                        logging.info(f"[STEP {index}] Sample {sample_id}: Validation failed.")
                 else:
-                    retry_count += 1
-                    # clear and augment again
-                    #step.set_augmentation_prompt("", "", "")
-                    #step.set_augmentation_prompt("Transformer unsound", code, ce)
+                    success = True
+                    break
 
-                    logging.info(
-                        f"Validation failed, retrying {retry_count}/{MAX_RETRIES} with augmentation..."
-                    )
-            else:
-                success = True
-
+            if not success:
+                retry_count += 1
+                logging.info(
+                    f"[STEP {index}] All {len(completions)} samples failed validation. Retrying {retry_count}/{MAX_RETRIES}..."
+                )
 
 
         if not success:
@@ -320,6 +330,11 @@ Output:
 Input: Generate the transformer for `abs` operator
 Output:
 {prmpt_abs}
+
+### Example: Affine operator
+Input: Generate the transformer for `affine` operator
+Output:
+{prmpt_affine}
 
 ### Now generate the transformer for {api} operator
 Input: Generate the transformer for {api} operator
