@@ -4,10 +4,10 @@ models = ["DeepSeek-V2-Lite", "Llama-3.3-70B-Instruct", "Gpt-4o"]
 x = list(range(len(models)))
 
 # Generation Time (seconds)
-generation_times = [1325, 163, 0]  
+generation_times = [1325, 130571, 0]  
 
 # Soundness Rate
-soundness_rates = [8/14, 7/14, 4/14]  
+soundness_rates = [8/14, 1/14, 4/14]  
 soundness_rates = [round(float(rate), 2) for rate in soundness_rates]
 
 
