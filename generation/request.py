@@ -49,6 +49,40 @@ class TGIClient(Client):
         except Exception as e:
             return f"Model Generation Error: {type(e).__name__}"
 
+    def chat(self, messages: list[dict], **kwargs) -> str:
+        """
+        messages: list of dicts, each with 'role' and 'content'
+        """
+        url = f"{self.model}/chat"
+        headers = {"Content-Type": "application/json"}
+        system_msg = "You are a highly skilled software engineer. Your task is to generate high-quality, efficient, and well-commented code based on the user's prompt. The user will provide a prompt describing a task or functionality, and you should respond with the appropriate code in the specified programming language. Include only the code in your response, and avoid any unnecessary explanations unless explicitly requested. Use best practices for coding, including meaningful variable names, comments, and proper formatting."
+        data = {
+            "messages": messages,
+            "max_tokens": self.max_new_tokens,
+            "temperature": self.temperature,
+            "system_msg": "",
+        }
+
+        # response = requests.post(url, headers=headers, json=data)
+
+        # response.raise_for_status()
+        # return response.json().get("generated_texts", [])[0].strip('[]')
+
+        try:
+            response = requests.post(url, headers=headers, json=data)
+            response.raise_for_status()
+
+            messages = response.json().get("generated_texts", [[]])[0]
+            last_reply = next(
+                (msg["content"] for msg in reversed(messages) if msg.get("role") == "assistant"),
+                ""
+            )
+
+            return last_reply
+        except Exception as e:
+            traceback.print_exc()
+            return f"Model Generation Error: {type(e).__name__}"
+
 
 if __name__ == "__main__":
     client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8080")
@@ -74,7 +108,20 @@ if __name__ == "__main__":
         Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(prev[u], 0-prev[l]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
     }
     """
+ 
+    message = [
+    {"role": "system", "content": "You are a formal methods expert working on neural network verification. Your task is to generate the DeepPoly transformers for DNN operators. Generate the transformer in Constraintflow DSL. {CONSTRAINTFLOW}"},
+    {"role": "user", "content": "Generate the transformer for `relu` operator "},
+    {"role": "assistant", "content": prmpt_relu},
+    {"role": "user", "content": "Generate the transformer for `abs` operator "},
+    {"role": "assistant", "content": prmpt_abs},
+    {"role": "user", "content": "Generate the transformer for `relu6` operator "},
+]
+    output = client.chat(messages = message)
+    print(output)
 
+
+'''
     output = client.textgen(prompt = f"""
 You are a formal methods expert working on neural network verification.
 Your task is to generate the DeepPoly transformers for DNN operators.
@@ -101,6 +148,4 @@ Input: Generate the transformer for `relu6` operator
 Output:
 """
     )
-    print(output)
-
-
+  ''' 

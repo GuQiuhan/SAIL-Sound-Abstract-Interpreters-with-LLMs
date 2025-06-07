@@ -46,6 +46,26 @@ def launch_model_server(model_config, port, max_tokens=256):
                 "generated_texts": [outputs[0]["generated_text"]],
             })
 
+        @app.route("/chat", methods=["POST"])
+        def hf_chat():
+            data = request.json
+            messages = data.get("messages", "")
+            temperature = float(data.get("temperature", 1.0))
+            max_new_tokens = int(data.get("max_tokens", max_tokens))
+
+            outputs = pipe(
+                messages,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                pad_token_id=tokenizer.eos_token_id,
+                do_sample=True,
+            )
+            return jsonify({
+                "model": model_id,
+                "messages": messages,
+                "generated_texts": [outputs[0]["generated_text"]],
+            })
+
     elif model_type == "vllm":
         os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
         llm = LLM(
@@ -88,8 +108,8 @@ if __name__ == "__main__":
     MODEL_PORT_PAIRS = [
         #("google/gemma-7b", 8082),
         #("meta-llama/Llama-4-Scout-17B-16E-Instruct", 8084,),  # @qiuhan: wait for access to llama4
-        #{"model": "meta-llama/Llama-3.2-1B-Instruct", "port": 8080,"type": "hf"},
-        {"model": "/share/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-Coder-V2-Lite-Instruct/snapshots/e434a23f91ba5b4923cf6c9d9a238eb4a08e3a11", "port": 8080, "type": "vllm"},
+        {"model":"meta-llama/Llama-3.3-70B-Instruct", "port": 8080,"type": "hf"},
+        #{"model": "/share/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-Coder-V2-Lite-Instruct/snapshots/e434a23f91ba5b4923cf6c9d9a238eb4a08e3a11", "port": 8080, "type": "vllm"},
         #("meta-llama/Llama-3.3-70B-Instruct", 8086),
     ]
 

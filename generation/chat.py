@@ -25,8 +25,8 @@ MAX_RETRIES = 10
 MODEL_ENDPOINTS = {
     #"gemma-7b": "http://10.192.122.120:8082",
     #"deepseek-6.7b": "http://10.192.122.120:8083",
-    "deepseek-v2-lite": "http://ggnds-serv-01.cs.illinois.edu:8080",
-    #"llama3-70B": "http://10.192.122.120:8086",
+    #"deepseek-v2-lite": "http://ggnds-serv-01.cs.illinois.edu:8081",
+    "Llama-3.3": "http://ggnds-serv-01.cs.illinois.edu:8080",
 }
 
 
@@ -91,7 +91,7 @@ opt_list = [
 
 class Step:
     def __init__(self, prompter, composer=None, eos=None, validator=None):
-        self.prompter: Callable[[str, Optional[str]], str] = prompter
+        self.prompter: Callable[[Optional[str]], List[Dict[str, str]]] = prompter # for chat models
         self.eos: List[str] = eos or []
         # (prompt, completion, old code) =composer=> new code
         self.composer: Callable[[str, str, str], Union[str, bool]] = composer
@@ -163,18 +163,18 @@ def step_by_step_gen(client: Client, steps: List[Step]):
         while retry_count < MAX_RETRIES and not success:
             
             code = ""
-            prompt = step.prompter(code)
-            prompt = step.prompter_with_augmentation(prompt)
+            message = step.prompter(code)
+            #prompt = step.prompter_with_augmentation(prompt)
 
             #completion = client.textgen(prompt=prompt)
-            completions = [client.textgen(prompt=prompt) for _ in range(3)] # multiple(3) samples
+            completions = [client.chat(messages=message) for _ in range(3)] # multiple(3) samples
 
             for sample_id, completion in enumerate(completions, start=1):
                 if "Model Generation Error" in completion:
                     logging.warning(f"[STEP {index}] Sample {sample_id}: Model Generation Error")
                     continue
 
-                code = step.composer(prompt, completion, code)
+                code = step.composer("", completion, code)
                 print(f"[STEP {index}] Sample {sample_id}: Completion:\n{completion}")
                 print(f"[STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}")
 
@@ -315,35 +315,23 @@ if __name__ == "__main__":
                                     return "transformer "+ cmpl[start_idx:i+1].strip()
                         
                         return "transformer "+cmpl[start_idx:].strip()
+                    
+                    def prmpt(code: Optional[str]) -> List[dict]:
+                        return [
+    {"role": "system", "content": f"You are a formal methods expert working on neural network verification. Your task is to generate the DeepPoly transformers for DNN operators. Generate the transformer in Constraintflow DSL. {CONSTRAINTFLOW}"},
+    {"role": "user", "content": "Generate the transformer for `relu` operator "},
+    {"role": "assistant", "content": prmpt_relu},
+    {"role": "user", "content": "Generate the transformer for `abs` operator "},
+    {"role": "assistant", "content": prmpt_abs},
+    {"role": "user", "content": "Generate the transformer for `affine` operator "},
+    {"role": "assistant", "content": prmpt_affine},
+    {"role": "user", "content": f"Generate the transformer for {api} operator "},
+                        ]
+
 
                     steps.append(
                         Step(
-                            prompter=lambda code: f"""
-You are a formal methods expert working on neural network verification.
-Your task is to generate the DeepPoly transformers for DNN operators.
-Generate the transformer in Constraintflow DSL.
-
-{CONSTRAINTFLOW}
-
-### Example: ReLU operator
-Input: Generate the transformer for `relu` operator
-Output:
-{prmpt_relu}
-
-### Example: Abs operator
-Input: Generate the transformer for `abs` operator
-Output:
-{prmpt_abs}
-
-### Example: Affine operator
-Input: Generate the transformer for `affine` operator
-Output:
-{prmpt_affine}
-
-### Now generate the transformer for {api} operator
-Input: Generate the transformer for {api} operator
-Output:
-""",
+                            prompter=prmpt,
                             composer=extract_constraintflow_block,
                             eos=["\n# END"],
                             validator= constraintflow_validator,  # @qiuhan: add a simple validator
@@ -354,7 +342,7 @@ Output:
                     return step_by_step_gen(client, steps)
 
                 result, code, error = generate_dsl(doc["api"])  
-                op_end_time = time()  # ⏱️ 每个 operator 结束时间
+                op_end_time = time()  # 每个 operator 结束时间
                 op_time = op_end_time - op_start_time
                 logging.info(f"[{op_name}] Runtime: {op_time:.2f} seconds")
 

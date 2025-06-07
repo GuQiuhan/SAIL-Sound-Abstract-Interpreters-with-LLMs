@@ -1,0 +1,20 @@
+transformer deeppoly{
+    Relu -> (
+        simplify_lower(prev, 1.0), 
+        simplify_upper(prev, 1.0), 
+        replace_lower(prev, 1.0), 
+        replace_upper(prev, 1.0)
+    ) if (prev[l] >= 0) 
+    else (
+        0.0, 
+        simplify_upper(prev, 1.0), 
+        0.0, 
+        replace_upper(prev, 1.0)
+    ) if (prev[u] <= 0) 
+    else (
+        0.0, 
+        simplify_upper(prev, 1.0), 
+        backsubs_lower(prev, prev), 
+        backsubs_upper(prev, prev)
+    );
+}

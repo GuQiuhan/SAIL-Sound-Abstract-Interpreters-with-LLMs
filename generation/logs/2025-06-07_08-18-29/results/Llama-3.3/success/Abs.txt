@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Abs -> ((prev[l]) >= 0)? ((prev[l]), (prev[u]), (prev[L]), (prev[U])) : (((prev[u]) <= 0)? ((-prev[u]), (-prev[l]), (-prev[U]), (-prev[L])) : ((0), (max(prev[u], -prev[l])), (backsubs_lower(-prev[L], prev)), (backsubs_upper(-prev[U], prev))));
+}
