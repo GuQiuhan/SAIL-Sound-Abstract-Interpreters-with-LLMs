@@ -1,0 +1,6 @@
+transformer deepz{
+    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) : 
+                (((prev[u]) >= 1) ? (1, 1, 1) : 
+                ((prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], (prev[l] + prev[u]) / 2) : 
+                ((prev[u] < 1 && prev[l] > -1) ? ((prev[l]), (prev[u]), (prev[l] * ((prev[l] + 3) / 6)) + (prev[u] * ((prev[u] + 3) / 6) - (s1(prev[l], prev[u]) * (prev[l] + prev[u]) / 2) + (((prev[l] * ((prev[l] + 3) / 6)) + (prev[u] * ((prev[u] + 3) / 6))) / 2 + eps))));
+}

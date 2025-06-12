@@ -96,7 +96,17 @@ func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 
 transformer deeppoly{
-    HardSwish -> (backsubs_lower((prev), curr), backsubs_upper((prev), curr), (prev), (prev));
+    Abs ->
+        (prev[l] >= 0) ?
+            (prev[l], prev[u], prev[L], prev[U])
+        : (prev[u] <= 0) ?
+            (0 - prev[u], 0 - prev[l], 0 - prev[U], 0 - prev[L])
+        :
+            (0,
+             max(prev[u], 0 - prev[l]),
+             prev[L], 
+             (prev[u] * prev[U] + (-prev[l]) * prev[L]) / (prev[u] - prev[l])
+            );
 }
 
 flow(forward, priority, true, deeppoly);    

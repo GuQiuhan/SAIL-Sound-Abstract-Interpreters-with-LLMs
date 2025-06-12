@@ -1,0 +1,8 @@
+transformer deeppoly{
+    Affine -> (
+        sum(i, simplify_lower(prev_i, curr[weight][i])) + curr[bias],
+        sum(i, simplify_upper(prev_i, curr[weight][i])) + curr[bias],
+        sum(i, replace_lower(prev_i, curr[weight][i])) + curr[bias],
+        sum(i, replace_upper(prev_i, curr[weight][i])) + curr[bias]
+    );
+}

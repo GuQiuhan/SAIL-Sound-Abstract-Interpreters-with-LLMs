@@ -1,0 +1,3 @@
+transformer deepz{
+    Avgpool -> ((prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4, (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, ((prev_0[z] + prev_1[z] + prev_2[z] + prev_3[z]) / 4));
+}

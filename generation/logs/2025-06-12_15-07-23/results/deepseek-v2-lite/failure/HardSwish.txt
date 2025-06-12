@@ -1,0 +1,3 @@
+transformer deepz{
+    HardSwish -> ((prev * (prev > 3)).map(simplify_lower), (prev * (prev > (-3))).map(simplify_upper), (prev * ((prev > 3).select(3, (prev > (-3)).select((prev + 3) / 6, 1)))));
+}

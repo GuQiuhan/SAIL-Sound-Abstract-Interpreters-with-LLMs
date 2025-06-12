@@ -1,0 +1,28 @@
+transformer deeppoly{
+    HardSigmoid -> (
+        // lower bound
+        ((prev[l]) >= 1) ? (1) : (
+            ((prev[u]) <= -1) ? (0) : (
+                (prev[l]+1)/2
+            )
+        ),
+        // upper bound
+        ((prev[u]) <= -1) ? (0) : (
+            ((prev[l]) >= 1) ? (1) : (
+                (prev[u]+1)/2
+            )
+        ),
+        // lower polyexp
+        ((prev[l]) >= 1) ? (1) : (
+            ((prev[u]) <= -1) ? (0) : (
+                ((prev+1)/2)
+            )
+        ),
+        // upper polyexp
+        ((prev[u]) <= -1) ? (0) : (
+            ((prev[l]) >= 1) ? (1) : (
+                ((prev+1)/2)
+            )
+        )
+    );
+}

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-model_names = ["DeepSeek-V2-Lite", "Llama-3.3-70B-Instruct", "Gpt-4o"]
+model_names = ["DeepSeek-V2-Lite", "Llama-3.3-70B-Instruct", "GPT-4.1", "GPT-4o"]
 
 
 results = [
@@ -18,12 +18,18 @@ results = [
         ["Max", 857, False], ["Maxpool", 954, False], ["Min", 1553, False], ["Minpool", 1140, False],
         ["Mult", 1414, False], ["Relu", 871, False], ["Relu6", 871, False]
     ],
-    [  # Gpt-4o
-        ["Abs", 0, True], ["Add", 0, False], ["Affine", 0, True], ["Avgpool", 0, False],
-        ["HardSigmoid", 0, False], ["HardSwish", 0, False], ["HardTanh", 0, False],
-        ["Max", 0, False], ["Maxpool", 0, False], ["Min", 0, False], ["Minpool", 0, False],
-        ["Mult", 0, False], ["Relu", 0, True], ["Relu6", 0, False]
-    ]
+    [  # GPT-4.1
+        ["Abs", 130, False], ["Add",  74, False], ["Affine", 87, False], ["Avgpool", 87, False],
+        ["HardSigmoid", 158, False], ["HardSwish", 162, False], ["HardTanh", 181, False],
+        ["Max", 50, False], ["Maxpool", 143, False], ["Min", 128, False], ["Minpool", 119, False],
+        ["Mult", 163, False], ["Relu", 7, True], ["Relu6", 211, False]
+    ],
+    [  # GPT-4o
+        ["Abs", 45, True], ["Add",  83, False], ["Affine", 98, False], ["Avgpool", 103, False],
+        ["HardSigmoid", 170, False], ["HardSwish", 200, False], ["HardTanh", 229, False],
+        ["Max", 196, False], ["Maxpool", 150, False], ["Min", 113, False], ["Minpool", 113, False],
+        ["Mult", 197, False], ["Relu", 10, True], ["Relu6", 251, False]
+    ],
 ]
 
 
@@ -57,3 +63,6 @@ plt.title("Operator Generation Success Table", fontsize=14)
 
 plt.savefig("pics/success_table.png", dpi=300, bbox_inches='tight')
 plt.show()
+
+
+

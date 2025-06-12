@@ -5,3 +5,4 @@
 list_structure.py
 *.egg-info/
 *tmp*
+*key.py*

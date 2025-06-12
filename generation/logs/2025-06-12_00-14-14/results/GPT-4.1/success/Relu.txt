@@ -1,0 +1,9 @@
+transformer deeppoly{
+    Relu -> 
+        (prev[l] >= 0) ?                              // Case: input always non-negative
+            (prev[l], prev[u], prev, prev)
+        : (prev[u] <= 0) ?                           // Case: input always non-positive
+            (0, 0, 0, 0)
+        :                                            // Mixed-sign case
+            (0, prev[u], 0, (prev[u]/(prev[u]-prev[l])) * prev - ((prev[u]*prev[l])/(prev[u]-prev[l])));
+}

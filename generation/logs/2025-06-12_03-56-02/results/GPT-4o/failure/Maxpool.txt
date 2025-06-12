@@ -1,0 +1,8 @@
+transformer deeppoly{
+    MaxPool ->
+        ( (max(prev_0[l], prev_1[l], ..., prev_n[l])),
+          (max(prev_0[u], prev_1[u], ..., prev_n[u])),
+          (max(prev_0[L], prev_1[L], ..., prev_n[L])),
+          (max(prev_0[U], prev_1[U], ..., prev_n[U]))
+        );
+}

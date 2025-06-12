@@ -1,0 +1,23 @@
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ? (
+            prev[l], prev[u], prev, prev
+        ) : (
+            ((prev[u]) <= -3) ? (
+                0, 0, 0, 0
+            ) : (
+                (prev[l] <= -3 && prev[u] >= 3) ? (
+                    0, prev[u], 0, prev
+                ) : (
+                    // Linear approximation in the [-3, 3] interval
+                    // hardswish(x) = x * relu6(x+3)/6, relu6(x) = min(max(x,0),6)
+                    let slope = (hardswish(prev[u]) - hardswish(prev[l])) / (prev[u] - prev[l]);
+                    let bias = hardswish(prev[l]) - slope*prev[l];
+                    hardswish(prev[l]),
+                    hardswish(prev[u]),
+                    slope*prev + bias,
+                    slope*prev + bias
+                )
+            )
+        );
+}

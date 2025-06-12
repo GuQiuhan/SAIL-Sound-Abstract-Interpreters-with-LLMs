@@ -3,7 +3,12 @@ import os
 import torch
 from flask import Flask, jsonify, request
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+import requests
+from key import OPENAI_KEY
+import openai
+import json
 
+os.environ["OPENAI_API_KEY"] = OPENAI_KEY
 
 from vllm import LLM, SamplingParams
 # login to the hugging_face with the token below in the server to access models
@@ -17,7 +22,31 @@ def launch_model_server(model_config, port, max_tokens=256):
     app = Flask(model_id)
     print(f"[✓] Starting {model_type.upper()} model on port {port}")
 
-    if model_type == "hf":
+    if "gpt" in model_id.lower() or model_id in {"o4-mini"}:
+        @app.route("/chat", methods=["POST"])
+        def text_generation():
+            data = request.json
+            messages = data.get("messages", "")
+            temperature = float(data.get("temperature", 1.0))
+            max_new_tokens = int(data.get("max_tokens", max_tokens))
+
+            system_msg = data.get("system_msg", None)
+
+            from openai import OpenAI
+            client = OpenAI()
+
+            response = client.responses.create(
+                model="gpt-4.1",
+                input=messages,
+            )
+
+            return jsonify({
+                "model": model_id,
+                "generated_texts": response.output_text,
+            })
+
+
+    elif model_type == "hf":
         tokenizer = AutoTokenizer.from_pretrained(model_id)
         model = AutoModelForCausalLM.from_pretrained(
             model_id,
@@ -25,6 +54,7 @@ def launch_model_server(model_config, port, max_tokens=256):
             torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
         )
         pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
+        print("✅ huggingface model loaded.")
 
         @app.route("/text_generation", methods=["POST"])
         def hf_text_generation():
@@ -40,9 +70,9 @@ def launch_model_server(model_config, port, max_tokens=256):
                 pad_token_id=tokenizer.eos_token_id,
                 do_sample=True,
             )
+
             return jsonify({
                 "model": model_id,
-                "prompt": prompt,
                 "generated_texts": [outputs[0]["generated_text"]],
             })
 
@@ -62,7 +92,6 @@ def launch_model_server(model_config, port, max_tokens=256):
             )
             return jsonify({
                 "model": model_id,
-                "messages": messages,
                 "generated_texts": [outputs[0]["generated_text"]],
             })
 
@@ -95,9 +124,9 @@ def launch_model_server(model_config, port, max_tokens=256):
 
             return jsonify({
                 "model": model_id,
-                "prompt": prompt,
                 "generated_texts": generations,
             })
+            
 
     else:
         raise ValueError(f"Unknown model type: {model_type}")
@@ -107,10 +136,12 @@ def launch_model_server(model_config, port, max_tokens=256):
 if __name__ == "__main__":
     MODEL_PORT_PAIRS = [
         #("google/gemma-7b", 8082),
-        #("meta-llama/Llama-4-Scout-17B-16E-Instruct", 8084,),  # @qiuhan: wait for access to llama4
-        {"model":"meta-llama/Llama-3.3-70B-Instruct", "port": 8080,"type": "hf"},
-        #{"model": "/share/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-Coder-V2-Lite-Instruct/snapshots/e434a23f91ba5b4923cf6c9d9a238eb4a08e3a11", "port": 8080, "type": "vllm"},
-        #("meta-llama/Llama-3.3-70B-Instruct", 8086),
+        #("meta-llama/Llama-4-Scout-17B-16E-Instruct", 8084,), 
+        #{"model":"meta-llama/Llama-3.3-70B-Instruct", "port": 8080,"type": "hf"},
+        {"model": "/share/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-Coder-V2-Lite-Instruct/snapshots/e434a23f91ba5b4923cf6c9d9a238eb4a08e3a11", "port": 8080, "type": "vllm"},
+        #{"model":"gpt-4.1", "port": 8080,"type": "hf"},
+        #{"model":"gpt-4o", "port": 8080,"type": "hf"},
+        #{"model":"o4-mini", "port": 8080,"type": "hf"},
     ]
 
     processes = []

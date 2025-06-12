@@ -1,6 +1,6 @@
 import json
 from abc import ABC, abstractmethod
-
+import traceback
 import openai
 import requests
 from huggingface_hub import InferenceClient
@@ -72,13 +72,19 @@ class TGIClient(Client):
             response = requests.post(url, headers=headers, json=data)
             response.raise_for_status()
 
-            messages = response.json().get("generated_texts", [[]])[0]
+            messages = response.json().get("generated_texts", [[]])
+
+            if isinstance(messages, str):
+                return messages
+
+            messages = messages[0]
             last_reply = next(
                 (msg["content"] for msg in reversed(messages) if msg.get("role") == "assistant"),
                 ""
             )
 
             return last_reply
+
         except Exception as e:
             traceback.print_exc()
             return f"Model Generation Error: {type(e).__name__}"
@@ -88,10 +94,22 @@ if __name__ == "__main__":
     client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8080")
 
     CONSTRAINTFLOW = """
-    DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
-    They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
-    So every transformer in each case of the case analysis must return four values.
-    """
+DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
+They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
+When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
+So every transformer in each case of the case analysis must return four values. Use any funstions below if needed instead of use arithmetic operators.
+Function you can use:
+- func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+- func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+- func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+- func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+- func priority(Neuron n) = n[layer];
+- func priority2(Neuron n) = -n[layer];
+- func backsubs_lower(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_lower){e <= n}).map(simplify_lower);
+- func backsubs_upper(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_upper){e >= n}).map(simplify_upper);
+- func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+Don't add comments to DSL.
+"""
 
     prmpt_relu= """
     def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
@@ -118,6 +136,7 @@ if __name__ == "__main__":
     {"role": "user", "content": "Generate the transformer for `relu6` operator "},
 ]
     output = client.chat(messages = message)
+
     print(output)
 
 
@@ -148,4 +167,16 @@ Input: Generate the transformer for `relu6` operator
 Output:
 """
     )
+
+
+    message = [
+    {"role": "system", "content": "You are a formal methods expert working on neural network verification. Your task is to generate the DeepPoly transformers for DNN operators. Generate the transformer in Constraintflow DSL. {CONSTRAINTFLOW}"},
+    {"role": "user", "content": "Generate the transformer for `relu` operator "},
+    {"role": "assistant", "content": prmpt_relu},
+    {"role": "user", "content": "Generate the transformer for `abs` operator "},
+    {"role": "assistant", "content": prmpt_abs},
+    {"role": "user", "content": "Generate the transformer for `relu6` operator "},
+]
+    output = client.chat(messages = message)
+
   ''' 

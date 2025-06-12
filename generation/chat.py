@@ -23,10 +23,9 @@ from validator.validate_dsl import constraintflow_validator
 MAX_RETRIES = 10
 
 MODEL_ENDPOINTS = {
-    #"gemma-7b": "http://10.192.122.120:8082",
-    #"deepseek-6.7b": "http://10.192.122.120:8083",
-    #"deepseek-v2-lite": "http://ggnds-serv-01.cs.illinois.edu:8081",
-    "Llama-3.3": "http://ggnds-serv-01.cs.illinois.edu:8080",
+    #"Llama-3.3": "http://ggnds-serv-01.cs.illinois.edu:8080",
+    #"GPT-4.1": "http://ggnds-serv-01.cs.illinois.edu:8080",
+    "GPT-4o": "http://ggnds-serv-01.cs.illinois.edu:8080",
 }
 
 
@@ -45,7 +44,7 @@ Function you can use:
 - func backsubs_lower(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_lower){e <= n}).map(simplify_lower);
 - func backsubs_upper(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_upper){e >= n}).map(simplify_upper);
 - func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
-Don't generate comments.
+Don't add comments to DSL.
 """
 
 prmpt_relu= """

@@ -1,0 +1,3 @@
+transformer deepz{
+    Minpool -> ((min(prev.map(l))[0]), (min(prev.map(u))[0]), (min(prev.map(z))[0]));
+}

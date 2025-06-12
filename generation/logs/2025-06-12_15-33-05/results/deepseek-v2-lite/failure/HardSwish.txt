@@ -1,0 +1,6 @@
+transformer deepz{
+    HardSwish -> ((prev[l] * f2(prev[l])) > 0) ? ((prev[l] * f2(prev[l])), (prev[u] * f2(prev[u])), (prev[z] * f2(prev[z]))) : 
+                (((prev[u] * f2(prev[u])) <= 0) ? (0, 0, 0) : 
+                    ((prev[l] * f2(prev[l])) < 0) ? ((prev[u] * f2(prev[u])), (prev[u] * f2(prev[u])), (prev[z] * f2(prev[z]))) : 
+                    ((prev[l] * f2(prev[l])), (prev[u] * f2(prev[u])), (prev[z] * f2(prev[z]))));
+}

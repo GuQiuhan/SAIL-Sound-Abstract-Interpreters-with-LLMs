@@ -1,0 +1,14 @@
+transformer deeppoly{
+    Min -> 
+        (f(prev_0, prev_1)) ?      // prev_0[l] >= prev_1[u], so prev_0 >= prev_1 always
+            (prev_1[l], prev_0[u], prev_1[L], prev_0[U])
+        : (f(prev_1, prev_0)) ?    // prev_1[l] >= prev_0[u], so prev_1 >= prev_0 always
+            (prev_0[l], prev_1[u], prev_0[L], prev_1[U])
+        : // Overlapping case
+            (
+                min(prev_0[l], prev_1[l]),
+                min(prev_0[u], prev_1[u]),
+                min(prev_0[L], prev_1[L]),
+                min(prev_0[U], prev_1[U])
+            );
+}

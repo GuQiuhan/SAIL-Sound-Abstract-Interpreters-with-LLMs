@@ -1,0 +1,3 @@
+transformer ibp{
+    Affine -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper));
+}

@@ -30,7 +30,11 @@ MODEL_ENDPOINTS = {
 }
 
 
-CONSTRAINTFLOW = """
+DEEPPOLY_CONSTRAINTFLOW = """
+You are a formal methods expert working on neural network verification.
+Your task is to generate the DeepPoly transformers for DNN operators.
+Generate the transformer in Constraintflow DSL.
+
 DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
 They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
 When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
@@ -45,10 +49,11 @@ Function you can use:
 - func backsubs_lower(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_lower){e <= n}).map(simplify_lower);
 - func backsubs_upper(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_upper){e >= n}).map(simplify_upper);
 - func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
-Don't generate comments.
+
+Don't add comments to DSL.
 """
 
-prmpt_relu= """
+prmpt_relu_deeppoly= """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
 transformer deeppoly{
@@ -56,7 +61,7 @@ transformer deeppoly{
 } 
 """
 
-prmpt_abs = """
+prmpt_abs_deeppoly = """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
 transformer deeppoly{
@@ -64,13 +69,119 @@ transformer deeppoly{
 }
 """
 
-prmpt_affine = """
+prmpt_affine_deeppoly = """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
 transformer deeppoly{
     Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
 }
 """
+
+IBP_CONSTRAINTFLOW = """
+You are a formal methods expert working on neural network verification.
+Your task is to generate the IBP transformers for DNN operators.
+Generate the transformer in Constraintflow DSL.
+
+IBP certifier uses two kinds of bounds to overapproximate the operator: (Float l, Float u).
+They must follow the constraints that: curr[l] <= curr <= curr[u]. `curr` here means the current neuron, `prev` means the inputs to the operator.
+When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
+So every transformer in each case of the case analysis must return two values. Use any functions below if needed instead of using arithmetic operators.
+
+Functions you can use:
+- func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+- func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+- func abs(Float x) = x > 0 ? x : -x;
+- func max_lower(Neuron n1, Neuron n2) = n1[l]>=n2[l] ? n1[l] : n2[l];
+- func max_upper(Neuron n1, Neuron n2) = n1[u]>=n2[u] ? n1[u] : n2[u];
+- func min_lower(Neuron n1, Neuron n2) = n1[l]<=n2[l] ? n1[l] : n2[l];
+- func min_upper(Neuron n1, Neuron n2) = n1[u]<=n2[u] ? n1[u] : n2[u];
+- func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+- func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+- func priority(Neuron n) = n[layer];
+
+Don't add comments to DSL.
+"""
+
+
+prmpt_relu_ibp= """
+def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
+
+transformer ibp{
+    Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u])) : (((prev[u]) <= 0) ? (0, 0) : (0, (prev[u])));
+}
+"""
+
+prmpt_abs_ibp = """
+def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
+
+transformer ibp{
+    Abs -> (((prev[l]) >= 0) ? ((prev[l]), (prev[u])) : (((prev[u]) <= 0) ? (-prev[u], -prev[l]) : (0, max(-prev[l], prev[u]))));
+}
+"""
+
+prmpt_affine_ibp = """
+def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
+
+transformer ibp{
+    Affine -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper));
+}
+"""
+
+
+DEEPZ_CONSTRAINTFLOW = """
+You are a formal methods expert working on neural network verification.
+Your task is to generate the DeepZ transformers for DNN operators.
+Generate the transformer in Constraintflow DSL.
+
+DeepZ certifier uses three components to overapproximate each operator: (Float l, Float u, SymExp z).
+They must follow the constraints that: curr[l] <= curr <= curr[u] and curr In curr[z].
+When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
+So every transformer in each case of the case analysis must return two values. Use any functions below if needed instead of using arithmetic operators.
+
+Functions you can use:
+- func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+- func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+- func priority(Neuron n) = n[layer];
+- func abs(Float x) = x > 0 ? x : -x;
+- func s1(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+- func i1(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (s1(x1, x2) * x1);
+- func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+- func f2(Float x) = x * ((x + 3) / 6);
+- func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+- func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+
+Don't add comments to DSL.
+"""
+
+
+prmpt_relu_deepz= """
+def Shape as (Float l, Float u, SymExp z){[(curr[l]<=curr),(curr[u]>=curr),(curr In curr[z])]};
+
+transformer deepz{
+    Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev[z])) : (((prev[u]) <= 0) ? (0, 0, 0) : (0, (prev[u]), ((prev[u]) / 2) + (((prev[u]) / 2) * eps)));
+}
+"""
+
+prmpt_abs_deepz = """
+def Shape as (Float l, Float u, SymExp z){[(curr[l]<=curr),(curr[u]>=curr),(curr In curr[z])]};
+
+transformer deepz{
+    Abs -> ((prev[l]) >= 0) ? 
+                ((prev[l]), (prev[u]), (prev[z])) : 
+                (((prev[u]) <= 0) ? 
+                    (-(prev[u]), -(prev[l]), -(prev[z])) : 
+                    (0, max(-prev[l], prev[u]), ((max(-prev[l], prev[u])) / 2) + (((max(-prev[l], prev[u])) / 2) * eps)));
+}
+"""
+
+prmpt_affine_deepz = """
+def Shape as (Float l, Float u, SymExp z){[(curr[u]>=curr),(curr In curr[z]),(curr[l]<=curr)]};
+
+transformer deepz{
+    Affine -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper), prev[z].dot(curr[weight]) + (curr[bias]));
+}
+"""
+
 
 opt_list = [
     "Abs",
@@ -300,7 +411,7 @@ if __name__ == "__main__":
                         """
                         Extract everything starting from the 'deeppoly' keyword until the closing brace '}' that balances the opening one.
                         """
-                        match = re.search(r'(deeppoly\s*\{)', cmpl)
+                        match = re.search(r'(deepz\s*\{)', cmpl)
                         if not match:
                             return ""
 
@@ -319,26 +430,22 @@ if __name__ == "__main__":
                     steps.append(
                         Step(
                             prompter=lambda code: f"""
-You are a formal methods expert working on neural network verification.
-Your task is to generate the DeepPoly transformers for DNN operators.
-Generate the transformer in Constraintflow DSL.
-
-{CONSTRAINTFLOW}
+{DEEPZ_CONSTRAINTFLOW}
 
 ### Example: ReLU operator
 Input: Generate the transformer for `relu` operator
 Output:
-{prmpt_relu}
+{prmpt_relu_deepz}
 
 ### Example: Abs operator
 Input: Generate the transformer for `abs` operator
 Output:
-{prmpt_abs}
+{prmpt_abs_deepz}
 
 ### Example: Affine operator
 Input: Generate the transformer for `affine` operator
 Output:
-{prmpt_affine}
+{prmpt_affine_deepz}
 
 ### Now generate the transformer for {api} operator
 Input: Generate the transformer for {api} operator

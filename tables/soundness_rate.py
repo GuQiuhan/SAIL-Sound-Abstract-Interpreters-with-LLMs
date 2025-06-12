@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 
-models = ["DeepSeek-V2-Lite", "Llama-3.3-70B-Instruct", "Gpt-4o"]
+models = ["DeepSeek-V2-Lite", "Llama-3.3-70B-Instruct", "Gpt-4.1", "Gpt-4o"]
 x = list(range(len(models)))
 
 # Generation Time (seconds)
-generation_times = [1325, 130571, 0]  
+generation_times = [1325, 130571, 1800, 1962]  
 
 # Soundness Rate
-soundness_rates = [8/14, 1/14, 4/14]  
+soundness_rates = [8/14, 1/14, 1/14, 2/14]  
 soundness_rates = [round(float(rate), 2) for rate in soundness_rates]
 
 
@@ -21,7 +21,7 @@ ax2.set_zorder(1)
 ax1.set_zorder(2) 
 ax1.patch.set_visible(False) 
 
-bar_colors = ["#f5b2b5", "#f28485", "#eb5a5e"] # https://colordrop.io/palette/34293
+bar_colors = ["#f5b2b5", "#f28485", "#eb5a5e", "#e03436"] # https://colordrop.io/palette/34293
 bars = ax2.bar(x, generation_times, color=bar_colors, width=0.4, alpha=0.8, label="Generation Time")
 ax2.set_ylabel("Total Generation Time (s)", fontsize=12, color="#1d3557")
 ax2.tick_params(axis='y', labelcolor="#1d3557")
@@ -42,7 +42,7 @@ for i in range(len(models)):
 
 
 plt.xticks(x, models, fontsize=11)
-ax1.set_title("Model Comparison: Soundness Rate & Generation Time", fontsize=14)
+ax1.set_title("Model Comparison w.r.t. DeepPoly: Soundness Rate & Generation Time", fontsize=14)
 ax1.grid(axis='y', linestyle='--', alpha=0.6)
 fig.tight_layout()
 

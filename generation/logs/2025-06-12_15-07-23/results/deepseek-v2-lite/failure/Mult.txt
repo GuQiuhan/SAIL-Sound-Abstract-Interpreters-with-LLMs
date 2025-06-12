@@ -1,0 +1,3 @@
+transformer deepz{
+    Mult -> ((prev_0[l] * prev_1[l]).map(simplify_lower), (prev_0[u] * prev_1[u]).map(simplify_upper), prev_0[z].dot(prev_1[z]));
+}
