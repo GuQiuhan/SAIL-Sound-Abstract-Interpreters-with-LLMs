@@ -1,6 +1,0 @@
-transformer deeppoly{
-    Mult -> (min((prev_0[l] * prev_1[l]), (prev_0[l] * prev_1[u]), (prev_0[u] * prev_1[l]), (prev_0[u] * prev_1[u])));
-    (max((prev_0[l] * prev_1[l]), (prev_0[l] * prev_1[u]), (prev_0[u] * prev_1[l]), (prev_0[u] * prev_1[u])));
-    (backsubs_lower(prev[l] * prev[L], curr));
-    (backsubs_upper(prev[u] * prev[U], curr));
-}

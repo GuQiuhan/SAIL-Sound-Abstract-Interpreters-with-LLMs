@@ -1,3 +1,0 @@
-transformer deeppoly{
-    HardTanh -> (backsubs_lower(max(min(prev[u], (prev[l])), prev[l]), curr, curr[layer]), backsubs_upper(max(min(prev[u], (prev[l])), prev[l]), curr, curr[layer]), max(min(prev[u], (prev[l])), prev[l]), max(min(prev[u], (prev[l])), prev[l]));
-}

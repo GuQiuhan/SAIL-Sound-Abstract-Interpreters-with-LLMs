@@ -1,5 +1,0 @@
-transformer deeppoly{
-    Minpool -> (curr[layer] == prev_0[layer]) ? (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), min(prev_0[L], prev_1[L]), min(prev_0[U], prev_1[U])) :
-    (curr[layer] == prev_1[layer]) ? (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), min(prev_0[L], prev_1[L]), min(prev_0[U], prev_1[U])) :
-    (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), min(prev_0[L], prev_1[L]), min(prev_0[U], prev_1[U]));
-}
