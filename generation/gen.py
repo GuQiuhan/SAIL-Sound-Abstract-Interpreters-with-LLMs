@@ -1,10 +1,27 @@
 """
-## Step-by-step Prompting for Long DSL Generation
-0. Let output spec code S = "class "
-1. Decompose the DSL generation task into multiple steps. (TBD)
-2. In each step, use a step-specific prompt comprised of {few-shot examples, constraints, and instructions}.
-3. Parse the prompt+output to S, continue to a new step of 2.
+DSL Transformer Generation Script
+-----------------------------------------------------------
+
+This script automatically generates ConstraintFlow-style DSL transformers 
+for deep learning operators. 
+
+1. Supports multiple abstract domains (certifiers: DeepPoly, IBP, DeepZ)
+and multiple models (e.g., DeepSeek, GPT-4, LLaMA).
+2. Automatically detects whether the model is chat-based (e.g., DeepSeek) or prompt-based.
+3. Extracts the DSL transformer block from generated output based on the certifier type.
+4. Validates generated code using formal verification tools.
+5. Logs successful and failed generations; saves results with timestamps.
+
+Usage:
+    python gen_dsl_transformer.py --model deepseek --certifier deeppoly
+    (Optional: --log-dir <log_folder> --output-dir <output_folder>)
+
+Output:
+    Results are saved under logs/<timestamp>/results/ by default.
 """
+
+
+
 from time import time
 import logging
 import re
@@ -17,192 +34,14 @@ import traceback
 from request import Client
 from abc import ABC, abstractmethod
 
-from validator.validate_dsl import constraintflow_validator
+from validator.validate_dsl import *
 
-# set max retry time every turn
-MAX_RETRIES = 10
+from utils import *
 
-MODEL_ENDPOINTS = {
-    #"gemma-7b": "http://10.192.122.120:8082",
-    #"deepseek-6.7b": "http://10.192.122.120:8083",
-    "deepseek-v2-lite": "http://ggnds-serv-01.cs.illinois.edu:8080",
-    #"llama3-70B": "http://10.192.122.120:8086",
-}
-
-
-DEEPPOLY_CONSTRAINTFLOW = """
-You are a formal methods expert working on neural network verification.
-Your task is to generate the DeepPoly transformers for DNN operators.
-Generate the transformer in Constraintflow DSL.
-
-DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
-They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
-When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
-So every transformer in each case of the case analysis must return four values. Use any funstions below if needed instead of use arithmetic operators.
-Function you can use:
-- func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
-- func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
-- func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
-- func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
-- func priority(Neuron n) = n[layer];
-- func priority2(Neuron n) = -n[layer];
-- func backsubs_lower(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_lower){e <= n}).map(simplify_lower);
-- func backsubs_upper(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true, replace_upper){e >= n}).map(simplify_upper);
-- func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
-
-Don't add comments to DSL.
-"""
-
-prmpt_relu_deeppoly= """
-def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
-
-transformer deeppoly{
-    Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))) ));
-} 
-"""
-
-prmpt_abs_deeppoly = """
-def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
-
-transformer deeppoly{
-    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(prev[u], 0-prev[l]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
-}
-"""
-
-prmpt_affine_deeppoly = """
-def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
-
-transformer deeppoly{
-    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
-}
-"""
-
-IBP_CONSTRAINTFLOW = """
-You are a formal methods expert working on neural network verification.
-Your task is to generate the IBP transformers for DNN operators.
-Generate the transformer in Constraintflow DSL.
-
-IBP certifier uses two kinds of bounds to overapproximate the operator: (Float l, Float u).
-They must follow the constraints that: curr[l] <= curr <= curr[u]. `curr` here means the current neuron, `prev` means the inputs to the operator.
-When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
-So every transformer in each case of the case analysis must return two values. Use any functions below if needed instead of using arithmetic operators.
-
-Functions you can use:
-- func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
-- func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
-- func abs(Float x) = x > 0 ? x : -x;
-- func max_lower(Neuron n1, Neuron n2) = n1[l]>=n2[l] ? n1[l] : n2[l];
-- func max_upper(Neuron n1, Neuron n2) = n1[u]>=n2[u] ? n1[u] : n2[u];
-- func min_lower(Neuron n1, Neuron n2) = n1[l]<=n2[l] ? n1[l] : n2[l];
-- func min_upper(Neuron n1, Neuron n2) = n1[u]<=n2[u] ? n1[u] : n2[u];
-- func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
-- func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
-- func priority(Neuron n) = n[layer];
-
-Don't add comments to DSL.
-"""
-
-
-prmpt_relu_ibp= """
-def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
-
-transformer ibp{
-    Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u])) : (((prev[u]) <= 0) ? (0, 0) : (0, (prev[u])));
-}
-"""
-
-prmpt_abs_ibp = """
-def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
-
-transformer ibp{
-    Abs -> (((prev[l]) >= 0) ? ((prev[l]), (prev[u])) : (((prev[u]) <= 0) ? (-prev[u], -prev[l]) : (0, max(-prev[l], prev[u]))));
-}
-"""
-
-prmpt_affine_ibp = """
-def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
-
-transformer ibp{
-    Affine -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper));
-}
-"""
-
-
-DEEPZ_CONSTRAINTFLOW = """
-You are a formal methods expert working on neural network verification.
-Your task is to generate the DeepZ transformers for DNN operators.
-Generate the transformer in Constraintflow DSL.
-
-DeepZ certifier uses three components to overapproximate each operator: (Float l, Float u, SymExp z).
-They must follow the constraints that: curr[l] <= curr <= curr[u] and curr In curr[z].
-When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
-So every transformer in each case of the case analysis must return two values. Use any functions below if needed instead of using arithmetic operators.
-
-Functions you can use:
-- func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
-- func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
-- func priority(Neuron n) = n[layer];
-- func abs(Float x) = x > 0 ? x : -x;
-- func s1(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
-- func i1(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (s1(x1, x2) * x1);
-- func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
-- func f2(Float x) = x * ((x + 3) / 6);
-- func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
-- func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
-
-Don't add comments to DSL.
-"""
-
-
-prmpt_relu_deepz= """
-def Shape as (Float l, Float u, SymExp z){[(curr[l]<=curr),(curr[u]>=curr),(curr In curr[z])]};
-
-transformer deepz{
-    Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev[z])) : (((prev[u]) <= 0) ? (0, 0, 0) : (0, (prev[u]), ((prev[u]) / 2) + (((prev[u]) / 2) * eps)));
-}
-"""
-
-prmpt_abs_deepz = """
-def Shape as (Float l, Float u, SymExp z){[(curr[l]<=curr),(curr[u]>=curr),(curr In curr[z])]};
-
-transformer deepz{
-    Abs -> ((prev[l]) >= 0) ? 
-                ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) <= 0) ? 
-                    (-(prev[u]), -(prev[l]), -(prev[z])) : 
-                    (0, max(-prev[l], prev[u]), ((max(-prev[l], prev[u])) / 2) + (((max(-prev[l], prev[u])) / 2) * eps)));
-}
-"""
-
-prmpt_affine_deepz = """
-def Shape as (Float l, Float u, SymExp z){[(curr[u]>=curr),(curr In curr[z]),(curr[l]<=curr)]};
-
-transformer deepz{
-    Affine -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper), prev[z].dot(curr[weight]) + (curr[bias]));
-}
-"""
-
-
-opt_list = [
-    "Abs",
-    "Add",
-    "Affine",
-    "Avgpool",
-    "HardSigmoid",
-    "HardSwish",
-    "HardTanh",
-    "Max",
-    "Maxpool",
-    "Min",
-    "Minpool",
-    "Mult",
-    "Relu",
-    "Relu6",
-]
 
 class Step:
     def __init__(self, prompter, composer=None, eos=None, validator=None):
-        self.prompter: Callable[[str, Optional[str]], str] = prompter
+        self.prompter: Callable[[Optional[str]], Union[str, List[Dict[str, str]]]] = prompter  # unified for both prompt and chat models
         self.eos: List[str] = eos or []
         # (prompt, completion, old code) =composer=> new code
         self.composer: Callable[[str, str, str], Union[str, bool]] = composer
@@ -256,7 +95,7 @@ class Step:
         return augmented_prompt
 
 
-def step_by_step_gen(client: Client, steps: List[Step]):
+def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
     """
     Executes a sequence of steps for DSL generation.
     Step 1: DSL transformer generation (returns DSL code)
@@ -274,17 +113,22 @@ def step_by_step_gen(client: Client, steps: List[Step]):
         while retry_count < MAX_RETRIES and not success:
             
             code = ""
-            prompt = step.prompter(code)
-            prompt = step.prompter_with_augmentation(prompt)
+            messages_or_prompt = step.prompter(code)
 
-            #completion = client.textgen(prompt=prompt)
-            completions = [client.textgen(prompt=prompt) for _ in range(3)] # multiple(3) samples
+            #prompt = step.prompter_with_augmentation(prompt) # need to unify them
+
+            
+            completions = [
+                client.chat(messages=messages_or_prompt) if is_chat
+                else client.textgen(prompt=messages_or_prompt)
+                for _ in range(3)
+            ] # multiple(3) samples
 
             for sample_id, completion in enumerate(completions, start=1):
                 if "Model Generation Error" in completion:
                     logging.warning(f"[STEP {index}] Sample {sample_id}: Model Generation Error")
                     continue
-
+                prompt=""
                 code = step.composer(prompt, completion, code)
                 print(f"[STEP {index}] Sample {sample_id}: Completion:\n{completion}")
                 print(f"[STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}")
@@ -348,12 +192,42 @@ if __name__ == "__main__":
     parser.add_argument(
         "--log-dir", help="Path to the log directory", default="logs/", required=False
     )
+
+    parser.add_argument(
+        "--model",
+        type=str,
+        required=True,
+        default="deepseek",
+        help="Model keyword to select from model-port map. E.g., deepseek, llama-4, gpt-4.1"
+    )
+
+    parser.add_argument(
+        "--certifier",
+        type=str,
+        required=True,
+        choices=["deeppoly", "ibp", "deepz"],
+        default="deeppoly",
+        help="Certifier type: deeppoly, ibp, deepz"
+    )
     args = parser.parse_args()
 
     run_timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     run_dir = os.path.join("logs", run_timestamp)
     result_dir = os.path.join(run_dir, "results")
     log_path = os.path.join(run_dir, "generation.log")
+
+
+    model_keyword = args.model.lower()
+    certifier = args.certifier
+
+    if model_keyword not in PORT_MAP:
+        raise ValueError(f"Model '{args.model}' not found in PORT_MAP.")
+
+    MODEL_ENDPOINTS = {
+        model_keyword: PORT_MAP[model_keyword]
+    }
+
+    # @qiuhan: TODO: allow multiple models
 
     for model_name in MODEL_ENDPOINTS:
         model_out_dir = os.path.join(result_dir, model_name)
@@ -362,7 +236,23 @@ if __name__ == "__main__":
         os.makedirs(os.path.join(model_out_dir, "success"), exist_ok=True)
         os.makedirs(os.path.join(model_out_dir, "failure"), exist_ok=True)
 
-
+    if certifier == "deeppoly":
+        CONSTRAINTFLOW_SYSTEM_PROMPT = DEEPPOLY_CONSTRAINTFLOW
+        prmpt_relu = prmpt_relu_deeppoly
+        prmpt_abs = prmpt_abs_deeppoly
+        prmpt_affine = prmpt_affine_deeppoly
+    elif certifier == "ibp":
+        CONSTRAINTFLOW_SYSTEM_PROMPT = IBP_CONSTRAINTFLOW
+        prmpt_relu = prmpt_relu_ibp
+        prmpt_abs = prmpt_abs_ibp
+        prmpt_affine = prmpt_affine_ibp
+    elif certifier == "deepz":
+        CONSTRAINTFLOW_SYSTEM_PROMPT = DEEPZ_CONSTRAINTFLOW
+        prmpt_relu = prmpt_relu_deepz
+        prmpt_abs = prmpt_abs_deepz
+        prmpt_affine = prmpt_affine_deepz
+    else:
+        raise ValueError(f"Unknown certifier: {certifier}")
 
     logging.basicConfig(
         filename=log_path,
@@ -406,62 +296,94 @@ if __name__ == "__main__":
 
                 def generate_dsl(api, dsl=None, debug=False) -> str:
                     steps = []
+                    model_type = "prompt" if "deepseek" in args.model.lower() else "chat"
+                    is_chat = model_type == "chat"
 
-                    def extract_constraintflow_block(prmpt, cmpl, code) -> str:
-                        """
-                        Extract everything starting from the 'deeppoly' keyword until the closing brace '}' that balances the opening one.
-                        """
-                        match = re.search(r'(deepz\s*\{)', cmpl)
-                        if not match:
-                            return ""
+                    def make_block_extractor(certifier: str):
+                        keyword = certifier.lower()  # "deeppoly", "ibp", "deepz"
 
-                        start_idx = match.start()
-                        brace_count = 0
-                        for i in range(start_idx, len(cmpl)):
-                            if cmpl[i] == '{':
-                                brace_count += 1
-                            elif cmpl[i] == '}':
-                                brace_count -= 1
-                                if brace_count == 0:
-                                    return "transformer "+ cmpl[start_idx:i+1].strip()
-                        
-                        return "transformer "+cmpl[start_idx:].strip()
+                        def extract_constraintflow_block(prmpt, cmpl, code) -> str:
+                            """
+                            Extract everything starting from the correct transformer keyword (deeppoly, ibp, deepz)
+                            until the closing brace '}' that balances the opening one.
+                            """
+                            match = re.search(rf'({re.escape(keyword)}\s*\{{)', cmpl)
+                            if not match:
+                                return ""
 
-                    steps.append(
-                        Step(
-                            prompter=lambda code: f"""
-{DEEPZ_CONSTRAINTFLOW}
+                            start_idx = match.start()
+                            brace_count = 0
+                            for i in range(start_idx, len(cmpl)):
+                                if cmpl[i] == '{':
+                                    brace_count += 1
+                                elif cmpl[i] == '}':
+                                    brace_count -= 1
+                                    if brace_count == 0:
+                                        return "transformer "+ cmpl[start_idx:i+1].strip()
+                            
+                            return "transformer "+cmpl[start_idx:].strip()
+
+                        return extract_constraintflow_block
+
+
+                    extractor = make_block_extractor(certifier)
+                    validation = make_constraintflow_validator(certifier)
+
+
+
+                    if is_chat:
+                        def chat_prompter(code: Optional[str]) -> List[dict]:
+                            return [
+                                {"role": "system", "content": f"You are a formal methods expert working on neural network verification. Your task is to generate the DeepPoly transformers for DNN operators. Generate the transformer in Constraintflow DSL. {CONSTRAINTFLOW}"},
+                                {"role": "user", "content": "Generate the transformer for `relu` operator "},
+                                {"role": "assistant", "content": prmpt_relu},
+                                {"role": "user", "content": "Generate the transformer for `abs` operator "},
+                                {"role": "assistant", "content": prmpt_abs},
+                                {"role": "user", "content": "Generate the transformer for `affine` operator "},
+                                {"role": "assistant", "content": prmpt_affine},
+                                {"role": "user", "content": f"Generate the transformer for `{api}` operator "},
+                            ]
+                        prompter = chat_prompter
+                    else:
+                        def prompt_prompter(code: Optional[str]) -> str:
+                            return f"""
+{CONSTRAINTFLOW_SYSTEM_PROMPT}
 
 ### Example: ReLU operator
 Input: Generate the transformer for `relu` operator
 Output:
-{prmpt_relu_deepz}
+{prmpt_relu}
 
 ### Example: Abs operator
 Input: Generate the transformer for `abs` operator
 Output:
-{prmpt_abs_deepz}
+{prmpt_abs}
 
 ### Example: Affine operator
 Input: Generate the transformer for `affine` operator
 Output:
-{prmpt_affine_deepz}
+{prmpt_affine}
 
-### Now generate the transformer for {api} operator
-Input: Generate the transformer for {api} operator
+### Now generate the transformer for `{api}` operator
+Input: Generate the transformer for `{api}` operator
 Output:
-""",
-                            composer=extract_constraintflow_block,
+"""
+                        prompter = prompt_prompter
+
+
+                    steps.append(
+                        Step(
+                            prompter=prompter,
+                            composer=extractor,
                             eos=["\n# END"],
-                            validator= constraintflow_validator,  # @qiuhan: add a simple validator
-                            #validator=None,
+                            validator= validation,  
                         )
                     )
 
-                    return step_by_step_gen(client, steps)
+                    return step_by_step_gen(client, steps, is_chat)
 
                 result, code, error = generate_dsl(doc["api"])  
-                op_end_time = time()  # ⏱️ 每个 operator 结束时间
+                op_end_time = time()  
                 op_time = op_end_time - op_start_time
                 logging.info(f"[{op_name}] Runtime: {op_time:.2f} seconds")
 

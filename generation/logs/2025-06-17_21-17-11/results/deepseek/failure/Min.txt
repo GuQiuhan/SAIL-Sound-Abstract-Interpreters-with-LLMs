@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Min -> (f(prev_0, prev_1) ? (prev_0[u], min(prev_0[u], prev_1[u]), prev_0, [L]), f(prev_1, prev_0) ? (prev_1[u], min(prev_1[u], prev_0[u]), prev_1, [U]) : (min(prev_0[u], prev_1[u]), [L], prev_0, prev_1));
+}

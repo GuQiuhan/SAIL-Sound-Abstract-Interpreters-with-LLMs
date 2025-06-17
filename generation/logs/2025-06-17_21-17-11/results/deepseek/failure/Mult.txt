@@ -1,0 +1,29 @@
+transformer deeppoly{
+    Mult -> 
+    {(prev_0[l] >= 0 && prev_1[l] >= 0) ? (prev_0[l]*prev_1[l], prev_0[u]*prev_1[u], prev_0[L]*prev_1[L], prev_0[U]*prev_1[U]) :
+    (prev_0[u] <= 0 && prev_1[u] <= 0) ? (prev_0[u]*prev_1[u], prev_0[l]*prev_1[l], prev_0[U]*prev_1[U], prev_0[L]*prev_1[L]) :
+    (prev_0[l] >= 0 && prev_1[u] <= 0) ? (prev_0[l]*prev_1[u], prev_0[u]*prev_1[l], prev_0[L]*prev_1[U], prev_0[U]*prev_1[L]) :
+    (prev_0[u] <= 0 && prev_1[l] >= 0) ? (prev_0[u]*prev_1[l], prev_0[l]*prev_1[u], prev_0[U]*prev_1[L], prev_0[L]*prev_1[U]) :
+    (prev_0[l] >= 0 && prev_1[L] <= 0) ? (prev_0[l]*prev_1[L], prev_0[u]*prev_1[U], prev_0[L]*prev_1[l], prev_0[U]*prev_1[u]) :
+    (prev_0[u] <= 0 && prev_1[U] <= 0) ? (prev_0[u]*prev_1[U], prev_0[l]*prev_1[L], prev_0[U]*prev_1[u], prev_0[L]*prev_1[l]) :
+    (prev_0[l] >= 0 && prev_1[U] <= 0) ? (prev_0[l]*prev_1[U], prev_0[u]*prev_1[L], prev_0[L]*prev_1[u], prev_0[U]*prev_1[l]) :
+    (prev_0[u] <= 0 && prev_1[L] >= 0) ? (prev_0[u]*prev_1[L], prev_0[l]*prev_1[U], prev_0[U]*prev_1[l], prev_0[L]*prev_1[u]) :
+    (prev_0[L] <= 0 && prev_1[l] >= 0) ? (prev_0[L]*prev_1[l], prev_0[U]*prev_1[u], prev_0[l]*prev_1[L], prev_0[u]*prev_1[U]) :
+    (prev_0[U] <= 0 && prev_1[u] >= 0) ? (prev_0[U]*prev_1[u], prev_0[L]*prev_1[L], prev_0[u]*prev_1[U], prev_0[l]*prev_1[U]) :
+    (prev_0[L] <= 0 && prev_1[u] <= 0) ? (prev_0[L]*prev_1[u], prev_0[U]*prev_1[l], prev_0[l]*prev_1[U], prev_0[u]*prev_1[L]) :
+    (prev_0[U] <= 0 && prev_1[l] <= 0) ? (prev_0[U]*prev_1[l], prev_0[L]*prev_1[U], prev_0[u]*prev_1[L], prev_0[l]*prev_1[U]) :
+    (prev_0[L] >= 0 && prev_1[L] >= 0) ? (prev_0[L]*prev_1[L], prev_0[u]*prev_1[u], prev_0[L]*prev_1[L], prev_0[U]*prev_1[U]) :
+    (prev_0[U] <= 0 && prev_1[U] <= 0) ? (prev_0[U]*prev_1[U], prev_0[l]*prev_1[l], prev_0[U]*prev_1[U], prev_0[L]*prev_1[L]) :
+    (prev_0[L] >= 0 && prev_1[U] <= 0) ? (prev_0[L]*prev_1[U], prev_0[u]*prev_1[L], prev_0[L]*prev_1[l], prev_0[U]*prev_1[u]) :
+    (prev_0[U] <= 0 && prev_1[L] >= 0) ? (prev_0[U]*prev_1[L], prev_0[l]*prev_1[U], prev_0[U]*prev_1[u], prev_0[L]*prev_1[l]) :
+    (prev_0[L] >= 0 && prev_1[L] <= 0) ? (prev_0[l]*prev_1[L], prev_0[u]*prev_1[U], prev_0[L]*prev_1[u], prev_0[U]*prev_1[l]) :
+    (prev_0[U] <= 0 && prev_1[U] >= 0) ? (prev_0[u]*prev_1[U], prev_0[L]*prev_1[L], prev_0[u]*prev_1[U], prev_0[l]*prev_1[U]) :
+    (prev_0[L] <= 0 && prev_1[U] <= 0) ? (prev_0[L]*prev_1[U], prev_0[U]*prev_1[L], prev_0[l]*prev_1[U], prev_0[u]*prev_1[L]) :
+    (prev_0[U] <= 0 && prev_1[L] >= 0) ? (prev_0[u]*prev_1[L], prev_0[L]*prev_1[U], prev_0[u]*prev_1[L], prev_0[l]*prev_1[U]) :
+    (prev_0[L] >= 0 && prev_1[U] >= 0) ? (prev_0[L]*prev_1[U], prev_0[u]*prev_1[L], prev_0[L]*prev_1[l], prev_0[U]*prev_1[u]) :
+    (prev_0[U] <= 0 && prev_1[L] <= 0) ? (prev_0[U]*prev_1[L], prev_0[l]*prev_1[U], prev_0[U]*prev_1[u], prev_0[L]*prev_1[l]) :
+    (prev_0[L] >= 0 && prev_1[L] <= 0) ? (prev_0[l]*prev_1[L], prev_0[u]*prev_1[U], prev_0[L]*prev_1[u], prev_0[U]*prev_1[l]) :
+    (prev_0[U] <= 0 && prev_1[U] >= 0) ? (prev_0[u]*prev_1[U], prev_0[L]*prev_1[L], prev_0[u]*prev_1[U], prev_0[l]*prev_1[U]) :
+    (prev_0[L] >= 0 && prev_1[U] <= 0) ? (prev_0[L]*prev_1[U], prev_0[u]*prev_1[L], prev_0[L]*prev_1[l], prev_0[U]*prev_1[u]) :
+    (prev_0[U] <= 0 && prev_1[L] >= 0) ? (prev_0[u]*prev_1[L], prev_0[L]*prev_1[U], prev_0[u]*prev_1[L], prev_0[l]*prev_1[U]) :
+    (prev_0[L] >= 0 && prev_1[L] >= 0) ? (prev_0[L]*prev_1[L], prev_0[u]*prev_1[u], prev_0[L]*prev_1[L], prev_0

@@ -1,0 +1,3 @@
+transformer deeppoly{
+    HardSwish -> ((prev[l]) < 0) ? (0, 0, 0, 0) : (((prev[u]) > 6) ? ((prev[u] / 6), (prev[u]), (prev[u] / 6), (prev[u])) : (((prev[l]) >= 6) ? (0, 0, 0, 0) : (backsubs_lower((prev[l] * (3 * prev[l] + 3)) / 6, curr, curr[layer]), backsubs_upper((prev[u] * (3 * prev[u] + 3)) / 6, curr, curr[layer]), (prev[l] * (3 * prev[l] + 3)) / 6, (prev[u] * (3 * prev[u] + 3)) / 6)));
+}

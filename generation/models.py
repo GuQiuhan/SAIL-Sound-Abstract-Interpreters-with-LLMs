@@ -1,3 +1,24 @@
+"""
+Script: models.py
+------------------
+
+This script launches one **or more** model servers locally using Flask, serving as backends for text generation and chat interfaces.
+
+Supported Models:
+    - deepseek (via vLLM)
+    - llama-3.3 / llama-4 (via Hugging Face Transformers)
+    - gpt-4o / gpt-4.1 / o4-mini (via OpenAI API)
+
+Usage Example:
+    python models.py --model deepseek
+    CUDA_VISIBLE_DEVICES=0,1 python models.py --model llama-4 gpt-4o
+
+Note:
+    - Make sure `utils.py` defines `MODEL_PORT_PAIRS`
+    - This script is designed to work with a companion script (e.g., gen.py) that queries the endpoints.
+"""
+
+
 import multiprocessing
 import os
 import torch
@@ -7,6 +28,8 @@ import requests
 from key import OPENAI_KEY
 import openai
 import json
+import argparse
+from utils import *
 
 os.environ["OPENAI_API_KEY"] = OPENAI_KEY
 
@@ -20,9 +43,9 @@ def launch_model_server(model_config, port, max_tokens=256):
     model_id = model_config["model"]
 
     app = Flask(model_id)
-    print(f"[✓] Starting {model_type.upper()} model on port {port}")
+    print(f"[✓] Starting {model_id.upper()} model on port {port}")
 
-    if "gpt" in model_id.lower() or model_id in {"o4-mini"}:
+    if any(keyword in model_id for keyword in {"o4-mini", "gpt-4.1", "gpt-4o"}):
         @app.route("/chat", methods=["POST"])
         def text_generation():
             data = request.json
@@ -46,7 +69,7 @@ def launch_model_server(model_config, port, max_tokens=256):
             })
 
 
-    elif model_type == "hf":
+    elif any(keyword in model_id for keyword in {"llama-3.3", "llama-4", }):
         tokenizer = AutoTokenizer.from_pretrained(model_id)
         model = AutoModelForCausalLM.from_pretrained(
             model_id,
@@ -95,7 +118,7 @@ def launch_model_server(model_config, port, max_tokens=256):
                 "generated_texts": [outputs[0]["generated_text"]],
             })
 
-    elif model_type == "vllm":
+    elif any(keyword in model_id for keyword in {"deepseek",}):
         os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
         llm = LLM(
             model=model_id,
@@ -129,23 +152,41 @@ def launch_model_server(model_config, port, max_tokens=256):
             
 
     else:
-        raise ValueError(f"Unknown model type: {model_type}")
+        raise ValueError(f"Unknown model name: {model_id}")
 
     app.run(host="ggnds-serv-01.cs.illinois.edu", port=port)
 
 if __name__ == "__main__":
-    MODEL_PORT_PAIRS = [
-        #("google/gemma-7b", 8082),
-        #("meta-llama/Llama-4-Scout-17B-16E-Instruct", 8084,), 
-        #{"model":"meta-llama/Llama-3.3-70B-Instruct", "port": 8080,"type": "hf"},
-        {"model": "/share/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-Coder-V2-Lite-Instruct/snapshots/e434a23f91ba5b4923cf6c9d9a238eb4a08e3a11", "port": 8080, "type": "vllm"},
-        #{"model":"gpt-4.1", "port": 8080,"type": "hf"},
-        #{"model":"gpt-4o", "port": 8080,"type": "hf"},
-        #{"model":"o4-mini", "port": 8080,"type": "hf"},
-    ]
+    parser = argparse.ArgumentParser(description="Launch one or more model servers.")
+
+    parser.add_argument(
+        "--model","-m",
+        nargs="+",  # multiple models
+        default=["deepseek"],
+        choices=["llama-3.3", "llama-4", "deepseek", "gpt-4o", "gpt-4.1", "o4-mini"],
+        help=(
+            "One or more model keywords to launch. E.g., --model deepseek llama. "
+            "Available options: llama-3.3, llama-4, deepseek, gpt-4o, gpt-4.1, o4-mini"
+            "Default is ['deepseek'].")
+    )
+
+    args = parser.parse_args()
+    requested_models = [m.lower() for m in args.model]
+
+
+    selected_configs = []
+    for config in MODEL_PORT_PAIRS:
+        for keyword in requested_models:
+            if keyword in config["model"].lower():
+                selected_configs.append(config)
+                break  
+
+    if not selected_configs:
+        raise ValueError(f"No models matched: {requested_models}")
+
 
     processes = []
-    for config in MODEL_PORT_PAIRS:
+    for config in selected_configs:
         p = multiprocessing.Process(
             target=launch_model_server,
             args=(config, config["port"]),

@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Avgpool -> (backsubs_lower((prev/curr[count]), curr[count]), backsubs_upper((prev/curr[count]), curr[count]), (prev/curr[count]), (prev/curr[count]));
+}

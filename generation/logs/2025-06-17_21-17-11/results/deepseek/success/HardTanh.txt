@@ -1,0 +1,3 @@
+transformer deeppoly{
+    HardTanh -> (backsubs_lower(-1, curr, curr[layer]), backsubs_upper(1, curr, curr[layer]), -1, 1);
+}
