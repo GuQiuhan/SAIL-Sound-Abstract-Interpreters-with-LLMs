@@ -1,0 +1,8 @@
+transformer deeppoly{
+    Avgpool -> (
+        (1.0 / curr[size]) * (prev[l].sum),
+        (1.0 / curr[size]) * (prev[u].sum),
+        (1.0 / curr[size]) * (prev[L].sum),
+        (1.0 / curr[size]) * (prev[U].sum)
+    );
+}

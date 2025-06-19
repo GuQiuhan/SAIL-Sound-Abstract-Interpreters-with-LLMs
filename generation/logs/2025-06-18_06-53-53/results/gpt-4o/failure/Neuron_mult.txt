@@ -1,0 +1,17 @@
+transformer deeppoly{
+    Neuron_mult -> 
+        (prev_0[l] >= 0 ? 
+            (simplify_lower(prev_1, prev_0[l]), simplify_upper(prev_1, prev_0[u])) 
+            : (simplify_lower(prev_1, prev_0[u]), simplify_upper(prev_1, prev_0[l]))
+        )
+        ,
+        (prev_1[l] >= 0 ? 
+            (simplify_lower(prev_0, prev_1[l]), simplify_upper(prev_0, prev_1[u])) 
+            : (simplify_lower(prev_0, prev_1[u]), simplify_upper(prev_0, prev_1[l]))
+        )
+        ,
+        (prev_0 * prev_1)
+        ,
+        (prev_0 * prev_1)
+    ;
+}

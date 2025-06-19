@@ -91,7 +91,7 @@ class TGIClient(Client):
 
 
 if __name__ == "__main__":
-    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8083")
+    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8084")
 
     CONSTRAINTFLOW = """
 DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).

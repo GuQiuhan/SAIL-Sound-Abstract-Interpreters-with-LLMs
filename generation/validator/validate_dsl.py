@@ -115,18 +115,30 @@ def make_constraintflow_validator(certifier: str):
 if __name__ == "__main__":
 
     dsl="""
-transformer deepz{
-    Abs -> ((prev[l]) >= 0) ? 
-                ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) <= 0) ? 
-                    (-(prev[u]), -(prev[l]), -(prev[z])) : 
-                    (0, max(-prev[l], prev[u]), ((max(-prev[l], prev[u])) / 2) + (((max(-prev[l], prev[u])) / 2) * eps)));
-}
+transformer deeppoly{
+    HardSigmoid -> 
+       ( (prev[u]) <= (0 - 2.5)) ? (0, 0, 0, 0) : (0,0,0,0)
+;}
     """
 
 
-    validator = make_constraintflow_validator("deepz")
+    validator = make_constraintflow_validator("deeppoly")
 
     result, ce = validator(dsl)
     print(result)
     print(ce)
+
+
+'''
+
+transformer deeppoly{
+    HardSigmoid -> 
+        ((prev[u]) <= (0- 3.0)) ? (0, 0, 0, 0) : 
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        (0,1,0,1);
+}
+
+The current DSL does not support negative floating-point constants directly.
+To express a negative float like -3.0, it must be rewritten as an arithmetic expression, such as 0 - 3.0.
+Otherwise, the parser will throw an error like no viable alternative at input, because -3.0 is not recognized as a valid token.
+'''

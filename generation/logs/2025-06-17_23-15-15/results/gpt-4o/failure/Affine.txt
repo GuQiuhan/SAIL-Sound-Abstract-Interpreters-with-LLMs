@@ -1,0 +1,9 @@
+transformer deeppoly{
+    Affine ->
+        (
+            sum(map_i(simplify_lower(prev[i], curr[weight][i])) for i in 0..N) + curr[bias],
+            sum(map_i(simplify_upper(prev[i], curr[weight][i])) for i in 0..N) + curr[bias],
+            sum(map_i(replace_lower(prev[i], curr[weight][i])) for i in 0..N) + curr[bias],
+            sum(map_i(replace_upper(prev[i], curr[weight][i])) for i in 0..N) + curr[bias]
+        );
+}

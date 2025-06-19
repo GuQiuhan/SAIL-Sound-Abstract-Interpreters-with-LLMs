@@ -29,6 +29,60 @@ You are a formal methods expert working on neural network verification.
 Your task is to generate the DeepPoly transformers for DNN operators.
 Generate the transformer in Constraintflow DSL.
 
+Here is the grammar of Constraintflow DSL:
+
+'''
+expr_list : expr COMMA expr_list
+	|	expr ; 
+
+exprs: expr exprs
+    | expr;
+
+metadata: WEIGHT 
+	|	BIAS 
+	|	EQUATIONS 
+	|	LAYER ;
+
+expr: FALSE					                        #false
+    | TRUE 					                        #true
+    | IntConst 					                    #int
+    | FloatConst 				                    #float
+    | VAR                     			            #varExp
+    | EPSILON 					                    #epsilon
+    | CURR					                        #curr
+    | PREV					                        #prev
+    | PREV_0					                    #prev_0
+    | PREV_1					                    #prev_1
+    | CURRLIST					                    #curr_list
+    | LPAREN expr RPAREN      			            #parenExp
+    | LSQR expr_list RSQR                           #exprarray
+    | expr LSQR metadata RSQR                       #getMetadata
+    | expr LSQR VAR RSQR                            #getElement
+    | expr binop expr         			            #binopExp
+    | NOT expr       				                #not
+    | MINUS expr				                    #neg
+    | expr QUES expr COLON expr 		            #cond
+    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE		#traverse
+    | argmax_op LPAREN expr COMMA expr RPAREN 	    #argmaxOp
+    | max_op LPAREN expr RPAREN                     #maxOpList
+    | max_op LPAREN expr COMMA expr RPAREN          #maxOp
+    | list_op LPAREN expr RPAREN 			        #listOp
+    | expr DOT MAP LPAREN expr RPAREN 		        #map
+    | expr DOT MAPLIST LPAREN expr RPAREN 		    #map_list
+    | expr DOT DOTT LPAREN expr RPAREN 		        #dot
+    | expr DOT CONCAT LPAREN expr RPAREN 		    #concat
+    | LP LPAREN lp_op COMMA expr COMMA expr RPAREN  #lp
+    | VAR LPAREN expr_list RPAREN 		            #funcCall
+    | VAR exprs                                     #curry
+;
+
+trans_ret :
+    expr QUES trans_ret COLON trans_ret #condtrans
+    | LPAREN trans_ret RPAREN #parentrans
+    | expr_list #trans
+;
+'''
+
 DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
 They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
 When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
@@ -75,6 +129,60 @@ IBP_CONSTRAINTFLOW = """
 You are a formal methods expert working on neural network verification.
 Your task is to generate the IBP transformers for DNN operators.
 Generate the transformer in Constraintflow DSL.
+
+Here is the grammar of Constraintflow DSL:
+
+'''
+expr_list : expr COMMA expr_list
+	|	expr ; 
+
+exprs: expr exprs
+    | expr;
+
+metadata: WEIGHT 
+	|	BIAS 
+	|	EQUATIONS 
+	|	LAYER ;
+
+expr: FALSE					                        #false
+    | TRUE 					                        #true
+    | IntConst 					                    #int
+    | FloatConst 				                    #float
+    | VAR                     			            #varExp
+    | EPSILON 					                    #epsilon
+    | CURR					                        #curr
+    | PREV					                        #prev
+    | PREV_0					                    #prev_0
+    | PREV_1					                    #prev_1
+    | CURRLIST					                    #curr_list
+    | LPAREN expr RPAREN      			            #parenExp
+    | LSQR expr_list RSQR                           #exprarray
+    | expr LSQR metadata RSQR                       #getMetadata
+    | expr LSQR VAR RSQR                            #getElement
+    | expr binop expr         			            #binopExp
+    | NOT expr       				                #not
+    | MINUS expr				                    #neg
+    | expr QUES expr COLON expr 		            #cond
+    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE		#traverse
+    | argmax_op LPAREN expr COMMA expr RPAREN 	    #argmaxOp
+    | max_op LPAREN expr RPAREN                     #maxOpList
+    | max_op LPAREN expr COMMA expr RPAREN          #maxOp
+    | list_op LPAREN expr RPAREN 			        #listOp
+    | expr DOT MAP LPAREN expr RPAREN 		        #map
+    | expr DOT MAPLIST LPAREN expr RPAREN 		    #map_list
+    | expr DOT DOTT LPAREN expr RPAREN 		        #dot
+    | expr DOT CONCAT LPAREN expr RPAREN 		    #concat
+    | LP LPAREN lp_op COMMA expr COMMA expr RPAREN  #lp
+    | VAR LPAREN expr_list RPAREN 		            #funcCall
+    | VAR exprs                                     #curry
+;
+
+trans_ret :
+    expr QUES trans_ret COLON trans_ret #condtrans
+    | LPAREN trans_ret RPAREN #parentrans
+    | expr_list #trans
+;
+'''
 
 IBP certifier uses two kinds of bounds to overapproximate the operator: (Float l, Float u).
 They must follow the constraints that: curr[l] <= curr <= curr[u]. `curr` here means the current neuron, `prev` means the inputs to the operator.
@@ -127,6 +235,60 @@ You are a formal methods expert working on neural network verification.
 Your task is to generate the DeepZ transformers for DNN operators.
 Generate the transformer in Constraintflow DSL.
 
+Here is the grammar of Constraintflow DSL:
+
+'''
+expr_list : expr COMMA expr_list
+	|	expr ; 
+
+exprs: expr exprs
+    | expr;
+
+metadata: WEIGHT 
+	|	BIAS 
+	|	EQUATIONS 
+	|	LAYER ;
+
+expr: FALSE					                        #false
+    | TRUE 					                        #true
+    | IntConst 					                    #int
+    | FloatConst 				                    #float
+    | VAR                     			            #varExp
+    | EPSILON 					                    #epsilon
+    | CURR					                        #curr
+    | PREV					                        #prev
+    | PREV_0					                    #prev_0
+    | PREV_1					                    #prev_1
+    | CURRLIST					                    #curr_list
+    | LPAREN expr RPAREN      			            #parenExp
+    | LSQR expr_list RSQR                           #exprarray
+    | expr LSQR metadata RSQR                       #getMetadata
+    | expr LSQR VAR RSQR                            #getElement
+    | expr binop expr         			            #binopExp
+    | NOT expr       				                #not
+    | MINUS expr				                    #neg
+    | expr QUES expr COLON expr 		            #cond
+    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE		#traverse
+    | argmax_op LPAREN expr COMMA expr RPAREN 	    #argmaxOp
+    | max_op LPAREN expr RPAREN                     #maxOpList
+    | max_op LPAREN expr COMMA expr RPAREN          #maxOp
+    | list_op LPAREN expr RPAREN 			        #listOp
+    | expr DOT MAP LPAREN expr RPAREN 		        #map
+    | expr DOT MAPLIST LPAREN expr RPAREN 		    #map_list
+    | expr DOT DOTT LPAREN expr RPAREN 		        #dot
+    | expr DOT CONCAT LPAREN expr RPAREN 		    #concat
+    | LP LPAREN lp_op COMMA expr COMMA expr RPAREN  #lp
+    | VAR LPAREN expr_list RPAREN 		            #funcCall
+    | VAR exprs                                     #curry
+;
+
+trans_ret :
+    expr QUES trans_ret COLON trans_ret #condtrans
+    | LPAREN trans_ret RPAREN #parentrans
+    | expr_list #trans
+;
+'''
+
 DeepZ certifier uses three components to overapproximate each operator: (Float l, Float u, SymExp z).
 They must follow the constraints that: curr[l] <= curr <= curr[u] and curr In curr[z].
 When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
@@ -176,20 +338,24 @@ transformer deepz{
 }
 """
 
+PRMPT_RELU_REASONING = """
+ReLU is defined as relu(x) = max(0, x). In abstract interpretation, we must overapproximate this behavior. For the lower bound, if the previous lower bound is non-negative, ReLU acts as identity; otherwise, the lower bound is clamped to 0. For the upper bound, if the interval spans 0 (i.e., prev[l] < 0 < prev[u]), we interpolate a linear upper bound to maintain soundness, typically using a slope slightly less than u/(u - l).
+"""
+
 
 opt_list = [
     "Abs",
-    "Add",
+    "Neuron_add",
     "Affine",
     "Avgpool",
     "HardSigmoid",
     "HardSwish",
     "HardTanh",
-    "Max",
+    "Neuron_max",
     "Maxpool",
-    "Min",
+    "Neuron_min",
     "Minpool",
-    "Mult",
+    "Neuron_mult",
     "Relu",
     "Relu6",
 ]

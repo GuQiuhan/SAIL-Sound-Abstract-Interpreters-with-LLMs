@@ -194,17 +194,17 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--model",
+        "--model","-m",
         type=str,
-        required=True,
+        required=False,
         default="deepseek",
         help="Model keyword to select from model-port map. E.g., deepseek, llama-4, gpt-4.1"
     )
 
     parser.add_argument(
-        "--certifier",
+        "--certifier","-c",
         type=str,
-        required=True,
+        required=False,
         choices=["deeppoly", "ibp", "deepz"],
         default="deeppoly",
         help="Certifier type: deeppoly, ibp, deepz"
@@ -334,7 +334,7 @@ if __name__ == "__main__":
                     if is_chat:
                         def chat_prompter(code: Optional[str]) -> List[dict]:
                             return [
-                                {"role": "system", "content": f"You are a formal methods expert working on neural network verification. Your task is to generate the DeepPoly transformers for DNN operators. Generate the transformer in Constraintflow DSL. {CONSTRAINTFLOW}"},
+                                {"role": "system", "content": f"{CONSTRAINTFLOW_SYSTEM_PROMPT}"},
                                 {"role": "user", "content": "Generate the transformer for `relu` operator "},
                                 {"role": "assistant", "content": prmpt_relu},
                                 {"role": "user", "content": "Generate the transformer for `abs` operator "},
@@ -351,6 +351,7 @@ if __name__ == "__main__":
 
 ### Example: ReLU operator
 Input: Generate the transformer for `relu` operator
+Reasoning: {PRMPT_RELU_REASONING}
 Output:
 {prmpt_relu}
 
