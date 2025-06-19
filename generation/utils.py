@@ -339,9 +339,57 @@ transformer deepz{
 """
 
 PRMPT_RELU_REASONING = """
-ReLU is defined as relu(x) = max(0, x). In abstract interpretation, we must overapproximate this behavior. For the lower bound, if the previous lower bound is non-negative, ReLU acts as identity; otherwise, the lower bound is clamped to 0. For the upper bound, if the interval spans 0 (i.e., prev[l] < 0 < prev[u]), we interpolate a linear upper bound to maintain soundness, typically using a slope slightly less than u/(u - l).
+ReLU(x) = max(0, x), which is piecewise linear:
+- For x ≤ 0, ReLU(x) = 0
+- For x ≥ 0, ReLU(x) = x
+
+To construct a sound abstract transformer over input interval [l, u]:
+
+1. Concrete Bounds:
+   - If u ≤ 0 → ReLU(x) = 0 for all x ⇒ output interval = [0, 0]
+   - If l ≥ 0 → ReLU(x) = x ⇒ output interval = [l, u]
+   - If l < 0 < u:
+     - Lower bound = 0
+     - Upper bound = line connecting (l, 0) and (u, u)
+
+2. Symbolic Bounds:
+   - If input lower bound ≥ 0 ⇒ propagate symbolic bounds directly
+   - If input upper bound ≤ 0 ⇒ output is zero ⇒ symbolic bound = constant 0
+   - If input spans across 0:
+     - Lower bound remains 0, since ReLU(x) is always ≥ 0
+     - Upper bound is constructed using a linear interpolation:
+       - Slope = u / (u - l)
+       - Interpolated upper = slope * input
 """
 
+PRMPT_ABS_REASONING = """
+Abs(x) = |x|, which is piecewise linear:
+- For x ≥ 0, Abs(x) = x
+- For x ≤ 0, Abs(x) = -x
+
+To construct a sound abstract transformer over input interval [l, u]:
+
+1. Concrete Bounds:
+   - If l ≥ 0 → input always ≥ 0 ⇒ Abs(x) = x ⇒ output interval = [l, u]
+   - If u ≤ 0 → input always ≤ 0 ⇒ Abs(x) = -x ⇒ output interval = [-u, -l]
+   - If l < 0 < u → input may cross 0:
+     - Lower bound = 0 (since |x| ≥ 0)
+     - Upper bound = max(|l|, |u|)
+
+2. Symbolic Bounds:
+   - Case 1: input ≥ 0
+     - Symbolic lower = input lower bound
+     - Symbolic upper = input upper bound
+   - Case 2: input ≤ 0
+     - Symbolic lower = negation of input upper bound
+     - Symbolic upper = negation of input lower bound
+   - Case 3: input spans zero (l < 0 < u)
+     - Lower bound = 0
+     - Upper bound:
+        - The abs function is V-shaped. The upper bound should overapproximate this V-shape with a single straight line.
+        - This line connects the points (l, -l) and (u, u), forming the tightest linear overapproximation.
+        - Slope = (u + l) / (u - l)
+"""
 
 opt_list = [
     "Abs",

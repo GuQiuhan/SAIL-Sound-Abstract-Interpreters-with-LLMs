@@ -68,6 +68,9 @@ class DSLRepair:
 
         Returns: True/False
         """
+        # @qiuhan: TODO: add one more check, need at least a pair of () after ->
+
+
         input_stream = InputStream(code)
         lexer = miniDSLLexer(input_stream)
         token_stream = CommonTokenStream(lexer)

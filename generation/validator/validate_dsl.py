@@ -116,9 +116,25 @@ if __name__ == "__main__":
 
     dsl="""
 transformer deeppoly{
-    HardSigmoid -> 
-       ( (prev[u]) <= (0 - 2.5)) ? (0, 0, 0, 0) : (0,0,0,0)
-;}
+    Relu6 -> 
+        ((prev[l]) >= 6) ? 
+            (6, 6, 6, 6) 
+        : 
+            (((prev[u]) <= 0) ? 
+                (0, 0, 0, 0)
+            : 
+                ((prev[l] >= 0) ? 
+                    (prev[l], min(prev[u], 6), prev, prev)
+                : 
+                    ((prev[u] <= 6) ? 
+                        (0, prev[u], 0, ((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))
+                    : 
+                        (0, 6, 0, (((6 - prev[l]) / (prev[u] - prev[l])) * prev) - ((prev[l] * 6) / (prev[u] - prev[l])))
+                    )
+                )
+            )
+        ;
+}
     """
 
 
