@@ -1,0 +1,17 @@
+2025-06-19 11:26:30,264 - INFO - 2025-06-19 11:26:30.264798 - Extracting join
+2025-06-19 11:26:30,264 - INFO - 
+API: join -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
+2025-06-19 11:26:30,265 - INFO - [STEP 1] Starting step 1/2
+2025-06-19 11:26:51,005 - INFO - [STEP 2] Starting step 2/2
+2025-06-19 11:26:56,692 - INFO - [join] Runtime: 26.43 seconds
+2025-06-19 11:26:56,692 - INFO - Succeed. Saved to tmplogs/2025-06-19_11-26-30/results/gpt-4o/success/join.txt
+
+2025-06-19 11:26:56,692 - INFO - 2025-06-19 11:26:56.692458 - Extracting meet
+2025-06-19 11:26:56,692 - INFO - 
+API: meet -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
+2025-06-19 11:26:56,692 - INFO - [STEP 1] Starting step 1/2
+2025-06-19 11:27:22,024 - INFO - [STEP 2] Starting step 2/2
+2025-06-19 11:27:31,294 - INFO - [meet] Runtime: 34.60 seconds
+2025-06-19 11:27:31,295 - INFO - Succeed. Saved to tmplogs/2025-06-19_11-26-30/results/gpt-4o/success/meet.txt
+
+2025-06-19 11:27:31,299 - INFO - ✅ Total runtime for all operators: 61.04 seconds

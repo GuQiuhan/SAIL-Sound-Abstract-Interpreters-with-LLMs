@@ -1,0 +1,37 @@
+The `meet` operator in abstract interpretation or neural network verification is used to compute the intersection (greatest lower bound) of two abstract domains 
+or elements—in this context, two sets of DeepPoly bounds (one for each operand).
+
+Suppose we have two input neurons to `meet`:
+- `prev_0` representing the first set of DeepPoly bounds: `[l₀, u₀, L₀, U₀]`
+- `prev_1` representing the second set of DeepPoly bounds: `[l₁, u₁, L₁, U₁]`
+
+The meet operator produces new bounds that are *at least as precise as both*, i.e., it makes the bounds tighter where possible:
+
+1. **Concrete Bounds:**
+   - Lower bound: `max(l₀, l₁)`
+   - Upper bound: `min(u₀, u₁)`
+
+2. **Symbolic Poly Bounds:**
+   - Poly lower: the "tightest" (largest) lower bound, expressed as `max(L₀, L₁)`. In the DSL setting, this is not trivial—it may be constructed by checking 
+`prev_0[l] >= prev_1[l]` and picking the corresponding poly bound.
+   - Poly upper: the "tightest" (smallest) upper bound, i.e., `min(U₀, U₁)`.
+
+**Case analysis for the transformer:**
+- If `l₀ >= l₁`, the poly lower bound is `L₀`; otherwise, it's `L₁`.
+- If `u₀ <= u₁`, the poly upper bound is `U₀`; otherwise, it's `U₁`.
+
+**Return order:** `[meet_lower, meet_upper, meet_poly_lower, meet_poly_upper]`
+
+Ready for translation into DSL.
+
+
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+transformer deeppoly{
+    Meet -> (
+        max(prev_0[l], prev_1[l]),
+        min(prev_0[u], prev_1[u]),
+        (prev_0[L] >= prev_1[L]) ? prev_0[L] : prev_1[L],
+        (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]
+    );
+}

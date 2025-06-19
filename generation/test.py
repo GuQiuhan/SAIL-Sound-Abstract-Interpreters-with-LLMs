@@ -47,7 +47,7 @@ class Step:
         self.prompter: Callable[[Optional[str]], Union[str, List[Dict[str, str]]]] = prompter  # unified for both prompt and chat models
         self.eos: List[str] = eos or []
         # (prompt, completion, old code) =composer=> new code
-        self.composer: Callable[[str, str, str], Union[str, bool]] = composer
+        self.composer: Callable[[Union[str, List[Dict[str, str]]], str, str], Union[str, bool]] = composer
         self.validator: Callable[[str], None] = validator  # validate the code
         # add augmentation prompting
         self.aug_prompt = ""
@@ -107,20 +107,22 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
         (success: bool, result: str, error_message: str)
     """
     
+    code = "" # final code after all steps
+
     for index, step in enumerate(steps, start=1):
         logging.info(f"[STEP {index}] Starting step {index}/{len(steps)}")
         retry_count = 0
         success = False
 
-        code = ""
-        while retry_count < 2 and not success:
-            
-            code = ""
-            messages_or_prompt = step.prompter(code)
+        new_code = "" # final code after this step
 
+        while retry_count < 2 and not success:
+            messages_or_prompt = step.prompter(code)
             #prompt = step.prompter_with_augmentation(prompt) # need to unify them
 
-            
+            print(f"[STEP {index}] Prompting: :\n{messages_or_prompt}")
+
+
             completions = [
                 client.chat(messages=messages_or_prompt) if is_chat
                 else client.textgen(prompt=messages_or_prompt)
@@ -131,10 +133,10 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                 if "Model Generation Error" in completion:
                     logging.warning(f"[STEP {index}] Sample {sample_id}: Model Generation Error")
                     continue
-                prompt=""
-                code = step.composer(prompt, completion, code)
-                print(f"[STEP {index}] Sample {sample_id}: Completion:\n{completion}")
-                print(f"[STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}")
+                
+                new_code = step.composer(messages_or_prompt, completion, code) # update code here
+                #print(f"[STEP {index}] Sample {sample_id}: Completion:\n{completion}")
+                #print(f"[STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}")
 
                 if step.validator:
                     try:
@@ -147,12 +149,14 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
 
                     if result:
                         success = True
+                        code = new_code
                         logging.info(f"[STEP {index}] Sample {sample_id}: Validation passed.")
                         break
                     else:
                         logging.info(f"[STEP {index}] Sample {sample_id}: Validation failed.")
                 else:
                     success = True
+                    code = new_code
                     break
 
             if not success:
@@ -163,7 +167,7 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
 
 
         if not success:
-            return False, code, f"[STEP {index}] Failed after 2 retries."
+            return False, new_code, f"[STEP {index}] Failed after 2 retries." # return the failed code
 
     return True, code, ""
 
@@ -193,7 +197,7 @@ if __name__ == "__main__":
         required=False,
     )
     parser.add_argument(
-        "--log-dir", help="Path to the log directory", default="tmplogs/", required=False
+        "--log-dir", help="Path to the log directory", default="reasoninglogs/", required=False
     )
 
     parser.add_argument(
@@ -336,7 +340,7 @@ if __name__ == "__main__":
 
 
                     if is_chat:
-                        def chat_prompter(code: Optional[str]) -> List[dict]:
+                        def chat_prompter(code: Optional[str]) -> List[dict]: # `code` here means the code that is generated last time
                             return [
                                 {"role": "system", "content": f"{CONSTRAINTFLOW_SYSTEM_PROMPT}"},
                                 {"role": "user", "content": "Reason the transformer for `relu` operator "},
