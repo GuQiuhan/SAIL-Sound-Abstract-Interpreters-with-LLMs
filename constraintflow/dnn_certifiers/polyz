@@ -22,31 +22,31 @@ func i1(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (s1(x1, x2) * x1);
 transformer polyz{
     Affine -> (max((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower),backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr)), min((prev.dot(curr[weight]) + curr[bias]).map(simplify_upper),backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr)), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias], prev[z].dot(curr[weight]) + curr[bias]);
     Maxpool -> len(argmax(prev, f)) > 0 ? (max(prev[l]), max(prev[u]), avg(argmax(prev, f)), avg(argmax(prev, f)), avg(argmax(prev, f)[z])) : (max(prev[l]), max(prev[u]), max(prev[l]), max(prev[u]), ((max(prev[u]) + max(prev[l])) / 2) + (((max(prev[u]) - max(prev[l])) / 2) * eps));
-    Relu -> ((prev[l]) >= 0) ? 
-    ((prev[l]), (prev[u]), (prev), (prev), (prev[z])) : 
+    Relu -> ((prev[l]) >= 0) ?
+    ((prev[l]), (prev[u]), (prev), (prev), (prev[z])) :
     (
-        ((prev[u]) <= 0) ? 
-        (0, 0, 0, 0, 0) : 
+        ((prev[u]) <= 0) ?
+        (0, 0, 0, 0, 0) :
         (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))), ((prev[u] + prev[l]) / 2) + (((prev[u] - prev[l]) / 2) * eps))
     );
-    Abs -> ((prev[l]) >= 0) ? 
-    ((prev[l]), (prev[u]), (prev), (prev), (prev[z])) : 
+    Abs -> ((prev[l]) >= 0) ?
+    ((prev[l]), (prev[u]), (prev), (prev), (prev[z])) :
     (
-        ((prev[u]) <= 0) ? 
-        (-prev[u], -prev[l], -prev, -prev, -prev[z]) : 
+        ((prev[u]) <= 0) ?
+        (-prev[u], -prev[l], -prev, -prev, -prev[z]) :
         (0, max(-prev[l], prev[u]), 0, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l])), ((max(-prev[l], prev[u])) / 2) + (((max(-prev[l], prev[u])) / 2) * eps))
     );
-    HardSwish -> (prev[l] < -3) ? 
-                    (prev[u] < -3 ? 
-                        (0, 0, 0, 0, 0) : 
-                        (prev[u] < 0 ? 
-                            (-3/8, 0, -3/8, 0, (-3/16) * (1 - eps)) : 
-                            (-3/8, f1(prev[u]), -3/8, f1(prev[u]) * (prev - prev[l]), (f1(prev[u])/2 - (3/16)) + ((f1(prev[u])/2 + (3/16)) * eps)))) : 
-                    ((prev[l] < 3) ? 
-                        ((prev[u] < 3) ? 
-                            (-3/8, max(f2(prev[l]), f2(prev[u])), -3/8, s1(prev[u], prev[l]) * prev + i1(prev[u], prev[l]), ((max(f2(prev[l]), f2(prev[u]))/2 )- (3/16)) + (eps * (max(f2(prev[l]), f2(prev[u]))/2 + (3/16)))) : 
+    HardSwish -> (prev[l] < -3) ?
+                    (prev[u] < -3 ?
+                        (0, 0, 0, 0, 0) :
+                        (prev[u] < 0 ?
+                            (-3/8, 0, -3/8, 0, (-3/16) * (1 - eps)) :
+                            (-3/8, f1(prev[u]), -3/8, f1(prev[u]) * (prev - prev[l]), (f1(prev[u])/2 - (3/16)) + ((f1(prev[u])/2 + (3/16)) * eps)))) :
+                    ((prev[l] < 3) ?
+                        ((prev[u] < 3) ?
+                            (-3/8, max(f2(prev[l]), f2(prev[u])), -3/8, s1(prev[u], prev[l]) * prev + i1(prev[u], prev[l]), ((max(f2(prev[l]), f2(prev[u]))/2 )- (3/16)) + (eps * (max(f2(prev[l]), f2(prev[u]))/2 + (3/16)))) :
                             (-3/8, prev[u], -3/8, prev[u] * ((prev + 3) / (prev[u] + 3)), (prev[u]/2 - (3/16)) + (eps * (prev[u]/2 + (3/16))))) :
-                        (prev[l], prev[u], prev, prev, prev[z])); 
+                        (prev[l], prev[u], prev, prev, prev[z]));
 }
 
 flow(forward, priority, true, polyz);

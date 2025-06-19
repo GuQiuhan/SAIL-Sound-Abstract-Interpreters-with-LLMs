@@ -1,9 +1,9 @@
 The `join` operator in abstract interpretation and in DeepPoly specifically generally refers to merging (concatenating) two sets of neuron abstractions or domains
-into a single abstraction that tracks the two inputs as independent. For neural network layers, this is most commonly used for concatenation layers, skip 
+into a single abstraction that tracks the two inputs as independent. For neural network layers, this is most commonly used for concatenation layers, skip
 connections (in architectures like ResNet, DenseNet), or in a general join-over-all-paths.
 
 **Semantics:**
-- If `prev_0 = (l0, u0, L0, U0)` and `prev_1 = (l1, u1, L1, U1)`, the join operator produces a vector whose lower and upper intervals and polyhedral bounds are 
+- If `prev_0 = (l0, u0, L0, U0)` and `prev_1 = (l1, u1, L1, U1)`, the join operator produces a vector whose lower and upper intervals and polyhedral bounds are
 simple concatenations of those of the two inputs.
 - There is no new computation, ONLY concatenation of the respective components.
 
@@ -13,7 +13,7 @@ simple concatenations of those of the two inputs.
 - Lower PolyExp bound  is `[prev_0[L], prev_1[L]]`
 - Upper PolyExp bound  is `[prev_0[U], prev_1[U]]`
 
-This simply merges the two inputs side-by-side, maintaining independence and not introducing new relationships. Thus, it suffices to apply the DSL's array/list 
+This simply merges the two inputs side-by-side, maintaining independence and not introducing new relationships. Thus, it suffices to apply the DSL's array/list
 concatenation on each of the four value types accordingly.
 
 
@@ -23,9 +23,9 @@ def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>
 
 transformer deeppoly{
     Join -> (
-        ( prev_0[l] .concat(prev_1[l]), 
-          prev_0[u] .concat(prev_1[u]), 
-          prev_0[L] .concat(prev_1[L]), 
+        ( prev_0[l] .concat(prev_1[l]),
+          prev_0[u] .concat(prev_1[u]),
+          prev_0[L] .concat(prev_1[L]),
           prev_0[U] .concat(prev_1[U]) )
     );
 }

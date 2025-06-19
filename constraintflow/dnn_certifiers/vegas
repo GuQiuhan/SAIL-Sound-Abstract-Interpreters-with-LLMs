@@ -36,45 +36,45 @@ transformer vegas_forward{
     Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))) ));
 
     Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(prev[u], 0-prev[l]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
-    
-    HardSwish -> (prev[l] < -3) ? 
-                    (prev[u] < -3 ? 
-                        (0, 0, 0, 0) : 
-                        (prev[u] < 0 ? 
-                            (-3/8, 0, -3/8, 0) : 
-                            (-3/8, f1(prev[u]), -3/8, f1(prev[u]) * (prev - prev[l])))) : 
-                    ((prev[l] < 3) ? 
-                        ((prev[u] < 3) ? 
-                            (-3/8, f3(prev), -3/8, slope(prev[u], prev[l]) * prev + intercept(prev[u], prev[l])) : 
+
+    HardSwish -> (prev[l] < -3) ?
+                    (prev[u] < -3 ?
+                        (0, 0, 0, 0) :
+                        (prev[u] < 0 ?
+                            (-3/8, 0, -3/8, 0) :
+                            (-3/8, f1(prev[u]), -3/8, f1(prev[u]) * (prev - prev[l])))) :
+                    ((prev[l] < 3) ?
+                        ((prev[u] < 3) ?
+                            (-3/8, f3(prev), -3/8, slope(prev[u], prev[l]) * prev + intercept(prev[u], prev[l])) :
                             (-3/8, prev[u], -3/8, prev[u] * ((prev + 3) / (prev[u] + 3)))) :
-                        (prev[l], prev[u], prev, prev)); 
+                        (prev[l], prev[u], prev, prev));
 
 }
 
 transformer vegas_backward{
     rev_Affine -> (lp(minimize, curr, (curr[equations].map_list(create_c curr))), lp(maximize, curr, (curr[equations].map_list(create_c curr))), curr[L], curr[U]);
     rev_Maxpool -> (curr[l], min(curr[u], min(prev[u])), curr[L], curr[U]);
-    rev_Relu -> 
-    (prev[l]) > 0 ? 
+    rev_Relu ->
+    (prev[l]) > 0 ?
     (
-        (prev[u]) >= 0 ? 
-        (max((prev[l]), curr[l]), min((prev[u]), curr[u]), curr[L], curr[U]) : 
+        (prev[u]) >= 0 ?
+        (max((prev[l]), curr[l]), min((prev[u]), curr[u]), curr[L], curr[U]) :
         (max((prev[l]), curr[l]),curr[u], curr[L], curr[U])
-    ) : 
+    ) :
     (
-        (prev[u]) >= 0 ? 
-        (curr[l], min((prev[u]), curr[u]), curr[L], curr[U]) : 
+        (prev[u]) >= 0 ?
+        (curr[l], min((prev[u]), curr[u]), curr[L], curr[U]) :
         (curr[l], curr[u], curr[L], curr[U])
     );
     rev_Abs -> (max(-prev[u], curr[l]), min(prev[u], curr[u]), curr[L], curr[U]);
-    rev_HardSwish -> prev[l] >= 3 ? 
+    rev_HardSwish -> prev[l] >= 3 ?
         (max(prev[l], curr[l]), min(prev[u], curr[u]), curr[L], curr[U]) :
-        (prev[l] > 0 ? 
+        (prev[l] > 0 ?
             (prev[u] >= 3 ?
                 (max(prev[l] / 2, curr[l]), curr[u], curr[L], curr[U]) :
                 (max(prev[l] / 2, curr[l]), min(2 * prev[u], curr[u]), curr[L], curr[U])
-            ) : 
-            (prev[u] >= 0 ? 
+            ) :
+            (prev[u] >= 0 ?
                 (curr[l], curr[u], curr[L], curr[U]):
                 (min(0, max(-3, curr[l])), min(0, max(-3, curr[u])), curr[L], curr[U])
             )

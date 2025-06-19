@@ -1,25 +1,24 @@
 # miniastBuilder.py
 
+from . import miniastcf as AST
 from .miniDSLParser import miniDSLParser
 from .miniDSLVisitor import miniDSLVisitor
 
-from . import miniastcf as AST
 
 class ASTBuilder(miniDSLVisitor):
-
-    def visitTransformer(self, ctx:miniDSLParser.TransformerContext):
+    def visitTransformer(self, ctx: miniDSLParser.TransformerContext):
         op_list = self.visit(ctx.op_list())
         name = AST.VarNode(ctx.VAR().getText())
         # l = self.visit(ctx.trans_decl().expr_list())
         # expr_list = [v.name for v in l.exprlist]
         return AST.TransformerNode(name, op_list)
 
-    #this O(n^2) to retain the order of the expressions
-    def visitOp_list(self, ctx:miniDSLParser.Op_listContext):
+    # this O(n^2) to retain the order of the expressions
+    def visitOp_list(self, ctx: miniDSLParser.Op_listContext):
         oplist = ctx.op_list()
         stmt = self.visit(ctx.op_stmt())
 
-        if(oplist):
+        if oplist:
             listNode = self.visit(oplist)
             newList = [stmt] + listNode.olist
             return AST.OpListNode(newList)
@@ -47,11 +46,9 @@ class ASTBuilder(miniDSLVisitor):
         expr_list = self.visit(ctx.expr_list())
         return AST.TransRetBasicNode(expr_list)
 
-
-
-    def visitExpr_list(self, ctx:miniDSLParser.Expr_listContext):
+    def visitExpr_list(self, ctx: miniDSLParser.Expr_listContext):
         expr = self.visit(ctx.expr())
-        if(ctx.expr_list()):
+        if ctx.expr_list():
             exprs = ctx.expr_list()
             listNode = self.visit(exprs)
             newList = [expr] + listNode.exprlist
@@ -60,7 +57,12 @@ class ASTBuilder(miniDSLVisitor):
             return AST.ExprListNode([expr])
 
     def visitExpr(self, ctx: miniDSLParser.ExprContext):
-        if ctx.getChildCount() == 3 and ctx.getChild(1).getText() in {'+', '-', '*', '/'}:
+        if ctx.getChildCount() == 3 and ctx.getChild(1).getText() in {
+            "+",
+            "-",
+            "*",
+            "/",
+        }:
             left = self.visit(ctx.getChild(0))
             op = ctx.getChild(1).getText()
             right = self.visit(ctx.getChild(2))
@@ -71,7 +73,7 @@ class ASTBuilder(miniDSLVisitor):
             return AST.ConstIntNode(int(ctx.IntConst().getText()))
         elif ctx.FloatConst():
             return AST.ConstFloatNode(float(ctx.FloatConst().getText()))
-        elif ctx.getChildCount() == 3 and ctx.getChild(0).getText() == '(':
+        elif ctx.getChildCount() == 3 and ctx.getChild(0).getText() == "(":
             return self.visit(ctx.getChild(1))
         else:
             raise Exception(f"Unrecognized expr: {ctx.getText()}")

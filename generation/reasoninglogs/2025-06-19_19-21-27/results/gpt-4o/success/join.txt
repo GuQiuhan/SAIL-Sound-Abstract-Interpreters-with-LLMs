@@ -1,6 +1,6 @@
-The 
-`join` operator (in DeepPoly and similar domains) refers to the pointwise or elementwise joining of two abstract elements, elementwise forming the smallest 
-interval/polyhedron containing both elements (typically after a branch, such as after an `if` statement). In DeepPoly, this means forming the least upper bound 
+The
+`join` operator (in DeepPoly and similar domains) refers to the pointwise or elementwise joining of two abstract elements, elementwise forming the smallest
+interval/polyhedron containing both elements (typically after a branch, such as after an `if` statement). In DeepPoly, this means forming the least upper bound
 over the interval and poly constraints.
 
 Let the two inputs to `join` be `prev_0` and `prev_1`, with respective bounds:
@@ -11,12 +11,12 @@ Let the two inputs to `join` be `prev_0` and `prev_1`, with respective bounds:
 1. Concrete bounds:
    - Lower bound: min(l₀, l₁)
       - Upper bound: max(u₀, u₁)
-      
+
 2. Symbolic (poly) bounds:
-   - Lower poly bound: 
+   - Lower poly bound:
 min(L₀, L₁)
    - Upper poly bound: max(U₀, U₁)
-   
+
 In summary, for each output neuron, the join operation takes the minimum of the lower bounds and the maximum of
 the upper bounds, both for concrete and poly bounds.
 

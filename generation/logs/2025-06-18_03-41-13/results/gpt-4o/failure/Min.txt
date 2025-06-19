@@ -1,9 +1,9 @@
 transformer deeppoly {
-    Min -> 
+    Min ->
         (f(prev_0, prev_1)) ? (
-            prev_1[l], 
-            prev_1[u], 
-            prev_1, 
+            prev_1[l],
+            prev_1[u],
+            prev_1,
             prev_1
         ) : (
             (f(prev_1, prev_0)) ? (

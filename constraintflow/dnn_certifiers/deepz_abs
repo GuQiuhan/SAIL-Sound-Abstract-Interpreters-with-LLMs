@@ -7,10 +7,10 @@ func priority(Neuron n) = n[layer];
 
 
 transformer deepz{
-    Abs -> ((prev[l]) >= 0) ? 
-                ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) <= 0) ? 
-                    (-(prev[u]), -(prev[l]), -(prev[z])) : 
+    Abs -> ((prev[l]) >= 0) ?
+                ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) <= 0) ?
+                    (-(prev[u]), -(prev[l]), -(prev[z])) :
                     (0, max(-prev[l], prev[u]), ((max(-prev[l], prev[u])) / 2) + (((max(-prev[l], prev[u])) / 2) * eps)));
 }
 

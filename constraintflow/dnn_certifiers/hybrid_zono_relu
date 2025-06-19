@@ -12,14 +12,14 @@ func relu(Float r) = r >= 0 ? r : 0;
 func abs(Float x) = x > 0 ? x : -1*x;
 
 transformer hybridzono{
-    Relu -> abs(prev[l]) > abs(prev[u]) ? 
-                ((prev[l]) >= 0) ? 
-                (prev[l], prev[u], (prev[b]), (prev[z])) : 
+    Relu -> abs(prev[l]) > abs(prev[u]) ?
+                ((prev[l]) >= 0) ?
+                (prev[l], prev[u], (prev[b]), (prev[z])) :
                 (-prev[b], prev[b] + relu(prev[u]), prev[b], ((1 + eps) * (relu(prev[u]/2)))) :
-                (((prev[l]) < 0) and ((prev[u]) > 0)) ? 
-                (0, prev[u], (prev[b]), (prev[z] - (((1 + eps) * (prev[l])) / 2))) : 
-                (((prev[l]) >= 0) ? 
-                    (prev[l], prev[u], (prev[b]), (prev[z])) : 
+                (((prev[l]) < 0) and ((prev[u]) > 0)) ?
+                (0, prev[u], (prev[b]), (prev[z] - (((1 + eps) * (prev[l])) / 2))) :
+                (((prev[l]) >= 0) ?
+                    (prev[l], prev[u], (prev[b]), (prev[z])) :
                     (0, 0, prev[b], ((1 + eps) * (relu(prev[u]/2)))));
 }
 

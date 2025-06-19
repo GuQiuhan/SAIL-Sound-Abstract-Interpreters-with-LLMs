@@ -3,11 +3,11 @@ transformer deeppoly{
         // Calculate the lower and upper bounds for the output
         let avg_l = (prev[l] + prev[l] + ... + prev[l]) / n; // n is the number of inputs
         let avg_u = (prev[u] + prev[u] + ... + prev[u]) / n; // n is the number of inputs
-        
+
         // Calculate the PolyExp bounds for the output
         let PolyExp_L = (prev[L] + prev[L] + ... + prev[L]) / n; // n is the number of inputs
         let PolyExp_U = (prev[U] + prev[U] + ... + prev[U]) / n; // n is the number of inputs
-        
+
         // Return the bounds and PolyExp bounds
         (avg_l, avg_u, PolyExp_L, PolyExp_U)
     );

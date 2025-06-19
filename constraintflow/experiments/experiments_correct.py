@@ -1,13 +1,11 @@
+import sys
+
 import antlr4 as antlr
-import sys 
 from tabulate import tabulate
 
-from constraintflow.core import dslLexer
-from constraintflow.core import dslParser
-from constraintflow.core import astBuilder
-from constraintflow.core import astTC
-
+from constraintflow.core import astBuilder, astTC, dslLexer, dslParser
 from constraintflow.provesound.src import verify
+
 
 def run_verifier(inputfile, nprev, nsymb):
     lexer = dslLexer.dslLexer(antlr.FileStream(inputfile))
@@ -21,6 +19,7 @@ def run_verifier(inputfile, nprev, nsymb):
     v.Nsym = nsymb
     ret_dict = v.visit(ast)
     return ret_dict
+
 
 def run_verifier_from_str(code: str, nprev=1, nsymb=1):
     """
@@ -48,7 +47,7 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
     ret_dict = v.visit(ast)
 
     # Collect counterexamples
-    ce= []
+    ce = []
 
     for op_name, result in ret_dict.items():
         if len(result) == 3:
@@ -66,7 +65,7 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
 
 if __name__ == "__main__":
 
-    dsl="""
+    dsl = """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
 func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
@@ -100,12 +99,11 @@ transformer deeppoly{
 }
 
 
-flow(forward, priority, true, deeppoly);    
+flow(forward, priority, true, deeppoly);
     """
 
-
     print(run_verifier_from_str(dsl))
-'''
+"""
     certifier = sys.argv[1]
     nprev = int(sys.argv[2])
     nsym = int(sys.argv[3])
@@ -130,4 +128,4 @@ flow(forward, priority, true, deeppoly);
     print(tabulate(table))
 
 
-'''
+"""

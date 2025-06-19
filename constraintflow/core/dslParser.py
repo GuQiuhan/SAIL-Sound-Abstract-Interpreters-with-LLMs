@@ -1,9 +1,11 @@
 # Generated from dsl.g4 by ANTLR 4.7.2
 # encoding: utf-8
-from antlr4 import *
+import sys
 from io import StringIO
 from typing.io import TextIO
-import sys
+
+from antlr4 import *
+
 
 def serializedATN():
     with StringIO() as buf:
@@ -37,13 +39,13 @@ def serializedATN():
         buf.write("\3\20\3\20\3\20\3\20\7\20\u012c\n\20\f\20\16\20\u012f")
         buf.write("\13\20\3\21\3\21\3\22\3\22\3\23\3\23\3\24\3\24\3\25\3")
         buf.write("\25\3\26\3\26\3\27\3\27\3\27\2\5\6\26\36\30\2\4\6\b\n")
-        buf.write("\f\16\20\22\24\26\30\32\34\36 \"$&(*,\2\n\3\2>X\3\2\67")
+        buf.write('\f\16\20\22\24\26\30\32\34\36 "$&(*,\2\n\3\2>X\3\2\67')
         buf.write("8\3\2\3\4\3\29:\3\2\60\62\6\2\b\b\27\35\37\37!#\4\2;=")
         buf.write("gg\3\2\n\13\2\u0157\2.\3\2\2\2\4\62\3\2\2\2\6O\3\2\2\2")
         buf.write("\bX\3\2\2\2\n]\3\2\2\2\fi\3\2\2\2\16k\3\2\2\2\20o\3\2")
         buf.write("\2\2\22r\3\2\2\2\24\177\3\2\2\2\26\u008a\3\2\2\2\30\u009b")
         buf.write("\3\2\2\2\32\u00a2\3\2\2\2\34\u00a8\3\2\2\2\36\u00ea\3")
-        buf.write("\2\2\2 \u0130\3\2\2\2\"\u0132\3\2\2\2$\u0134\3\2\2\2&")
+        buf.write('\2\2\2 \u0130\3\2\2\2"\u0132\3\2\2\2$\u0134\3\2\2\2&')
         buf.write("\u0136\3\2\2\2(\u0138\3\2\2\2*\u013a\3\2\2\2,\u013c\3")
         buf.write("\2\2\2./\5\4\3\2/\60\5\6\4\2\60\61\7\2\2\3\61\3\3\2\2")
         buf.write("\2\62\63\7[\2\2\63\64\7%\2\2\64\65\5\30\r\2\65\66\7&\2")
@@ -88,7 +90,7 @@ def serializedATN():
         buf.write("\7`\2\2\u00b2\u00eb\7a\2\2\u00b3\u00eb\7b\2\2\u00b4\u00eb")
         buf.write("\7c\2\2\u00b5\u00eb\7d\2\2\u00b6\u00b7\7%\2\2\u00b7\u00b8")
         buf.write("\5\36\20\2\u00b8\u00b9\7&\2\2\u00b9\u00eb\3\2\2\2\u00ba")
-        buf.write("\u00bb\7\'\2\2\u00bb\u00bc\5\32\16\2\u00bc\u00bd\7(\2")
+        buf.write("\u00bb\7'\2\2\u00bb\u00bc\5\32\16\2\u00bc\u00bd\7(\2")
         buf.write("\2\u00bd\u00eb\3\2\2\2\u00be\u00bf\7$\2\2\u00bf\u00eb")
         buf.write("\5\36\20\21\u00c0\u00c1\7\30\2\2\u00c1\u00eb\5\36\20\20")
         buf.write("\u00c2\u00c3\5 \21\2\u00c3\u00c4\7%\2\2\u00c4\u00c5\5")
@@ -101,7 +103,7 @@ def serializedATN():
         buf.write("\3\2\2\2\u00d5\u00d6\5&\24\2\u00d6\u00d7\7%\2\2\u00d7")
         buf.write("\u00d8\5\36\20\2\u00d8\u00d9\7&\2\2\u00d9\u00eb\3\2\2")
         buf.write("\2\u00da\u00db\7e\2\2\u00db\u00dc\7%\2\2\u00dc\u00dd\5")
-        buf.write("\"\22\2\u00dd\u00de\7\26\2\2\u00de\u00df\5\36\20\2\u00df")
+        buf.write('"\22\2\u00dd\u00de\7\26\2\2\u00de\u00df\5\36\20\2\u00df')
         buf.write("\u00e0\7\26\2\2\u00e0\u00e1\5\36\20\2\u00e1\u00e2\7&\2")
         buf.write("\2\u00e2\u00eb\3\2\2\2\u00e3\u00e4\7j\2\2\u00e4\u00e5")
         buf.write("\7%\2\2\u00e5\u00e6\5\32\16\2\u00e6\u00e7\7&\2\2\u00e7")
@@ -118,9 +120,9 @@ def serializedATN():
         buf.write("\u00ee\5(\25\2\u00ee\u00ef\5\36\20\23\u00ef\u012c\3\2")
         buf.write("\2\2\u00f0\u00f1\f\17\2\2\u00f1\u00f2\7,\2\2\u00f2\u00f3")
         buf.write("\5\36\20\2\u00f3\u00f4\7-\2\2\u00f4\u00f5\5\36\20\20\u00f5")
-        buf.write("\u012c\3\2\2\2\u00f6\u00f7\f\24\2\2\u00f7\u00f8\7\'\2")
+        buf.write("\u012c\3\2\2\2\u00f6\u00f7\f\24\2\2\u00f7\u00f8\7'\2")
         buf.write("\2\u00f8\u00f9\5*\26\2\u00f9\u00fa\7(\2\2\u00fa\u012c")
-        buf.write("\3\2\2\2\u00fb\u00fc\f\23\2\2\u00fc\u00fd\7\'\2\2\u00fd")
+        buf.write("\3\2\2\2\u00fb\u00fc\f\23\2\2\u00fc\u00fd\7'\2\2\u00fd")
         buf.write("\u00fe\7j\2\2\u00fe\u012c\7(\2\2\u00ff\u0100\f\16\2\2")
         buf.write("\u0100\u0101\7\25\2\2\u0101\u0102\7/\2\2\u0102\u0103\7")
         buf.write("%\2\2\u0103\u0104\5,\27\2\u0104\u0105\7\26\2\2\u0105\u0106")
@@ -145,65 +147,237 @@ def serializedATN():
         buf.write("\3\2\2\2\u012d\u012e\3\2\2\2\u012e\37\3\2\2\2\u012f\u012d")
         buf.write("\3\2\2\2\u0130\u0131\t\3\2\2\u0131!\3\2\2\2\u0132\u0133")
         buf.write("\t\4\2\2\u0133#\3\2\2\2\u0134\u0135\t\5\2\2\u0135%\3\2")
-        buf.write("\2\2\u0136\u0137\t\6\2\2\u0137\'\3\2\2\2\u0138\u0139\t")
+        buf.write("\2\2\u0136\u0137\t\6\2\2\u0137'\3\2\2\2\u0138\u0139\t")
         buf.write("\7\2\2\u0139)\3\2\2\2\u013a\u013b\t\b\2\2\u013b+\3\2\2")
         buf.write("\2\u013c\u013d\t\t\2\2\u013d-\3\2\2\2\16OUi\177\u008a")
         buf.write("\u0090\u009b\u00a2\u00a8\u00ea\u012b\u012d")
         return buf.getvalue()
 
 
-class dslParser ( Parser ):
+class dslParser(Parser):
 
     grammarFileName = "dsl.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'minimize'", "'maximize'", "'flow'", 
-                     "'->'", "'transformer'", "'In'", "'out'", "'backward'", 
-                     "'forward'", "'Int'", "'Float'", "'Bool'", "'PolyExp'", 
-                     "'SymExp'", "'Neuron'", "'Noise'", "'Ct'", "'List'", 
-                     "'.'", "','", "'+'", "'-'", "'*'", "'/'", "'and'", 
-                     "'or'", "'<'", "'='", "'=='", "'!='", "'>'", "'<='", 
-                     "'>='", "'!'", "'('", "')'", "'['", "']'", "'{'", "'}'", 
-                     "';'", "'?'", "':'", "'if'", "'traverse'", "'sum'", 
-                     "'len'", "'avg'", "'sub'", "'map'", "'map_list'", "'dot'", 
-                     "'argmin'", "'argmax'", "'min'", "'max'", "'weight'", 
-                     "'bias'", "'layer'", "'Affine'", "'Relu'", "'Relu6'", 
-                     "'Abs'", "'HardTanh'", "'HardSigmoid'", "'HardSwish'", 
-                     "'Maxpool'", "'Minpool'", "'Avgpool'", "'rev_Affine'", 
-                     "'Neuron_mult'", "'Neuron_add'", "'Neuron_max'", "'Neuron_min'", 
-                     "'Neuron_list_mult'", "'rev_Relu'", "'rev_Relu6'", 
-                     "'rev_Abs'", "'rev_HardSigmoid'", "'rev_HardTanh'", 
-                     "'rev_HardSwish'", "'rev_Maxpool'", "'rev_Neuron_mult'", 
-                     "'rev_Neuron_add'", "'rev_Neuron_max'", "'rev_Neuron_min'", 
-                     "'Sigmoid'", "'Tanh'", "'def Shape as'", "'func'", 
-                     "'eps'", "'true'", "'false'", "'curr'", "'prev'", "'prev_0'", 
-                     "'prev_1'", "'curr_list'", "'lp'", "'concat'", "'equations'" ]
+    literalNames = [
+        "<INVALID>",
+        "'minimize'",
+        "'maximize'",
+        "'flow'",
+        "'->'",
+        "'transformer'",
+        "'In'",
+        "'out'",
+        "'backward'",
+        "'forward'",
+        "'Int'",
+        "'Float'",
+        "'Bool'",
+        "'PolyExp'",
+        "'SymExp'",
+        "'Neuron'",
+        "'Noise'",
+        "'Ct'",
+        "'List'",
+        "'.'",
+        "','",
+        "'+'",
+        "'-'",
+        "'*'",
+        "'/'",
+        "'and'",
+        "'or'",
+        "'<'",
+        "'='",
+        "'=='",
+        "'!='",
+        "'>'",
+        "'<='",
+        "'>='",
+        "'!'",
+        "'('",
+        "')'",
+        "'['",
+        "']'",
+        "'{'",
+        "'}'",
+        "';'",
+        "'?'",
+        "':'",
+        "'if'",
+        "'traverse'",
+        "'sum'",
+        "'len'",
+        "'avg'",
+        "'sub'",
+        "'map'",
+        "'map_list'",
+        "'dot'",
+        "'argmin'",
+        "'argmax'",
+        "'min'",
+        "'max'",
+        "'weight'",
+        "'bias'",
+        "'layer'",
+        "'Affine'",
+        "'Relu'",
+        "'Relu6'",
+        "'Abs'",
+        "'HardTanh'",
+        "'HardSigmoid'",
+        "'HardSwish'",
+        "'Maxpool'",
+        "'Minpool'",
+        "'Avgpool'",
+        "'rev_Affine'",
+        "'Neuron_mult'",
+        "'Neuron_add'",
+        "'Neuron_max'",
+        "'Neuron_min'",
+        "'Neuron_list_mult'",
+        "'rev_Relu'",
+        "'rev_Relu6'",
+        "'rev_Abs'",
+        "'rev_HardSigmoid'",
+        "'rev_HardTanh'",
+        "'rev_HardSwish'",
+        "'rev_Maxpool'",
+        "'rev_Neuron_mult'",
+        "'rev_Neuron_add'",
+        "'rev_Neuron_max'",
+        "'rev_Neuron_min'",
+        "'Sigmoid'",
+        "'Tanh'",
+        "'def Shape as'",
+        "'func'",
+        "'eps'",
+        "'true'",
+        "'false'",
+        "'curr'",
+        "'prev'",
+        "'prev_0'",
+        "'prev_1'",
+        "'curr_list'",
+        "'lp'",
+        "'concat'",
+        "'equations'",
+    ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "FLOW", "ARROW", 
-                      "TRANSFORMER", "IN", "OUT", "BACKWARD", "FORWARD", 
-                      "INTT", "FLOATT", "BOOL", "POLYEXP", "ZONOEXP", "NEURON", 
-                      "NOISE", "CT", "LIST", "DOT", "COMMA", "PLUS", "MINUS", 
-                      "MULT", "DIV", "AND", "OR", "LT", "EQ", "EQQ", "NEQ", 
-                      "GT", "LEQ", "GEQ", "NOT", "LPAREN", "RPAREN", "LSQR", 
-                      "RSQR", "LBRACE", "RBRACE", "SEMI", "QUES", "COLON", 
-                      "IF", "TRAV", "SUM", "LEN", "AVG", "SUB", "MAP", "MAPLIST", 
-                      "DOTT", "ARGMIN", "ARGMAX", "MIN", "MAX", "WEIGHT", 
-                      "BIAS", "LAYER", "AFFINE", "RELU", "RELU6", "ABS", 
-                      "HARDTANH", "HARDSIGMOID", "HARDSWISH", "MAXPOOL", 
-                      "MINPOOL", "AVGPOOL", "REVAFFINE", "NEURON_MULT", 
-                      "NEURON_ADD", "NEURON_MAX", "NEURON_MIN", "NEURON_LIST_MULT", 
-                      "REVRELU", "REVRELU6", "REVABS", "REVHARDSIGMOID", 
-                      "REVHARDTANH", "REVHARDSWISH", "REVMAXPOOL", "REVNEURON_MULT", 
-                      "REVNEURON_ADD", "REVNEURON_MAX", "REVNEURON_MIN", 
-                      "SIGMOID", "TANH", "SHAPE", "FUNC", "EPSILON", "TRUE", 
-                      "FALSE", "CURR", "PREV", "PREV_0", "PREV_1", "CURRLIST", 
-                      "LP", "CONCAT", "EQUATIONS", "IntConst", "FloatConst", 
-                      "VAR", "WS", "LineComment" ]
+    symbolicNames = [
+        "<INVALID>",
+        "<INVALID>",
+        "<INVALID>",
+        "FLOW",
+        "ARROW",
+        "TRANSFORMER",
+        "IN",
+        "OUT",
+        "BACKWARD",
+        "FORWARD",
+        "INTT",
+        "FLOATT",
+        "BOOL",
+        "POLYEXP",
+        "ZONOEXP",
+        "NEURON",
+        "NOISE",
+        "CT",
+        "LIST",
+        "DOT",
+        "COMMA",
+        "PLUS",
+        "MINUS",
+        "MULT",
+        "DIV",
+        "AND",
+        "OR",
+        "LT",
+        "EQ",
+        "EQQ",
+        "NEQ",
+        "GT",
+        "LEQ",
+        "GEQ",
+        "NOT",
+        "LPAREN",
+        "RPAREN",
+        "LSQR",
+        "RSQR",
+        "LBRACE",
+        "RBRACE",
+        "SEMI",
+        "QUES",
+        "COLON",
+        "IF",
+        "TRAV",
+        "SUM",
+        "LEN",
+        "AVG",
+        "SUB",
+        "MAP",
+        "MAPLIST",
+        "DOTT",
+        "ARGMIN",
+        "ARGMAX",
+        "MIN",
+        "MAX",
+        "WEIGHT",
+        "BIAS",
+        "LAYER",
+        "AFFINE",
+        "RELU",
+        "RELU6",
+        "ABS",
+        "HARDTANH",
+        "HARDSIGMOID",
+        "HARDSWISH",
+        "MAXPOOL",
+        "MINPOOL",
+        "AVGPOOL",
+        "REVAFFINE",
+        "NEURON_MULT",
+        "NEURON_ADD",
+        "NEURON_MAX",
+        "NEURON_MIN",
+        "NEURON_LIST_MULT",
+        "REVRELU",
+        "REVRELU6",
+        "REVABS",
+        "REVHARDSIGMOID",
+        "REVHARDTANH",
+        "REVHARDSWISH",
+        "REVMAXPOOL",
+        "REVNEURON_MULT",
+        "REVNEURON_ADD",
+        "REVNEURON_MAX",
+        "REVNEURON_MIN",
+        "SIGMOID",
+        "TANH",
+        "SHAPE",
+        "FUNC",
+        "EPSILON",
+        "TRUE",
+        "FALSE",
+        "CURR",
+        "PREV",
+        "PREV_0",
+        "PREV_1",
+        "CURRLIST",
+        "LP",
+        "CONCAT",
+        "EQUATIONS",
+        "IntConst",
+        "FloatConst",
+        "VAR",
+        "WS",
+        "LineComment",
+    ]
 
     RULE_prog = 0
     RULE_shape_decl = 1
@@ -228,140 +402,159 @@ class dslParser ( Parser ):
     RULE_metadata = 20
     RULE_direction = 21
 
-    ruleNames =  [ "prog", "shape_decl", "statement", "func_decl", "transformer", 
-                   "op_list", "op_stmt", "trans_decl", "operator", "trans_ret", 
-                   "types", "arglist", "expr_list", "exprs", "expr", "argmax_op", 
-                   "lp_op", "max_op", "list_op", "binop", "metadata", "direction" ]
+    ruleNames = [
+        "prog",
+        "shape_decl",
+        "statement",
+        "func_decl",
+        "transformer",
+        "op_list",
+        "op_stmt",
+        "trans_decl",
+        "operator",
+        "trans_ret",
+        "types",
+        "arglist",
+        "expr_list",
+        "exprs",
+        "expr",
+        "argmax_op",
+        "lp_op",
+        "max_op",
+        "list_op",
+        "binop",
+        "metadata",
+        "direction",
+    ]
 
     EOF = Token.EOF
-    T__0=1
-    T__1=2
-    FLOW=3
-    ARROW=4
-    TRANSFORMER=5
-    IN=6
-    OUT=7
-    BACKWARD=8
-    FORWARD=9
-    INTT=10
-    FLOATT=11
-    BOOL=12
-    POLYEXP=13
-    ZONOEXP=14
-    NEURON=15
-    NOISE=16
-    CT=17
-    LIST=18
-    DOT=19
-    COMMA=20
-    PLUS=21
-    MINUS=22
-    MULT=23
-    DIV=24
-    AND=25
-    OR=26
-    LT=27
-    EQ=28
-    EQQ=29
-    NEQ=30
-    GT=31
-    LEQ=32
-    GEQ=33
-    NOT=34
-    LPAREN=35
-    RPAREN=36
-    LSQR=37
-    RSQR=38
-    LBRACE=39
-    RBRACE=40
-    SEMI=41
-    QUES=42
-    COLON=43
-    IF=44
-    TRAV=45
-    SUM=46
-    LEN=47
-    AVG=48
-    SUB=49
-    MAP=50
-    MAPLIST=51
-    DOTT=52
-    ARGMIN=53
-    ARGMAX=54
-    MIN=55
-    MAX=56
-    WEIGHT=57
-    BIAS=58
-    LAYER=59
-    AFFINE=60
-    RELU=61
-    RELU6=62
-    ABS=63
-    HARDTANH=64
-    HARDSIGMOID=65
-    HARDSWISH=66
-    MAXPOOL=67
-    MINPOOL=68
-    AVGPOOL=69
-    REVAFFINE=70
-    NEURON_MULT=71
-    NEURON_ADD=72
-    NEURON_MAX=73
-    NEURON_MIN=74
-    NEURON_LIST_MULT=75
-    REVRELU=76
-    REVRELU6=77
-    REVABS=78
-    REVHARDSIGMOID=79
-    REVHARDTANH=80
-    REVHARDSWISH=81
-    REVMAXPOOL=82
-    REVNEURON_MULT=83
-    REVNEURON_ADD=84
-    REVNEURON_MAX=85
-    REVNEURON_MIN=86
-    SIGMOID=87
-    TANH=88
-    SHAPE=89
-    FUNC=90
-    EPSILON=91
-    TRUE=92
-    FALSE=93
-    CURR=94
-    PREV=95
-    PREV_0=96
-    PREV_1=97
-    CURRLIST=98
-    LP=99
-    CONCAT=100
-    EQUATIONS=101
-    IntConst=102
-    FloatConst=103
-    VAR=104
-    WS=105
-    LineComment=106
+    T__0 = 1
+    T__1 = 2
+    FLOW = 3
+    ARROW = 4
+    TRANSFORMER = 5
+    IN = 6
+    OUT = 7
+    BACKWARD = 8
+    FORWARD = 9
+    INTT = 10
+    FLOATT = 11
+    BOOL = 12
+    POLYEXP = 13
+    ZONOEXP = 14
+    NEURON = 15
+    NOISE = 16
+    CT = 17
+    LIST = 18
+    DOT = 19
+    COMMA = 20
+    PLUS = 21
+    MINUS = 22
+    MULT = 23
+    DIV = 24
+    AND = 25
+    OR = 26
+    LT = 27
+    EQ = 28
+    EQQ = 29
+    NEQ = 30
+    GT = 31
+    LEQ = 32
+    GEQ = 33
+    NOT = 34
+    LPAREN = 35
+    RPAREN = 36
+    LSQR = 37
+    RSQR = 38
+    LBRACE = 39
+    RBRACE = 40
+    SEMI = 41
+    QUES = 42
+    COLON = 43
+    IF = 44
+    TRAV = 45
+    SUM = 46
+    LEN = 47
+    AVG = 48
+    SUB = 49
+    MAP = 50
+    MAPLIST = 51
+    DOTT = 52
+    ARGMIN = 53
+    ARGMAX = 54
+    MIN = 55
+    MAX = 56
+    WEIGHT = 57
+    BIAS = 58
+    LAYER = 59
+    AFFINE = 60
+    RELU = 61
+    RELU6 = 62
+    ABS = 63
+    HARDTANH = 64
+    HARDSIGMOID = 65
+    HARDSWISH = 66
+    MAXPOOL = 67
+    MINPOOL = 68
+    AVGPOOL = 69
+    REVAFFINE = 70
+    NEURON_MULT = 71
+    NEURON_ADD = 72
+    NEURON_MAX = 73
+    NEURON_MIN = 74
+    NEURON_LIST_MULT = 75
+    REVRELU = 76
+    REVRELU6 = 77
+    REVABS = 78
+    REVHARDSIGMOID = 79
+    REVHARDTANH = 80
+    REVHARDSWISH = 81
+    REVMAXPOOL = 82
+    REVNEURON_MULT = 83
+    REVNEURON_ADD = 84
+    REVNEURON_MAX = 85
+    REVNEURON_MIN = 86
+    SIGMOID = 87
+    TANH = 88
+    SHAPE = 89
+    FUNC = 90
+    EPSILON = 91
+    TRUE = 92
+    FALSE = 93
+    CURR = 94
+    PREV = 95
+    PREV_0 = 96
+    PREV_1 = 97
+    CURRLIST = 98
+    LP = 99
+    CONCAT = 100
+    EQUATIONS = 101
+    IntConst = 102
+    FloatConst = 103
+    VAR = 104
+    WS = 105
+    LineComment = 106
 
-    def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
+    def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.7.2")
-        self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
+        self._interp = ParserATNSimulator(
+            self, self.atn, self.decisionsToDFA, self.sharedContextCache
+        )
         self._predicates = None
 
-
-
     class ProgContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def shape_decl(self):
-            return self.getTypedRuleContext(dslParser.Shape_declContext,0)
-
+            return self.getTypedRuleContext(dslParser.Shape_declContext, 0)
 
         def statement(self):
-            return self.getTypedRuleContext(dslParser.StatementContext,0)
-
+            return self.getTypedRuleContext(dslParser.StatementContext, 0)
 
         def EOF(self):
             return self.getToken(dslParser.EOF, 0)
@@ -369,22 +562,19 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_prog
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterProg" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterProg"):
                 listener.enterProg(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitProg" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitProg"):
                 listener.exitProg(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitProg" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitProg"):
                 return visitor.visitProg(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def prog(self):
 
@@ -407,8 +597,9 @@ class dslParser ( Parser ):
         return localctx
 
     class Shape_declContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -419,8 +610,7 @@ class dslParser ( Parser ):
             return self.getToken(dslParser.LPAREN, 0)
 
         def arglist(self):
-            return self.getTypedRuleContext(dslParser.ArglistContext,0)
-
+            return self.getTypedRuleContext(dslParser.ArglistContext, 0)
 
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
@@ -429,8 +619,7 @@ class dslParser ( Parser ):
             return self.getToken(dslParser.LBRACE, 0)
 
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
-
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
         def RBRACE(self):
             return self.getToken(dslParser.RBRACE, 0)
@@ -441,22 +630,19 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_shape_decl
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterShape_decl" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterShape_decl"):
                 listener.enterShape_decl(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitShape_decl" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitShape_decl"):
                 listener.exitShape_decl(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitShape_decl" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitShape_decl"):
                 return visitor.visitShape_decl(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def shape_decl(self):
 
@@ -489,155 +675,157 @@ class dslParser ( Parser ):
         return localctx
 
     class StatementContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return dslParser.RULE_statement
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
 
-
     class FlowstmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.StatementContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.StatementContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def FLOW(self):
             return self.getToken(dslParser.FLOW, 0)
+
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
-        def direction(self):
-            return self.getTypedRuleContext(dslParser.DirectionContext,0)
 
-        def COMMA(self, i:int=None):
+        def direction(self):
+            return self.getTypedRuleContext(dslParser.DirectionContext, 0)
+
+        def COMMA(self, i: int = None):
             if i is None:
                 return self.getTokens(dslParser.COMMA)
             else:
                 return self.getToken(dslParser.COMMA, i)
-        def expr(self, i:int=None):
+
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def VAR(self):
             return self.getToken(dslParser.VAR, 0)
+
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
+
         def SEMI(self):
             return self.getToken(dslParser.SEMI, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFlowstmt" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterFlowstmt"):
                 listener.enterFlowstmt(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFlowstmt" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitFlowstmt"):
                 listener.exitFlowstmt(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFlowstmt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFlowstmt"):
                 return visitor.visitFlowstmt(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class FuncstmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.StatementContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.StatementContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def FUNC(self):
             return self.getToken(dslParser.FUNC, 0)
+
         def func_decl(self):
-            return self.getTypedRuleContext(dslParser.Func_declContext,0)
+            return self.getTypedRuleContext(dslParser.Func_declContext, 0)
 
         def EQ(self):
             return self.getToken(dslParser.EQ, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
         def SEMI(self):
             return self.getToken(dslParser.SEMI, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFuncstmt" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterFuncstmt"):
                 listener.enterFuncstmt(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFuncstmt" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitFuncstmt"):
                 listener.exitFuncstmt(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFuncstmt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFuncstmt"):
                 return visitor.visitFuncstmt(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class SeqstmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.StatementContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.StatementContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def statement(self, i:int=None):
+        def statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.StatementContext)
             else:
-                return self.getTypedRuleContext(dslParser.StatementContext,i)
+                return self.getTypedRuleContext(dslParser.StatementContext, i)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterSeqstmt" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterSeqstmt"):
                 listener.enterSeqstmt(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitSeqstmt" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitSeqstmt"):
                 listener.exitSeqstmt(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitSeqstmt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitSeqstmt"):
                 return visitor.visitSeqstmt(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class TransstmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.StatementContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.StatementContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def transformer(self):
-            return self.getTypedRuleContext(dslParser.TransformerContext,0)
+            return self.getTypedRuleContext(dslParser.TransformerContext, 0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTransstmt" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTransstmt"):
                 listener.enterTransstmt(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTransstmt" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTransstmt"):
                 listener.exitTransstmt(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTransstmt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTransstmt"):
                 return visitor.visitTransstmt(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-    def statement(self, _p:int=0):
+    def statement(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = dslParser.StatementContext(self, self._ctx, _parentState)
@@ -705,23 +893,30 @@ class dslParser ( Parser ):
             self._ctx.stop = self._input.LT(-1)
             self.state = 83
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,1,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 1, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = dslParser.SeqstmtContext(self, dslParser.StatementContext(self, _parentctx, _parentState))
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_statement)
+                    localctx = dslParser.SeqstmtContext(
+                        self, dslParser.StatementContext(self, _parentctx, _parentState)
+                    )
+                    self.pushNewRecursionContext(
+                        localctx, _startState, self.RULE_statement
+                    )
                     self.state = 79
                     if not self.precpred(self._ctx, 1):
                         from antlr4.error.Errors import FailedPredicateException
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
+
+                        raise FailedPredicateException(
+                            self, "self.precpred(self._ctx, 1)"
+                        )
                     self.state = 80
-                    self.statement(2) 
+                    self.statement(2)
                 self.state = 85
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,1,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 1, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -732,8 +927,9 @@ class dslParser ( Parser ):
         return localctx
 
     class Func_declContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -744,8 +940,7 @@ class dslParser ( Parser ):
             return self.getToken(dslParser.LPAREN, 0)
 
         def arglist(self):
-            return self.getTypedRuleContext(dslParser.ArglistContext,0)
-
+            return self.getTypedRuleContext(dslParser.ArglistContext, 0)
 
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
@@ -753,22 +948,19 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_func_decl
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFunc_decl" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterFunc_decl"):
                 listener.enterFunc_decl(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFunc_decl" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitFunc_decl"):
                 listener.exitFunc_decl(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunc_decl" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFunc_decl"):
                 return visitor.visitFunc_decl(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def func_decl(self):
 
@@ -793,21 +985,20 @@ class dslParser ( Parser ):
         return localctx
 
     class TransformerContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def trans_decl(self):
-            return self.getTypedRuleContext(dslParser.Trans_declContext,0)
-
+            return self.getTypedRuleContext(dslParser.Trans_declContext, 0)
 
         def LBRACE(self):
             return self.getToken(dslParser.LBRACE, 0)
 
         def op_list(self):
-            return self.getTypedRuleContext(dslParser.Op_listContext,0)
-
+            return self.getTypedRuleContext(dslParser.Op_listContext, 0)
 
         def RBRACE(self):
             return self.getToken(dslParser.RBRACE, 0)
@@ -815,22 +1006,19 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_transformer
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTransformer" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTransformer"):
                 listener.enterTransformer(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTransformer" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTransformer"):
                 listener.exitTransformer(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTransformer" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTransformer"):
                 return visitor.visitTransformer(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def transformer(self):
 
@@ -855,41 +1043,37 @@ class dslParser ( Parser ):
         return localctx
 
     class Op_listContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def op_stmt(self):
-            return self.getTypedRuleContext(dslParser.Op_stmtContext,0)
-
+            return self.getTypedRuleContext(dslParser.Op_stmtContext, 0)
 
         def SEMI(self):
             return self.getToken(dslParser.SEMI, 0)
 
         def op_list(self):
-            return self.getTypedRuleContext(dslParser.Op_listContext,0)
-
+            return self.getTypedRuleContext(dslParser.Op_listContext, 0)
 
         def getRuleIndex(self):
             return dslParser.RULE_op_list
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterOp_list" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterOp_list"):
                 listener.enterOp_list(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitOp_list" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitOp_list"):
                 listener.exitOp_list(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOp_list" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitOp_list"):
                 return visitor.visitOp_list(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def op_list(self):
 
@@ -898,7 +1082,7 @@ class dslParser ( Parser ):
         try:
             self.state = 103
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 2, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 96
@@ -917,7 +1101,6 @@ class dslParser ( Parser ):
                 self.op_list()
                 pass
 
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -927,41 +1110,37 @@ class dslParser ( Parser ):
         return localctx
 
     class Op_stmtContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def operator(self):
-            return self.getTypedRuleContext(dslParser.OperatorContext,0)
-
+            return self.getTypedRuleContext(dslParser.OperatorContext, 0)
 
         def ARROW(self):
             return self.getToken(dslParser.ARROW, 0)
 
         def trans_ret(self):
-            return self.getTypedRuleContext(dslParser.Trans_retContext,0)
-
+            return self.getTypedRuleContext(dslParser.Trans_retContext, 0)
 
         def getRuleIndex(self):
             return dslParser.RULE_op_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterOp_stmt" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterOp_stmt"):
                 listener.enterOp_stmt(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitOp_stmt" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitOp_stmt"):
                 listener.exitOp_stmt(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOp_stmt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitOp_stmt"):
                 return visitor.visitOp_stmt(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def op_stmt(self):
 
@@ -984,8 +1163,9 @@ class dslParser ( Parser ):
         return localctx
 
     class Trans_declContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -998,22 +1178,19 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_trans_decl
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTrans_decl" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTrans_decl"):
                 listener.enterTrans_decl(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTrans_decl" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTrans_decl"):
                 listener.exitTrans_decl(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTrans_decl" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTrans_decl"):
                 return visitor.visitTrans_decl(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def trans_decl(self):
 
@@ -1034,8 +1211,9 @@ class dslParser ( Parser ):
         return localctx
 
     class OperatorContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1123,33 +1301,67 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_operator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterOperator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterOperator"):
                 listener.enterOperator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitOperator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitOperator"):
                 listener.exitOperator(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOperator" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitOperator"):
                 return visitor.visitOperator(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def operator(self):
 
         localctx = dslParser.OperatorContext(self, self._ctx, self.state)
         self.enterRule(localctx, 16, self.RULE_operator)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 112
             _la = self._input.LA(1)
-            if not(((((_la - 60)) & ~0x3f) == 0 and ((1 << (_la - 60)) & ((1 << (dslParser.AFFINE - 60)) | (1 << (dslParser.RELU - 60)) | (1 << (dslParser.RELU6 - 60)) | (1 << (dslParser.ABS - 60)) | (1 << (dslParser.HARDTANH - 60)) | (1 << (dslParser.HARDSIGMOID - 60)) | (1 << (dslParser.HARDSWISH - 60)) | (1 << (dslParser.MAXPOOL - 60)) | (1 << (dslParser.MINPOOL - 60)) | (1 << (dslParser.AVGPOOL - 60)) | (1 << (dslParser.REVAFFINE - 60)) | (1 << (dslParser.NEURON_MULT - 60)) | (1 << (dslParser.NEURON_ADD - 60)) | (1 << (dslParser.NEURON_MAX - 60)) | (1 << (dslParser.NEURON_MIN - 60)) | (1 << (dslParser.NEURON_LIST_MULT - 60)) | (1 << (dslParser.REVRELU - 60)) | (1 << (dslParser.REVRELU6 - 60)) | (1 << (dslParser.REVABS - 60)) | (1 << (dslParser.REVHARDSIGMOID - 60)) | (1 << (dslParser.REVHARDTANH - 60)) | (1 << (dslParser.REVHARDSWISH - 60)) | (1 << (dslParser.REVMAXPOOL - 60)) | (1 << (dslParser.REVNEURON_MULT - 60)) | (1 << (dslParser.REVNEURON_ADD - 60)) | (1 << (dslParser.REVNEURON_MAX - 60)) | (1 << (dslParser.REVNEURON_MIN - 60)))) != 0)):
+            if not (
+                (
+                    (((_la - 60)) & ~0x3F) == 0
+                    and (
+                        (1 << (_la - 60))
+                        & (
+                            (1 << (dslParser.AFFINE - 60))
+                            | (1 << (dslParser.RELU - 60))
+                            | (1 << (dslParser.RELU6 - 60))
+                            | (1 << (dslParser.ABS - 60))
+                            | (1 << (dslParser.HARDTANH - 60))
+                            | (1 << (dslParser.HARDSIGMOID - 60))
+                            | (1 << (dslParser.HARDSWISH - 60))
+                            | (1 << (dslParser.MAXPOOL - 60))
+                            | (1 << (dslParser.MINPOOL - 60))
+                            | (1 << (dslParser.AVGPOOL - 60))
+                            | (1 << (dslParser.REVAFFINE - 60))
+                            | (1 << (dslParser.NEURON_MULT - 60))
+                            | (1 << (dslParser.NEURON_ADD - 60))
+                            | (1 << (dslParser.NEURON_MAX - 60))
+                            | (1 << (dslParser.NEURON_MIN - 60))
+                            | (1 << (dslParser.NEURON_LIST_MULT - 60))
+                            | (1 << (dslParser.REVRELU - 60))
+                            | (1 << (dslParser.REVRELU6 - 60))
+                            | (1 << (dslParser.REVABS - 60))
+                            | (1 << (dslParser.REVHARDSIGMOID - 60))
+                            | (1 << (dslParser.REVHARDTANH - 60))
+                            | (1 << (dslParser.REVHARDSWISH - 60))
+                            | (1 << (dslParser.REVMAXPOOL - 60))
+                            | (1 << (dslParser.REVNEURON_MULT - 60))
+                            | (1 << (dslParser.REVNEURON_ADD - 60))
+                            | (1 << (dslParser.REVNEURON_MAX - 60))
+                            | (1 << (dslParser.REVNEURON_MIN - 60))
+                        )
+                    )
+                    != 0
+                )
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1163,110 +1375,107 @@ class dslParser ( Parser ):
         return localctx
 
     class Trans_retContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return dslParser.RULE_trans_ret
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
 
-
-
     class CondtransContext(Trans_retContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.Trans_retContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.Trans_retContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
         def QUES(self):
             return self.getToken(dslParser.QUES, 0)
-        def trans_ret(self, i:int=None):
+
+        def trans_ret(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.Trans_retContext)
             else:
-                return self.getTypedRuleContext(dslParser.Trans_retContext,i)
+                return self.getTypedRuleContext(dslParser.Trans_retContext, i)
 
         def COLON(self):
             return self.getToken(dslParser.COLON, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCondtrans" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterCondtrans"):
                 listener.enterCondtrans(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCondtrans" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitCondtrans"):
                 listener.exitCondtrans(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCondtrans" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCondtrans"):
                 return visitor.visitCondtrans(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ParentransContext(Trans_retContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.Trans_retContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.Trans_retContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
+
         def trans_ret(self):
-            return self.getTypedRuleContext(dslParser.Trans_retContext,0)
+            return self.getTypedRuleContext(dslParser.Trans_retContext, 0)
 
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterParentrans" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterParentrans"):
                 listener.enterParentrans(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitParentrans" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitParentrans"):
                 listener.exitParentrans(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParentrans" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitParentrans"):
                 return visitor.visitParentrans(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class TransContext(Trans_retContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.Trans_retContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.Trans_retContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr_list(self):
-            return self.getTypedRuleContext(dslParser.Expr_listContext,0)
+            return self.getTypedRuleContext(dslParser.Expr_listContext, 0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTrans" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTrans"):
                 listener.enterTrans(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTrans" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTrans"):
                 listener.exitTrans(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTrans" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTrans"):
                 return visitor.visitTrans(self)
             else:
                 return visitor.visitChildren(self)
-
-
 
     def trans_ret(self):
 
@@ -1275,7 +1484,7 @@ class dslParser ( Parser ):
         try:
             self.state = 125
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 3, self._ctx)
             if la_ == 1:
                 localctx = dslParser.CondtransContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
@@ -1309,7 +1518,6 @@ class dslParser ( Parser ):
                 self.expr_list()
                 pass
 
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1319,8 +1527,9 @@ class dslParser ( Parser ):
         return localctx
 
     class TypesContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1349,8 +1558,7 @@ class dslParser ( Parser ):
             return self.getToken(dslParser.CT, 0)
 
         def types(self):
-            return self.getTypedRuleContext(dslParser.TypesContext,0)
-
+            return self.getTypedRuleContext(dslParser.TypesContext, 0)
 
         def LIST(self):
             return self.getToken(dslParser.LIST, 0)
@@ -1358,23 +1566,21 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_types
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTypes" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTypes"):
                 listener.enterTypes(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTypes" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTypes"):
                 listener.exitTypes(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTypes" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTypes"):
                 return visitor.visitTypes(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-    def types(self, _p:int=0):
+    def types(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = dslParser.TypesContext(self, self._ctx, _parentState)
@@ -1424,9 +1630,9 @@ class dslParser ( Parser ):
             self._ctx.stop = self._input.LT(-1)
             self.state = 142
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 5, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
@@ -1435,12 +1641,15 @@ class dslParser ( Parser ):
                     self.state = 138
                     if not self.precpred(self._ctx, 1):
                         from antlr4.error.Errors import FailedPredicateException
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
+
+                        raise FailedPredicateException(
+                            self, "self.precpred(self._ctx, 1)"
+                        )
                     self.state = 139
-                    self.match(dslParser.LIST) 
+                    self.match(dslParser.LIST)
                 self.state = 144
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 5, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1451,14 +1660,14 @@ class dslParser ( Parser ):
         return localctx
 
     class ArglistContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def types(self):
-            return self.getTypedRuleContext(dslParser.TypesContext,0)
-
+            return self.getTypedRuleContext(dslParser.TypesContext, 0)
 
         def VAR(self):
             return self.getToken(dslParser.VAR, 0)
@@ -1467,28 +1676,24 @@ class dslParser ( Parser ):
             return self.getToken(dslParser.COMMA, 0)
 
         def arglist(self):
-            return self.getTypedRuleContext(dslParser.ArglistContext,0)
-
+            return self.getTypedRuleContext(dslParser.ArglistContext, 0)
 
         def getRuleIndex(self):
             return dslParser.RULE_arglist
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArglist" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterArglist"):
                 listener.enterArglist(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArglist" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitArglist"):
                 listener.exitArglist(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArglist" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitArglist"):
                 return visitor.visitArglist(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def arglist(self):
 
@@ -1497,7 +1702,7 @@ class dslParser ( Parser ):
         try:
             self.state = 153
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 6, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 145
@@ -1518,7 +1723,6 @@ class dslParser ( Parser ):
                 self.match(dslParser.VAR)
                 pass
 
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1528,41 +1732,37 @@ class dslParser ( Parser ):
         return localctx
 
     class Expr_listContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
-
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
         def COMMA(self):
             return self.getToken(dslParser.COMMA, 0)
 
         def expr_list(self):
-            return self.getTypedRuleContext(dslParser.Expr_listContext,0)
-
+            return self.getTypedRuleContext(dslParser.Expr_listContext, 0)
 
         def getRuleIndex(self):
             return dslParser.RULE_expr_list
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExpr_list" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExpr_list"):
                 listener.enterExpr_list(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExpr_list" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExpr_list"):
                 listener.exitExpr_list(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr_list" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitExpr_list"):
                 return visitor.visitExpr_list(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def expr_list(self):
 
@@ -1571,7 +1771,7 @@ class dslParser ( Parser ):
         try:
             self.state = 160
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 7, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 155
@@ -1588,7 +1788,6 @@ class dslParser ( Parser ):
                 self.expr(0)
                 pass
 
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1598,38 +1797,34 @@ class dslParser ( Parser ):
         return localctx
 
     class ExprsContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
-
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
         def exprs(self):
-            return self.getTypedRuleContext(dslParser.ExprsContext,0)
-
+            return self.getTypedRuleContext(dslParser.ExprsContext, 0)
 
         def getRuleIndex(self):
             return dslParser.RULE_exprs
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExprs" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExprs"):
                 listener.enterExprs(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExprs" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExprs"):
                 listener.exitExprs(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExprs" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitExprs"):
                 return visitor.visitExprs(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def exprs(self):
 
@@ -1638,7 +1833,7 @@ class dslParser ( Parser ):
         try:
             self.state = 166
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,8,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 8, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 162
@@ -1653,7 +1848,6 @@ class dslParser ( Parser ):
                 self.expr(0)
                 pass
 
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1663,954 +1857,985 @@ class dslParser ( Parser ):
         return localctx
 
     class ExprContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return dslParser.RULE_expr
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
 
-
     class LpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LP(self):
             return self.getToken(dslParser.LP, 0)
+
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
-        def lp_op(self):
-            return self.getTypedRuleContext(dslParser.Lp_opContext,0)
 
-        def COMMA(self, i:int=None):
+        def lp_op(self):
+            return self.getTypedRuleContext(dslParser.Lp_opContext, 0)
+
+        def COMMA(self, i: int = None):
             if i is None:
                 return self.getTokens(dslParser.COMMA)
             else:
                 return self.getToken(dslParser.COMMA, i)
-        def expr(self, i:int=None):
+
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLp" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterLp"):
                 listener.enterLp(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLp" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitLp"):
                 listener.exitLp(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitLp"):
                 return visitor.visitLp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ArgmaxOpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def argmax_op(self):
-            return self.getTypedRuleContext(dslParser.Argmax_opContext,0)
+            return self.getTypedRuleContext(dslParser.Argmax_opContext, 0)
 
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
-        def expr(self, i:int=None):
+
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def COMMA(self):
             return self.getToken(dslParser.COMMA, 0)
+
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArgmaxOp" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterArgmaxOp"):
                 listener.enterArgmaxOp(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArgmaxOp" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitArgmaxOp"):
                 listener.exitArgmaxOp(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArgmaxOp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitArgmaxOp"):
                 return visitor.visitArgmaxOp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class PrevContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def PREV(self):
             return self.getToken(dslParser.PREV, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPrev" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterPrev"):
                 listener.enterPrev(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPrev" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitPrev"):
                 listener.exitPrev(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPrev" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPrev"):
                 return visitor.visitPrev(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class MaxOpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def max_op(self):
-            return self.getTypedRuleContext(dslParser.Max_opContext,0)
+            return self.getTypedRuleContext(dslParser.Max_opContext, 0)
 
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
-        def expr(self, i:int=None):
+
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def COMMA(self):
             return self.getToken(dslParser.COMMA, 0)
+
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMaxOp" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterMaxOp"):
                 listener.enterMaxOp(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMaxOp" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitMaxOp"):
                 listener.exitMaxOp(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMaxOp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMaxOp"):
                 return visitor.visitMaxOp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class DotContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def DOT(self):
             return self.getToken(dslParser.DOT, 0)
+
         def DOTT(self):
             return self.getToken(dslParser.DOTT, 0)
+
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
+
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDot" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDot"):
                 listener.enterDot(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDot" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDot"):
                 listener.exitDot(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDot" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitDot"):
                 return visitor.visitDot(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class Map_listContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def DOT(self):
             return self.getToken(dslParser.DOT, 0)
+
         def MAPLIST(self):
             return self.getToken(dslParser.MAPLIST, 0)
+
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
+
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMap_list" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterMap_list"):
                 listener.enterMap_list(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMap_list" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitMap_list"):
                 listener.exitMap_list(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMap_list" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMap_list"):
                 return visitor.visitMap_list(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class FloatContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def FloatConst(self):
             return self.getToken(dslParser.FloatConst, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFloat" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterFloat"):
                 listener.enterFloat(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFloat" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitFloat"):
                 listener.exitFloat(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFloat" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFloat"):
                 return visitor.visitFloat(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class CondContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def QUES(self):
             return self.getToken(dslParser.QUES, 0)
+
         def COLON(self):
             return self.getToken(dslParser.COLON, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCond" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterCond"):
                 listener.enterCond(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCond" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitCond"):
                 listener.exitCond(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCond" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCond"):
                 return visitor.visitCond(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class EpsilonContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def EPSILON(self):
             return self.getToken(dslParser.EPSILON, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEpsilon" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterEpsilon"):
                 listener.enterEpsilon(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEpsilon" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitEpsilon"):
                 listener.exitEpsilon(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitEpsilon" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitEpsilon"):
                 return visitor.visitEpsilon(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class VarExpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def VAR(self):
             return self.getToken(dslParser.VAR, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterVarExp" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterVarExp"):
                 listener.enterVarExp(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitVarExp" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitVarExp"):
                 listener.exitVarExp(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVarExp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitVarExp"):
                 return visitor.visitVarExp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class NegContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def MINUS(self):
             return self.getToken(dslParser.MINUS, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNeg" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterNeg"):
                 listener.enterNeg(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNeg" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitNeg"):
                 listener.exitNeg(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitNeg" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitNeg"):
                 return visitor.visitNeg(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class NotContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def NOT(self):
             return self.getToken(dslParser.NOT, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNot" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterNot"):
                 listener.enterNot(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNot" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitNot"):
                 listener.exitNot(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitNot" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitNot"):
                 return visitor.visitNot(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ListOpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def list_op(self):
-            return self.getTypedRuleContext(dslParser.List_opContext,0)
+            return self.getTypedRuleContext(dslParser.List_opContext, 0)
 
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterListOp" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterListOp"):
                 listener.enterListOp(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitListOp" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitListOp"):
                 listener.exitListOp(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitListOp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitListOp"):
                 return visitor.visitListOp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class Curr_listContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def CURRLIST(self):
             return self.getToken(dslParser.CURRLIST, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCurr_list" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterCurr_list"):
                 listener.enterCurr_list(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCurr_list" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitCurr_list"):
                 listener.exitCurr_list(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCurr_list" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCurr_list"):
                 return visitor.visitCurr_list(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class CurrContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def CURR(self):
             return self.getToken(dslParser.CURR, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCurr" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterCurr"):
                 listener.enterCurr(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCurr" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitCurr"):
                 listener.exitCurr(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCurr" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCurr"):
                 return visitor.visitCurr(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class MaxOpListContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def max_op(self):
-            return self.getTypedRuleContext(dslParser.Max_opContext,0)
+            return self.getTypedRuleContext(dslParser.Max_opContext, 0)
 
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMaxOpList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterMaxOpList"):
                 listener.enterMaxOpList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMaxOpList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitMaxOpList"):
                 listener.exitMaxOpList(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMaxOpList" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMaxOpList"):
                 return visitor.visitMaxOpList(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class MapContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def DOT(self):
             return self.getToken(dslParser.DOT, 0)
+
         def MAP(self):
             return self.getToken(dslParser.MAP, 0)
+
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
+
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMap" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterMap"):
                 listener.enterMap(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMap" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitMap"):
                 listener.exitMap(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMap" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMap"):
                 return visitor.visitMap(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ExprarrayContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LSQR(self):
             return self.getToken(dslParser.LSQR, 0)
+
         def expr_list(self):
-            return self.getTypedRuleContext(dslParser.Expr_listContext,0)
+            return self.getTypedRuleContext(dslParser.Expr_listContext, 0)
 
         def RSQR(self):
             return self.getToken(dslParser.RSQR, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExprarray" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExprarray"):
                 listener.enterExprarray(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExprarray" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExprarray"):
                 listener.exitExprarray(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExprarray" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitExprarray"):
                 return visitor.visitExprarray(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class GetMetadataContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
         def LSQR(self):
             return self.getToken(dslParser.LSQR, 0)
+
         def metadata(self):
-            return self.getTypedRuleContext(dslParser.MetadataContext,0)
+            return self.getTypedRuleContext(dslParser.MetadataContext, 0)
 
         def RSQR(self):
             return self.getToken(dslParser.RSQR, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterGetMetadata" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterGetMetadata"):
                 listener.enterGetMetadata(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitGetMetadata" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitGetMetadata"):
                 listener.exitGetMetadata(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitGetMetadata" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitGetMetadata"):
                 return visitor.visitGetMetadata(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class FalseContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def FALSE(self):
             return self.getToken(dslParser.FALSE, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFalse" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterFalse"):
                 listener.enterFalse(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFalse" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitFalse"):
                 listener.exitFalse(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFalse" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFalse"):
                 return visitor.visitFalse(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ConcatContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def DOT(self):
             return self.getToken(dslParser.DOT, 0)
+
         def CONCAT(self):
             return self.getToken(dslParser.CONCAT, 0)
+
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
+
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConcat" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterConcat"):
                 listener.enterConcat(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConcat" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitConcat"):
                 listener.exitConcat(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConcat" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitConcat"):
                 return visitor.visitConcat(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class CurryContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def VAR(self):
             return self.getToken(dslParser.VAR, 0)
+
         def exprs(self):
-            return self.getTypedRuleContext(dslParser.ExprsContext,0)
+            return self.getTypedRuleContext(dslParser.ExprsContext, 0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCurry" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterCurry"):
                 listener.enterCurry(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCurry" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitCurry"):
                 listener.exitCurry(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCurry" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCurry"):
                 return visitor.visitCurry(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class IntContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def IntConst(self):
             return self.getToken(dslParser.IntConst, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterInt" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterInt"):
                 listener.enterInt(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitInt" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitInt"):
                 listener.exitInt(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitInt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitInt"):
                 return visitor.visitInt(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class Prev_0Context(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def PREV_0(self):
             return self.getToken(dslParser.PREV_0, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPrev_0" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterPrev_0"):
                 listener.enterPrev_0(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPrev_0" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitPrev_0"):
                 listener.exitPrev_0(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPrev_0" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPrev_0"):
                 return visitor.visitPrev_0(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class Prev_1Context(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def PREV_1(self):
             return self.getToken(dslParser.PREV_1, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPrev_1" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterPrev_1"):
                 listener.enterPrev_1(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPrev_1" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitPrev_1"):
                 listener.exitPrev_1(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPrev_1" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPrev_1"):
                 return visitor.visitPrev_1(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class TraverseContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def DOT(self):
             return self.getToken(dslParser.DOT, 0)
+
         def TRAV(self):
             return self.getToken(dslParser.TRAV, 0)
+
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
-        def direction(self):
-            return self.getTypedRuleContext(dslParser.DirectionContext,0)
 
-        def COMMA(self, i:int=None):
+        def direction(self):
+            return self.getTypedRuleContext(dslParser.DirectionContext, 0)
+
+        def COMMA(self, i: int = None):
             if i is None:
                 return self.getTokens(dslParser.COMMA)
             else:
                 return self.getToken(dslParser.COMMA, i)
+
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
+
         def LBRACE(self):
             return self.getToken(dslParser.LBRACE, 0)
+
         def RBRACE(self):
             return self.getToken(dslParser.RBRACE, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTraverse" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTraverse"):
                 listener.enterTraverse(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTraverse" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTraverse"):
                 listener.exitTraverse(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTraverse" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTraverse"):
                 return visitor.visitTraverse(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class BinopExpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(dslParser.ExprContext)
             else:
-                return self.getTypedRuleContext(dslParser.ExprContext,i)
+                return self.getTypedRuleContext(dslParser.ExprContext, i)
 
         def binop(self):
-            return self.getTypedRuleContext(dslParser.BinopContext,0)
+            return self.getTypedRuleContext(dslParser.BinopContext, 0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBinopExp" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterBinopExp"):
                 listener.enterBinopExp(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBinopExp" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitBinopExp"):
                 listener.exitBinopExp(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBinopExp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitBinopExp"):
                 return visitor.visitBinopExp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class GetElementContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
         def LSQR(self):
             return self.getToken(dslParser.LSQR, 0)
+
         def VAR(self):
             return self.getToken(dslParser.VAR, 0)
+
         def RSQR(self):
             return self.getToken(dslParser.RSQR, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterGetElement" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterGetElement"):
                 listener.enterGetElement(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitGetElement" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitGetElement"):
                 listener.exitGetElement(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitGetElement" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitGetElement"):
                 return visitor.visitGetElement(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class TrueContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def TRUE(self):
             return self.getToken(dslParser.TRUE, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTrue" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTrue"):
                 listener.enterTrue(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTrue" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTrue"):
                 listener.exitTrue(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTrue" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTrue"):
                 return visitor.visitTrue(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ParenExpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(dslParser.ExprContext,0)
+            return self.getTypedRuleContext(dslParser.ExprContext, 0)
 
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterParenExp" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterParenExp"):
                 listener.enterParenExp(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitParenExp" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitParenExp"):
                 listener.exitParenExp(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParenExp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitParenExp"):
                 return visitor.visitParenExp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class FuncCallContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a dslParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a dslParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def VAR(self):
             return self.getToken(dslParser.VAR, 0)
+
         def LPAREN(self):
             return self.getToken(dslParser.LPAREN, 0)
+
         def expr_list(self):
-            return self.getTypedRuleContext(dslParser.Expr_listContext,0)
+            return self.getTypedRuleContext(dslParser.Expr_listContext, 0)
 
         def RPAREN(self):
             return self.getToken(dslParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFuncCall" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterFuncCall"):
                 listener.enterFuncCall(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFuncCall" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitFuncCall"):
                 listener.exitFuncCall(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFuncCall" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFuncCall"):
                 return visitor.visitFuncCall(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-    def expr(self, _p:int=0):
+    def expr(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = dslParser.ExprContext(self, self._ctx, _parentState)
@@ -2621,7 +2846,7 @@ class dslParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 232
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,9,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 9, self._ctx)
             if la_ == 1:
                 localctx = dslParser.FalseContext(self, localctx)
                 self._ctx = localctx
@@ -2865,26 +3090,32 @@ class dslParser ( Parser ):
                 self.exprs()
                 pass
 
-
             self._ctx.stop = self._input.LT(-1)
             self.state = 299
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 11, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
                     self.state = 297
                     self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input, 10, self._ctx)
                     if la_ == 1:
-                        localctx = dslParser.BinopExpContext(self, dslParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = dslParser.BinopExpContext(
+                            self, dslParser.ExprContext(self, _parentctx, _parentState)
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 234
                         if not self.precpred(self._ctx, 16):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 16)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 16)"
+                            )
                         self.state = 235
                         self.binop()
                         self.state = 236
@@ -2892,12 +3123,19 @@ class dslParser ( Parser ):
                         pass
 
                     elif la_ == 2:
-                        localctx = dslParser.CondContext(self, dslParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = dslParser.CondContext(
+                            self, dslParser.ExprContext(self, _parentctx, _parentState)
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 238
                         if not self.precpred(self._ctx, 13):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 13)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 13)"
+                            )
                         self.state = 239
                         self.match(dslParser.QUES)
                         self.state = 240
@@ -2909,12 +3147,19 @@ class dslParser ( Parser ):
                         pass
 
                     elif la_ == 3:
-                        localctx = dslParser.GetMetadataContext(self, dslParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = dslParser.GetMetadataContext(
+                            self, dslParser.ExprContext(self, _parentctx, _parentState)
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 244
                         if not self.precpred(self._ctx, 18):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 18)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 18)"
+                            )
                         self.state = 245
                         self.match(dslParser.LSQR)
                         self.state = 246
@@ -2924,12 +3169,19 @@ class dslParser ( Parser ):
                         pass
 
                     elif la_ == 4:
-                        localctx = dslParser.GetElementContext(self, dslParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = dslParser.GetElementContext(
+                            self, dslParser.ExprContext(self, _parentctx, _parentState)
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 249
                         if not self.precpred(self._ctx, 17):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 17)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 17)"
+                            )
                         self.state = 250
                         self.match(dslParser.LSQR)
                         self.state = 251
@@ -2939,12 +3191,19 @@ class dslParser ( Parser ):
                         pass
 
                     elif la_ == 5:
-                        localctx = dslParser.TraverseContext(self, dslParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = dslParser.TraverseContext(
+                            self, dslParser.ExprContext(self, _parentctx, _parentState)
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 253
                         if not self.precpred(self._ctx, 12):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 12)"
+                            )
                         self.state = 254
                         self.match(dslParser.DOT)
                         self.state = 255
@@ -2976,12 +3235,19 @@ class dslParser ( Parser ):
                         pass
 
                     elif la_ == 6:
-                        localctx = dslParser.MapContext(self, dslParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = dslParser.MapContext(
+                            self, dslParser.ExprContext(self, _parentctx, _parentState)
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 269
                         if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 7)"
+                            )
                         self.state = 270
                         self.match(dslParser.DOT)
                         self.state = 271
@@ -2995,12 +3261,19 @@ class dslParser ( Parser ):
                         pass
 
                     elif la_ == 7:
-                        localctx = dslParser.Map_listContext(self, dslParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = dslParser.Map_listContext(
+                            self, dslParser.ExprContext(self, _parentctx, _parentState)
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 276
                         if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 6)"
+                            )
                         self.state = 277
                         self.match(dslParser.DOT)
                         self.state = 278
@@ -3014,12 +3287,19 @@ class dslParser ( Parser ):
                         pass
 
                     elif la_ == 8:
-                        localctx = dslParser.DotContext(self, dslParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = dslParser.DotContext(
+                            self, dslParser.ExprContext(self, _parentctx, _parentState)
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 283
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 5)"
+                            )
                         self.state = 284
                         self.match(dslParser.DOT)
                         self.state = 285
@@ -3033,12 +3313,19 @@ class dslParser ( Parser ):
                         pass
 
                     elif la_ == 9:
-                        localctx = dslParser.ConcatContext(self, dslParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = dslParser.ConcatContext(
+                            self, dslParser.ExprContext(self, _parentctx, _parentState)
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 290
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 4)"
+                            )
                         self.state = 291
                         self.match(dslParser.DOT)
                         self.state = 292
@@ -3051,10 +3338,9 @@ class dslParser ( Parser ):
                         self.match(dslParser.RPAREN)
                         pass
 
-             
                 self.state = 301
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 11, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -3065,8 +3351,9 @@ class dslParser ( Parser ):
         return localctx
 
     class Argmax_opContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3079,33 +3366,30 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_argmax_op
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArgmax_op" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterArgmax_op"):
                 listener.enterArgmax_op(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArgmax_op" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitArgmax_op"):
                 listener.exitArgmax_op(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArgmax_op" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitArgmax_op"):
                 return visitor.visitArgmax_op(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def argmax_op(self):
 
         localctx = dslParser.Argmax_opContext(self, self._ctx, self.state)
         self.enterRule(localctx, 30, self.RULE_argmax_op)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 302
             _la = self._input.LA(1)
-            if not(_la==dslParser.ARGMIN or _la==dslParser.ARGMAX):
+            if not (_la == dslParser.ARGMIN or _la == dslParser.ARGMAX):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -3119,42 +3403,39 @@ class dslParser ( Parser ):
         return localctx
 
     class Lp_opContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return dslParser.RULE_lp_op
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLp_op" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterLp_op"):
                 listener.enterLp_op(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLp_op" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitLp_op"):
                 listener.exitLp_op(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLp_op" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitLp_op"):
                 return visitor.visitLp_op(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def lp_op(self):
 
         localctx = dslParser.Lp_opContext(self, self._ctx, self.state)
         self.enterRule(localctx, 32, self.RULE_lp_op)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 304
             _la = self._input.LA(1)
-            if not(_la==dslParser.T__0 or _la==dslParser.T__1):
+            if not (_la == dslParser.T__0 or _la == dslParser.T__1):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -3168,8 +3449,9 @@ class dslParser ( Parser ):
         return localctx
 
     class Max_opContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3182,33 +3464,30 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_max_op
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMax_op" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterMax_op"):
                 listener.enterMax_op(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMax_op" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitMax_op"):
                 listener.exitMax_op(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMax_op" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMax_op"):
                 return visitor.visitMax_op(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def max_op(self):
 
         localctx = dslParser.Max_opContext(self, self._ctx, self.state)
         self.enterRule(localctx, 34, self.RULE_max_op)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 306
             _la = self._input.LA(1)
-            if not(_la==dslParser.MIN or _la==dslParser.MAX):
+            if not (_la == dslParser.MIN or _la == dslParser.MAX):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -3222,8 +3501,9 @@ class dslParser ( Parser ):
         return localctx
 
     class List_opContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3239,33 +3519,43 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_list_op
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterList_op" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterList_op"):
                 listener.enterList_op(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitList_op" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitList_op"):
                 listener.exitList_op(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitList_op" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitList_op"):
                 return visitor.visitList_op(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def list_op(self):
 
         localctx = dslParser.List_opContext(self, self._ctx, self.state)
         self.enterRule(localctx, 36, self.RULE_list_op)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 308
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << dslParser.SUM) | (1 << dslParser.LEN) | (1 << dslParser.AVG))) != 0)):
+            if not (
+                (
+                    ((_la) & ~0x3F) == 0
+                    and (
+                        (1 << _la)
+                        & (
+                            (1 << dslParser.SUM)
+                            | (1 << dslParser.LEN)
+                            | (1 << dslParser.AVG)
+                        )
+                    )
+                    != 0
+                )
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -3279,8 +3569,9 @@ class dslParser ( Parser ):
         return localctx
 
     class BinopContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3323,33 +3614,52 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_binop
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBinop" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterBinop"):
                 listener.enterBinop(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBinop" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitBinop"):
                 listener.exitBinop(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBinop" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitBinop"):
                 return visitor.visitBinop(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def binop(self):
 
         localctx = dslParser.BinopContext(self, self._ctx, self.state)
         self.enterRule(localctx, 38, self.RULE_binop)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 310
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << dslParser.IN) | (1 << dslParser.PLUS) | (1 << dslParser.MINUS) | (1 << dslParser.MULT) | (1 << dslParser.DIV) | (1 << dslParser.AND) | (1 << dslParser.OR) | (1 << dslParser.LT) | (1 << dslParser.EQQ) | (1 << dslParser.GT) | (1 << dslParser.LEQ) | (1 << dslParser.GEQ))) != 0)):
+            if not (
+                (
+                    ((_la) & ~0x3F) == 0
+                    and (
+                        (1 << _la)
+                        & (
+                            (1 << dslParser.IN)
+                            | (1 << dslParser.PLUS)
+                            | (1 << dslParser.MINUS)
+                            | (1 << dslParser.MULT)
+                            | (1 << dslParser.DIV)
+                            | (1 << dslParser.AND)
+                            | (1 << dslParser.OR)
+                            | (1 << dslParser.LT)
+                            | (1 << dslParser.EQQ)
+                            | (1 << dslParser.GT)
+                            | (1 << dslParser.LEQ)
+                            | (1 << dslParser.GEQ)
+                        )
+                    )
+                    != 0
+                )
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -3363,8 +3673,9 @@ class dslParser ( Parser ):
         return localctx
 
     class MetadataContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3383,33 +3694,44 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_metadata
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMetadata" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterMetadata"):
                 listener.enterMetadata(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMetadata" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitMetadata"):
                 listener.exitMetadata(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMetadata" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMetadata"):
                 return visitor.visitMetadata(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def metadata(self):
 
         localctx = dslParser.MetadataContext(self, self._ctx, self.state)
         self.enterRule(localctx, 40, self.RULE_metadata)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 312
             _la = self._input.LA(1)
-            if not(((((_la - 57)) & ~0x3f) == 0 and ((1 << (_la - 57)) & ((1 << (dslParser.WEIGHT - 57)) | (1 << (dslParser.BIAS - 57)) | (1 << (dslParser.LAYER - 57)) | (1 << (dslParser.EQUATIONS - 57)))) != 0)):
+            if not (
+                (
+                    (((_la - 57)) & ~0x3F) == 0
+                    and (
+                        (1 << (_la - 57))
+                        & (
+                            (1 << (dslParser.WEIGHT - 57))
+                            | (1 << (dslParser.BIAS - 57))
+                            | (1 << (dslParser.LAYER - 57))
+                            | (1 << (dslParser.EQUATIONS - 57))
+                        )
+                    )
+                    != 0
+                )
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -3423,8 +3745,9 @@ class dslParser ( Parser ):
         return localctx
 
     class DirectionContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3437,33 +3760,30 @@ class dslParser ( Parser ):
         def getRuleIndex(self):
             return dslParser.RULE_direction
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDirection" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDirection"):
                 listener.enterDirection(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDirection" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDirection"):
                 listener.exitDirection(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDirection" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitDirection"):
                 return visitor.visitDirection(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def direction(self):
 
         localctx = dslParser.DirectionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 42, self.RULE_direction)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 314
             _la = self._input.LA(1)
-            if not(_la==dslParser.BACKWARD or _la==dslParser.FORWARD):
+            if not (_la == dslParser.BACKWARD or _la == dslParser.FORWARD):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -3476,9 +3796,7 @@ class dslParser ( Parser ):
             self.exitRule()
         return localctx
 
-
-
-    def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
+    def sempred(self, localctx: RuleContext, ruleIndex: int, predIndex: int):
         if self._predicates == None:
             self._predicates = dict()
         self._predicates[2] = self.statement_sempred
@@ -3490,53 +3808,38 @@ class dslParser ( Parser ):
         else:
             return pred(localctx, predIndex)
 
-    def statement_sempred(self, localctx:StatementContext, predIndex:int):
-            if predIndex == 0:
-                return self.precpred(self._ctx, 1)
-         
+    def statement_sempred(self, localctx: StatementContext, predIndex: int):
+        if predIndex == 0:
+            return self.precpred(self._ctx, 1)
 
-    def types_sempred(self, localctx:TypesContext, predIndex:int):
-            if predIndex == 1:
-                return self.precpred(self._ctx, 1)
-         
+    def types_sempred(self, localctx: TypesContext, predIndex: int):
+        if predIndex == 1:
+            return self.precpred(self._ctx, 1)
 
-    def expr_sempred(self, localctx:ExprContext, predIndex:int):
-            if predIndex == 2:
-                return self.precpred(self._ctx, 16)
-         
+    def expr_sempred(self, localctx: ExprContext, predIndex: int):
+        if predIndex == 2:
+            return self.precpred(self._ctx, 16)
 
-            if predIndex == 3:
-                return self.precpred(self._ctx, 13)
-         
+        if predIndex == 3:
+            return self.precpred(self._ctx, 13)
 
-            if predIndex == 4:
-                return self.precpred(self._ctx, 18)
-         
+        if predIndex == 4:
+            return self.precpred(self._ctx, 18)
 
-            if predIndex == 5:
-                return self.precpred(self._ctx, 17)
-         
+        if predIndex == 5:
+            return self.precpred(self._ctx, 17)
 
-            if predIndex == 6:
-                return self.precpred(self._ctx, 12)
-         
+        if predIndex == 6:
+            return self.precpred(self._ctx, 12)
 
-            if predIndex == 7:
-                return self.precpred(self._ctx, 7)
-         
+        if predIndex == 7:
+            return self.precpred(self._ctx, 7)
 
-            if predIndex == 8:
-                return self.precpred(self._ctx, 6)
-         
+        if predIndex == 8:
+            return self.precpred(self._ctx, 6)
 
-            if predIndex == 9:
-                return self.precpred(self._ctx, 5)
-         
+        if predIndex == 9:
+            return self.precpred(self._ctx, 5)
 
-            if predIndex == 10:
-                return self.precpred(self._ctx, 4)
-         
-
-
-
-
+        if predIndex == 10:
+            return self.precpred(self._ctx, 4)

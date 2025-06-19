@@ -6,15 +6,15 @@ func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (co
 func priority(Neuron n) = n[layer];
 
 transformer deepz{
-    HardTanh -> ((prev[l]) >= 1) ? 
-                    (1, 1, 1) : 
-                    (((prev[u]) <= -1) ? 
-                        (-1, -1, -1) : 
-                        ((prev[l] >= -1) and (prev[u] <= 1) ? 
-                            (prev[l], prev[u], prev[z]) : 
-                            (prev[l] > -1 ? 
-                                (prev[l], 1, (prev[l] + 1)/2 + (eps * (1 - prev[l])/2) ) : 
-                                (prev[u] < 1 ? 
+    HardTanh -> ((prev[l]) >= 1) ?
+                    (1, 1, 1) :
+                    (((prev[u]) <= -1) ?
+                        (-1, -1, -1) :
+                        ((prev[l] >= -1) and (prev[u] <= 1) ?
+                            (prev[l], prev[u], prev[z]) :
+                            (prev[l] > -1 ?
+                                (prev[l], 1, (prev[l] + 1)/2 + (eps * (1 - prev[l])/2) ) :
+                                (prev[u] < 1 ?
                                     (-1, prev[u], (prev[u] - 1)/2 + (((prev[u] + 1)/2) * eps)) :
                                     (-1, 1, eps)
                                     ))));

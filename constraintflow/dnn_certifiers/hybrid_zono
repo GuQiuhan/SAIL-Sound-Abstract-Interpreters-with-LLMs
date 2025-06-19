@@ -21,31 +21,31 @@ func f2(Float x) = x * ((x + 3) / 6);
 transformer HybridZonotope{
     Neuron_add -> ((prev_0[l] + prev_1[l]), (prev_0[u] + prev_1[u]), (prev_0[b] + prev_1[b]), (prev_0[z] + prev_1[z]));
     Maxpool -> (max(prev[l]), max(prev[u]), max(abs(max(prev[l])), abs(max(prev[u]))),0);
-    Relu -> abs(prev[l]) > abs(prev[u]) ? 
-                ((prev[l]) >= 0) ? 
-                (prev[l], prev[u], (prev[b]), (prev[z])) : 
+    Relu -> abs(prev[l]) > abs(prev[u]) ?
+                ((prev[l]) >= 0) ?
+                (prev[l], prev[u], (prev[b]), (prev[z])) :
                 (-prev[b], prev[b] + relu(prev[u]), prev[b], ((1 + eps) * (relu(prev[u]/2)))) :
-                (((prev[l]) < 0) and ((prev[u]) > 0)) ? 
-                (0, prev[u], (prev[b]), (prev[z] - (((1 + eps) * (prev[l])) / 2))) : 
-                (((prev[l]) >= 0) ? 
-                    (prev[l], prev[u], (prev[b]), (prev[z])) : 
+                (((prev[l]) < 0) and ((prev[u]) > 0)) ?
+                (0, prev[u], (prev[b]), (prev[z] - (((1 + eps) * (prev[l])) / 2))) :
+                (((prev[l]) >= 0) ?
+                    (prev[l], prev[u], (prev[b]), (prev[z])) :
                     (0, 0, prev[b], ((1 + eps) * (relu(prev[u]/2)))));
     Abs -> (prev[l] > 0) ?
                 (prev[l], prev[u], prev[b], prev[z]) :
                 (prev[u] < 0) ?
-                    (-prev[u], -prev[l], prev[b], -prev[z]) : 
+                    (-prev[u], -prev[l], prev[b], -prev[z]) :
                     (0, max(-prev[l], prev[u]), max(-prev[l], prev[u]), 0);
-    HardSwish -> (prev[l] < -3) ? 
-                    (prev[u] < -3 ? 
-                        (0, 0, 0, 0) : 
-                        (prev[u] < 0 ? 
-                            (-3/8, 0, 3/8, 0) : 
-                            (-3/8, f1(prev[u]), max(f1(prev[u]), 3/8), 0))) : 
-                    ((prev[l] < 3) ? 
-                        ((prev[u] < 3) ? 
-                            (-3/8, max(f2(prev[l]), f2(prev[u])),max(3/8, max(f2(prev[l]), f2(prev[u]))), 0) : 
+    HardSwish -> (prev[l] < -3) ?
+                    (prev[u] < -3 ?
+                        (0, 0, 0, 0) :
+                        (prev[u] < 0 ?
+                            (-3/8, 0, 3/8, 0) :
+                            (-3/8, f1(prev[u]), max(f1(prev[u]), 3/8), 0))) :
+                    ((prev[l] < 3) ?
+                        ((prev[u] < 3) ?
+                            (-3/8, max(f2(prev[l]), f2(prev[u])),max(3/8, max(f2(prev[l]), f2(prev[u]))), 0) :
                             (-3/8, prev[u], max(3/8, f1(prev[u])), 0 )) :
-                        (prev[l], prev[u], prev[b], prev[z])); 
+                        (prev[l], prev[u], prev[b], prev[z]));
 }
 
 flow(forward, priority, true, HybridZonotope);

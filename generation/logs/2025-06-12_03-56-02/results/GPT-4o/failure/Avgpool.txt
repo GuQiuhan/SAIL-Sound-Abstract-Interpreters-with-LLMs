@@ -1,8 +1,8 @@
 transformer deeppoly{
     Avgpool -> (
-        (1.0/size) * sum([prev_i[l] for i in 0..(size-1)]), 
-        (1.0/size) * sum([prev_i[u] for i in 0..(size-1)]), 
-        (1.0/size) * sum([prev_i[L] for i in 0..(size-1)]), 
+        (1.0/size) * sum([prev_i[l] for i in 0..(size-1)]),
+        (1.0/size) * sum([prev_i[u] for i in 0..(size-1)]),
+        (1.0/size) * sum([prev_i[L] for i in 0..(size-1)]),
         (1.0/size) * sum([prev_i[U] for i in 0..(size-1)])
     );
 }

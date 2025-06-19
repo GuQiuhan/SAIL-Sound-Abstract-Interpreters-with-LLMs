@@ -1,13 +1,13 @@
-import subprocess
-import tempfile
 import os
+import subprocess
 import sys
-from tabulate import tabulate
+import tempfile
 
+from tabulate import tabulate
 
 from constraintflow.experiments.experiments_correct import run_verifier_from_str
 
-DSL1_IBP='''
+DSL1_IBP = """
 def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
 
 func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
@@ -25,13 +25,13 @@ func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 
 func priority(Neuron n) = n[layer];
-'''
+"""
 
-DSL2_IBP='''
+DSL2_IBP = """
 flow(forward, priority, true, ibp);
-'''
+"""
 
-DSL1_DEEPZ='''
+DSL1_DEEPZ = """
 def Shape as (Float l, Float u, SymExp z){[(curr[l]<=curr),(curr[u]>=curr),(curr In curr[z])]};
 
 func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
@@ -49,13 +49,13 @@ func f2(Float x) = x * ((x + 3) / 6);
 func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 
-'''
+"""
 
-DSL2_DEEPZ='''
+DSL2_DEEPZ = """
 flow(forward, priority, true, deepz);
-'''
+"""
 
-DSL1_DEEPPOLY='''
+DSL1_DEEPPOLY = """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
 func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
@@ -83,17 +83,18 @@ func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
 
 func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
-'''
+"""
 
-DSL2_DEEPPOLY='''
+DSL2_DEEPPOLY = """
 flow(forward, priority, true, deeppoly);
-'''
+"""
+
 
 def make_constraintflow_validator(certifier: str):
     DSL1 = {
         "ibp": DSL1_IBP,
         "deepz": DSL1_DEEPZ,
-        "deeppoly": DSL1_DEEPPOLY, 
+        "deeppoly": DSL1_DEEPPOLY,
     }
 
     DSL2 = {
@@ -114,21 +115,21 @@ def make_constraintflow_validator(certifier: str):
 
 if __name__ == "__main__":
 
-    dsl="""
+    dsl = """
 transformer deeppoly{
-    Relu6 -> 
-        ((prev[l]) >= 6) ? 
-            (6, 6, 6, 6) 
-        : 
-            (((prev[u]) <= 0) ? 
+    Relu6 ->
+        ((prev[l]) >= 6) ?
+            (6, 6, 6, 6)
+        :
+            (((prev[u]) <= 0) ?
                 (0, 0, 0, 0)
-            : 
-                ((prev[l] >= 0) ? 
+            :
+                ((prev[l] >= 0) ?
                     (prev[l], min(prev[u], 6), prev, prev)
-                : 
-                    ((prev[u] <= 6) ? 
+                :
+                    ((prev[u] <= 6) ?
                         (0, prev[u], 0, ((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))
-                    : 
+                    :
                         (0, 6, 0, (((6 - prev[l]) / (prev[u] - prev[l])) * prev) - ((prev[l] * 6) / (prev[u] - prev[l])))
                     )
                 )
@@ -137,7 +138,6 @@ transformer deeppoly{
 }
     """
 
-
     validator = make_constraintflow_validator("deeppoly")
 
     result, ce = validator(dsl)
@@ -145,11 +145,11 @@ transformer deeppoly{
     print(ce)
 
 
-'''
+"""
 
 transformer deeppoly{
-    HardSigmoid -> 
-        ((prev[u]) <= (0- 3.0)) ? (0, 0, 0, 0) : 
+    HardSigmoid ->
+        ((prev[u]) <= (0- 3.0)) ? (0, 0, 0, 0) :
         ((prev[l]) >= 3) ? (1, 1, 1, 1) :
         (0,1,0,1);
 }
@@ -157,4 +157,4 @@ transformer deeppoly{
 The current DSL does not support negative floating-point constants directly.
 To express a negative float like -3.0, it must be rewritten as an arithmetic expression, such as 0 - 3.0.
 Otherwise, the parser will throw an error like no viable alternative at input, because -3.0 is not recognized as a valid token.
-'''
+"""

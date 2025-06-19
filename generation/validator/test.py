@@ -1,13 +1,12 @@
-from antlr4 import InputStream, CommonTokenStream
-from miniDSL.miniDSLLexer import miniDSLLexer
-
-import miniDSL.miniDSLLexer
 import os
 
+import miniDSL.miniDSLLexer
+from antlr4 import CommonTokenStream, InputStream
+from miniDSL.miniDSLLexer import miniDSLLexer
 
 dsl = """
 transformer deeppoly{
-   HardSigmoid 
+   HardSigmoid
 }
 """
 
@@ -17,4 +16,6 @@ token_stream = CommonTokenStream(lexer)
 token_stream.fill()
 
 for token in token_stream.tokens:
-    print(f"{token.text:<20} -> {token.type:<4} ({miniDSLLexer.symbolicNames[token.type] if token.type < len(miniDSLLexer.symbolicNames) else 'UNKNOWN'})")
+    print(
+        f"{token.text:<20} -> {token.type:<4} ({miniDSLLexer.symbolicNames[token.type] if token.type < len(miniDSLLexer.symbolicNames) else 'UNKNOWN'})"
+    )

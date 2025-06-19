@@ -27,22 +27,22 @@ transformer balance_cert{
     Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
     Maxpool -> len(argmax(prev, f)) > 0 ? (max(prev[l]), max(prev[u]),  avg(argmax(prev, f)), avg(argmax(prev, f))) : (max(prev[l]), max(prev[u]), max(prev[l]), max(prev[u]));
     Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), ((prev)), ((prev))) : (((prev[u]) <= 0) ? (0.0, 0.0, 0.0, 0.0) : (((abs(prev[l]) < abs(prev[u])) ? (prev[l]) : 0), (prev[u]), ((abs(prev[l]) < abs(prev[u])) ? (prev) : 0), (((prev[u]) / ((prev[u]) - (prev[l]))) * ((prev))) + ((((prev[u] * (-1))) * (prev[l])) / ((prev[u]) - (prev[l]))) ));
-    Abs -> ((prev[l]) >= 0) ? 
-                ((prev[l]), (prev[u]), (prev), (prev)) : 
-                (((prev[u]) <= 0) ? 
-                    (-(prev[u]), -(prev[l]), -(prev), -(prev)) : 
+    Abs -> ((prev[l]) >= 0) ?
+                ((prev[l]), (prev[u]), (prev), (prev)) :
+                (((prev[u]) <= 0) ?
+                    (-(prev[u]), -(prev[l]), -(prev), -(prev)) :
                     (0, max(prev[u], -prev[l]), ((-prev[l])>prev[u]) ? -prev : prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) );
-    HardSwish -> (prev[l] < -3) ? 
-                    (prev[u] < -3 ? 
-                        (0, 0, 0, 0) : 
-                        (prev[u] < 0 ? 
-                            (-3/8, 0, -3/8, 0) : 
-                            (-3/8, f1(prev[u]), -3/8, f1(prev[u]) * (prev - prev[l])))) : 
-                    ((prev[l] < 3) ? 
-                        ((prev[u] < 3) ? 
-                            (-3/8, max(f2(prev[l]), f2(prev[u])), -3/8, s1(prev[u], prev[l]) * prev + i1(prev[u], prev[l])) : 
+    HardSwish -> (prev[l] < -3) ?
+                    (prev[u] < -3 ?
+                        (0, 0, 0, 0) :
+                        (prev[u] < 0 ?
+                            (-3/8, 0, -3/8, 0) :
+                            (-3/8, f1(prev[u]), -3/8, f1(prev[u]) * (prev - prev[l])))) :
+                    ((prev[l] < 3) ?
+                        ((prev[u] < 3) ?
+                            (-3/8, max(f2(prev[l]), f2(prev[u])), -3/8, s1(prev[u], prev[l]) * prev + i1(prev[u], prev[l])) :
                             (-3/8, prev[u], -3/8, prev[u] * ((prev + 3) / (prev[u] + 3)))) :
-                        (prev[l], prev[u], prev, prev)); 
+                        (prev[l], prev[u], prev, prev));
 }
 
 flow(forward, priority, true, balance_cert);

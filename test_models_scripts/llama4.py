@@ -1,5 +1,7 @@
-from transformers import AutoTokenizer, Llama4ForConditionalGeneration
 import os
+
+from transformers import AutoTokenizer, Llama4ForConditionalGeneration
+
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 import torch
@@ -24,12 +26,12 @@ They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= c
 So every transformer in each case of the case analysis must return four values.
 """
 
-prmpt_relu= """
+prmpt_relu = """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
 transformer deeppoly{
     Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))) ));
-} 
+}
 """
 
 prmpt_abs = """
@@ -41,7 +43,10 @@ transformer deeppoly{
 """
 
 messages = [
-    {"role": "system", "content": "You are a formal methods expert working on neural network verification. Your task is to generate the DeepPoly transformers for DNN operators. Generate the transformer in Constraintflow DSL. {CONSTRAINTFLOW}"},
+    {
+        "role": "system",
+        "content": "You are a formal methods expert working on neural network verification. Your task is to generate the DeepPoly transformers for DNN operators. Generate the transformer in Constraintflow DSL. {CONSTRAINTFLOW}",
+    },
     {"role": "user", "content": "Generate the transformer for `relu` operator "},
     {"role": "assistant", "content": prmpt_relu},
     {"role": "user", "content": "Generate the transformer for `abs` operator "},
@@ -55,4 +60,3 @@ outputs = pipeline(
 )
 
 print(outputs[0]["generated_text"][-1]["content"])
-

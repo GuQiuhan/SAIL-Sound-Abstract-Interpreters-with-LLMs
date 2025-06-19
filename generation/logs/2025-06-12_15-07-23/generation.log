@@ -1,5 +1,5 @@
 2025-06-12 15:07:23,753 - INFO - 2025-06-12 15:07:23.753507 - Extracting Abs
-2025-06-12 15:07:23,753 - INFO - 
+2025-06-12 15:07:23,753 - INFO -
 API: Abs -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:07:23,753 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:07:31,123 - INFO - [STEP 1] Sample 1: Validation passed.
@@ -7,7 +7,7 @@ API: Abs -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:07:31,124 - INFO - Succeed. Saved to logs/2025-06-12_15-07-23/results/deepseek-v2-lite/success/Abs.txt
 
 2025-06-12 15:07:31,124 - INFO - 2025-06-12 15:07:31.124075 - Extracting Add
-2025-06-12 15:07:31,124 - INFO - 
+2025-06-12 15:07:31,124 - INFO -
 API: Add -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:07:31,124 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:07:38,574 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -767,8 +767,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Add -> (
-        (prev_0[l] + prev_1[l]), 
-        (prev_0[u] + prev_1[u]), 
+        (prev_0[l] + prev_1[l]),
+        (prev_0[u] + prev_1[u]),
         prev_0[z] + prev_1[z]
     );
 }
@@ -1531,7 +1531,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Add -> 
+    Add ->
         (prev_0[l] <= prev_0) && (prev_0 <= prev_0[u]) && (prev_0 In prev_0[z]) &&
         (prev_1 <= prev_1 <= prev_1[u]) && (prev_1 In prev_1[z]) ?
             ((prev_0[l] + prev_1[l]), (prev_0[u] + prev_1[u]), (prev_0[z] + prev_1[z])) :
@@ -1659,7 +1659,7 @@ transformer deepz{
 }
 
 2025-06-12 15:09:06,460 - INFO - 2025-06-12 15:09:06.460044 - Extracting Affine
-2025-06-12 15:09:06,460 - INFO - 
+2025-06-12 15:09:06,460 - INFO -
 API: Affine -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:09:06,460 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:09:11,099 - INFO - [STEP 1] Sample 1: Validation passed.
@@ -1667,7 +1667,7 @@ API: Affine -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:80
 2025-06-12 15:09:11,100 - INFO - Succeed. Saved to logs/2025-06-12_15-07-23/results/deepseek-v2-lite/success/Affine.txt
 
 2025-06-12 15:09:11,100 - INFO - 2025-06-12 15:09:11.100259 - Extracting Avgpool
-2025-06-12 15:09:11,100 - INFO - 
+2025-06-12 15:09:11,100 - INFO -
 API: Avgpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:09:11,100 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:09:19,100 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -1793,8 +1793,8 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deepz{
     Avgpool -> (
-        (prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4, 
-        (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, 
+        (prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4,
+        (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4,
         (prev_0[z] + prev_1[z] + prev_2[z] + prev_3[z]) / 4
     );
 }
@@ -1869,8 +1869,8 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deepz{
     Avgpool -> (
-        (prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4, 
-        (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, 
+        (prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4,
+        (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4,
         (prev_0[z] + prev_1[z] + prev_2[z] + prev_3[z]) / 4
     );
 }
@@ -1927,7 +1927,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Avgpool -> 
+    Avgpool ->
         (prev_0[l], prev_0[u], prev_0[z]) -> ((curr[l] + curr[u]) / 2, (curr[l] + curr[u]) / 2, ((curr[l] + curr[u]) / 2) + eps);
 }
 
@@ -1982,10 +1982,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Avgpool -> ((prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4 <= curr) ? 
-                ((prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4, (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, ((prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4) + eps / 4) : 
-                (((prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4 <= curr) ? 
-                    ((prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, ((prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4) + eps / 4) : 
+    Avgpool -> ((prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4 <= curr) ?
+                ((prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4, (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, ((prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4) + eps / 4) :
+                (((prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4 <= curr) ?
+                    ((prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, ((prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4) + eps / 4) :
                     ((prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, ((prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4) + eps / 4)));
 }
 
@@ -2278,10 +2278,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Avgpool -> (
-        (curr[l] <= (prev_0[l] + prev_1[l] + ... + prev_{n-1}[l]) / n) && 
-        (curr[u] >= (prev_0[u] + prev_1[u] + ... + prev_{n-1}[u]) / n), 
-        (curr[l] >= (prev_0[l] + prev_1[l] + ... + prev_{n-1}[l]) / n) && 
-        (curr[u] <= (prev_0[u] + prev_1[u] + ... + prev_{n-1}[u]) / n), 
+        (curr[l] <= (prev_0[l] + prev_1[l] + ... + prev_{n-1}[l]) / n) &&
+        (curr[u] >= (prev_0[u] + prev_1[u] + ... + prev_{n-1}[u]) / n),
+        (curr[l] >= (prev_0[l] + prev_1[l] + ... + prev_{n-1}[l]) / n) &&
+        (curr[u] <= (prev_0[u] + prev_1[u] + ... + prev_{n-1}[u]) / n),
         (prev_0[z] + prev_1[z] + ... + prev_{n-1}[z]) / n
     );
 }
@@ -2356,8 +2356,8 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deepz{
     Avgpool -> (
-        (prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4, 
-        (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, 
+        (prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4,
+        (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4,
         (prev_0[z] + prev_1[z] + prev_2[z] + prev_3[z]) / 4
     );
 }
@@ -2414,8 +2414,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Avgpool -> (
-        (prev_0[l] + ... + prev_n[l]) / n, 
-        (prev_0[u] + ... + prev_n[u]) / n, 
+        (prev_0[l] + ... + prev_n[l]) / n,
+        (prev_0[u] + ... + prev_n[u]) / n,
         (prev_0[z] + ... + prev_n[z]) / n
     );
 }
@@ -2472,7 +2472,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Avgpool -> 
+    Avgpool ->
         let avg_l = (prev_0[l] + prev_1[l] + ... + prev_n[l]) / n;
         let avg_u = (prev_0[u] + prev_1[u] + ... + prev_n[u]) / n;
         let avg_z = (prev_0[z] + prev_1[z] + ... + prev_n[z]) / n;
@@ -3432,8 +3432,8 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deepz{
     Avgpool -> (
-        (prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4, 
-        (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4, 
+        (prev_0[l] + prev_1[l] + prev_2[l] + prev_3[l]) / 4,
+        (prev_0[u] + prev_1[u] + prev_2[u] + prev_3[u]) / 4,
         ((prev_0[z] + prev_1[z] + prev_2[z] + prev_3[z]) / 4)
     );
 }
@@ -3570,7 +3570,7 @@ transformer deepz{
 }
 
 2025-06-12 15:10:49,196 - INFO - 2025-06-12 15:10:49.196561 - Extracting HardSigmoid
-2025-06-12 15:10:49,196 - INFO - 
+2025-06-12 15:10:49,196 - INFO -
 API: HardSigmoid -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:10:49,196 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:11:06,645 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -3613,10 +3613,10 @@ constraintflow.core.astTC.TypeMismatchException: Condition has to be boolean
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l]) * 0.2 + 0.5 >= curr) ? 
-                ((prev[l]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, ((prev[u]) * 0.2 + 0.5) * eps) : 
-                (((prev[u]) * 0.2 + 0.5 <= curr) ? 
-                    ((prev[u]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, ((prev[u]) * 0.2 + 0.5) * eps) : 
+    HardSigmoid -> ((prev[l]) * 0.2 + 0.5 >= curr) ?
+                ((prev[l]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, ((prev[u]) * 0.2 + 0.5) * eps) :
+                (((prev[u]) * 0.2 + 0.5 <= curr) ?
+                    ((prev[u]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, ((prev[u]) * 0.2 + 0.5) * eps) :
                     ((prev[u]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, ((prev[u]) * 0.2 + 0.5) * eps));
 }
 
@@ -3671,8 +3671,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l] * 0.2) + 0.5).map(simplify_lower), 
-                   ((prev[u] * 0.2) + 0.5).map(simplify_upper), 
+    HardSigmoid -> ((prev[l] * 0.2) + 0.5).map(simplify_lower),
+                   ((prev[u] * 0.2) + 0.5).map(simplify_upper),
                    ((prev[l] * 0.2) + 0.5).dot(prev[z]) + (0.5 * prev[z].size());
 }
 
@@ -3727,9 +3727,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l] >= -2.5) ? 
-                        (0, 1, (prev[l] + 2.5) / 5) : 
-                        (((prev[u] <= 2.5) ? (0, 1, (prev[u] + 2.5) / 5) : 
+    HardSigmoid -> ((prev[l] >= -2.5) ?
+                        (0, 1, (prev[l] + 2.5) / 5) :
+                        (((prev[u] <= 2.5) ? (0, 1, (prev[u] + 2.5) / 5) :
                             (0, max((prev[u] + 2.5) / 5, (prev[l] + 2.5) / 5), ((max((prev[u] + 2.5) / 5, (prev[l] + 2.5) / 5)) / 2) + (((max((prev[u] + 2.5) / 5, (prev[l] + 2.5) / 5)) / 2) * eps))));
 }
 
@@ -3956,12 +3956,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> 
-        (prev[l] >= -3) ? 
-            ((prev[l] >= 0) ? 
-                ((prev[l] >= 3) ? ((prev[u] >= 3) ? (prev[u], prev[u], prev[z]) : ((3, 3, 3))) : ((prev[l], (prev[l] * (prev[l] + 3)) / 6, (prev[l] * (prev[l] + 3)) / 6)) : 
-                ((prev[u] <= 0) ? 
-                    ((prev[u] <= -3) ? (0, 0, 0) : (0, (prev[u] * (prev[u] + 3)) / 6, (prev[u] * (prev[u] + 3)) / 6)) : 
+    HardSigmoid ->
+        (prev[l] >= -3) ?
+            ((prev[l] >= 0) ?
+                ((prev[l] >= 3) ? ((prev[u] >= 3) ? (prev[u], prev[u], prev[z]) : ((3, 3, 3))) : ((prev[l], (prev[l] * (prev[l] + 3)) / 6, (prev[l] * (prev[l] + 3)) / 6)) :
+                ((prev[u] <= 0) ?
+                    ((prev[u] <= -3) ? (0, 0, 0) : (0, (prev[u] * (prev[u] + 3)) / 6, (prev[u] * (prev[u] + 3)) / 6)) :
                     ((0, (prev[u] * (prev[u] + 3)) / 6, (prev[u] * (prev[u] + 3)) / 6))));
 }
 
@@ -4016,10 +4016,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l]) <= -3) ? (0, 0, 0) : 
-                   (((prev[u]) >= 3) ? (1, 1, 1) : 
-                    (((prev[l]) >= 0) ? ((2 * prev[l]) / 3, (2 * prev[u]) / 3, ((2 * prev[u]) / 3) + (((2 * prev[u]) / 3) * eps)) : 
-                     (((prev[u]) <= 0) ? ((2 * prev[u]) / 3, (2 * prev[l]) / 3, ((2 * prev[l]) / 3) + (((2 * prev[l]) / 3) * eps)) : 
+    HardSigmoid -> ((prev[l]) <= -3) ? (0, 0, 0) :
+                   (((prev[u]) >= 3) ? (1, 1, 1) :
+                    (((prev[l]) >= 0) ? ((2 * prev[l]) / 3, (2 * prev[u]) / 3, ((2 * prev[u]) / 3) + (((2 * prev[u]) / 3) * eps)) :
+                     (((prev[u]) <= 0) ? ((2 * prev[u]) / 3, (2 * prev[l]) / 3, ((2 * prev[l]) / 3) + (((2 * prev[l]) / 3) * eps)) :
                       ((((2 * prev[l]) / 3) <= ((2 * prev[u]) / 3)) ? ((2 * prev[l]) / 3, (2 * prev[u]) / 3, ((2 * prev[u]) / 3) + (((2 * prev[u]) / 3) * eps)) : ((2 * prev[u]) / 3, (2 * prev[l]) / 3, ((2 * prev[l]) / 3) + (((2 * prev[l]) / 3) * eps)))));
 }
 
@@ -4074,10 +4074,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), 
-                    (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper), 
-                    if ((prev.dot(curr[weight]) + curr[bias]) < -3) then 0 
-                    else if ((prev.dot(curr[weight]) + curr[bias]) > 3) then 1 
+    HardSigmoid -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower),
+                    (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper),
+                    if ((prev.dot(curr[weight]) + curr[bias]) < -3) then 0
+                    else if ((prev.dot(curr[weight]) + curr[bias]) > 3) then 1
                     else ((prev.dot(curr[weight]) + curr[bias]) * ((prev.dot(curr[weight]) + curr[bias] + 3) / 6)));
 }
 
@@ -4123,12 +4123,12 @@ constraintflow.core.astTC.TypeMismatchException: Condition has to be boolean
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l]) * 0.2 + 0.5) < curr ? 
-                    ((prev[l]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, (prev[z]) * 0.2 + 0.5) : 
-                    (((prev[u]) * 0.2 + 0.5) < curr ? 
-                        ((prev[u]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, (prev[z]) * 0.2 + 0.5) : 
-                        (((prev[u]) * 0.2 + 0.5) > curr ? 
-                            ((prev[u]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, (prev[z]) * 0.2 + 0.5) : 
+    HardSigmoid -> ((prev[l]) * 0.2 + 0.5) < curr ?
+                    ((prev[l]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, (prev[z]) * 0.2 + 0.5) :
+                    (((prev[u]) * 0.2 + 0.5) < curr ?
+                        ((prev[u]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, (prev[z]) * 0.2 + 0.5) :
+                        (((prev[u]) * 0.2 + 0.5) > curr ?
+                            ((prev[u]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, (prev[z]) * 0.2 + 0.5) :
                             ((prev[u]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5, (prev[z]) * 0.2 + 0.5)));
 }
 
@@ -4235,8 +4235,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l]) * 0.2 + 0.5).map(simplify_lower), 
-                   ((prev[u]) * 0.2 + 0.5).map(simplify_upper), 
+    HardSigmoid -> ((prev[l]) * 0.2 + 0.5).map(simplify_lower),
+                   ((prev[u]) * 0.2 + 0.5).map(simplify_upper),
                    0.2 * prev[z] + 0.5 * (prev[z] > 0 && prev[z] < 6) ? 1 : 0;
 }
 
@@ -4298,8 +4298,8 @@ constraintflow.core.astTC.TypeMismatchException: Left and right of dot product h
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), 
-                    (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper), 
+    HardSigmoid -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower),
+                    (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper),
                     prev[z].dot(curr[weight]) + (curr[bias]).map(f2));
 }
 
@@ -4396,10 +4396,10 @@ constraintflow.core.astTC.TypeMismatchException: Condition has to be boolean
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l]) * 0.2 + 0.5 >= curr) ? 
-                      ((prev[l]) * 0.2 + 0.5, min((prev[u]) * 0.2 + 0.5, 1), (prev[z] * 0.2 + 0.5)) : 
-                      (((prev[u]) * 0.2 + 0.5 <= curr) ? 
-                          (0, (prev[u]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5) : 
+    HardSigmoid -> ((prev[l]) * 0.2 + 0.5 >= curr) ?
+                      ((prev[l]) * 0.2 + 0.5, min((prev[u]) * 0.2 + 0.5, 1), (prev[z] * 0.2 + 0.5)) :
+                      (((prev[u]) * 0.2 + 0.5 <= curr) ?
+                          (0, (prev[u]) * 0.2 + 0.5, (prev[u]) * 0.2 + 0.5) :
                           (0, 1, 1));
 }
 
@@ -4507,11 +4507,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> 
-        ((prev[l]) <= -3) ? (0, 0, 0) : 
-        (((prev[u]) >= 3) ? (1, 1, 1) : 
-            (((prev[l]) >= 0) ? (prev[l] * ((prev[l] + 3) / 6), (prev[u] * ((prev[u] + 3) / 6)), (prev[l] * ((prev[l] + 3) / 6) + (prev[u] * ((prev[u] + 3) / 6)) / 2)) : 
-                (((prev[u]) <= 0) ? (prev[u] * ((prev[u] + 3) / 6), (prev[l] * ((prev[l] + 3) / 6)), (prev[u] * ((prev[u] + 3) / 6) + (prev[l] * ((prev[l] + 3) / 6)) / 2)) : 
+    HardSigmoid ->
+        ((prev[l]) <= -3) ? (0, 0, 0) :
+        (((prev[u]) >= 3) ? (1, 1, 1) :
+            (((prev[l]) >= 0) ? (prev[l] * ((prev[l] + 3) / 6), (prev[u] * ((prev[u] + 3) / 6)), (prev[l] * ((prev[l] + 3) / 6) + (prev[u] * ((prev[u] + 3) / 6)) / 2)) :
+                (((prev[u]) <= 0) ? (prev[u] * ((prev[u] + 3) / 6), (prev[l] * ((prev[l] + 3) / 6)), (prev[u] * ((prev[u] + 3) / 6) + (prev[l] * ((prev[l] + 3) / 6)) / 2)) :
                     ((prev[l] * ((prev[l] + 3) / 6), (prev[u] * ((prev[u] + 3) / 6)), ((prev[l] * ((prev[l] + 3) / 6)) + (prev[u] * ((prev[u] + 3) / 6))) / 2 + ((((prev[l] * ((prev[l] + 3) / 6)) + (prev[u] * ((prev[u] + 3) / 6))) * eps) / 2)))));
 }
 
@@ -4568,16 +4568,16 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l]) >= 0) ? 
-                ((prev[l] / 6) + (1 / 2), (prev[u] / 6) + (1 / 2), ((prev[l] / 6) + (1 / 2)) + (1 / 2) * eps) : 
-                (((prev[u]) <= 0) ? 
-                    ((prev[u] / 6) + (1 / 2), 1, ((prev[u] / 6) + (1 / 2)) + (1 / 2) * eps) : 
-                    ((prev[l]) >= 0 && (prev[u]) <= 0) ? 
-                        ((prev[l] / 6) + (1 / 2), (prev[u] / 6) + (1 / 2), ((prev[l] / 6) + (1 / 2)) + (1 / 2) * eps) : 
-                        ((prev[l]) >= 0) ? 
-                            ((prev[l] / 6) + (1 / 2), (prev[u] / 6) + (1 / 2), ((prev[u] / 6) + (1 / 2)) + (1 / 2) * eps) : 
-                            ((prev[u]) <= 0) ? 
-                                ((prev[l] / 6) + (1 / 2), (prev[u] / 6) + (1 / 2), ((prev[l] / 6) + (1 / 2)) + (1 / 2) * eps) : 
+    HardSigmoid -> ((prev[l]) >= 0) ?
+                ((prev[l] / 6) + (1 / 2), (prev[u] / 6) + (1 / 2), ((prev[l] / 6) + (1 / 2)) + (1 / 2) * eps) :
+                (((prev[u]) <= 0) ?
+                    ((prev[u] / 6) + (1 / 2), 1, ((prev[u] / 6) + (1 / 2)) + (1 / 2) * eps) :
+                    ((prev[l]) >= 0 && (prev[u]) <= 0) ?
+                        ((prev[l] / 6) + (1 / 2), (prev[u] / 6) + (1 / 2), ((prev[l] / 6) + (1 / 2)) + (1 / 2) * eps) :
+                        ((prev[l]) >= 0) ?
+                            ((prev[l] / 6) + (1 / 2), (prev[u] / 6) + (1 / 2), ((prev[u] / 6) + (1 / 2)) + (1 / 2) * eps) :
+                            ((prev[u]) <= 0) ?
+                                ((prev[l] / 6) + (1 / 2), (prev[u] / 6) + (1 / 2), ((prev[l] / 6) + (1 / 2)) + (1 / 2) * eps) :
                                 ((prev[l] / 6) + (1 / 2), (prev[u] / 6) + (1 / 2), ((prev[u] / 6) + (1 / 2)) + (1 / 2) * eps)));
 
 2025-06-12 15:12:23,596 - INFO - [STEP 1] Sample 1: Validation failed.
@@ -4631,11 +4631,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l]) <= (-3)) ? (0, 0, 0) : 
-                   (((prev[u]) >= 3)) ? (1, 1, 1) : 
-                   (((prev[l]) >= 0) && ((prev[u]) <= 3)) ? ((prev[l]), (prev[u]), ((prev[l] / 6) + (((prev[l] / 6) * eps))) * prev[l] + (((prev[u] / 6) - (((prev[u] / 6) * eps))) * prev[u])) : 
-                   (((prev[l]) <= 0) && ((prev[u]) >= 3)) ? ((prev[l]), (prev[u]), ((prev[l] / 6) + (((prev[l] / 6) * eps))) * prev[l] + (((prev[u] / 6) - (((prev[u] / 6) * eps))) * prev[u])) : 
-                   (((prev[l]) > (-3)) && ((prev[l]) < 0)) ? (((prev[l]) / 6) + (((prev[l]) / 6) * eps), ((prev[u]) / 6) - (((prev[u]) / 6) * eps), ((prev[l] / 6) + (((prev[l] / 6) * eps))) * prev[l] + (((prev[u] / 6) - (((prev[u] / 6) * eps))) * prev[u])) : 
+    HardSigmoid -> ((prev[l]) <= (-3)) ? (0, 0, 0) :
+                   (((prev[u]) >= 3)) ? (1, 1, 1) :
+                   (((prev[l]) >= 0) && ((prev[u]) <= 3)) ? ((prev[l]), (prev[u]), ((prev[l] / 6) + (((prev[l] / 6) * eps))) * prev[l] + (((prev[u] / 6) - (((prev[u] / 6) * eps))) * prev[u])) :
+                   (((prev[l]) <= 0) && ((prev[u]) >= 3)) ? ((prev[l]), (prev[u]), ((prev[l] / 6) + (((prev[l] / 6) * eps))) * prev[l] + (((prev[u] / 6) - (((prev[u] / 6) * eps))) * prev[u])) :
+                   (((prev[l]) > (-3)) && ((prev[l]) < 0)) ? (((prev[l]) / 6) + (((prev[l]) / 6) * eps), ((prev[u]) / 6) - (((prev[u]) / 6) * eps), ((prev[l] / 6) + (((prev[l] / 6) * eps))) * prev[l] + (((prev[u] / 6) - (((prev[u] / 6) * eps))) * prev[u])) :
                    (((prev[u]) > 3) && ((prev[u]) < 6)) ? (((prev[l]) / 6) + (((prev[l] / 6) * eps)), ((prev[u]) / 6) - (((prev[u] / 6) * eps)), ((prev[l] / 6) + (((prev[l] / 6) * eps))) * prev[l] + (((prev[u] / 6) - (((prev[u] / 6) * eps))) * prev[u]));
 }
 
@@ -4696,8 +4696,8 @@ constraintflow.core.astTC.TypeMismatchException: Left and right of dot product h
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), 
-                    (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper), 
+    HardSigmoid -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower),
+                    (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper),
                     prev[z].dot(curr[weight]) + (curr[bias]).map(f1));
 }
 
@@ -4753,8 +4753,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l]) <= -3) ? (0, 0, 0) : 
-                    (((prev[u]) >= 3) ? (1, 1, 1) : 
+    HardSigmoid -> ((prev[l]) <= -3) ? (0, 0, 0) :
+                    (((prev[u]) >= 3) ? (1, 1, 1) :
                         (0, max((min((prev[u] + 3) / 6, 1)), (min((prev[l] + 3) / 6, 1)), 0), ((max((min((prev[u] + 3) / 6, 1)), (min((prev[l] + 3) / 6, 1)))) / 2) + (((max((min((prev[u] + 3) / 6, 1)), (min((prev[l] + 3) / 6, 1)))) / 2) * eps)));
 }
 
@@ -4809,7 +4809,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l] >= -3) && (prev[u] <= 3)) ? 
+    HardSigmoid -> ((prev[l] >= -3) && (prev[u] <= 3)) ?
                     ((prev[l] >= 0) ? f2(prev[l]) : i1(prev[l], prev[u]), (prev[u] <= 0) ? f2(prev[u]) : f2(prev[u]), (prev[z].dot(curr[weight]) + (curr[bias])));
 }
 
@@ -4910,8 +4910,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSigmoid -> ((prev[l]) < -2.5) ? (0, 1, 0) : 
-                   ((prev[u]) > 2.5) ? (1, 1, 1) : 
+    HardSigmoid -> ((prev[l]) < -2.5) ? (0, 1, 0) :
+                   ((prev[u]) > 2.5) ? (1, 1, 1) :
                    (0, 0, 0);
 }
 
@@ -4958,11 +4958,11 @@ constraintflow.core.astTC.TypeMismatchException: Condition has to be boolean
 
 Code:
 transformer deepz{
-    HardSigmoid -> 
-        ((prev[l] * 0.2 + 0.5) <= curr) ? 
-            (prev[l] * 0.2 + 0.5, prev[u] * 0.2 + 0.5, prev[z] * 0.2 + 0.5) : 
-            (((prev[u] * 0.2 + 0.5) >= curr) ? 
-                (0, 1, 1) : 
+    HardSigmoid ->
+        ((prev[l] * 0.2 + 0.5) <= curr) ?
+            (prev[l] * 0.2 + 0.5, prev[u] * 0.2 + 0.5, prev[z] * 0.2 + 0.5) :
+            (((prev[u] * 0.2 + 0.5) >= curr) ?
+                (0, 1, 1) :
                 (0, (prev[u] * 0.2 + 0.5), ((prev[u] * 0.2 + 0.5) / 2) + (((prev[u] * 0.2 + 0.5) / 2) * eps)));
 }
 
@@ -5031,7 +5031,7 @@ transformer deepz{
 }
 
 2025-06-12 15:12:53,876 - INFO - 2025-06-12 15:12:53.876741 - Extracting HardSwish
-2025-06-12 15:12:53,876 - INFO - 
+2025-06-12 15:12:53,876 - INFO -
 API: HardSwish -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:12:53,876 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:13:03,920 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -5144,10 +5144,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) < (-3)) ? (0, 0, 0) : 
-                (((prev[u]) > 3) ? (prev[u], prev[u], prev[z]) : 
-                (((prev[l]) >= (-3)) && ((prev[u]) <= 3)) ? 
-                    ((prev[l] * ((prev[l] + 3) / 6)), (prev[u] * ((prev[u] + 3) / 6)), (prev[z] * ((prev[z] + 3) / 6))) : 
+    HardSwish -> ((prev[l]) < (-3)) ? (0, 0, 0) :
+                (((prev[u]) > 3) ? (prev[u], prev[u], prev[z]) :
+                (((prev[l]) >= (-3)) && ((prev[u]) <= 3)) ?
+                    ((prev[l] * ((prev[l] + 3) / 6)), (prev[u] * ((prev[u] + 3) / 6)), (prev[z] * ((prev[z] + 3) / 6))) :
                     ((prev[l] * ((prev[l] + 3) / 6), (prev[u] * ((prev[u] + 3) / 6), (prev[l] * ((prev[l] + 3) / 6) + (prev[u] - prev[l]) * ((prev[u] + 3) / 12)))));
 }
 
@@ -5203,11 +5203,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     HardSwish -> (
-        (prev[l] >= 0) ? 
-            ((prev[l] * (1 + 3) / 6).map(f1), (prev[u] * (1 + 3) / 6).map(f1), (prev[z] * (1 + 3) / 6).map(f1)) : 
-            (((prev[u] <= 0) ? 0 : (prev[u] * (1 + 3) / 6).map(f2)), (prev[u] * (1 + 3) / 6).map(f2), (prev[u] * (1 + 3) / 6).map(f2)), 
-        (prev[l] < 0) && (prev[u] > 0) ? 
-            ((prev[l] * (1 + 3) / 6).map(f1), (prev[u] * (1 + 3) / 6).map(f1), (prev[z] * (1 + 3) / 6).map(f1)) : 
+        (prev[l] >= 0) ?
+            ((prev[l] * (1 + 3) / 6).map(f1), (prev[u] * (1 + 3) / 6).map(f1), (prev[z] * (1 + 3) / 6).map(f1)) :
+            (((prev[u] <= 0) ? 0 : (prev[u] * (1 + 3) / 6).map(f2)), (prev[u] * (1 + 3) / 6).map(f2), (prev[u] * (1 + 3) / 6).map(f2)),
+        (prev[l] < 0) && (prev[u] > 0) ?
+            ((prev[l] * (1 + 3) / 6).map(f1), (prev[u] * (1 + 3) / 6).map(f1), (prev[z] * (1 + 3) / 6).map(f1)) :
             ((prev[u] * (1 + 3) / 6).map(f2), (prev[u] * (1 + 3) / 6).map(f2), (prev[u] * (1 + 3) / 6).map(f2))
     );
 }
@@ -5278,14 +5278,14 @@ constraintflow.core.astTC.TypeMismatchException: Function argument to Map is the
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) >= 0) ? 
-                    ((prev[l]), (prev[u]), (prev[z])) : 
-                    (((prev[u]) <= 0) ? 
-                        (0, 0, 0) : 
-                        (((prev[l]) >= 3) ? 
-                            (prev[u], prev[u], prev[z]) : 
-                            (((prev[u]) <= (-3)) ? 
-                                (0, 0, 0) : 
+    HardSwish -> ((prev[l]) >= 0) ?
+                    ((prev[l]), (prev[u]), (prev[z])) :
+                    (((prev[u]) <= 0) ?
+                        (0, 0, 0) :
+                        (((prev[l]) >= 3) ?
+                            (prev[u], prev[u], prev[z]) :
+                            (((prev[u]) <= (-3)) ?
+                                (0, 0, 0) :
                                 ((((prev[l]) + 3) / 6) * prev[u]).map(f1), (((prev[u]) + 3) / 6) * prev[u].map(f2), prev[z].map(f1))));
 }
 
@@ -5344,7 +5344,7 @@ transformer deepz{
         (prev[l]) <= -3 ? (0, 0, 0) :
         ((prev[u]) >= 3) ? ((prev[u]), (prev[u]), (prev[u])) :
         (
-            ((prev[l]) >= 0) ? 
+            ((prev[l]) >= 0) ?
                 ((prev[l]) <= 3) ? ((prev[l] * ((prev[l] + 3) / 6)), (prev[u] * ((prev[u] + 3) / 6)), (prev[z] * ((prev[z] + 3) / 6))) :
                 ((prev[u]) <= 0) ? (0, 0, 0) :
                 (0, (prev[u] * ((prev[u] + 3) / 6)), ((prev[u] * ((prev[u] + 3) / 6)) / 2) + (((prev[u] * ((prev[u] + 3) / 6)) / 2) * eps)
@@ -5462,10 +5462,10 @@ constraintflow.core.astTC.TypeMismatchException: Left and right of dot product h
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev.dot(curr[weight]) + curr[bias]) <= 3) ? 
-                    ((prev.dot(curr[weight]) + curr[bias]).map(f1), (prev.dot(curr[weight]) + curr[bias]).map(f2), ((prev.dot(curr[weight]) + curr[bias]).map(f2) / 2) + (((prev.dot(curr[weight]) + curr[bias]).map(f2) / 2) * eps)) : 
-                    (((prev.dot(curr[weight]) + curr[bias]) >= 0) ? 
-                        ((prev.dot(curr[weight]) + curr[bias]), (prev.dot(curr[weight]) + curr[bias]), (prev.dot(curr[weight]) + curr[bias]) / 2 + (((prev.dot(curr[weight]) + curr[bias]) / 2) * eps)) : 
+    HardSwish -> ((prev.dot(curr[weight]) + curr[bias]) <= 3) ?
+                    ((prev.dot(curr[weight]) + curr[bias]).map(f1), (prev.dot(curr[weight]) + curr[bias]).map(f2), ((prev.dot(curr[weight]) + curr[bias]).map(f2) / 2) + (((prev.dot(curr[weight]) + curr[bias]).map(f2) / 2) * eps)) :
+                    (((prev.dot(curr[weight]) + curr[bias]) >= 0) ?
+                        ((prev.dot(curr[weight]) + curr[bias]), (prev.dot(curr[weight]) + curr[bias]), (prev.dot(curr[weight]) + curr[bias]) / 2 + (((prev.dot(curr[weight]) + curr[bias]) / 2) * eps)) :
                         (-(prev.dot(curr[weight]) + curr[bias]), -((prev.dot(curr[weight]) + curr[bias]) >= 0 ? 0 : prev.dot(curr[weight]) + curr[bias]), -((prev.dot(curr[weight]) + curr[bias]) / 2) + (((-(prev.dot(curr[weight]) + curr[bias]) / 2) * eps))));
 }
 
@@ -5520,12 +5520,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) > 3) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) < -3) ? (0, 0, 0) : 
-                    (((prev[l]) <= 3 && (prev[u]) >= -3) ? 
-                        (0, max(0, min(prev[u], (prev[u] * (3 + prev[u]) / 6))), (max(0, min(prev[u], (prev[u] * (3 + prev[u]) / 6)))) / 2 + ((max(0, min(prev[u], (prev[u] * (3 + prev[u]) / 6)))) / 2) * eps) : 
-                        ((prev[l]) < -3) ? 
-                            (prev[l], 0, (prev[l] * ((prev[l] + 3) / 6)) / 2 + ((prev[l] * ((prev[l] + 3) / 6)) / 2) * eps) : 
+    HardSwish -> ((prev[l]) > 3) ? ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) < -3) ? (0, 0, 0) :
+                    (((prev[l]) <= 3 && (prev[u]) >= -3) ?
+                        (0, max(0, min(prev[u], (prev[u] * (3 + prev[u]) / 6))), (max(0, min(prev[u], (prev[u] * (3 + prev[u]) / 6)))) / 2 + ((max(0, min(prev[u], (prev[u] * (3 + prev[u]) / 6)))) / 2) * eps) :
+                        ((prev[l]) < -3) ?
+                            (prev[l], 0, (prev[l] * ((prev[l] + 3) / 6)) / 2 + ((prev[l] * ((prev[l] + 3) / 6)) / 2) * eps) :
                             (0, (prev[u]), (prev[u] * ((prev[u] + 3) / 6)) / 2 + ((prev[u] * ((prev[u] + 3) / 6)) / 2) * eps)));
 }
 
@@ -5581,10 +5581,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) * ((prev[l] + 3) / 6)) >= 0 ? 
-                    ((prev[l]) * ((prev[l] + 3) / 6), (prev[u]) * ((prev[u] + 3) / 6), (prev[z]) * ((prev[z] + 3) / 6)) : 
-                    (((prev[u]) * ((prev[u] + 3) / 6)) <= 0) ? 
-                        (0, 0, 0) : 
+    HardSwish -> ((prev[l]) * ((prev[l] + 3) / 6)) >= 0 ?
+                    ((prev[l]) * ((prev[l] + 3) / 6), (prev[u]) * ((prev[u] + 3) / 6), (prev[z]) * ((prev[z] + 3) / 6)) :
+                    (((prev[u]) * ((prev[u] + 3) / 6)) <= 0) ?
+                        (0, 0, 0) :
                         (0, (prev[u]) * ((prev[u] + 3) / 6), ((prev[u]) * ((prev[u] + 3) / 6)) / 2 + (((prev[u]) * ((prev[u] + 3) / 6)) / 2) * eps));
 }
 
@@ -5640,14 +5640,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) >= 0) ? 
-                    ((prev[l]), (prev[u]), (prev[z])) : 
-                    (((prev[u]) <= 0) ? 
-                        (0, 0, 0) : 
-                        (((prev[l]) >= 3) ? 
-                            ((prev[u]), (prev[u]), (prev[z])) : 
-                            (((prev[l]) <= -3) ? 
-                                (-(prev[u]), -(prev[l]), -(prev[z])) : 
+    HardSwish -> ((prev[l]) >= 0) ?
+                    ((prev[l]), (prev[u]), (prev[z])) :
+                    (((prev[u]) <= 0) ?
+                        (0, 0, 0) :
+                        (((prev[l]) >= 3) ?
+                            ((prev[u]), (prev[u]), (prev[z])) :
+                            (((prev[l]) <= -3) ?
+                                (-(prev[u]), -(prev[l]), -(prev[z])) :
                                 (0, (prev[u]), ((prev[u]) * ((prev[u] + 3) / 6)))));
 }
 
@@ -5718,14 +5718,14 @@ constraintflow.core.astTC.TypeMismatchException: Arguments of f1 are not the cor
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) >= 0) ? 
-                    ((prev[l]), (prev[u]), (prev[z])) : 
-                    (((prev[u]) <= 0) ? 
-                        (0, 0, 0) : 
-                        (((prev[l]) >= 3) ? 
-                            (prev[u], prev[u], prev[z]) : 
-                            (((prev[l]) <= -3) ? 
-                                (-prev[u], -prev[l], -prev[z]) : 
+    HardSwish -> ((prev[l]) >= 0) ?
+                    ((prev[l]), (prev[u]), (prev[z])) :
+                    (((prev[u]) <= 0) ?
+                        (0, 0, 0) :
+                        (((prev[l]) >= 3) ?
+                            (prev[u], prev[u], prev[z]) :
+                            (((prev[l]) <= -3) ?
+                                (-prev[u], -prev[l], -prev[z]) :
                                 (f1(prev[l]), f2(prev[u]), f1(prev[z])))));
 }
 
@@ -5780,14 +5780,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) <= -3) ? 
-                    (0, f2(prev[u]), f2(prev[u]) * ((f2(prev[u]) / 2) + (((f2(prev[u]) / 2) * eps)))) : 
-                    (((prev[u]) >= 3) ? 
-                        (prev[u], prev[u], prev[u]) : 
-                        ((prev[l]) >= 0) ? 
-                            ((prev[l]), (prev[u]), (prev[z])) : 
-                            ((prev[u]) <= 0) ? 
-                                (0, 0, 0) : 
+    HardSwish -> ((prev[l]) <= -3) ?
+                    (0, f2(prev[u]), f2(prev[u]) * ((f2(prev[u]) / 2) + (((f2(prev[u]) / 2) * eps)))) :
+                    (((prev[u]) >= 3) ?
+                        (prev[u], prev[u], prev[u]) :
+                        ((prev[l]) >= 0) ?
+                            ((prev[l]), (prev[u]), (prev[z])) :
+                            ((prev[u]) <= 0) ?
+                                (0, 0, 0) :
                                 (prev[l], prev[u], (prev[l] * ((prev[l] + 3) / 6)) + (prev[u] * ((prev[u] + 3) / 6)))));
 }
 
@@ -5844,9 +5844,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     HardSwish -> ((prev[l]) <= (-3)) ? (0, (prev[u]), ((prev[u]) * ((prev[u] + 3) / 6)));
-        ((prev[l]) >= (-3) && (prev[u] <= 3)) ? 
+        ((prev[l]) >= (-3) && (prev[u] <= 3)) ?
             (max((prev[l]), 0), min((prev[u]), 3), ((prev[l]) * ((prev[l] + 3) / 6)) + (((prev[l]) / 2) * ((prev[l] + 3) / 6)) - (((prev[l]) * (prev[l] + 3) * (prev[l] + 3)) / 24));
-        ((prev[u]) > 3) ? 
+        ((prev[u]) > 3) ?
             (max((prev[l]), 0), 3, ((prev[l]) * ((prev[l] + 3) / 6)) + (((prev[l]) / 2) * ((prev[l] + 3) / 6)) - (((prev[l] * (prev[l] + 3) * (prev[l] + 3)) / 24)));
 }
 
@@ -5901,15 +5901,15 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) <= -3) ? (0, 0, 0) : 
-                (((prev[u]) >= 3) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                    (((prev[l]) >= -3 && (prev[u]) <= -3) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                        (((prev[l]) >= 0 && (prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                            (((prev[l]) <= 0 && (prev[u]) >= 3) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                                (((prev[l]) >= 0 && (prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                                    (((prev[l]) >= 0 && (prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                                        (((prev[l]) >= 0 && (prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                                            (((prev[l]) >= 0 && (prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) : 
+    HardSwish -> ((prev[l]) <= -3) ? (0, 0, 0) :
+                (((prev[u]) >= 3) ? ((prev[l]), (prev[u]), (prev[z])) :
+                    (((prev[l]) >= -3 && (prev[u]) <= -3) ? ((prev[l]), (prev[u]), (prev[z])) :
+                        (((prev[l]) >= 0 && (prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) :
+                            (((prev[l]) <= 0 && (prev[u]) >= 3) ? ((prev[l]), (prev[u]), (prev[z])) :
+                                (((prev[l]) >= 0 && (prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) :
+                                    (((prev[l]) >= 0 && (prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) :
+                                        (((prev[l]) >= 0 && (prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) :
+                                            (((prev[l]) >= 0 && (prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) :
                                                 ((min((prev[u] * 3), (prev[u] * (1 + eps)), (prev[l] * 0.75), (prev[l] * (1 - eps))), (prev[u]), ((prev[u]) / 4) + (((prev[u]) / 4) * eps))));
 }
 
@@ -5968,20 +5968,20 @@ constraintflow.core.astTC.TypeMismatchException: * is not defined on SymExp and 
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) >= 0) ? 
-                    ((prev[l]) * ((prev[l] + 3) / 6), 
-                    (prev[u]) * ((prev[u] + 3) / 6), 
-                    (prev[z]) * ((prev[z] + 3) / 6)) : 
-                    (((prev[u]) <= 0) ? 
-                        (0, 
-                        0, 
-                        0) : 
-                        ((prev[u]) < 3) ? 
-                            (((prev[u]) * ((prev[u] + 3) / 6)), 
-                            ((prev[u]) * ((prev[u] + 3) / 6)), 
-                            ((prev[u]) * ((prev[u] + 3) / 6))) : 
-                            (prev[u], 
-                            (prev[u]) * ((prev[u] + 3) / 6), 
+    HardSwish -> ((prev[l]) >= 0) ?
+                    ((prev[l]) * ((prev[l] + 3) / 6),
+                    (prev[u]) * ((prev[u] + 3) / 6),
+                    (prev[z]) * ((prev[z] + 3) / 6)) :
+                    (((prev[u]) <= 0) ?
+                        (0,
+                        0,
+                        0) :
+                        ((prev[u]) < 3) ?
+                            (((prev[u]) * ((prev[u] + 3) / 6)),
+                            ((prev[u]) * ((prev[u] + 3) / 6)),
+                            ((prev[u]) * ((prev[u] + 3) / 6))) :
+                            (prev[u],
+                            (prev[u]) * ((prev[u] + 3) / 6),
                             ((prev[u]) / 2) + (((prev[u]) / 2) * eps)));
 }
 
@@ -6038,12 +6038,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) < -3) ? (0, 0, 0) : 
-                (((prev[u]) > 3) ? (prev[u], prev[u], prev[u]) : 
-                (((prev[l])*3 + 3 <= 0) ? (0, 0, 0) : 
-                (((prev[u])*3 + 3 <= 0) ? (0, 0, 0) : 
-                ((prev[l] >= 0) ? (prev[l] * ((prev[l] + 3) / 6), prev[u] * ((prev[u] + 3) / 6), prev[z]) : 
-                ((prev[u] <= 0) ? (prev[u] * ((prev[u] + 3) / 6), prev[u] * ((prev[u] + 3) / 6), prev[z]) : 
+    HardSwish -> ((prev[l]) < -3) ? (0, 0, 0) :
+                (((prev[u]) > 3) ? (prev[u], prev[u], prev[u]) :
+                (((prev[l])*3 + 3 <= 0) ? (0, 0, 0) :
+                (((prev[u])*3 + 3 <= 0) ? (0, 0, 0) :
+                ((prev[l] >= 0) ? (prev[l] * ((prev[l] + 3) / 6), prev[u] * ((prev[u] + 3) / 6), prev[z]) :
+                ((prev[u] <= 0) ? (prev[u] * ((prev[u] + 3) / 6), prev[u] * ((prev[u] + 3) / 6), prev[z]) :
                 ((prev[l] * ((prev[l] + 3) / 6), prev[u] * ((prev[u] + 3) / 6), prev[z]))))));
 }
 
@@ -6111,12 +6111,12 @@ transformer deepz{
         (prev[u]) * (((prev[u] + 3) / 6)) <= curr,
         (prev[l]) * (((prev[l] + 3) / 6) * eps) >= curr,
         (prev[u]) * (((prev[u] + 3) / 6) * eps) >= curr
-    ) ? 
+    ) ?
         (
             prev[l],
             prev[u],
             prev[z]
-        ) : 
+        ) :
         (
             prev[l],
             prev[u],
@@ -6175,10 +6175,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) >= 0) ? 
-                    ((3*prev[l]/8) + (prev[l]/4) + prev[l]/8, (3*prev[u]/8) + (prev[u]/4) + prev[u]/8, (3*prev[z]/8) + (prev[z]/4) + prev[z]/8) : 
-                    (((prev[u]) <= 0) ? 
-                        (0, 0, 0) : 
+    HardSwish -> ((prev[l]) >= 0) ?
+                    ((3*prev[l]/8) + (prev[l]/4) + prev[l]/8, (3*prev[u]/8) + (prev[u]/4) + prev[u]/8, (3*prev[z]/8) + (prev[z]/4) + prev[z]/8) :
+                    (((prev[u]) <= 0) ?
+                        (0, 0, 0) :
                         ((prev[l]) * (3*prev[l]/8) + (prev[l]/4) + prev[l]/8, (prev[u]) * (3*prev[u]/8) + (prev[u]/4) + prev[u]/8, (prev[z]) * (3*prev[z]/8) + (prev[z]/4) + prev[z]/8)));
 }
 
@@ -6233,11 +6233,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) >= 3) ? 
-                    ((prev[l]), (prev[u]), (prev[z])) : 
-                    ((prev[l]) <= (-3)) ? 
-                        (0, 0, 0) : 
-                        ((prev[l]) < 3 && (prev[u]) > (-3)) ? 
+    HardSwish -> ((prev[l]) >= 3) ?
+                    ((prev[l]), (prev[u]), (prev[z])) :
+                    ((prev[l]) <= (-3)) ?
+                        (0, 0, 0) :
+                        ((prev[l]) < 3 && (prev[u]) > (-3)) ?
                             (0, (prev[u]), ((prev[u]) * ((prev[u] + 3) / 6)));
 }
 
@@ -6294,17 +6294,17 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     HardSwish -> (
-        (prev[l] >= 0) ? 
-            (0, max(3, prev[u]), (max(0, min(3, prev[u])) * ((max(0, min(3, prev[u])) + 3) / 6))) : 
-            (((prev[u] <= 0) ? 
-                (-3, min(0, prev[l]), (-max(0, max(-3, prev[l])) * ((max(0, max(-3, prev[l])) + 3) / 6))) : 
-                (0, max(0, (prev[u] / 3)), ((max(0, (prev[u] / 3))) * ((max(0, (prev[u] / 3))) + 3) / 6))), 
-        (prev[l] >= 0) ? 
-            ((prev[l] >= 0) ? 
-                ((prev[l] >= 0) ? 
-                    (0, max(3, prev[u]), (max(0, min(3, prev[u])) * ((max(0, min(3, prev[u])) + 3) / 6))) : 
-                    (0, max(0, (prev[u] / 3)), ((max(0, (prev[u] / 3))) * ((max(0, (prev[u] / 3))) + 3) / 6))) : 
-                (0, max(0, (prev[u] / 3)), ((max(0, (prev[u] / 3))) * ((max(0, (prev[u] / 3))) + 3) / 6))) : 
+        (prev[l] >= 0) ?
+            (0, max(3, prev[u]), (max(0, min(3, prev[u])) * ((max(0, min(3, prev[u])) + 3) / 6))) :
+            (((prev[u] <= 0) ?
+                (-3, min(0, prev[l]), (-max(0, max(-3, prev[l])) * ((max(0, max(-3, prev[l])) + 3) / 6))) :
+                (0, max(0, (prev[u] / 3)), ((max(0, (prev[u] / 3))) * ((max(0, (prev[u] / 3))) + 3) / 6))),
+        (prev[l] >= 0) ?
+            ((prev[l] >= 0) ?
+                ((prev[l] >= 0) ?
+                    (0, max(3, prev[u]), (max(0, min(3, prev[u])) * ((max(0, min(3, prev[u])) + 3) / 6))) :
+                    (0, max(0, (prev[u] / 3)), ((max(0, (prev[u] / 3))) * ((max(0, (prev[u] / 3))) + 3) / 6))) :
+                (0, max(0, (prev[u] / 3)), ((max(0, (prev[u] / 3))) * ((max(0, (prev[u] / 3))) + 3) / 6))) :
             (0, max(0, (prev[u] / 3)), ((max(0, (prev[u] / 3))) * ((max(0, (prev[u] / 3))) + 3) / 6))
     );
 }
@@ -6424,9 +6424,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) <= 0) ? (0, 0, 0) : 
-                (((prev[u]) >= 0) && ((prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) > 3) ? ((prev[l]), (prev[u]), (prev[z])) : 
+    HardSwish -> ((prev[l]) <= 0) ? (0, 0, 0) :
+                (((prev[u]) >= 0) && ((prev[u]) <= 3) ? ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) > 3) ? ((prev[l]), (prev[u]), (prev[z])) :
                     (0, (prev[u]), (((prev[u]) * (prev[u] + 3)) / 6))));
 }
 
@@ -6482,12 +6482,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) >= 0) ? 
-                    ((prev[l]), (prev[u]), (prev[z])) : 
-                    (((prev[u]) <= 0) ? 
-                        (0, 0, 0) : 
-                        (((prev[l]) >= -3) && ((prev[u]) <= 3)) ? 
-                            ((prev[l]) * ((prev[l] + 3) / 6), (prev[u]) * ((prev[u] + 3) / 6), (prev[z]) * ((prev[z] + 3) / 6)) : 
+    HardSwish -> ((prev[l]) >= 0) ?
+                    ((prev[l]), (prev[u]), (prev[z])) :
+                    (((prev[u]) <= 0) ?
+                        (0, 0, 0) :
+                        (((prev[l]) >= -3) && ((prev[u]) <= 3)) ?
+                            ((prev[l]) * ((prev[l] + 3) / 6), (prev[u]) * ((prev[u] + 3) / 6), (prev[z]) * ((prev[z] + 3) / 6)) :
                             (0, (prev[u]) * ((prev[u] + 3) / 6), ((prev[u]) * ((prev[u] + 3) / 6)) / 2 + (((prev[u]) * ((prev[u] + 3) / 6)) / 2) * eps));
 }
 
@@ -6542,10 +6542,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardSwish -> ((prev[l]) < -3) ? (0, 0, 0) : 
-                (((prev[u]) > 3) ? ((prev[u]), (prev[u]), (prev[z])) : 
-                    ((prev[l]) >= -3 && (prev[u]) <= 3) ? 
-                        ((prev[l]), (prev[u]), (prev[z])) : 
+    HardSwish -> ((prev[l]) < -3) ? (0, 0, 0) :
+                (((prev[u]) > 3) ? ((prev[u]), (prev[u]), (prev[z])) :
+                    ((prev[l]) >= -3 && (prev[u]) <= 3) ?
+                        ((prev[l]), (prev[u]), (prev[z])) :
                         ((prev[l] * ((prev[l] + 3) / 6)), (prev[u] * ((prev[u] + 3) / 6)), (prev[l] * ((prev[l] + 3) / 6)) + ((prev[u] * ((prev[u] + 3) / 6)) / 2) + (((prev[u] * ((prev[u] + 3) / 6)) / 2) * eps)));
 }
 
@@ -6613,7 +6613,7 @@ transformer deepz{
 }
 
 2025-06-12 15:15:01,731 - INFO - 2025-06-12 15:15:01.731022 - Extracting HardTanh
-2025-06-12 15:15:01,731 - INFO - 
+2025-06-12 15:15:01,731 - INFO -
 API: HardTanh -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:15:01,731 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:15:12,927 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -6666,10 +6666,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l] <= -1) ? (-1, -1, -1) : 
-                ((prev[u] >= 1) ? (1, 1, 1) : 
-                ((prev[l] >= -1) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                ((prev[l]) > -1 && (prev[u]) < 1) ? (0, max(-prev[l], prev[u]), ((max(-prev[l], prev[u])) / 2) + (((max(-prev[l], prev[u])) / 2) * eps)) : 
+    HardTanh -> ((prev[l] <= -1) ? (-1, -1, -1) :
+                ((prev[u] >= 1) ? (1, 1, 1) :
+                ((prev[l] >= -1) ? ((prev[l]), (prev[u]), (prev[z])) :
+                ((prev[l]) > -1 && (prev[u]) < 1) ? (0, max(-prev[l], prev[u]), ((max(-prev[l], prev[u])) / 2) + (((max(-prev[l], prev[u])) / 2) * eps)) :
                 (0, 0, 0)))));
 }
 
@@ -6724,10 +6724,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1) : 
-                (((prev[u]) <= -1) ? (-1, -1, -1) : 
-                    ((prev[l]) <= -1) ? (-1, (prev[u]), (prev[u] / 2) + (((prev[u] / 2) * eps))) : 
-                    ((prev[u]) >= 1) ? (1, (prev[u]), ((prev[u] / 2) + (((prev[u] / 2) * eps))) : 
+    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1) :
+                (((prev[u]) <= -1) ? (-1, -1, -1) :
+                    ((prev[l]) <= -1) ? (-1, (prev[u]), (prev[u] / 2) + (((prev[u] / 2) * eps))) :
+                    ((prev[u]) >= 1) ? (1, (prev[u]), ((prev[u] / 2) + (((prev[u] / 2) * eps))) :
                     (f1(prev[l]), f2(prev[u]), (prev[z])));
 }
 
@@ -6782,8 +6782,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) <= -1) ? (-1, min(-1, prev[u]), (min(-1, prev[u]) / 2) + (((min(-1, prev[u]) / 2) * eps))) : 
-                  (((prev[u]) >= 1) ? (1, max(1, prev[l]), (max(1, prev[l]) / 2) + (((max(1, prev[l]) / 2) * eps))) : 
+    HardTanh -> ((prev[l]) <= -1) ? (-1, min(-1, prev[u]), (min(-1, prev[u]) / 2) + (((min(-1, prev[u]) / 2) * eps))) :
+                  (((prev[u]) >= 1) ? (1, max(1, prev[l]), (max(1, prev[l]) / 2) + (((max(1, prev[l]) / 2) * eps))) :
                    ((prev[l]) >= -1 && (prev[u]) <= 1) ? (prev[l], prev[u], (prev[u] / 2) + (((prev[u] / 2) * eps)))));
 }
 
@@ -6839,10 +6839,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1) : 
-                (((prev[u]) <= -1) ? (-1, -1, -1) : 
-                ((prev[l]) <= -1) ? (-1, 0, 0) : 
-                (((prev[u]) >= 1) ? (0, 1, (1 / 2) + ((1 / 2) * eps)) : 
+    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1) :
+                (((prev[u]) <= -1) ? (-1, -1, -1) :
+                ((prev[l]) <= -1) ? (-1, 0, 0) :
+                (((prev[u]) >= 1) ? (0, 1, (1 / 2) + ((1 / 2) * eps)) :
                 ((prev[l]), (prev[u]), (prev[z])));
 }
 
@@ -6898,8 +6898,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) : 
-                (((prev[u]) >= 1) ? (1, 1, 1) : 
+    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) :
+                (((prev[u]) >= 1) ? (1, 1, 1) :
                 (((prev[l]) > -1 && (prev[u]) < 1) ? (prev[l], prev[u], (prev[l] + prev[u]) / 2 + (((prev[l] + prev[u]) / 2) * eps)) : (0, 0, 0)));
 }
 
@@ -6956,8 +6956,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) : 
-                (((prev[u]) >= 1) ? (1, 1, 1) : 
+    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) :
+                (((prev[u]) >= 1) ? (1, 1, 1) :
                     ((prev[l]) > -1 && (prev[u]) < 1) ? (max(-1, prev[l]), min(1, prev[u]), f1(prev[z])));
 }
 
@@ -7014,9 +7014,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l] <= -1) || (prev[u] >= 1)) ? (-1, -1, -1) : 
-                (((prev[l] >= -1) && (prev[u] <= 1)) ? (prev[l], prev[u], prev[z]) : 
-                ((prev[l] >= -1) && (prev[l] < 1)) ? (prev[l], 1, (prev[l] + 1) / 2) : 
+    HardTanh -> ((prev[l] <= -1) || (prev[u] >= 1)) ? (-1, -1, -1) :
+                (((prev[l] >= -1) && (prev[u] <= 1)) ? (prev[l], prev[u], prev[z]) :
+                ((prev[l] >= -1) && (prev[l] < 1)) ? (prev[l], 1, (prev[l] + 1) / 2) :
                 ((prev[u] > -1) && (prev[u] <= 1)) ? (prev[u], 1, (prev[u] + 1) / 2));
 }
 
@@ -7072,9 +7072,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) : 
-                (((prev[u]) >= 1) ? (1, 1, 1) : 
-                ((prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
+    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) :
+                (((prev[u]) >= 1) ? (1, 1, 1) :
+                ((prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
                 (0, max(-prev[l], prev[u]), ((max(-prev[l], prev[u])) / 2) + (((max(-prev[l], prev[u])) / 2) * eps))));
 }
 
@@ -7132,8 +7132,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l] >= -1) && (prev[u] <= 1)) ? 
-                    ((prev[l] >= -1) ? ((-1) >= (prev[l]) && (-1) <= (prev[u])) ? (-1, 1, 1/2) : (-1, 1, 1/2 + (1/2) * eps) : (prev[l], prev[u], (prev[l] + prev[u]) / 2 + ((prev[l] + prev[u]) / 2) * eps)) : 
+    HardTanh -> ((prev[l] >= -1) && (prev[u] <= 1)) ?
+                    ((prev[l] >= -1) ? ((-1) >= (prev[l]) && (-1) <= (prev[u])) ? (-1, 1, 1/2) : (-1, 1, 1/2 + (1/2) * eps) : (prev[l], prev[u], (prev[l] + prev[u]) / 2 + ((prev[l] + prev[u]) / 2) * eps)) :
                     ((prev[u] <= 1) ? ((1) >= (prev[l]) && (1) <= (prev[u]) ? (1, 1, 1/2) : (1, 1, 1/2 + (1/2) * eps) : (prev[l], prev[u], (prev[l] + prev[u]) / 2 + ((prev[l] + prev[u]) / 2) * eps)));
 }
 
@@ -7243,8 +7243,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) >= 1) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) <= -1) ? (0, 0, 0) : 
+    HardTanh -> ((prev[l]) >= 1) ? ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) <= -1) ? (0, 0, 0) :
                 (((prev[l]) >= -1) && ((prev[u]) <= 1)) ? ((prev[l]), (prev[u]), ((prev[u]) < 0) ? ((prev[u] + 1) / 2 + (((prev[u] + 1) / 2) * eps)) : ((prev[l] - 1) / 2 + (((prev[l] - 1) / 2) * eps))));
 }
 
@@ -7411,11 +7411,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1) : 
-                (((prev[u]) <= -1) ? (-1, -1, -1) : 
-                (((prev[l]) <= 0 && (prev[u]) >= 0) ? (0, 0, 0) : 
-                ((0, (prev[u]) <= 1) ? (0, (prev[u]), (prev[u] / 2) + ((prev[u] / 2) * eps)) : 
-                ((0, (prev[l]) >= -1) ? (0, (prev[l]), (prev[l] / 2) + ((prev[l] / 2) * eps)) : 
+    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1) :
+                (((prev[u]) <= -1) ? (-1, -1, -1) :
+                (((prev[l]) <= 0 && (prev[u]) >= 0) ? (0, 0, 0) :
+                ((0, (prev[u]) <= 1) ? (0, (prev[u]), (prev[u] / 2) + ((prev[u] / 2) * eps)) :
+                ((0, (prev[l]) >= -1) ? (0, (prev[l]), (prev[l] / 2) + ((prev[l] / 2) * eps)) :
                 ((0, (prev[l]) >= -1 && (prev[u]) <= 1) ? (0, (prev[u]), (prev[u] / 2) + ((prev[u] / 2) * eps)) : (0, (prev[u]), (prev[u] / 2) + ((prev[u] / 2) * eps))))));
 }
 
@@ -7470,63 +7470,63 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1) : 
-                (((prev[u]) <= -1) ? (-1, -1, -1) : 
-                (((prev[l]) <= -1 && prev[u] >=1) ? (-1, 1, (prev[z]) * 0.5) : 
-                (((prev[l]) <= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) : 
-                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) : 
+    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1) :
+                (((prev[u]) <= -1) ? (-1, -1, -1) :
+                (((prev[l]) <= -1 && prev[u] >=1) ? (-1, 1, (prev[z]) * 0.5) :
+                (((prev[l]) <= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= 1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] <= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] >= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= 1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) <= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev[z]) :
+                (((prev[l]) >= -1 && prev[u] >= -1) ? (prev[l], prev[u], prev[z]) :
                 (((prev[l]) <= -1 && prev[u] >= -1) ? (prev[l], prev
 
 2025-06-12 15:16:57,080 - INFO - [STEP 1] Sample 2: Validation failed.
@@ -7582,8 +7582,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) : 
-                (((prev[u]) >= 1) ? (1, 1, 1) : 
+    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) :
+                (((prev[u]) >= 1) ? (1, 1, 1) :
                 (((prev[l]) > -1) && ((prev[u]) < 1)) ? ((prev[l]), (prev[u]), (prev[z])));
 }
 
@@ -7641,10 +7641,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) < -1) ? (-1, -1, -1) : 
-                (((prev[u]) > 1) ? (1, 1, 1) : 
-                    ((prev[l]) >= -1 && (prev[u]) <= 1) ? (prev[l], prev[u], prev[z]) : 
-                        ((prev[l]) < 1) ? (-1, (prev[u]), (f1(prev[u]) + ((prev[u]) / 2))) : 
+    HardTanh -> ((prev[l]) < -1) ? (-1, -1, -1) :
+                (((prev[u]) > 1) ? (1, 1, 1) :
+                    ((prev[l]) >= -1 && (prev[u]) <= 1) ? (prev[l], prev[u], prev[z]) :
+                        ((prev[l]) < 1) ? (-1, (prev[u]), (f1(prev[u]) + ((prev[u]) / 2))) :
                             ((prev[u]) > -1) ? ((prev[l]), 1, (f2(prev[l]) + ((prev[l]) / 2))));
 }
 
@@ -7700,9 +7700,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) : 
-                (((prev[u]) >= 1) ? (1, 1, 1) : 
-                ((prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], (prev[l] + prev[u]) / 2) : 
+    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) :
+                (((prev[u]) >= 1) ? (1, 1, 1) :
+                ((prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], (prev[l] + prev[u]) / 2) :
                 ((prev[u] < 1 && prev[l] > -1) ? ((prev[l]), (prev[u]), (prev[l] * ((prev[l] + 3) / 6)) + (prev[u] * ((prev[u] + 3) / 6) - (s1(prev[l], prev[u]) * (prev[l] + prev[u]) / 2) + (((prev[l] * ((prev[l] + 3) / 6)) + (prev[u] * ((prev[u] + 3) / 6))) / 2 + eps))));
 }
 
@@ -7712,14 +7712,14 @@ transformer deepz{
 2025-06-12 15:17:15,377 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deepz{
-    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) : 
-                (((prev[u]) >= 1) ? (1, 1, 1) : 
-                ((prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], (prev[l] + prev[u]) / 2) : 
+    HardTanh -> ((prev[l]) <= -1) ? (-1, -1, -1) :
+                (((prev[u]) >= 1) ? (1, 1, 1) :
+                ((prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], (prev[l] + prev[u]) / 2) :
                 ((prev[u] < 1 && prev[l] > -1) ? ((prev[l]), (prev[u]), (prev[l] * ((prev[l] + 3) / 6)) + (prev[u] * ((prev[u] + 3) / 6) - (s1(prev[l], prev[u]) * (prev[l] + prev[u]) / 2) + (((prev[l] * ((prev[l] + 3) / 6)) + (prev[u] * ((prev[u] + 3) / 6))) / 2 + eps))));
 }
 
 2025-06-12 15:17:15,377 - INFO - 2025-06-12 15:17:15.377588 - Extracting Max
-2025-06-12 15:17:15,377 - INFO - 
+2025-06-12 15:17:15,377 - INFO -
 API: Max -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:17:15,377 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:17:21,652 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -7826,7 +7826,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> 
+    Max ->
         (prev_0[l] <= prev_1[l]) ?
             ((prev_0[l]), (prev_0[u] > prev_1[u]) ? (prev_0[u]) : (prev_1[u]), (prev_0[z] == null) ? (prev_1[z]) : (prev_0[z])) :
             ((prev_1[l] < prev_0[l]) ?
@@ -8050,49 +8050,49 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> ((prev_0[l] >= 0) && (prev_1[l] >= 0)) ? 
-                ((prev_0[l] >= prev_1[l]) ? prev_0 : prev_1) : 
-                (((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? 
-                    ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                    (((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? prev_0 : 
-                        ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? prev_1 : 
-                        (((prev_0[l] >= 0) && (prev_1[l] >= 0)) ? 
-                            ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                            (((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? 
-                                ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) : 
-                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) : 
-                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) : 
+    Max -> ((prev_0[l] >= 0) && (prev_1[l] >= 0)) ?
+                ((prev_0[l] >= prev_1[l]) ? prev_0 : prev_1) :
+                (((prev_0[u] <= 0) && (prev_1[u] <= 0)) ?
+                    ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                    (((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? prev_0 :
+                        ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? prev_1 :
+                        (((prev_0[l] >= 0) && (prev_1[l] >= 0)) ?
+                            ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                            (((prev_0[u] <= 0) && (prev_1[u] <= 0)) ?
+                                ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ? prev_0 : prev_1) :
+                                ((prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l] >= prev_1[u]) ? prev_0 : prev_1) :
+                                ((prev_0[u] <= 0) && (prev_1[u] <= 0)) ? ((prev_0[u] >= prev_1[u]) ? prev_0 : prev_1) :
                                 ((prev_0[u] <= 0) && (prev_1[l] >= 0)) ? ((prev_0[u] >= prev_1[l]) ?
 
 2025-06-12 15:17:56,242 - INFO - [STEP 1] Sample 3: Validation failed.
@@ -8255,14 +8255,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> ((prev_0[l] >= prev_1[l]) && (prev_0[l] >= 0)) ? ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-           ((prev_0[u] <= prev_1[u]) && (prev_1[u] >= 0)) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) : 
-           ((prev_0[l] <= prev_1[l]) && (prev_1[l] >= 0)) ? ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
-           ((prev_0[u] >= prev_1[u]) && (prev_0[u] >= 0)) ? ((prev_0[u]), (prev_0[u]), (prev_0[z])) : 
-           ((prev_0[l] >= prev_1[l]) && (prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-           ((prev_1[l] >= prev_0[l]) && (prev_1[l] >= 0) && (prev_0[u] <= 0)) ? ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
-           ((prev_0[l] <= prev_1[l]) && (prev_1[l] >= 0) && (prev_0[u] <= 0)) ? ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
-           ((prev_1[u] <= prev_0[u]) && (prev_1[u] >= 0) && (prev_0[l] <= 0)) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) : 
+    Max -> ((prev_0[l] >= prev_1[l]) && (prev_0[l] >= 0)) ? ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+           ((prev_0[u] <= prev_1[u]) && (prev_1[u] >= 0)) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) :
+           ((prev_0[l] <= prev_1[l]) && (prev_1[l] >= 0)) ? ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
+           ((prev_0[u] >= prev_1[u]) && (prev_0[u] >= 0)) ? ((prev_0[u]), (prev_0[u]), (prev_0[z])) :
+           ((prev_0[l] >= prev_1[l]) && (prev_0[l] >= 0) && (prev_1[u] <= 0)) ? ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+           ((prev_1[l] >= prev_0[l]) && (prev_1[l] >= 0) && (prev_0[u] <= 0)) ? ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
+           ((prev_0[l] <= prev_1[l]) && (prev_1[l] >= 0) && (prev_0[u] <= 0)) ? ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
+           ((prev_1[u] <= prev_0[u]) && (prev_1[u] >= 0) && (prev_0[l] <= 0)) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) :
            (0, max(prev_0[u], prev_1[u]), ((max(prev_0[u], prev_1[u])) / 2) + (((max(prev_0[u], prev_1[u])) / 2) * eps)));
 }
 
@@ -8372,22 +8372,22 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> ((prev_0[l] > prev_1[u]) && (prev_0[u] < prev_1[l])) ? 
-                (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), (prev_0[z] > prev_1[z]) ? prev_0[z] : prev_1[z]) : 
-                (((prev_0[l] < prev_1[u]) && (prev_0[u] > prev_1[l])) ? 
-                    (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), (prev_0[z] < prev_1[z]) ? prev_0[z] : prev_1[z]) : 
-                    (((prev_0[l] > prev_1[u]) || (prev_0[u] < prev_1[l])) ? 
-                        (max(prev_0[l], prev_1[u]), max(prev_0[u], prev_1[l]), ((prev_0[z] > prev_1[z]) ? prev_0[z] : prev_1[z]) + eps) : 
-                        ((prev_0[l] <= prev_1[u]) && (prev_0[u] >= prev_1[l]) ? 
-                            (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), (prev_0[z] + prev_1[z]) / 2 + (((prev_0[z] + prev_1[z]) / 2) * eps)) : 
-                            ((prev_0[l] == prev_1[l]) && (prev_0[u] == prev_1[u]) ? 
-                                (prev_0[l], prev_0[u], prev_0[z]) : 
-                                ((prev_0[l] == prev_1[l]) && (prev_0[u] > prev_1[l]) ? 
-                                    (prev_0[l], prev_0[u], prev_0[z]) : 
-                                    ((prev_0[l] < prev_1[u]) && (prev_0[u] == prev_1[u]) ? 
-                                        (prev_0[l], prev_0[u], prev_0[z]) : 
-                                        ((prev_0[l] > prev_1[u]) && (prev_0[u] == prev_1[l]) ? 
-                                            (prev_0[l], prev_0[u], prev_0[z]) : 
+    Max -> ((prev_0[l] > prev_1[u]) && (prev_0[u] < prev_1[l])) ?
+                (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), (prev_0[z] > prev_1[z]) ? prev_0[z] : prev_1[z]) :
+                (((prev_0[l] < prev_1[u]) && (prev_0[u] > prev_1[l])) ?
+                    (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), (prev_0[z] < prev_1[z]) ? prev_0[z] : prev_1[z]) :
+                    (((prev_0[l] > prev_1[u]) || (prev_0[u] < prev_1[l])) ?
+                        (max(prev_0[l], prev_1[u]), max(prev_0[u], prev_1[l]), ((prev_0[z] > prev_1[z]) ? prev_0[z] : prev_1[z]) + eps) :
+                        ((prev_0[l] <= prev_1[u]) && (prev_0[u] >= prev_1[l]) ?
+                            (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), (prev_0[z] + prev_1[z]) / 2 + (((prev_0[z] + prev_1[z]) / 2) * eps)) :
+                            ((prev_0[l] == prev_1[l]) && (prev_0[u] == prev_1[u]) ?
+                                (prev_0[l], prev_0[u], prev_0[z]) :
+                                ((prev_0[l] == prev_1[l]) && (prev_0[u] > prev_1[l]) ?
+                                    (prev_0[l], prev_0[u], prev_0[z]) :
+                                    ((prev_0[l] < prev_1[u]) && (prev_0[u] == prev_1[u]) ?
+                                        (prev_0[l], prev_0[u], prev_0[z]) :
+                                        ((prev_0[l] > prev_1[u]) && (prev_0[u] == prev_1[l]) ?
+                                            (prev_0[l], prev_0[u], prev_0[z]) :
                                             (0, 0, 0))))))));
 }
 
@@ -8561,14 +8561,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> ((prev_0[l] >= prev_1[l]) && (prev_0[u] >= prev_1[u])) ? (prev_0) : 
-           ((prev_1[l] >= prev_0[l]) && (prev_1[u] >= prev_0[u])) ? (prev_1) : 
-           ((prev_0[u] <= prev_1[u]) && (prev_0[l] <= prev_1[l])) ? (prev_0) : 
-           ((prev_1[u] <= prev_0[u]) && (prev_1[l] <= prev_0[l])) ? (prev_1) : 
-           ((prev_0[u] <= prev_1[u]) && (prev_0[l] >= prev_1[l])) ? (curr[z]) : 
-           ((prev_1[u] <= prev_0[u]) && (prev_1[l] >= prev_0[l])) ? (curr[z]) : 
-           ((prev_0[u] >= prev_1[u]) && (prev_0[l] <= prev_1[l])) ? (curr[z]) : 
-           ((prev_1[u] >= prev_0[u]) && (prev_1[l] <= prev_0[l])) ? (curr[z]) : 
+    Max -> ((prev_0[l] >= prev_1[l]) && (prev_0[u] >= prev_1[u])) ? (prev_0) :
+           ((prev_1[l] >= prev_0[l]) && (prev_1[u] >= prev_0[u])) ? (prev_1) :
+           ((prev_0[u] <= prev_1[u]) && (prev_0[l] <= prev_1[l])) ? (prev_0) :
+           ((prev_1[u] <= prev_0[u]) && (prev_1[l] <= prev_0[l])) ? (prev_1) :
+           ((prev_0[u] <= prev_1[u]) && (prev_0[l] >= prev_1[l])) ? (curr[z]) :
+           ((prev_1[u] <= prev_0[u]) && (prev_1[l] >= prev_0[l])) ? (curr[z]) :
+           ((prev_0[u] >= prev_1[u]) && (prev_0[l] <= prev_1[l])) ? (curr[z]) :
+           ((prev_1[u] >= prev_0[u]) && (prev_1[l] <= prev_0[l])) ? (curr[z]) :
            (0, max(prev_0[u], prev_1[u]), max(prev_0[l], prev_1[l]) + eps);
 }
 
@@ -8623,12 +8623,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> ((prev_0[l] <= prev_1[l]) && (prev_0[u] <= prev_1[u])) ? ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-           ((prev_1[l] <= prev_0[l]) && (prev_1[u] <= prev_0[u])) ? ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-           ((prev_0[l] <= prev_1[l]) && (prev_1[u] <= prev_0[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_0[l]), (prev_1[u]), ((prev_0[u] + prev_1[u]) / 2) + (((prev_0[u] + prev_1[u]) / 2) * eps)) : 
-           ((prev_1[l] <= prev_0[l]) && (prev_0[u] <= prev_1[u]) && (prev_1[u] <= prev_0[u])) ? ((prev_1[l]), (prev_0[u]), ((prev_0[u] + prev_1[u]) / 2) + (((prev_0[u] + prev_1[u]) / 2) * eps)) : 
-           ((prev_0[l] <= prev_1[l]) && (prev_0[u] <= prev_1[u]) && (prev_1[u] <= prev_0[u]) && (prev_1[l] <= prev_0[l])) ? ((prev_1[l]), (prev_0[u]), ((prev_0[u] + prev_1[u]) / 2) + (((prev_0[u] + prev_1[u]) / 2) * eps)) : 
-           ((prev_1[l] <= prev_0[l]) && (prev_1[u] <= prev_0[u]) && (prev_0[u] <= prev_1[u]) && (prev_0[l] <= prev_1[l])) ? ((prev_0[l]), (prev_1[u]), ((prev_0[u] + prev_1[u]) / 2) + (((prev_0[u] + prev_1[u]) / 2) * eps)) : 
+    Max -> ((prev_0[l] <= prev_1[l]) && (prev_0[u] <= prev_1[u])) ? ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+           ((prev_1[l] <= prev_0[l]) && (prev_1[u] <= prev_0[u])) ? ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+           ((prev_0[l] <= prev_1[l]) && (prev_1[u] <= prev_0[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_0[l]), (prev_1[u]), ((prev_0[u] + prev_1[u]) / 2) + (((prev_0[u] + prev_1[u]) / 2) * eps)) :
+           ((prev_1[l] <= prev_0[l]) && (prev_0[u] <= prev_1[u]) && (prev_1[u] <= prev_0[u])) ? ((prev_1[l]), (prev_0[u]), ((prev_0[u] + prev_1[u]) / 2) + (((prev_0[u] + prev_1[u]) / 2) * eps)) :
+           ((prev_0[l] <= prev_1[l]) && (prev_0[u] <= prev_1[u]) && (prev_1[u] <= prev_0[u]) && (prev_1[l] <= prev_0[l])) ? ((prev_1[l]), (prev_0[u]), ((prev_0[u] + prev_1[u]) / 2) + (((prev_0[u] + prev_1[u]) / 2) * eps)) :
+           ((prev_1[l] <= prev_0[l]) && (prev_1[u] <= prev_0[u]) && (prev_0[u] <= prev_1[u]) && (prev_0[l] <= prev_1[l])) ? ((prev_0[l]), (prev_1[u]), ((prev_0[u] + prev_1[u]) / 2) + (((prev_0[u] + prev_1[u]) / 2) * eps)) :
            (0, 0, 0);
 }
 
@@ -8684,12 +8684,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> ((prev_0[l]<=prev_1[l]) && (prev_0[u]<=prev_1[u])) ? 
-                (prev_0[l], prev_0[u], prev_0[z]) : 
-                (((prev_0[l]>=prev_1[l]) && (prev_0[l]<=prev_1[u])) ? 
-                    (prev_0[u], prev_0[l], prev_0[z]) : 
-                    (((prev_0[u]>=prev_1[u]) && (prev_0[u]<=prev_1[l])) ? 
-                        (prev_0[u], prev_0[l], prev_0[z]) : 
+    Max -> ((prev_0[l]<=prev_1[l]) && (prev_0[u]<=prev_1[u])) ?
+                (prev_0[l], prev_0[u], prev_0[z]) :
+                (((prev_0[l]>=prev_1[l]) && (prev_0[l]<=prev_1[u])) ?
+                    (prev_0[u], prev_0[l], prev_0[z]) :
+                    (((prev_0[u]>=prev_1[u]) && (prev_0[u]<=prev_1[l])) ?
+                        (prev_0[u], prev_0[l], prev_0[z]) :
                         (prev_1[l], prev_1[u], prev_1[z])));
 }
 
@@ -8744,8 +8744,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> ((prev_0[l] > prev_1[u]) ? (prev_0[l], prev_0[l], prev_0[z]) : 
-            ((prev_0[u] < prev_1[l]) ? (prev_1[l], prev_1[l], prev_1[z]) : 
+    Max -> ((prev_0[l] > prev_1[u]) ? (prev_0[l], prev_0[l], prev_0[z]) :
+            ((prev_0[u] < prev_1[l]) ? (prev_1[l], prev_1[l], prev_1[z]) :
             (compute_l(prev_0, prev_1), compute_u(prev_0, prev_1), if prev_0[l] >= prev_1[l] then prev_0[z] else if prev_0[u] <= prev_1[u] then prev_1[z] else if prev_0[l] == prev_1[l] or prev_0[l] == prev_1[u] or prev_0[u] == prev_1[l] or prev_0[u] == prev_1[u] then (prev_0[z] + prev_1[z]) / 2 else (prev_0[z] + prev_1[z]) / 2 + (((prev_0[z] + prev_1[z]) / 2) * eps)));
 }
 
@@ -8801,12 +8801,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Max -> (
-        (prev_0[l] >= prev_1[l]) ? (prev_0[l], prev_0[u], prev_0[z]) : 
-        (prev_0[l] < prev_1[l]) ? (prev_1[l], prev_1[u], prev_1[z]) : 
-        (prev_0[l] == prev_1[l] && prev_0[u] >= prev_1[u]) ? (prev_0[l], prev_0[u], prev_0[z]) : 
-        (prev_0[l] == prev_1[l] && prev_0[u] < prev_1[u]) ? (prev_1[l], prev_1[u], prev_1[z]) : 
-        (prev_0[l] == prev_1[l] && prev_0[u] == prev_1[u] && prev_0[z] >= prev_1[z]) ? (prev_0[l], prev_0[u], prev_0[z]) : 
-        (prev_0[l] == prev_1[l] && prev_0[u] == prev_1[u] && prev_0[z] < prev_1[z]) ? (prev_1[l], prev_1[u], prev_1[z]) : 
+        (prev_0[l] >= prev_1[l]) ? (prev_0[l], prev_0[u], prev_0[z]) :
+        (prev_0[l] < prev_1[l]) ? (prev_1[l], prev_1[u], prev_1[z]) :
+        (prev_0[l] == prev_1[l] && prev_0[u] >= prev_1[u]) ? (prev_0[l], prev_0[u], prev_0[z]) :
+        (prev_0[l] == prev_1[l] && prev_0[u] < prev_1[u]) ? (prev_1[l], prev_1[u], prev_1[z]) :
+        (prev_0[l] == prev_1[l] && prev_0[u] == prev_1[u] && prev_0[z] >= prev_1[z]) ? (prev_0[l], prev_0[u], prev_0[z]) :
+        (prev_0[l] == prev_1[l] && prev_0[u] == prev_1[u] && prev_0[z] < prev_1[z]) ? (prev_1[l], prev_1[u], prev_1[z]) :
         (prev_0[l] == prev_1[l] && prev_0[u] == prev_1[u] && prev_0[z] == prev_1[z]) ? (prev_0[l], prev_0[u], prev_0[z])
     );
 }
@@ -8918,10 +8918,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Max -> (
-        (prev_0[l] <= prev_1[l]) ? 
-            (prev_0[l], max(prev_0[u], prev_1[u]), if (prev_0[z] >= prev_1[z]) prev_0[z] else prev_1[z]) : 
-        (prev_1[l] <= prev_0[l]) ? 
-            (prev_1[l], max(prev_0[u], prev_1[u]), if (prev_1[z] >= prev_0[z]) prev_1[z] else prev_0[z]) : 
+        (prev_0[l] <= prev_1[l]) ?
+            (prev_0[l], max(prev_0[u], prev_1[u]), if (prev_0[z] >= prev_1[z]) prev_0[z] else prev_1[z]) :
+        (prev_1[l] <= prev_0[l]) ?
+            (prev_1[l], max(prev_0[u], prev_1[u]), if (prev_1[z] >= prev_0[z]) prev_1[z] else prev_0[z]) :
         (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), if (prev_0[u] >= prev_1[u]) prev_0[z] else prev_1[z])
     );
 }
@@ -9141,10 +9141,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Max -> (
-        (prev_0[l] >= prev_1[l]) ? 
-            ((prev_1[l] >= 0) ? (prev_1[l], prev_1[u], prev_1[z]) : ((prev_1[u] <= 0) ? (0, 0, 0) : (0, prev_1[u], (prev_1[u] / 2) + ((prev_1[u] / 2) * eps)))) : 
-            ((prev_0[u] <= prev_1[u]) ? (prev_0[u], prev_0[u], prev_0[u]) : 
-                ((prev_0[u] > prev_1[u]) ? (prev_0[u], prev_0[u], prev_0[u]) : 
+        (prev_0[l] >= prev_1[l]) ?
+            ((prev_1[l] >= 0) ? (prev_1[l], prev_1[u], prev_1[z]) : ((prev_1[u] <= 0) ? (0, 0, 0) : (0, prev_1[u], (prev_1[u] / 2) + ((prev_1[u] / 2) * eps)))) :
+            ((prev_0[u] <= prev_1[u]) ? (prev_0[u], prev_0[u], prev_0[u]) :
+                ((prev_0[u] > prev_1[u]) ? (prev_0[u], prev_0[u], prev_0[u]) :
                     (max(prev_0[l], prev_1[u]), max(prev_0[u], prev_1[u]), (((prev_0[u] + prev_1[u]) / 2) + (((prev_0[u] + prev_1[u]) / 2) * eps))))
     );
 }
@@ -9201,98 +9201,98 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> ((prev_0[l] >= prev_1[l]) ? 
-                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                ((prev_0[u] <= prev_1[u]) ? 
-                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                    ((prev_0[u] >= prev_1[u]) ? 
-                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                        ((prev_0[u] <= prev_1[u]) ? 
-                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                            ((prev_0[u] >= prev_1[u]) ? 
-                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                ((prev_0[u] <= prev_1[u]) ? 
-                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                    ((prev_0[u] >= prev_1[u]) ? 
-                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                        ((prev_0[u] <= prev_1[u]) ? 
-                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                            ((prev_0[u] >= prev_1[u]) ? 
-                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                ((prev_0[u] <= prev_1[u]) ? 
-                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                    ((prev_0[u] >= prev_1[u]) ? 
-                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                        ((prev_0[u] <= prev_1[u]) ? 
-                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                            ((prev_0[u] >= prev_1[u]) ? 
-                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                ((prev_0[u] <= prev_1[u]) ? 
-                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                    ((prev_0[u] >= prev_1[u]) ? 
-                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                        ((prev_0[u] <= prev_1[u]) ? 
-                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                            ((prev_0[u] >= prev_1[u]) ? 
-                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                ((prev_0[u] <= prev_1[u]) ? 
-                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                    ((prev_0[u] >= prev_1[u]) ? 
-                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                        ((prev_0[u] <= prev_1[u]) ? 
-                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                            ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                    ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                        ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                            ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                                    ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                        ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                                            ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                                ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                                                    ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                                        ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                                                            ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                                                ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                                                                    ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                                                        ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                                                                            ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                                                                ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                                                                                    ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                                                                        ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                                                                                            ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                                                                                ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                                                                                                    ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                                                                                        ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
-                                                                                                                                                                                            ((prev_0[u] >= prev_1[u]) ? 
-                                                                                                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) : 
-                                                                                                                                                                                                ((prev_0[u] <= prev_1[u]) ? 
-                                                                                                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) : 
+    Max -> ((prev_0[l] >= prev_1[l]) ?
+                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                ((prev_0[u] <= prev_1[u]) ?
+                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                    ((prev_0[u] >= prev_1[u]) ?
+                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                        ((prev_0[u] <= prev_1[u]) ?
+                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                            ((prev_0[u] >= prev_1[u]) ?
+                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                ((prev_0[u] <= prev_1[u]) ?
+                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                    ((prev_0[u] >= prev_1[u]) ?
+                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                        ((prev_0[u] <= prev_1[u]) ?
+                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                            ((prev_0[u] >= prev_1[u]) ?
+                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                ((prev_0[u] <= prev_1[u]) ?
+                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                    ((prev_0[u] >= prev_1[u]) ?
+                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                        ((prev_0[u] <= prev_1[u]) ?
+                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                            ((prev_0[u] >= prev_1[u]) ?
+                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                ((prev_0[u] <= prev_1[u]) ?
+                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                    ((prev_0[u] >= prev_1[u]) ?
+                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                        ((prev_0[u] <= prev_1[u]) ?
+                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                            ((prev_0[u] >= prev_1[u]) ?
+                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                ((prev_0[u] <= prev_1[u]) ?
+                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                    ((prev_0[u] >= prev_1[u]) ?
+                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                        ((prev_0[u] <= prev_1[u]) ?
+                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                            ((prev_0[u] >= prev_1[u]) ?
+                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                ((prev_0[u] <= prev_1[u]) ?
+                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                    ((prev_0[u] >= prev_1[u]) ?
+                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                        ((prev_0[u] <= prev_1[u]) ?
+                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                            ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                                    ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                        ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                                            ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                                ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                                                    ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                                        ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                                                            ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                                                ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                                                                    ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                                                        ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                                                                            ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                                                                ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                                                                                    ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                                                                        ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                                                                                            ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                                                                                ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                                                                                                    ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                                                                                        ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                                                                                        ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                                                                                            ((prev_1[l]), (prev_1[u]), prev_1[z]) :
+                                                                                                                                                                                            ((prev_0[u] >= prev_1[u]) ?
+                                                                                                                                                                                                ((prev_0[l]), (prev_0[u]), prev_0[z]) :
+                                                                                                                                                                                                ((prev_0[u] <= prev_1[u]) ?
+                                                                                                                                                                                                    ((prev_1[l]), (prev_1[u]), prev_1[z]) :
                                                                                                                                                                                                     ((prev_0[u
 
 2025-06-12 15:20:23,187 - INFO - [STEP 1] Sample 1: Validation failed.
@@ -9400,18 +9400,18 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> ((prev_0[l] <= prev_1[l]) && (prev_0[u] <= prev_1[u])) ? 
-                ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-                (((prev_1[l] <= prev_0[l]) && (prev_1[u] <= prev_0[u])) ? 
-                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
-                    (((prev_0[l] <= prev_1[l]) && (prev_0[u] >= prev_1[u])) ? 
-                        ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-                        (((prev_1[l] <= prev_0[l]) && (prev_1[u] >= prev_0[u])) ? 
-                            ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
-                            (((prev_0[l] >= prev_1[l]) && (prev_0[u] <= prev_1[u])) ? 
-                                ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-                                (((prev_1[l] >= prev_0[l]) && (prev_1[u] <= prev_0[u])) ? 
-                                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
+    Max -> ((prev_0[l] <= prev_1[l]) && (prev_0[u] <= prev_1[u])) ?
+                ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+                (((prev_1[l] <= prev_0[l]) && (prev_1[u] <= prev_0[u])) ?
+                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
+                    (((prev_0[l] <= prev_1[l]) && (prev_0[u] >= prev_1[u])) ?
+                        ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+                        (((prev_1[l] <= prev_0[l]) && (prev_1[u] >= prev_0[u])) ?
+                            ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
+                            (((prev_0[l] >= prev_1[l]) && (prev_0[u] <= prev_1[u])) ?
+                                ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+                                (((prev_1[l] >= prev_0[l]) && (prev_1[u] <= prev_0[u])) ?
+                                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
                                     ((min(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), ((max(prev_0[u], prev_1[u]) / 2) + (((max(prev_0[u], prev_1[u]) / 2) * eps)))))));
 }
 
@@ -9575,12 +9575,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Max -> ((prev_0[l] <= prev_1[l]) ? 
-                ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-                ((prev_0[u] < prev_1[l]) ? 
-                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
-                    ((prev_0[u] >= prev_1[u]) ? 
-                        ((prev_1[u]), (prev_1[u]), (prev_1[z])) : 
+    Max -> ((prev_0[l] <= prev_1[l]) ?
+                ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+                ((prev_0[u] < prev_1[l]) ?
+                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
+                    ((prev_0[u] >= prev_1[u]) ?
+                        ((prev_1[u]), (prev_1[u]), (prev_1[z])) :
                         ((prev_0[u]), (prev_0[u]), (prev_0[z] + prev_1[z]))));
 }
 
@@ -9590,17 +9590,17 @@ transformer deepz{
 2025-06-12 15:20:31,770 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deepz{
-    Max -> ((prev_0[l] <= prev_1[l]) ? 
-                ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-                ((prev_0[u] < prev_1[l]) ? 
-                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
-                    ((prev_0[u] >= prev_1[u]) ? 
-                        ((prev_1[u]), (prev_1[u]), (prev_1[z])) : 
+    Max -> ((prev_0[l] <= prev_1[l]) ?
+                ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+                ((prev_0[u] < prev_1[l]) ?
+                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
+                    ((prev_0[u] >= prev_1[u]) ?
+                        ((prev_1[u]), (prev_1[u]), (prev_1[z])) :
                         ((prev_0[u]), (prev_0[u]), (prev_0[z] + prev_1[z]))));
 }
 
 2025-06-12 15:20:31,770 - INFO - 2025-06-12 15:20:31.770786 - Extracting Maxpool
-2025-06-12 15:20:31,770 - INFO - 
+2025-06-12 15:20:31,770 - INFO -
 API: Maxpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:20:31,770 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:20:39,323 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -9708,10 +9708,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Maxpool -> (
-        (prev_0[l]) > (prev_1[l]) ? (prev_0[l], prev_0[u], prev_0[z]) : 
-        (prev_0[l]) < (prev_1[l]) ? (prev_1[l], prev_1[u], prev_1[z]) : 
-        (prev_0[u]) > (prev_1[u]) ? (prev_0[u], prev_0[u], prev_0[z]) : 
-        (prev_0[u]) < (prev_1[u]) ? (prev_1[u], prev_1[u], prev_1[z]) : 
+        (prev_0[l]) > (prev_1[l]) ? (prev_0[l], prev_0[u], prev_0[z]) :
+        (prev_0[l]) < (prev_1[l]) ? (prev_1[l], prev_1[u], prev_1[z]) :
+        (prev_0[u]) > (prev_1[u]) ? (prev_0[u], prev_0[u], prev_0[z]) :
+        (prev_0[u]) < (prev_1[u]) ? (prev_1[u], prev_1[u], prev_1[z]) :
         (prev_0[u] == prev_1[u]) ? (prev_0[u], prev_0[u], prev_0[z])
     );
 }
@@ -10105,14 +10105,14 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deepz{
-    Maxpool -> ((prev_0.map(simplify_lower)) <= curr) ? ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-               ((prev_1.map(simplify_lower)) <= curr) ? ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
-               ((prev_2.map(simplify_lower)) <= curr) ? ((prev_2[l]), (prev_2[u]), (prev_2[z])) : 
-               ((prev_3.map(simplify_lower)) <= curr) ? ((prev_3[l]), (prev_3[u]), (prev_3[z])) : 
-               ((prev_4.map(simplify_lower)) <= curr) ? ((prev_4[l]), (prev_4[u]), (prev_4[z])) : 
-               ((prev_5.map(simplify_lower)) <= curr) ? ((prev_5[l]), (prev_5[u]), (prev_5[z])) : 
-               ((prev_6.map(simplify_lower)) <= curr) ? ((prev_6[l]), (prev_6[u]), (prev_6[z])) : 
-               ((prev_7.map(simplify_lower)) <= curr) ? ((prev_7[l]), (prev_7[u]), (prev_7[z])) : 
+    Maxpool -> ((prev_0.map(simplify_lower)) <= curr) ? ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+               ((prev_1.map(simplify_lower)) <= curr) ? ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
+               ((prev_2.map(simplify_lower)) <= curr) ? ((prev_2[l]), (prev_2[u]), (prev_2[z])) :
+               ((prev_3.map(simplify_lower)) <= curr) ? ((prev_3[l]), (prev_3[u]), (prev_3[z])) :
+               ((prev_4.map(simplify_lower)) <= curr) ? ((prev_4[l]), (prev_4[u]), (prev_4[z])) :
+               ((prev_5.map(simplify_lower)) <= curr) ? ((prev_5[l]), (prev_5[u]), (prev_5[z])) :
+               ((prev_6.map(simplify_lower)) <= curr) ? ((prev_6[l]), (prev_6[u]), (prev_6[z])) :
+               ((prev_7.map(simplify_lower)) <= curr) ? ((prev_7[l]), (prev_7[u]), (prev_7[z])) :
                ((curr[u]), (curr[u]), (curr[z]));
 }
 
@@ -10408,7 +10408,7 @@ transformer deepz{
 2025-06-12 15:21:33,448 - INFO - Succeed. Saved to logs/2025-06-12_15-07-23/results/deepseek-v2-lite/success/Maxpool.txt
 
 2025-06-12 15:21:33,448 - INFO - 2025-06-12 15:21:33.448797 - Extracting Min
-2025-06-12 15:21:33,448 - INFO - 
+2025-06-12 15:21:33,448 - INFO -
 API: Min -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:21:33,449 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:22:12,237 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -10461,19 +10461,19 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_0[u]) && (prev_0[l] <= prev_1[u])) ? ((prev_0[l]), (prev_0[l]), (prev_0[z])) : 
-           ((prev_1[l] <= prev_0[l]) && (prev_1[l] <= prev_0[u]) && (prev_1[l] <= prev_1[u])) ? ((prev_1[l]), (prev_1[l]), (prev_1[z])) : 
-           ((prev_0[u] <= prev_1[l]) && (prev_0[u] <= prev_0[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z])) : 
-           ((prev_1[u] <= prev_0[l]) && (prev_1[u] <= prev_0[u]) && (prev_1[u] <= prev_1[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) : 
-           ((prev_0[l] <= prev_0[u]) && (prev_1[l] <= prev_0[u]) && (prev_0[l] <= prev_1[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z]) * ((prev_0[u] - prev_0[l]) / (prev_1[u] - prev_1[l]))) : 
-           ((prev_1[l] <= prev_0[u]) && (prev_0[l] <= prev_0[u]) && (prev_1[l] <= prev_1[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z]) * ((prev_0[u] - prev_0[l]) / (prev_1[u] - prev_1[l]))) : 
-           ((prev_0[l] <= prev_1[u]) && (prev_1[l] <= prev_1[u]) && (prev_0[l] <= prev_0[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l]))) : 
-           ((prev_0[l] <= prev_1[u]) && (prev_1[u] <= prev_1[u]) && (prev_0[l] <= prev_0[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l]))) : 
-           ((prev_0[u] <= prev_0[u]) && (prev_1[l] <= prev_0[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z]) * ((prev_0[u] - prev_0[l]) / (prev_1[u] - prev_1[l]))) : 
-           ((prev_0[u] <= prev_0[u]) && (prev_1[u] <= prev_0[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z]) * ((prev_0[u] - prev_0[l]) / (prev_1[u] - prev_1[l]))) : 
-           ((prev_0[u] <= prev_1[u]) && (prev_1[l] <= prev_1[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l]))) : 
-           ((prev_0[u] <= prev_1[u]) && (prev_1[u] <= prev_1[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l]))) : 
-           ((prev_0[u] <= prev_0[u]) && (prev_1[l] <= prev_1[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l]))) : 
+    Min -> ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_0[u]) && (prev_0[l] <= prev_1[u])) ? ((prev_0[l]), (prev_0[l]), (prev_0[z])) :
+           ((prev_1[l] <= prev_0[l]) && (prev_1[l] <= prev_0[u]) && (prev_1[l] <= prev_1[u])) ? ((prev_1[l]), (prev_1[l]), (prev_1[z])) :
+           ((prev_0[u] <= prev_1[l]) && (prev_0[u] <= prev_0[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z])) :
+           ((prev_1[u] <= prev_0[l]) && (prev_1[u] <= prev_0[u]) && (prev_1[u] <= prev_1[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) :
+           ((prev_0[l] <= prev_0[u]) && (prev_1[l] <= prev_0[u]) && (prev_0[l] <= prev_1[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z]) * ((prev_0[u] - prev_0[l]) / (prev_1[u] - prev_1[l]))) :
+           ((prev_1[l] <= prev_0[u]) && (prev_0[l] <= prev_0[u]) && (prev_1[l] <= prev_1[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z]) * ((prev_0[u] - prev_0[l]) / (prev_1[u] - prev_1[l]))) :
+           ((prev_0[l] <= prev_1[u]) && (prev_1[l] <= prev_1[u]) && (prev_0[l] <= prev_0[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l]))) :
+           ((prev_0[l] <= prev_1[u]) && (prev_1[u] <= prev_1[u]) && (prev_0[l] <= prev_0[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l]))) :
+           ((prev_0[u] <= prev_0[u]) && (prev_1[l] <= prev_0[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z]) * ((prev_0[u] - prev_0[l]) / (prev_1[u] - prev_1[l]))) :
+           ((prev_0[u] <= prev_0[u]) && (prev_1[u] <= prev_0[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z]) * ((prev_0[u] - prev_0[l]) / (prev_1[u] - prev_1[l]))) :
+           ((prev_0[u] <= prev_1[u]) && (prev_1[l] <= prev_1[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l]))) :
+           ((prev_0[u] <= prev_1[u]) && (prev_1[u] <= prev_1[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l]))) :
+           ((prev_0[u] <= prev_0[u]) && (prev_1[l] <= prev_1[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l]))) :
            ((prev_0[u] <= prev_0[u]) && (prev_1[u] <= prev_1[u]) && (prev_0[u] <= prev_1[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z]) * ((prev_1[u] - prev_1[l]) / (prev_0[u] - prev_0[l])));
 }
 
@@ -10584,8 +10584,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> ((prev_0[l] < prev_1[l]) ? (prev_0[l], prev_0[u], prev_0[z]) : 
-            ((prev_0[u] > prev_1[u]) ? (prev_1[l], prev_1[u], prev_1[z]) : 
+    Min -> ((prev_0[l] < prev_1[l]) ? (prev_0[l], prev_0[u], prev_0[z]) :
+            ((prev_0[u] > prev_1[u]) ? (prev_1[l], prev_1[u], prev_1[z]) :
             ((prev_0[l] == prev_1[l]) ? (prev_0[l], prev_0[u], prev_0[z]) : (prev_1[l], prev_1[u], prev_1[z]))));
 }
 
@@ -10697,14 +10697,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_0[u]) && (prev_0[l] <= prev_1[u])) ? 
-                ((prev_0[l]), (prev_0[l]), (prev_0[z])) : 
-                (((prev_1[l] <= prev_0[l]) && (prev_1[l] <= prev_0[u]) && (prev_1[l] <= prev_1[u])) ? 
-                    ((prev_1[l]), (prev_1[l]), (prev_1[z])) : 
-                    (((prev_0[u] <= prev_1[l]) && (prev_0[u] <= prev_1[u]) && (prev_0[u] <= prev_0[l])) ? 
-                        ((prev_0[u]), (prev_0[u]), (prev_0[z])) : 
-                        (((prev_1[u] <= prev_0[l]) && (prev_1[u] <= prev_0[u]) && (prev_1[u] <= prev_1[l])) ? 
-                            ((prev_1[u]), (prev_1[u]), (prev_1[z])) : 
+    Min -> ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_0[u]) && (prev_0[l] <= prev_1[u])) ?
+                ((prev_0[l]), (prev_0[l]), (prev_0[z])) :
+                (((prev_1[l] <= prev_0[l]) && (prev_1[l] <= prev_0[u]) && (prev_1[l] <= prev_1[u])) ?
+                    ((prev_1[l]), (prev_1[l]), (prev_1[z])) :
+                    (((prev_0[u] <= prev_1[l]) && (prev_0[u] <= prev_1[u]) && (prev_0[u] <= prev_0[l])) ?
+                        ((prev_0[u]), (prev_0[u]), (prev_0[z])) :
+                        (((prev_1[u] <= prev_0[l]) && (prev_1[u] <= prev_0[u]) && (prev_1[u] <= prev_1[l])) ?
+                            ((prev_1[u]), (prev_1[u]), (prev_1[z])) :
                             (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), ((min(prev_0[l], prev_1[l]) + max(prev_0[l], prev_1[l])) / 2) + (((min(prev_0[l], prev_1[l]) + max(prev_0[l], prev_1[l])) / 2) * eps))));
 }
 
@@ -10759,12 +10759,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> ((prev_0[l]) <= (prev_1[l])) ? 
-                ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-                (((prev_1[u]) <= (prev_0[u])) ? 
-                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
-                    (((prev_0[l]) >= (prev_1[u])) ? 
-                        ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
+    Min -> ((prev_0[l]) <= (prev_1[l])) ?
+                ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+                (((prev_1[u]) <= (prev_0[u])) ?
+                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
+                    (((prev_0[l]) >= (prev_1[u])) ?
+                        ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
                         ((prev_0[l]), (prev_0[u]), ((prev_0[l] + prev_0[u]) / 2) + (((prev_0[l] + prev_0[u]) / 2) * eps))));
 }
 
@@ -10820,12 +10820,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> ((prev_0[l] <= prev_1[l]) ? (prev_0[l], prev_0[u], prev_0[z]) : 
-           (prev_1[l] <= prev_0[l]) ? (prev_1[l], prev_1[u], prev_1[z]) : 
-           (prev_0[l] == prev_1[l]) ? (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), (prev_0[z] + prev_1[z]) / 2) : 
-           (prev_0[u] == prev_1[u]) ? (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), (prev_0[z] + prev_1[z]) / 2) : 
-           (prev_0[u] < prev_1[u]) ? (max(prev_0[l], prev_1[l]), prev_0[u], (prev_0[z] + prev_1[z]) / 2) : 
-           (prev_0[u] > prev_1[u]) ? (max(prev_0[l], prev_1[l]), prev_1[u], (prev_0[z] + prev_1[z]) / 2 : 
+    Min -> ((prev_0[l] <= prev_1[l]) ? (prev_0[l], prev_0[u], prev_0[z]) :
+           (prev_1[l] <= prev_0[l]) ? (prev_1[l], prev_1[u], prev_1[z]) :
+           (prev_0[l] == prev_1[l]) ? (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), (prev_0[z] + prev_1[z]) / 2) :
+           (prev_0[u] == prev_1[u]) ? (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), (prev_0[z] + prev_1[z]) / 2) :
+           (prev_0[u] < prev_1[u]) ? (max(prev_0[l], prev_1[l]), prev_0[u], (prev_0[z] + prev_1[z]) / 2) :
+           (prev_0[u] > prev_1[u]) ? (max(prev_0[l], prev_1[l]), prev_1[u], (prev_0[z] + prev_1[z]) / 2 :
            (prev_0[u] == prev_1[u] && prev_0[l] == prev_1[l]) ? (prev_0[l], prev_0[u], (prev_0[z] + prev_1[z]) / 2));
 }
 
@@ -10989,14 +10989,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> ((prev_0[l]) >= (prev_1[l])) ? 
-                ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-                (((prev_0[u]) <= (prev_1[u])) ? 
-                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
-                    (((prev_0[l]) >= (prev_1[u])) ? 
-                        ((prev_0[l]), (prev_0[u]), (prev_0[z])) : 
-                        (((prev_0[u]) <= (prev_1[l])) ? 
-                            ((prev_1[l]), (prev_1[u]), (prev_1[z])) : 
+    Min -> ((prev_0[l]) >= (prev_1[l])) ?
+                ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+                (((prev_0[u]) <= (prev_1[u])) ?
+                    ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
+                    (((prev_0[l]) >= (prev_1[u])) ?
+                        ((prev_0[l]), (prev_0[u]), (prev_0[z])) :
+                        (((prev_0[u]) <= (prev_1[l])) ?
+                            ((prev_1[l]), (prev_1[u]), (prev_1[z])) :
                             ((min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), ((min(prev_0[l], prev_1[l]) + (min(prev_0[u], prev_1[u])))/2) + (((min(prev_0[l], prev_1[l]) + (min(prev_0[u], prev_1[u])))/2)*eps))))));
 }
 
@@ -11051,10 +11051,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> (((prev_0[l]) <= (prev_1[l])) && ((prev_0[l]) <= (prev_1[u]))) ? ((prev_0[l]), (prev_0[l]), (prev_0[z])) : 
-           (((prev_1[l]) <= (prev_0[l])) && ((prev_1[l]) <= (prev_0[u]))) ? ((prev_1[l]), (prev_1[l]), (prev_1[z])) : 
-           (((prev_0[u]) <= (prev_1[l])) && ((prev_0[u]) <= (prev_1[u]))) ? ((prev_0[u]), (prev_0[u]), (prev_0[z])) : 
-           (((prev_1[u]) <= (prev_0[l])) && ((prev_1[u]) <= (prev_0[u]))) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) : 
+    Min -> (((prev_0[l]) <= (prev_1[l])) && ((prev_0[l]) <= (prev_1[u]))) ? ((prev_0[l]), (prev_0[l]), (prev_0[z])) :
+           (((prev_1[l]) <= (prev_0[l])) && ((prev_1[l]) <= (prev_0[u]))) ? ((prev_1[l]), (prev_1[l]), (prev_1[z])) :
+           (((prev_0[u]) <= (prev_1[l])) && ((prev_0[u]) <= (prev_1[u]))) ? ((prev_0[u]), (prev_0[u]), (prev_0[z])) :
+           (((prev_1[u]) <= (prev_0[l])) && ((prev_1[u]) <= (prev_0[u]))) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) :
            (min(prev_0[l], prev_1[u]), max(prev_0[u], prev_1[l]), SymExp.or(prev_0[z], prev_1[z]));
 }
 
@@ -11336,10 +11336,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> ((prev_0[l]) <= (prev_1[l])) ? 
-                ((prev_0[l]), (prev_0[l]), (prev_0[z])) : 
-                (((prev_0[u]) >= (prev_1[u])) ? 
-                    ((prev_1[u]), (prev_1[u]), (prev_1[z])) : 
+    Min -> ((prev_0[l]) <= (prev_1[l])) ?
+                ((prev_0[l]), (prev_0[l]), (prev_0[z])) :
+                (((prev_0[u]) >= (prev_1[u])) ?
+                    ((prev_1[u]), (prev_1[u]), (prev_1[z])) :
                     ((min(prev_0[l], prev_1[u])), (max(prev_0[u], prev_1[l])), ((min(prev_0[l], prev_1[u]) + max(prev_0[u], prev_1[l])) / 2) + (((min(prev_0[l], prev_1[u]) + max(prev_0[u], prev_1[l])) / 2) * eps)));
 }
 
@@ -11661,12 +11661,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Min -> if ((prev_0[u] <= prev_1[l]) || (prev_0[u] <= prev_1[u]) || (prev_0[l] <= prev_1[l]) || (prev_0[l] <= prev_1[u])) {
-                ((prev_0[u] <= prev_1[l]) ? prev_0 : prev_1)[l], 
-                ((prev_0[u] <= prev_1[u]) ? prev_0 : prev_1)[u], 
+                ((prev_0[u] <= prev_1[l]) ? prev_0 : prev_1)[l],
+                ((prev_0[u] <= prev_1[u]) ? prev_0 : prev_1)[u],
                 ((prev_0[u] <= prev_1[l]) ? prev_0[z] : prev_1[z])
             } else {
-                ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_1[u]) ? prev_0[l] : prev_1[l]), 
-                ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_1[u]) ? prev_0[u] : prev_1[u]), 
+                ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_1[u]) ? prev_0[l] : prev_1[l]),
+                ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_1[u]) ? prev_0[u] : prev_1[u]),
                 ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_1[u]) ? prev_0[z] : prev_1[z])
             }
 }
@@ -11776,11 +11776,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> if (prev[l] < prev[u]) then 
-                ((prev[l]), (prev[l]), (prev[l])) 
-           else if (prev[u] < prev[l]) then 
-                ((prev[u]), (prev[u]), (prev[u])) 
-           else 
+    Min -> if (prev[l] < prev[u]) then
+                ((prev[l]), (prev[l]), (prev[l]))
+           else if (prev[u] < prev[l]) then
+                ((prev[u]), (prev[u]), (prev[u]))
+           else
                 ((prev[l]), (prev[u]), (prev[z]));
 }
 
@@ -11890,18 +11890,18 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_2[l])) ? ((prev_0[l]), (prev_0[l]), (prev_0[z])) : 
-           ((prev_1[l] <= prev_0[l]) && (prev_1[l] <= prev_2[l])) ? ((prev_1[l]), (prev_1[l]), (prev_1[z])) : 
-           ((prev_2[l] <= prev_0[l]) && (prev_2[l] <= prev_1[l])) ? ((prev_2[l]), (prev_2[l]), (prev_2[z])) : 
-           ((prev_0[u] >= prev_1[u]) && (prev_0[u] >= prev_2[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z])) : 
-           ((prev_1[u] >= prev_0[u]) && (prev_1[u] >= prev_2[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) : 
-           ((prev_2[u] >= prev_0[u]) && (prev_2[u] >= prev_1[u])) ? ((prev_2[u]), (prev_2[u]), (prev_2[z])) : 
-           ((prev_0[u] >= prev_1[u]) && (prev_0[u] >= prev_2[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z])) : 
-           ((prev_1[u] >= prev_0[u]) && (prev_1[u] >= prev_2[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) : 
-           ((prev_2[u] >= prev_0[u]) && (prev_2[u] >= prev_1[u])) ? ((prev_2[u]), (prev_2[u]), (prev_2[z])) : 
-           ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_2[l])) ? ((prev_0[l]), (prev_0[l]), (prev_0[z])) : 
-           ((prev_1[l] <= prev_0[l]) && (prev_1[l] <= prev_2[l])) ? ((prev_1[l]), (prev_1[l]), (prev_1[z])) : 
-           ((prev_2[l] <= prev_0[l]) && (prev_2[l] <= prev_1[l])) ? ((prev_2[l]), (prev_2[l]), (prev_2[z])) : 
+    Min -> ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_2[l])) ? ((prev_0[l]), (prev_0[l]), (prev_0[z])) :
+           ((prev_1[l] <= prev_0[l]) && (prev_1[l] <= prev_2[l])) ? ((prev_1[l]), (prev_1[l]), (prev_1[z])) :
+           ((prev_2[l] <= prev_0[l]) && (prev_2[l] <= prev_1[l])) ? ((prev_2[l]), (prev_2[l]), (prev_2[z])) :
+           ((prev_0[u] >= prev_1[u]) && (prev_0[u] >= prev_2[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z])) :
+           ((prev_1[u] >= prev_0[u]) && (prev_1[u] >= prev_2[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) :
+           ((prev_2[u] >= prev_0[u]) && (prev_2[u] >= prev_1[u])) ? ((prev_2[u]), (prev_2[u]), (prev_2[z])) :
+           ((prev_0[u] >= prev_1[u]) && (prev_0[u] >= prev_2[u])) ? ((prev_0[u]), (prev_0[u]), (prev_0[z])) :
+           ((prev_1[u] >= prev_0[u]) && (prev_1[u] >= prev_2[u])) ? ((prev_1[u]), (prev_1[u]), (prev_1[z])) :
+           ((prev_2[u] >= prev_0[u]) && (prev_2[u] >= prev_1[u])) ? ((prev_2[u]), (prev_2[u]), (prev_2[z])) :
+           ((prev_0[l] <= prev_1[l]) && (prev_0[l] <= prev_2[l])) ? ((prev_0[l]), (prev_0[l]), (prev_0[z])) :
+           ((prev_1[l] <= prev_0[l]) && (prev_1[l] <= prev_2[l])) ? ((prev_1[l]), (prev_1[l]), (prev_1[z])) :
+           ((prev_2[l] <= prev_0[l]) && (prev_2[l] <= prev_1[l])) ? ((prev_2[l]), (prev_2[l]), (prev_2[z])) :
            (0, max(-prev_0[l], max(-prev_1[l], -prev_2[l])), ((max(-prev_0[l], max(-prev_1[l], -prev_2[l]))) / 2) + (((max(-prev_0[l], max(-prev_1[l], -prev_2[l]))) / 2) * eps));
 }
 
@@ -11956,8 +11956,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> ((prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l], 
-            (prev_0[u] >= prev_1[u]) ? prev_0[u] : prev_1[u], 
+    Min -> ((prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l],
+            (prev_0[u] >= prev_1[u]) ? prev_0[u] : prev_1[u],
             ((prev_0[l] <= prev_1[l] && prev_0[u] <= prev_1[u]) || (prev_0[l] >= prev_1[l] && prev_0[u] >= prev_1[u])) ? prev_0[z] : prev_1[z]);
 }
 
@@ -12067,13 +12067,13 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> ((prev_0[l] <= prev_1[l]) && (prev_0[u] <= prev_1[u])) ? (prev_0[l], prev_0[u], prev_0[z]) : 
-           ((prev_0[l] > prev_1[l]) && (prev_1[u] <= prev_0[u])) ? (prev_1[l], prev_1[u], prev_1[z]) : 
-           ((prev_0[l] > prev_1[l]) && (prev_1[l] > prev_0[u])) ? (prev_1[l], prev_1[u], prev_1[z]) : 
-           ((prev_0[u] < prev_1[u]) && (prev_1[l] > prev_0[u])) ? (prev_0[l], prev_0[u], prev_0[z]) : 
-           ((prev_0[u] < prev_1[u]) && (prev_1[u] < prev_0[l])) ? (prev_1[l], prev_1[u], prev_1[z]) : 
-           ((prev_0[u] > prev_1[u]) && (prev_1[u] > prev_0[l])) ? (prev_0[l], prev_0[u], prev_0[z]) : 
-           ((prev_0[u] == prev_1[u]) && (prev_1[l] == prev_0[l])) ? (prev_0[l], prev_0[u], prev_0[z]) : 
+    Min -> ((prev_0[l] <= prev_1[l]) && (prev_0[u] <= prev_1[u])) ? (prev_0[l], prev_0[u], prev_0[z]) :
+           ((prev_0[l] > prev_1[l]) && (prev_1[u] <= prev_0[u])) ? (prev_1[l], prev_1[u], prev_1[z]) :
+           ((prev_0[l] > prev_1[l]) && (prev_1[l] > prev_0[u])) ? (prev_1[l], prev_1[u], prev_1[z]) :
+           ((prev_0[u] < prev_1[u]) && (prev_1[l] > prev_0[u])) ? (prev_0[l], prev_0[u], prev_0[z]) :
+           ((prev_0[u] < prev_1[u]) && (prev_1[u] < prev_0[l])) ? (prev_1[l], prev_1[u], prev_1[z]) :
+           ((prev_0[u] > prev_1[u]) && (prev_1[u] > prev_0[l])) ? (prev_0[l], prev_0[u], prev_0[z]) :
+           ((prev_0[u] == prev_1[u]) && (prev_1[l] == prev_0[l])) ? (prev_0[l], prev_0[u], prev_0[z]) :
            ((prev_0[u] == prev_1[u]) && (prev_1[l] < prev_0[l])) ? ((prev_0[l] < 0) ? prev_1[l] : prev_0[l], (prev_0[u] < 0) ? prev_1[u] : prev_0[u], ((prev_0[l] < 0) ? prev_1[z] : prev_0[z]));
 }
 
@@ -12128,9 +12128,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Min -> 
-        (prev_0[l] <= prev_1[l]) ? 
-            (prev_0[l], prev_0[u] < prev_1[u] ? prev_0[u] : prev_1[u], prev_0[z] < prev_1[z] ? prev_0[z] : prev_1[z]) : 
+    Min ->
+        (prev_0[l] <= prev_1[l]) ?
+            (prev_0[l], prev_0[u] < prev_1[u] ? prev_0[u] : prev_1[u], prev_0[z] < prev_1[z] ? prev_0[z] : prev_1[z]) :
             (prev_1[l], prev_1[u] < prev_0[u] ? prev_1[u] : prev_0[u], prev_1[z] < prev_0[z] ? prev_1[z] : prev_0[z]);
 }
 
@@ -12140,14 +12140,14 @@ transformer deepz{
 2025-06-12 15:26:01,019 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deepz{
-    Min -> 
-        (prev_0[l] <= prev_1[l]) ? 
-            (prev_0[l], prev_0[u] < prev_1[u] ? prev_0[u] : prev_1[u], prev_0[z] < prev_1[z] ? prev_0[z] : prev_1[z]) : 
+    Min ->
+        (prev_0[l] <= prev_1[l]) ?
+            (prev_0[l], prev_0[u] < prev_1[u] ? prev_0[u] : prev_1[u], prev_0[z] < prev_1[z] ? prev_0[z] : prev_1[z]) :
             (prev_1[l], prev_1[u] < prev_0[u] ? prev_1[u] : prev_0[u], prev_1[z] < prev_0[z] ? prev_1[z] : prev_0[z]);
 }
 
 2025-06-12 15:26:01,019 - INFO - 2025-06-12 15:26:01.019614 - Extracting Minpool
-2025-06-12 15:26:01,019 - INFO - 
+2025-06-12 15:26:01,019 - INFO -
 API: Minpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:26:01,019 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:26:09,781 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -12427,8 +12427,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Minpool -> (
-        (prev_0[l] <= prev_1[l]) && (prev_0[u] >= prev_1[u]) ? (prev_0[l], prev_0[u], prev_0[z]) : 
-        (prev_1[l] <= prev_0[l]) && (prev_1[u] >= prev_0[u]) ? (prev_1[l], prev_1[u], prev_1[z]) : 
+        (prev_0[l] <= prev_1[l]) && (prev_0[u] >= prev_1[u]) ? (prev_0[l], prev_0[u], prev_0[z]) :
+        (prev_1[l] <= prev_0[l]) && (prev_1[u] >= prev_0[u]) ? (prev_1[l], prev_1[u], prev_1[z]) :
         (0, max(prev_0[u], prev_1[u]), ((max(prev_0[u], prev_1[u])) / 2) + (((max(prev_0[u], prev_1[u])) / 2) * eps))
     );
 }
@@ -12484,10 +12484,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Minpool -> ((prev_0[l]) <= min(prev_0[l], prev_1[l])) ? 
-                ((prev_0[l]), (prev_0[u]), (prev_0[z]) if (prev_0[l] == min(prev_0[l], prev_1[l])) else (prev_1[z])) : 
-                (((prev_0[u]) <= min(prev_0[u], prev_1[u])) ? 
-                    ((prev_0[u]), (prev_0[u]), (prev_0[z]) if (prev_0[u] == min(prev_0[u], prev_1[u])) else (prev_1[z])) : 
+    Minpool -> ((prev_0[l]) <= min(prev_0[l], prev_1[l])) ?
+                ((prev_0[l]), (prev_0[u]), (prev_0[z]) if (prev_0[l] == min(prev_0[l], prev_1[l])) else (prev_1[z])) :
+                (((prev_0[u]) <= min(prev_0[u], prev_1[u])) ?
+                    ((prev_0[u]), (prev_0[u]), (prev_0[z]) if (prev_0[u] == min(prev_0[u], prev_1[u])) else (prev_1[z])) :
                     ((prev_1[l]), (prev_1[u]), (prev_1[z])));
 }
 
@@ -12661,7 +12661,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Minpool -> 
+    Minpool ->
     let min_l = min([prev_0[l], prev_1[l], ...]); let min_u = max([prev_0[u], prev_1[u], ...]); let min_z = ...; // Define min_z accordingly
     in (min_l, min_u, min_z);
 }
@@ -12858,7 +12858,7 @@ transformer deepz{
 2025-06-12 15:27:21,340 - INFO - Succeed. Saved to logs/2025-06-12_15-07-23/results/deepseek-v2-lite/success/Minpool.txt
 
 2025-06-12 15:27:21,340 - INFO - 2025-06-12 15:27:21.340426 - Extracting Mult
-2025-06-12 15:27:21,340 - INFO - 
+2025-06-12 15:27:21,340 - INFO -
 API: Mult -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:27:21,340 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:27:46,024 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -12966,8 +12966,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Mult -> (
-        (prev_0[l] * prev_1[l]).map(simplify_lower), 
-        (prev_0[u] * prev_1[u]).map(simplify_upper), 
+        (prev_0[l] * prev_1[l]).map(simplify_lower),
+        (prev_0[u] * prev_1[u]).map(simplify_upper),
         (prev_0[z] * prev_1[z])
     );
 }
@@ -13078,9 +13078,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Mult -> 
-        ((prev_0[l] * prev_1[l]), 
-         (prev_0[u] * prev_1[u]), 
+    Mult ->
+        ((prev_0[l] * prev_1[l]),
+         (prev_0[u] * prev_1[u]),
          ((prev_0[z] * prev_1[z]) + (prev_0[l] * prev_1[u]) + (prev_0[u] * prev_1[l]) + (eps * (prev_0[l] + prev_0[u]) * (prev_1[l] + prev_1[u]))));
 }
 
@@ -13135,37 +13135,37 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Mult -> 
-    (   (prev_0[l] * prev_1[l]) 												= prev_0[l] * prev_1[l], // l*l
-        (prev_0[l] * prev_1[u]) 												= prev_0[l] * prev_1[u], // l*u
-        (prev_0[u] * prev_1[l]) 												= prev_0[u] * prev_1[l], // u*l
-        (prev_0[u] * prev_1[u]) 												= prev_0[u] * prev_1[u], // u*u
-        (prev_0[l] * prev_1[l]) <= (prev_0[l] * prev_1[u]) <= (prev_0[u] * prev_1[u]), 
-        (prev_0[l] * prev_1[l]) <= (prev_0[u] * prev_1[l]) <= (prev_0[u] * prev_1[u]), 
-        (prev_0[l] * prev_1[l]) <= (prev_0[l] * prev_1[l]) <= (prev_0[u] * prev_1[u]), 
-        (prev_0[l] * prev_1[u]) <= (prev_0[l] * prev_1[u]) <= (prev_0[u] * prev_1[u]), 
-        (prev_0[l] * prev_1[u]) <= (prev_0[u] * prev_1[l]) <= (prev_0[u] * prev_1[u]), 
-        (prev_0[u] * prev_1[l]) <= (prev_0[u] * prev_1[l]) <= (prev_0[u] * prev_1[u]), 
-        (prev_0[u] * prev_1[u]) <= (prev_0[u] * prev_1[u]) <= (prev_0[u] * prev_1[u]), 
-        prev_0[l] * prev_1[l] <= prev_0[l] * prev_1[u] <= prev_0[u] * prev_1[u], 
-        prev_0[l] * prev_1[l] <= prev_0[u] * prev_1[l] <= prev_0[u] * prev_1[u], 
-        prev_0[l] * prev_1[l] <= prev_0[l] * prev_1[l] <= prev_0[u] * prev_1[u], 
-        prev_0[l] * prev_1[u] <= prev_0[l] * prev_1[u] <= prev_0[u] * prev_1[u], 
-        prev_0[l] * prev_1[u] <= prev_0[u] * prev_1[l] <= prev_0[u] * prev_1[u], 
-        prev_0[u] * prev_1[l] <= prev_0[u] * prev_1[l] <= prev_0[u] * prev_1[u], 
-        prev_0[u] * prev_1[u] <= prev_0[u] * prev_1[u] <= prev_0[u] * prev_1[u], 
-        (prev_0[l] * prev_1[l]) In ((prev_0[l] * prev_1[l])[z]), 
-        (prev_0[l] * prev_1[u]) In ((prev_0[l] * prev_1[u])[z]), 
-        (prev_0[u] * prev_1[l]) In ((prev_0[u] * prev_1[l])[z]), 
-        (prev_0[u] * prev_1[u]) In ((prev_0[u] * prev_1[u])[z]), 
-        (prev_0[l] * prev_1[l]) In ((prev_0[l] * prev_1[l])[z]), 
-        (prev_0[l] * prev_1[u]) In ((prev_0[l] * prev_1[u])[z]), 
-        (prev_0[u] * prev_1[l]) In ((prev_0[u] * prev_1[l])[z]), 
+    Mult ->
+    (   (prev_0[l] * prev_1[l])                                                 = prev_0[l] * prev_1[l], // l*l
+        (prev_0[l] * prev_1[u])                                                 = prev_0[l] * prev_1[u], // l*u
+        (prev_0[u] * prev_1[l])                                                 = prev_0[u] * prev_1[l], // u*l
+        (prev_0[u] * prev_1[u])                                                 = prev_0[u] * prev_1[u], // u*u
+        (prev_0[l] * prev_1[l]) <= (prev_0[l] * prev_1[u]) <= (prev_0[u] * prev_1[u]),
+        (prev_0[l] * prev_1[l]) <= (prev_0[u] * prev_1[l]) <= (prev_0[u] * prev_1[u]),
+        (prev_0[l] * prev_1[l]) <= (prev_0[l] * prev_1[l]) <= (prev_0[u] * prev_1[u]),
+        (prev_0[l] * prev_1[u]) <= (prev_0[l] * prev_1[u]) <= (prev_0[u] * prev_1[u]),
+        (prev_0[l] * prev_1[u]) <= (prev_0[u] * prev_1[l]) <= (prev_0[u] * prev_1[u]),
+        (prev_0[u] * prev_1[l]) <= (prev_0[u] * prev_1[l]) <= (prev_0[u] * prev_1[u]),
+        (prev_0[u] * prev_1[u]) <= (prev_0[u] * prev_1[u]) <= (prev_0[u] * prev_1[u]),
+        prev_0[l] * prev_1[l] <= prev_0[l] * prev_1[u] <= prev_0[u] * prev_1[u],
+        prev_0[l] * prev_1[l] <= prev_0[u] * prev_1[l] <= prev_0[u] * prev_1[u],
+        prev_0[l] * prev_1[l] <= prev_0[l] * prev_1[l] <= prev_0[u] * prev_1[u],
+        prev_0[l] * prev_1[u] <= prev_0[l] * prev_1[u] <= prev_0[u] * prev_1[u],
+        prev_0[l] * prev_1[u] <= prev_0[u] * prev_1[l] <= prev_0[u] * prev_1[u],
+        prev_0[u] * prev_1[l] <= prev_0[u] * prev_1[l] <= prev_0[u] * prev_1[u],
+        prev_0[u] * prev_1[u] <= prev_0[u] * prev_1[u] <= prev_0[u] * prev_1[u],
+        (prev_0[l] * prev_1[l]) In ((prev_0[l] * prev_1[l])[z]),
+        (prev_0[l] * prev_1[u]) In ((prev_0[l] * prev_1[u])[z]),
+        (prev_0[u] * prev_1[l]) In ((prev_0[u] * prev_1[l])[z]),
+        (prev_0[u] * prev_1[u]) In ((prev_0[u] * prev_1[u])[z]),
+        (prev_0[l] * prev_1[l]) In ((prev_0[l] * prev_1[l])[z]),
+        (prev_0[l] * prev_1[u]) In ((prev_0[l] * prev_1[u])[z]),
+        (prev_0[u] * prev_1[l]) In ((prev_0[u] * prev_1[l])[z]),
         (prev_0[u] * prev_1[u]) In ((prev_0[u] * prev_1[u])[z])
-    ) => 
+    ) =>
     (
-        (prev_0[l] * prev_1[l])[l], 
-        (prev_0[u] * prev_1[u])[u], 
+        (prev_0[l] * prev_1[l])[l],
+        (prev_0[u] * prev_1[u])[u],
         ((prev_0[l] * prev_1[l]) + (prev_0[l] * prev_1[u]) + (prev_0[u] * prev_1[l]) + (prev_0[u] * prev_1[u])) / 4 + ((((prev_0[l] * prev_1[l]) + (prev_0[l] * prev_1[u]) + (prev_0[u] * prev_1[l]) + (prev_0[u] * prev_1[u])) / 4) * eps)
     );
 }
@@ -13221,23 +13221,23 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Mult -> ((prev_0[l] * prev_1[l]).map(simplify_lower), 
-             (prev_0[u] * prev_1[u]).map(simplify_upper), 
-             (((min(prev_0[l] * prev_1[l], 
-                    min(prev_0[l] * prev_1[u], 
-                    min(prev_0[u] * prev_1[l], 
-                    prev_0[u] * prev_1[u])))) + 
-             (max(prev_0[l] * prev_1[l], 
-                  max(prev_0[l] * prev_1[u], 
-                  max(prev_0[u] * prev_1[l], 
-                  prev_0[u] * prev_1[u])))) / 2) + 
-             (((max(prev_0[l] * prev_1[l], 
-                    max(prev_0[l] * prev_1[u], 
-                    max(prev_0[u] * prev_1[l], 
+    Mult -> ((prev_0[l] * prev_1[l]).map(simplify_lower),
+             (prev_0[u] * prev_1[u]).map(simplify_upper),
+             (((min(prev_0[l] * prev_1[l],
+                    min(prev_0[l] * prev_1[u],
+                    min(prev_0[u] * prev_1[l],
+                    prev_0[u] * prev_1[u])))) +
+             (max(prev_0[l] * prev_1[l],
+                  max(prev_0[l] * prev_1[u],
+                  max(prev_0[u] * prev_1[l],
+                  prev_0[u] * prev_1[u])))) / 2) +
+             (((max(prev_0[l] * prev_1[l],
+                    max(prev_0[l] * prev_1[u],
+                    max(prev_0[u] * prev_1[l],
                     prev_0[u] * prev_1[u])))-
-             (min(prev_0[l] * prev_1[l], 
-                  min(prev_0[l] * prev_1[u], 
-                  min(prev_0[u] * prev_1[l], 
+             (min(prev_0[l] * prev_1[l],
+                  min(prev_0[l] * prev_1[u],
+                  min(prev_0[u] * prev_1[l],
                   prev_0[u] * prev_1[u])))) / 2) * eps)));
 }
 
@@ -13842,29 +13842,29 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deepz{
     Mult -> (
-        (compute_l(prev_0, prev_1) > 0) ? (prev_0[l] * prev_1[l], prev_0[u] * prev_1[u], prev_0[z] * prev_1[z]) : 
+        (compute_l(prev_0, prev_1) > 0) ? (prev_0[l] * prev_1[l], prev_0[u] * prev_1[u], prev_0[z] * prev_1[z]) :
         (
-            (compute_u(prev_0, prev_1) < 0) ? (prev_0[u] * prev_1[l], prev_0[l] * prev_1[u], prev_0[z] * prev_1[z]) : 
+            (compute_u(prev_0, prev_1) < 0) ? (prev_0[u] * prev_1[l], prev_0[l] * prev_1[u], prev_0[z] * prev_1[z]) :
             (
-                (prev_0[l] * prev_1[l] < 0) ? 
+                (prev_0[l] * prev_1[l] < 0) ?
                     (
                         (prev_0[l] < 0) ? (prev_0[l] * prev_1[u], prev_0[u] * prev_1[l], prev_0[z] * prev_1[z]) : (prev_0[u] * prev_1[u], prev_0[l] * prev_1[l], prev_0[z] * prev_1[z])
-                    ) : 
+                    ) :
                     (
-                        (prev_0[l] == 0) ? (0, prev_0[u] * prev_1[u], 0) : 
+                        (prev_0[l] == 0) ? (0, prev_0[u] * prev_1[u], 0) :
                         (
-                            (prev_1[l] == 0) ? (0, prev_0[u] * prev_1[u], 0) : 
+                            (prev_1[l] == 0) ? (0, prev_0[u] * prev_1[u], 0) :
                             (
-                                (prev_0[u] * prev_1[l] < 0) ? 
-                                    (prev_0[u] * prev_1[l], prev_0[l] * prev_1[u], prev_0[z] * prev_1[z]) : 
+                                (prev_0[u] * prev_1[l] < 0) ?
+                                    (prev_0[u] * prev_1[l], prev_0[l] * prev_1[u], prev_0[z] * prev_1[z]) :
                                     (
-                                        (prev_0[l] * prev_1[u] < 0) ? 
-                                            (prev_0[l] * prev_1[u], prev_0[u] * prev_1[l], prev_0[z] * prev_1[z]) : 
+                                        (prev_0[l] * prev_1[u] < 0) ?
+                                            (prev_0[l] * prev_1[u], prev_0[u] * prev_1[l], prev_0[z] * prev_1[z]) :
                                             (
-                                                (prev_0[l] <= 0) ? 
+                                                (prev_0[l] <= 0) ?
                                                     (
                                                         (prev_1[l] <= 0) ? (prev_0[l] * prev_1[l], prev_0[u] * prev_1[u], prev_0[z] * prev_1[z]) : (prev_0[u] * prev_1[l], prev_0[l] * prev_1[u], prev_0[z] * prev_1[z])
-                                                    ) : 
+                                                    ) :
                                                     (
                                                         (prev_1[l] <= 0) ? (prev_0[u] * prev_1[u], prev_0[l] * prev_1[l], prev_0[z] * prev_1[z]) : (prev_0[l] * prev_1[u], prev_0[u] * prev_1[l], prev_0[z] * prev_1[z])
                                                     )
@@ -14594,7 +14594,7 @@ transformer deepz{
 }
 
 2025-06-12 15:29:14,398 - INFO - 2025-06-12 15:29:14.398310 - Extracting Relu
-2025-06-12 15:29:14,398 - INFO - 
+2025-06-12 15:29:14,398 - INFO -
 API: Relu -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:29:14,398 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:29:20,545 - INFO - [STEP 1] Sample 1: Validation passed.
@@ -14602,7 +14602,7 @@ API: Relu -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:29:20,545 - INFO - Succeed. Saved to logs/2025-06-12_15-07-23/results/deepseek-v2-lite/success/Relu.txt
 
 2025-06-12 15:29:20,545 - INFO - 2025-06-12 15:29:20.545828 - Extracting Relu6
-2025-06-12 15:29:20,545 - INFO - 
+2025-06-12 15:29:20,545 - INFO -
 API: Relu6 -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 15:29:20,545 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 15:29:30,320 - INFO - [STEP 1] Sample 1: Validation failed.
@@ -14681,9 +14681,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    Relu6 -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) >= 6) ? (0, 0, 0) : 
-                    (((prev[u]) <= 0) ? (0, (prev[u]), ((prev[u]) / 2) + (((prev[u]) / 2) * eps))) : 
+    Relu6 -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) >= 6) ? (0, 0, 0) :
+                    (((prev[u]) <= 0) ? (0, (prev[u]), ((prev[u]) / 2) + (((prev[u]) / 2) * eps))) :
                     ((0, 6, 3)));
 }
 
@@ -14741,12 +14741,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deepz{
-    ReLU6 -> ((prev[l]) >= 0) ? 
-                ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) <= 0) ? 
-                    (0, 0, 0) : 
-                    (((prev[u]) >= 6) ? 
-                        (0, 6, 3) : 
+    ReLU6 -> ((prev[l]) >= 0) ?
+                ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) <= 0) ?
+                    (0, 0, 0) :
+                    (((prev[u]) >= 6) ?
+                        (0, 6, 3) :
                         (0, (prev[u]), ((prev[u]) / 6) + (((prev[u]) / 6) * eps))));
 }
 
@@ -14802,8 +14802,8 @@ constraintflow.core.astTC.TypeMismatchException: Expression in transformer is di
 
 Code:
 transformer deepz{
-    Relu6 -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[l]) <= 6) ? (prev[l], ((prev[l]) <= 6) ? (prev[l]) : (6)) : 
+    Relu6 -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[l]) <= 6) ? (prev[l], ((prev[l]) <= 6) ? (prev[l]) : (6)) :
                     (((prev[u]) <= 6) ? (0, (prev[u]), ((prev[u]) / 6) + (((prev[u]) / 6) * eps)) : (0, 6, 3)));
 }
 
@@ -14817,9 +14817,9 @@ transformer deepz{
 2025-06-12 15:30:59,710 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deepz{
-    Relu6 -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) <= 6) ? 
-                    ((prev[l]), (prev[u]), (prev[z])) : 
+    Relu6 -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) <= 6) ?
+                    ((prev[l]), (prev[u]), (prev[z])) :
                     (((prev[l]) >= 6) ? (0, 0, 0) : (0, 6, (6 / 2) + ((6 / 2) * eps))));
 }
 

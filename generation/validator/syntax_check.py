@@ -1,51 +1,52 @@
 import re
-from antlr4 import *
 
-from antlr4 import InputStream, CommonTokenStream
-from antlr4.error.ErrorListener import ErrorListener
+from antlr4 import *
+from antlr4 import CommonTokenStream, InputStream
+from antlr4.error.ErrorListener import ConsoleErrorListener, ErrorListener
 from antlr4.error.ErrorStrategy import BailErrorStrategy
-from antlr4.error.ErrorListener import ConsoleErrorListener
+from miniDSL.miniastBuilder import ASTBuilder
 from miniDSL.miniDSLLexer import miniDSLLexer
 from miniDSL.miniDSLParser import miniDSLParser
-from miniDSL.miniastBuilder import ASTBuilder
 
 
 class SilentErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        pass 
+        pass
 
 
 class DSLRepair:
     """
     - Only supports DSLs with one transformer and one op_stmt.
     """
+
     def __init__(self):
         pass
 
     def check(self, dsl: str) -> bool:
-        
+
         try:
-            
+
             input_stream = InputStream(dsl)
             lexer = miniDSLLexer(input_stream)
             token_stream = CommonTokenStream(lexer)
-            
-            token_stream.fill() 
+
+            token_stream.fill()
             for token in token_stream.tokens:
                 print(f"{token.text} -> {miniDSLLexer.symbolicNames[token.type]}")
 
             parser = miniDSLParser(token_stream)
-            parser.removeErrorListeners() 
+            parser.removeErrorListeners()
             parser.addErrorListener(SilentErrorListener())
-            parser._errHandler = BailErrorStrategy() 
+            parser._errHandler = BailErrorStrategy()
 
-            tree = parser.transformer() # check syntax
-
+            tree = parser.transformer()  # check syntax
 
             return dsl
         except:
             if not self.check_brackets(dsl):
-                print("❗ Detected unbalanced brackets. Please fix bracket nesting first.")
+                print(
+                    "❗ Detected unbalanced brackets. Please fix bracket nesting first."
+                )
                 dsl = self.fix_brackets(code=dsl)
 
             elif self.has_negative_floats(dsl):
@@ -55,9 +56,6 @@ class DSLRepair:
                 print("here")
 
             return dsl
-       
-
-
 
     def check_brackets(self, code: str) -> bool:
         """
@@ -70,7 +68,6 @@ class DSLRepair:
         """
         # @qiuhan: TODO: add one more check, need at least a pair of () after ->
 
-
         input_stream = InputStream(code)
         lexer = miniDSLLexer(input_stream)
         token_stream = CommonTokenStream(lexer)
@@ -79,21 +76,18 @@ class DSLRepair:
         matched = True
 
         stack_map = {
-            '(': [],
-            '{': [],
+            "(": [],
+            "{": [],
         }
         open_tokens = {
-            miniDSLLexer.LPAREN: '(',
-            miniDSLLexer.LBRACE: '{',
+            miniDSLLexer.LPAREN: "(",
+            miniDSLLexer.LBRACE: "{",
         }
         close_tokens = {
-            miniDSLLexer.RPAREN: ')',
-            miniDSLLexer.RBRACE: '}',
+            miniDSLLexer.RPAREN: ")",
+            miniDSLLexer.RBRACE: "}",
         }
-        bracket_pairs = {
-            ')': '(', 
-            '}': '{'
-        }
+        bracket_pairs = {")": "(", "}": "{"}
 
         for token in token_stream.tokens:
             if token.type in open_tokens:
@@ -106,7 +100,9 @@ class DSLRepair:
                 if stack_map[opening]:
                     stack_map[opening].pop()
                 else:
-                    print(f"❌ Unmatched closing '{closing}' at line {token.line}, column {token.column}")
+                    print(
+                        f"❌ Unmatched closing '{closing}' at line {token.line}, column {token.column}"
+                    )
                     matched = False
 
         for opening, stack in stack_map.items():
@@ -124,30 +120,30 @@ class DSLRepair:
         """
         code = code.rstrip()
 
-        semi_idx = code.rfind(';')
+        semi_idx = code.rfind(";")
         if semi_idx != -1:
-            code = code[:semi_idx] + code[semi_idx+1:]
+            code = code[:semi_idx] + code[semi_idx + 1 :]
 
-        brace_idx = code.rfind('}')
+        brace_idx = code.rfind("}")
         if brace_idx != -1:
-            code = code[:brace_idx] + code[brace_idx+1:]
+            code = code[:brace_idx] + code[brace_idx + 1 :]
 
         # Step 4: Fix unmatched parentheses
-        open_paren = code.count('(')
-        close_paren = code.count(')')
+        open_paren = code.count("(")
+        close_paren = code.count(")")
         if open_paren > close_paren:
-            code += ')' * (open_paren - close_paren)
+            code += ")" * (open_paren - close_paren)
         elif close_paren > open_paren:
             # Insert missing '(' right after each `->`
             deficit = close_paren - open_paren
 
             def insert_parens(match):
-                return f"{match.group(0)}" + '(' * deficit
+                return f"{match.group(0)}" + "(" * deficit
 
-            code = re.sub(r'->\s*', insert_parens, code)
+            code = re.sub(r"->\s*", insert_parens, code)
 
         # Step 5: Ensure it ends with `;}`
-        return code.rstrip() + ';}'
+        return code.rstrip() + ";}"
 
     def has_negative_floats(self, code: str) -> bool:
         input_stream = InputStream(code)
@@ -158,7 +154,10 @@ class DSLRepair:
         tokens = token_stream.tokens
 
         for i in range(len(tokens) - 1):
-            if tokens[i].type == miniDSLLexer.MINUS and tokens[i + 1].type == miniDSLLexer.FloatConst:
+            if (
+                tokens[i].type == miniDSLLexer.MINUS
+                and tokens[i + 1].type == miniDSLLexer.FloatConst
+            ):
                 return True
         return False
 
@@ -181,15 +180,13 @@ class DSLRepair:
             new_code_parts.append(tokens[i].text)
             i += 1
 
-        return ''.join(new_code_parts)
-
-
+        return "".join(new_code_parts)
 
 
 if __name__ == "__main__":
     dsl = """
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
        ( (prev[u]) <= -2.5) ? (0, 0, 0, 0) : (0,0,0,0)
 ;}
     """

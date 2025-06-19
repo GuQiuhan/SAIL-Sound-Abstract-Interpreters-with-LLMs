@@ -1,5 +1,5 @@
 2025-06-12 02:32:28,368 - INFO - 2025-06-12 02:32:28.368072 - Extracting Abs
-2025-06-12 02:32:28,369 - INFO - 
+2025-06-12 02:32:28,369 - INFO -
 API: Abs -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:32:28,369 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:32:38,414 - INFO - [STEP 1] Sample 1: Validation passed.
@@ -7,7 +7,7 @@ API: Abs -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:32:38,415 - INFO - Succeed. Saved to logs/2025-06-12_02-32-28/results/GPT-4o/success/Abs.txt
 
 2025-06-12 02:32:38,415 - INFO - 2025-06-12 02:32:38.415900 - Extracting Add
-2025-06-12 02:32:38,416 - INFO - 
+2025-06-12 02:32:38,416 - INFO -
 API: Add -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:32:38,416 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:32:44,458 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -298,9 +298,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Add -> (
-        prev_0[l] + prev_1[l], 
-        prev_0[u] + prev_1[u], 
-        prev_0[L] + prev_1[L], 
+        prev_0[l] + prev_1[l],
+        prev_0[u] + prev_1[u],
+        prev_0[L] + prev_1[L],
         prev_0[U] + prev_1[U]
     );
 }
@@ -1058,9 +1058,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Add -> (
-        prev_0[l] + prev_1[l], 
-        prev_0[u] + prev_1[u], 
-        prev_0 + prev_1, 
+        prev_0[l] + prev_1[l],
+        prev_0[u] + prev_1[u],
+        prev_0 + prev_1,
         prev_0 + prev_1
     );
 }
@@ -1523,9 +1523,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly {
     Add -> (
-        prev_0[l] + prev_1[l], 
-        prev_0[u] + prev_1[u], 
-        prev_0 + prev_1, 
+        prev_0[l] + prev_1[l],
+        prev_0[u] + prev_1[u],
+        prev_0 + prev_1,
         prev_0 + prev_1
     );
 }
@@ -1782,7 +1782,7 @@ transformer deeppoly{
 }
 
 2025-06-12 02:33:40,969 - INFO - 2025-06-12 02:33:40.969435 - Extracting Affine
-2025-06-12 02:33:40,969 - INFO - 
+2025-06-12 02:33:40,969 - INFO -
 API: Affine -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:33:40,969 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:33:47,745 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -2129,9 +2129,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly {
     Affine -> (
-        sum(i, simplify_lower(prev_i, curr[weight_i])) + curr[bias], 
-        sum(i, simplify_upper(prev_i, curr[weight_i])) + curr[bias], 
-        sum(i, replace_lower(prev_i, curr[weight_i])) + curr[bias], 
+        sum(i, simplify_lower(prev_i, curr[weight_i])) + curr[bias],
+        sum(i, simplify_upper(prev_i, curr[weight_i])) + curr[bias],
+        sum(i, replace_lower(prev_i, curr[weight_i])) + curr[bias],
         sum(i, replace_upper(prev_i, curr[weight_i])) + curr[bias]
     );
 }
@@ -2309,9 +2309,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Affine -> (
-        sum(i, simplify_lower(prev_i, curr[weight][i])) + curr[bias], 
-        sum(i, simplify_upper(prev_i, curr[weight][i])) + curr[bias], 
-        sum(i, replace_lower(prev_i, curr[weight][i])) + curr[bias], 
+        sum(i, simplify_lower(prev_i, curr[weight][i])) + curr[bias],
+        sum(i, simplify_upper(prev_i, curr[weight][i])) + curr[bias],
+        sum(i, replace_lower(prev_i, curr[weight][i])) + curr[bias],
         sum(i, replace_upper(prev_i, curr[weight][i])) + curr[bias]
     );
 }
@@ -2948,9 +2948,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Affine -> (
-        sum(i=0..N-1){simplify_lower(prev_i, curr[weight][i])} + curr[bias], 
-        sum(i=0..N-1){simplify_upper(prev_i, curr[weight][i])} + curr[bias], 
-        sum(i=0..N-1){replace_lower(prev_i, curr[weight][i])} + curr[bias], 
+        sum(i=0..N-1){simplify_lower(prev_i, curr[weight][i])} + curr[bias],
+        sum(i=0..N-1){simplify_upper(prev_i, curr[weight][i])} + curr[bias],
+        sum(i=0..N-1){replace_lower(prev_i, curr[weight][i])} + curr[bias],
         sum(i=0..N-1){replace_upper(prev_i, curr[weight][i])} + curr[bias}
 
 2025-06-12 02:35:01,326 - INFO - [STEP 1] Sample 2: Validation failed.
@@ -3308,11 +3308,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-  Affine -> 
-    ( 
-      sum(i, simplify_lower(prev_i, curr[weight][i])) + curr[bias], 
-      sum(i, simplify_upper(prev_i, curr[weight][i])) + curr[bias], 
-      sum(i, replace_lower(prev_i, curr[weight][i])) + curr[bias], 
+  Affine ->
+    (
+      sum(i, simplify_lower(prev_i, curr[weight][i])) + curr[bias],
+      sum(i, simplify_upper(prev_i, curr[weight][i])) + curr[bias],
+      sum(i, replace_lower(prev_i, curr[weight][i])) + curr[bias],
       sum(i, replace_upper(prev_i, curr[weight][i])) + curr[bias]
     );
 }
@@ -3573,7 +3573,7 @@ transformer deeppoly{
 }
 
 2025-06-12 02:35:29,733 - INFO - 2025-06-12 02:35:29.733033 - Extracting Avgpool
-2025-06-12 02:35:29,733 - INFO - 
+2025-06-12 02:35:29,733 - INFO -
 API: Avgpool -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:35:29,733 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:35:59,341 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -3739,7 +3739,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Avgpool -> (
-        (1/len(prev)) * sum(map(simplify_lower, prev, 1)), 
+        (1/len(prev)) * sum(map(simplify_lower, prev, 1)),
         (1/len(prev)) * sum(map(simplify_upper, prev, 1)),
         (1/len(prev)) * sum(prev),
         (1/len(prev)) * sum(prev)
@@ -3923,9 +3923,9 @@ constraintflow.core.astTC.UndefinedVarException: size is undefined
 Code:
 transformer deeppoly{
     Avgpool -> (
-        (1.0 / curr[size]) * sum_over_i(prev_i[l]), 
-        (1.0 / curr[size]) * sum_over_i(prev_i[u]), 
-        (1.0 / curr[size]) * sum_over_i(prev_i[L]), 
+        (1.0 / curr[size]) * sum_over_i(prev_i[l]),
+        (1.0 / curr[size]) * sum_over_i(prev_i[u]),
+        (1.0 / curr[size]) * sum_over_i(prev_i[L]),
         (1.0 / curr[size]) * sum_over_i(prev_i[U])
     );
 }
@@ -4180,9 +4180,9 @@ constraintflow.core.astTC.UndefinedVarException: size is undefined
 Code:
 transformer deeppoly{
     Avgpool -> (
-        (1.0/size) * sum_i(prev_i[l]), 
-        (1.0/size) * sum_i(prev_i[u]), 
-        (1.0/size) * sum_i(prev_i[L]), 
+        (1.0/size) * sum_i(prev_i[l]),
+        (1.0/size) * sum_i(prev_i[u]),
+        (1.0/size) * sum_i(prev_i[L]),
         (1.0/size) * sum_i(prev_i[U])
     );
 }
@@ -4853,7 +4853,7 @@ constraintflow.core.astTC.UndefinedVarException: size is undefined
 
 Code:
 transformer deeppoly{
-    Avgpool -> 
+    Avgpool ->
         (1.0/size) * (sum_i simplify_lower(prev_i, 1.0)),
         (1.0/size) * (sum_i simplify_upper(prev_i, 1.0)),
         (1.0/size) * (sum_i prev_i[L]),
@@ -5023,9 +5023,9 @@ constraintflow.core.astTC.UndefinedVarException: sum_idx is not defined
 Code:
 transformer deeppoly{
     Avgpool -> (
-        sum_idx( (1/N) * prev_idx[l] ), 
-        sum_idx( (1/N) * prev_idx[u] ), 
-        sum_idx( (1/N) * prev_idx[L] ), 
+        sum_idx( (1/N) * prev_idx[l] ),
+        sum_idx( (1/N) * prev_idx[u] ),
+        sum_idx( (1/N) * prev_idx[L] ),
         sum_idx( (1/N) * prev_idx[U] )
     );
 }
@@ -5275,9 +5275,9 @@ constraintflow.core.astTC.UndefinedVarException: size is undefined
 Code:
 transformer deeppoly{
     Avgpool -> (
-        (1.0 / curr[size]) * sum_i simplify_lower(prev_i, 1.0), 
-        (1.0 / curr[size]) * sum_i simplify_upper(prev_i, 1.0), 
-        (1.0 / curr[size]) * sum_i (prev_i), 
+        (1.0 / curr[size]) * sum_i simplify_lower(prev_i, 1.0),
+        (1.0 / curr[size]) * sum_i simplify_upper(prev_i, 1.0),
+        (1.0 / curr[size]) * sum_i (prev_i),
         (1.0 / curr[size]) * sum_i (prev_i)
     );
 }
@@ -5409,7 +5409,7 @@ transformer deeppoly{
 }
 
 2025-06-12 02:37:52,602 - INFO - 2025-06-12 02:37:52.602619 - Extracting HardSigmoid
-2025-06-12 02:37:52,602 - INFO - 
+2025-06-12 02:37:52,602 - INFO -
 API: HardSigmoid -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:37:52,602 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:38:05,093 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -5532,7 +5532,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[u]) <= -2.5) ? (0, 0, 0, 0) :
         ((prev[l]) >= 2.5)  ? (1, 1, 1, 1)  :
         (
@@ -5605,9 +5605,9 @@ constraintflow.core.astTC.TypeMismatchException: min is not defined on Int and P
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
-        ((prev[l] >= 1) ? (1, 1, 1, 1) : 
-        ((prev[u] <= -1) ? (0, 0, 0, 0) : 
+    HardSigmoid ->
+        ((prev[l] >= 1) ? (1, 1, 1, 1) :
+        ((prev[u] <= -1) ? (0, 0, 0, 0) :
         (max(0, min(1, 0.5 * prev[l] + 0.5)), min(1, max(0, 0.5 * prev[u] + 0.5)),
          max(0, min(1, 0.5 * prev + 0.5)),
          min(1, max(0, 0.5 * prev + 0.5)))
@@ -5744,13 +5744,13 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
-        ((prev[u]) <= -2.5) 
+    HardSigmoid ->
+        ((prev[u]) <= -2.5)
         ? (0, 0, 0, 0)
-        : (((prev[l]) >= 2.5) 
+        : (((prev[l]) >= 2.5)
             ? (1, 1, 1, 1)
             : (
-                ((prev[l]) >= -2.5 && (prev[u]) <= 2.5) 
+                ((prev[l]) >= -2.5 && (prev[u]) <= 2.5)
                 ? (0.2 * (prev[l]) + 0.5, 0.2 * (prev[u]) + 0.5, (0.2 * prev + 0.5), (0.2 * prev + 0.5))
                 : (min(1, max(0, 0.2 * (prev[l]) + 0.5)), max(1, 0.2 * (prev[u]) + 0.5), 0, 1)
             )
@@ -5884,14 +5884,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[u] <= -2.5) ? (0, 0, 0, 0) :
         ((prev[l] >= 2.5) ? (1, 1, 1, 1) :
         (
             // Else: mix, linear between (0, 0) @ -2.5 and (1, 1) @ 2.5
-            simplify_lower(prev, 0.2) + 0.5, 
-            simplify_upper(prev, 0.2) + 0.5, 
-            (prev * 0.2) + 0.5, 
+            simplify_lower(prev, 0.2) + 0.5,
+            simplify_upper(prev, 0.2) + 0.5,
+            (prev * 0.2) + 0.5,
             (prev * 0.2) + 0.5
         )));
 }
@@ -6012,7 +6012,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[u]) <= -2.5) ? (0, 0, 0, 0) :
         ((prev[l]) >= 2.5) ? (1, 1, 1, 1) :
         (
@@ -6075,7 +6075,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     HardSigmoid ->
-        ((prev[l]) >= 1) 
+        ((prev[l]) >= 1)
             ? (1, 1, 1, 1)
         : ((prev[u]) <= 0)
             ? (0, 0, 0, 0)
@@ -6139,14 +6139,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         (
             // Lower concrete bound
-            ((simplify_lower(prev, 1/6.0) + 0.5) < 0) ? 0 : 
+            ((simplify_lower(prev, 1/6.0) + 0.5) < 0) ? 0 :
             ((simplify_lower(prev, 1/6.0) + 0.5) > 1) ? 1 : (simplify_lower(prev, 1/6.0) + 0.5),
 
             // Upper concrete bound
-            ((simplify_upper(prev, 1/6.0) + 0.5) < 0) ? 0 : 
+            ((simplify_upper(prev, 1/6.0) + 0.5) < 0) ? 0 :
             ((simplify_upper(prev, 1/6.0) + 0.5) > 1) ? 1 : (simplify_upper(prev, 1/6.0) + 0.5),
 
             // Lower poly
@@ -6281,11 +6281,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
-        ((prev[u]) <= -2.5) ? 
-            (0, 0, 0, 0) : 
-        (((prev[l]) >= 2.5) ? 
-            (1, 1, 1, 1) : 
+    HardSigmoid ->
+        ((prev[u]) <= -2.5) ?
+            (0, 0, 0, 0) :
+        (((prev[l]) >= 2.5) ?
+            (1, 1, 1, 1) :
         (
             float k = 0.2;
             float b = 0.5;
@@ -6413,7 +6413,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[u]) <= -2.5) ? (0, 0, 0, 0)
         : ((prev[l]) >= 2.5) ? (1, 1, 1, 1)
         : (
@@ -6426,9 +6426,9 @@ transformer deeppoly{
             let lower = max(0, l_out);
             let upper = min(1, u_out);
             (
-                lower, 
-                upper, 
-                max(0, min(1, l_slope * prev + l_intercept)), 
+                lower,
+                upper,
+                max(0, min(1, l_slope * prev + l_intercept)),
                 min(1, max(0, u_slope * prev + u_intercept))
             )
         );
@@ -6551,10 +6551,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
-        ((prev[u]) <= -2.5) ? 
+    HardSigmoid ->
+        ((prev[u]) <= -2.5) ?
             (0, 0, 0, 0) :
-        ((prev[l]) >= 2.5) ? 
+        ((prev[l]) >= 2.5) ?
             (1, 1, 1, 1) :
         (
             (max(0, min(1, 0.2 * (prev[l]) + 0.5))),
@@ -6619,15 +6619,15 @@ transformer deeppoly{
         ((prev[u]) <= -2.5) ? (0) :
         ((prev[l]) >= 2.5) ? (1) :
         (max(0, min(1, 0.2 * (prev[l]) + 0.5))),
-        
+
         ((prev[u]) <= -2.5) ? (0) :
         ((prev[l]) >= 2.5) ? (1) :
         (max(0, min(1, 0.2 * (prev[u]) + 0.5))),
-        
+
         ((prev[u]) <= -2.5) ? (0) :
         ((prev[l]) >= 2.5) ? (1) :
         (max(0, min(1, 0.2 * (prev) + 0.5))),
-        
+
         ((prev[u]) <= -2.5) ? (0) :
         ((prev[l]) >= 2.5) ? (1) :
         (max(0, min(1, 0.2 * (prev) + 0.5)))
@@ -6686,10 +6686,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[u]) <= -2.5)            ? (0, 0, 0, 0) :
         ((prev[l]) >= 2.5)             ? (1, 1, 1, 1) :
-        ((prev[l]) >= -2.5 and (prev[u]) <= 2.5) 
+        ((prev[l]) >= -2.5 and (prev[u]) <= 2.5)
             ? (0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5, 0.2 * prev + 0.5, 0.2 * prev + 0.5) :
         ((prev[l]) < -2.5 and (prev[u]) > 2.5)
             ? (0, 1, 0.2 * prev + 0.5, 0.2 * prev + 0.5)
@@ -6757,7 +6757,7 @@ constraintflow.core.astTC.TypeMismatchException: max is not defined on Int and P
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[u] <= -3) ? (0, 0, 0, 0)
         : ((prev[l] >= 3) ? (1, 1, 1, 1)
         : (max(0, (0.2 * prev[l] + 0.5)), min(1, (0.2 * prev[u] + 0.5)), (0.2 * prev + 0.5), min(1, max(0, 0.2 * prev + 0.5)))
@@ -6826,11 +6826,11 @@ constraintflow.core.astTC.TypeMismatchException: min is not defined on Int and P
 Code:
 transformer deeppoly{
     HardSigmoid ->
-        ((prev[l] >= 2) 
-            ? (1, 1, 1, 1) 
-            : ((prev[u] <= -2) 
-                ? (0, 0, 0, 0) 
-                : (max(0, min(1, 0.25 * prev[l] + 0.5)), max(0, min(1, 0.25 * prev[u] + 0.5)), 
+        ((prev[l] >= 2)
+            ? (1, 1, 1, 1)
+            : ((prev[u] <= -2)
+                ? (0, 0, 0, 0)
+                : (max(0, min(1, 0.25 * prev[l] + 0.5)), max(0, min(1, 0.25 * prev[u] + 0.5)),
                     max(0, min(1, 0.25 * prev + 0.5)), max(0, min(1, 0.25 * prev + 0.5)))
               )
         );
@@ -6888,19 +6888,19 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[l]) >= 2) ? (1, 1, 1, 1)
         : ((prev[u]) <= -2) ? (0, 0, 0, 0)
-        : ((prev[l]) >= -2 && (prev[u]) <= 2) ? 
+        : ((prev[l]) >= -2 && (prev[u]) <= 2) ?
             (0.25*prev[l] + 0.5, 0.25*prev[u] + 0.5, 0.25*prev + 0.5, 0.25*prev + 0.5)
         : (
             max(0, 0.25*prev[l] + 0.5),
             min(1, 0.25*prev[u] + 0.5),
             0.25*prev + 0.5,
-            (0.25*(prev[u]-prev[l])/(prev[u]-prev[l]))*prev 
-                + ( 
+            (0.25*(prev[u]-prev[l])/(prev[u]-prev[l]))*prev
+                + (
                     (0.25*prev[u] + 0.5)
-                    - 0.25*prev[u]*prev[l]/(prev[u]-prev[l]) 
+                    - 0.25*prev[u]*prev[l]/(prev[u]-prev[l])
                 )
         );
 }
@@ -6956,7 +6956,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[u] <= -2.5)) ? (0, 0, 0, 0) :
         ((prev[l] >= 2.5)) ? (1, 1, 1, 1) :
         (
@@ -6965,8 +6965,8 @@ transformer deeppoly{
             (0.2 * prev + 0.5).clamp(0, 1),                           // L
             (
                 ((prev[l] >= -2.5) & (prev[u] <= 2.5)) ? (0.2 * prev + 0.5) :
-                ((prev[l] < -2.5) & (prev[u] > 2.5)) ? (prev * (1/5) + 0.5) : 
-                ((prev[l] < -2.5)) ? ((1 - 0) / (prev[u] + 2.5) * (prev + 2.5)) : 
+                ((prev[l] < -2.5) & (prev[u] > 2.5)) ? (prev * (1/5) + 0.5) :
+                ((prev[l] < -2.5)) ? ((1 - 0) / (prev[u] + 2.5) * (prev + 2.5)) :
                 ((prev[u] > 2.5)) ? ((1 - 0) / (2.5 - prev[l]) * (prev - prev[l])) : (0.2 * prev + 0.5)
             ).clamp(0, 1)
         );
@@ -7025,11 +7025,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[u]) <= -2.5) ? (0, 0, 0, 0) :
         ((prev[l]) >= 2.5) ? (1, 1, 1, 1) :
         (
-            max(0.2 * (prev[l]) + 0.5, 0), 
+            max(0.2 * (prev[l]) + 0.5, 0),
             min(0.2 * (prev[u]) + 0.5, 1),
             (0.2 * prev + 0.5),
             (0.2 * prev + 0.5)
@@ -7087,7 +7087,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[u]) <= -2.5) ? (0, 0, 0, 0) :
         ((prev[l]) >= 2.5) ? (1, 1, 1, 1) :
         (
@@ -7187,7 +7187,7 @@ transformer deeppoly{
 }
 
 2025-06-12 02:40:39,199 - INFO - 2025-06-12 02:40:39.199225 - Extracting HardSwish
-2025-06-12 02:40:39,199 - INFO - 
+2025-06-12 02:40:39,199 - INFO -
 API: HardSwish -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:40:39,199 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:40:55,064 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -7252,9 +7252,9 @@ transformer deeppoly{
         ) : (((prev[u]) <= -3) ? (
             0, 0, 0, 0
         ) : (
-            (simplify_lower(prev, (prev[l] + prev[u]) / 6 + 0.5)), 
-            (simplify_upper(prev, (prev[l] + prev[u]) / 6 + 0.5)), 
-            (replace_lower(prev, (prev[L] + prev[U]) / 6 + 0.5)), 
+            (simplify_lower(prev, (prev[l] + prev[u]) / 6 + 0.5)),
+            (simplify_upper(prev, (prev[l] + prev[u]) / 6 + 0.5)),
+            (replace_lower(prev, (prev[L] + prev[U]) / 6 + 0.5)),
             (replace_upper(prev, (prev[L] + prev[U]) / 6 + 0.5))
         ));
 }
@@ -7310,15 +7310,15 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
-      ((prev[l]) >= 3) ? 
-        ((prev[l]), (prev[u]), (prev), (prev)) : 
-      (((prev[u]) <= -3) ? 
+    HardSwish ->
+      ((prev[l]) >= 3) ?
+        ((prev[l]), (prev[u]), (prev), (prev)) :
+      (((prev[u]) <= -3) ?
         (0, 0, 0, 0) :
         (
-          backsubs_lower(((prev)*(min(6, max(0, (prev)+3))) / 6), prev), 
-          backsubs_upper(((prev)*(min(6, max(0, (prev)+3))) / 6), prev), 
-          ((prev)*(min(6, max(0, (prev)+3))) / 6), 
+          backsubs_lower(((prev)*(min(6, max(0, (prev)+3))) / 6), prev),
+          backsubs_upper(((prev)*(min(6, max(0, (prev)+3))) / 6), prev),
+          ((prev)*(min(6, max(0, (prev)+3))) / 6),
           ((prev)*(min(6, max(0, (prev)+3))) / 6)
         )
       );
@@ -7375,7 +7375,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
+    HardSwish ->
         // HardSwish(x) = x * relu6(x+3)/6
         let l = prev[l];
         let u = prev[u];
@@ -7388,25 +7388,25 @@ transformer deeppoly{
             (0, 0, 0, 0)
         ) : (
             // Piecewise linear bounds construction
-            let l_hs = 
+            let l_hs =
                 (l <= -3) ? 0 :
                 (l >= 3) ? l :
                 l * max(0, min(6, l + 3)) / 6;
 
-            let u_hs = 
+            let u_hs =
                 (u <= -3) ? 0 :
                 (u >= 3) ? u :
                 u * max(0, min(6, u + 3)) / 6;
 
             // Poly lower: (u/(u-l))*(prev + 3) * prev / 6 - (l*u)/(u-l) * prev / 6 if (l < u && l < 3 && u > -3)
             let slope = (u - l != 0) ? (u / (u - l)) : 0;
-            let gL = 
+            let gL =
                 (l <= -3) ? 0 :
                 (u >= 3) ? prev :
                 (slope * (prev + 3) * prev / 6) - ((l * u) / (u - l) * prev / 6);
 
             // Poly upper (Symbolic, matching gL for simplicity here, user should refine for best precision if needed.)
-            let gU = 
+            let gU =
                 (l <= -3) ? 0 :
                 (u >= 3) ? prev :
                 (u / (u - l)) * (prev + 3) * prev / 6 - (l * u) / (u - l) * prev / 6;
@@ -7468,10 +7468,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
-        ((prev[l] >= 3) 
+    HardSwish ->
+        ((prev[l] >= 3)
             ? (prev[l], prev[u], prev, prev)
-        : ((prev[u] <= -3) 
+        : ((prev[u] <= -3)
             ? (0, 0, 0, 0)
         : (
             0,
@@ -7537,7 +7537,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
+    HardSwish ->
         ((prev[l] >= 3)) ? (
             prev[l], prev[u], prev, prev
         ) : ((prev[u] <= -3) ? (
@@ -7602,7 +7602,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish ->  
+    HardSwish ->
         ((prev[u]) <= -3) ? (
             0, 0, 0, 0
         ) : (
@@ -7758,7 +7758,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
+    HardSwish ->
         ((prev[l] >= 3) ? (
             prev[l], prev[u], prev, prev
         ) : ((prev[u] <= -3) ? (
@@ -7766,11 +7766,11 @@ transformer deeppoly{
         ) : (
             // Middle case: prev[l] < 3 and prev[u] > -3
             // Lower bound
-            (simplify_lower(prev, (1/6)) * simplify_lower(prev, prev[l] + 3)), 
+            (simplify_lower(prev, (1/6)) * simplify_lower(prev, prev[l] + 3)),
             // Upper bound
-            (simplify_upper(prev, (1/6)) * simplify_upper(prev, prev[u] + 3)), 
-            // Lower poly 
-            (replace_lower(prev, (1/6)) * (replace_lower(prev, prev[L] + 3))), 
+            (simplify_upper(prev, (1/6)) * simplify_upper(prev, prev[u] + 3)),
+            // Lower poly
+            (replace_lower(prev, (1/6)) * (replace_lower(prev, prev[L] + 3))),
             // Upper poly
             (replace_upper(prev, (1/6)) * (replace_upper(prev, prev[U] + 3)))
         ))
@@ -7829,11 +7829,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     HardSwish ->
-        ((prev[l]) >= 3) ? 
+        ((prev[l]) >= 3) ?
             ((prev[l]), (prev[u]), (prev), (prev)) :
-        ((prev[u]) <= -3) ? 
+        ((prev[u]) <= -3) ?
             (0, 0, 0, 0) :
-        (((prev[l]) >= -3) & ((prev[u]) <= 3)) ? 
+        (((prev[l]) >= -3) & ((prev[u]) <= 3)) ?
             -- Inside [-3, 3]: use linear bounds
             ( ((prev[l]) * (prev[l] + 3)) / 6,
               ((prev[u]) * (prev[u] + 3)) / 6,
@@ -7974,7 +7974,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     HardSwish ->
-        ((prev[l]) >= 3) ? 
+        ((prev[l]) >= 3) ?
             // region x >= 3: hardswish(x) = x
             ((prev[l]), (prev[u]), (prev), (prev)) :
         ((prev[u]) <= -3) ?
@@ -8046,8 +8046,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
-        ((prev[l]) >= 3) 
+    HardSwish ->
+        ((prev[l]) >= 3)
             ? ((prev[l]), (prev[u]), (prev), (prev))
             : (
                 ((prev[u]) <= -3)
@@ -8122,7 +8122,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     HardSwish ->
-        ((prev[l] >= 3) ? 
+        ((prev[l] >= 3) ?
             (prev[l], prev[u], prev, prev) :
         ((prev[u] <= -3) ?
             (0, 0, 0, 0) :
@@ -8249,8 +8249,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
-    ((prev[u]) <= -3) ? 
+    HardSwish ->
+    ((prev[u]) <= -3) ?
         (0, 0, 0, 0) :
     ((prev[l]) >= 3) ?
         (prev[l], prev[u], prev, prev) :
@@ -8312,8 +8312,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
-        ((prev[u]) <= -3) ? 
+    HardSwish ->
+        ((prev[u]) <= -3) ?
             (0, 0, 0, 0) :
         ((prev[l]) >= 3) ?
             (prev[l], prev[u], prev, prev) :
@@ -8390,7 +8390,7 @@ constraintflow.core.astTC.TypeMismatchException: * is not defined on Neuron and 
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
+    HardSwish ->
         ((prev[u]) <= -3) ? (0, 0, 0, 0) :
         ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
         (((prev[l]) >= 0) ?
@@ -8475,10 +8475,10 @@ transformer deeppoly{
             (0, 0, 0, 0)
         : (
             // l, u
-            ((simplify_lower(prev, (1/6.0))*simplify_lower(prev,1) + simplify_lower(prev,1)*0.5 + simplify_lower(prev,1)*0.5), 
-             (simplify_upper(prev, (1/6.0))*simplify_upper(prev,1) + simplify_upper(prev,1)*0.5 + simplify_upper(prev,1)*0.5), 
+            ((simplify_lower(prev, (1/6.0))*simplify_lower(prev,1) + simplify_lower(prev,1)*0.5 + simplify_lower(prev,1)*0.5),
+             (simplify_upper(prev, (1/6.0))*simplify_upper(prev,1) + simplify_upper(prev,1)*0.5 + simplify_upper(prev,1)*0.5),
             // L, U (linear relaxations)
-             (prev*(simplify_lower(prev,1)+3)/6), 
+             (prev*(simplify_lower(prev,1)+3)/6),
              (prev*(simplify_upper(prev,1)+3)/6)
             )
         );
@@ -8624,7 +8624,7 @@ transformer deeppoly{
             (prev[l], prev[u], prev, prev)
         : (prev[u] <= -3) ?
             (0, 0, 0, 0)
-        : 
+        :
             (
                 (min(0, prev[l]) >= -3 ?
                     0.5 * (prev[l] + min(3, max(0, prev[l]))) / 3 * prev[l] :
@@ -8689,7 +8689,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
+    HardSwish ->
         ((prev[u]) <= -3) ? (0, 0, 0, 0) :
         ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
         ((prev[l]) >= -3 && (prev[u]) <= 3) ? (
@@ -8756,7 +8756,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
+    HardSwish ->
         ((prev[l]) >= 3) ? // Region x >= 3, HardSwish(x) = x
             ((prev[l]), (prev[u]), (prev), (prev))
         : ((prev[u]) <= -3) ? // Region x <= -3, HardSwish(x) = 0
@@ -8833,10 +8833,10 @@ constraintflow.core.astTC.TypeMismatchException: * is not defined on Neuron and 
 
 Code:
 transformer deeppoly{
-    HardSwish -> 
-        ((prev[l]) >= 3) ? 
+    HardSwish ->
+        ((prev[l]) >= 3) ?
             ((prev[l]), (prev[u]), (prev), (prev)) :
-        ((prev[u]) <= -3) ? 
+        ((prev[u]) <= -3) ?
             (0, 0, 0, 0) :
         (
             max(0, prev[l] * (prev[l] + 3) / 6),
@@ -8898,17 +8898,17 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     HardSwish ->
-        (prev[l] >= 3) 
+        (prev[l] >= 3)
             ? (prev[l], prev[u], prev, prev)
-        : ((prev[u] <= -3) 
+        : ((prev[u] <= -3)
             ? (0, 0, 0, 0)
         : (
             ( (prev[l] >= -3) && (prev[u] <= 3) )
-                ? ( 
-                    (prev[l]) * (prev[l] + 3) / 6, 
-                    (prev[u]) * (prev[u] + 3) / 6, 
-                    prev * (prev + 3) / 6, 
-                    prev * (prev + 3) / 6 
+                ? (
+                    (prev[l]) * (prev[l] + 3) / 6,
+                    (prev[u]) * (prev[u] + 3) / 6,
+                    prev * (prev + 3) / 6,
+                    prev * (prev + 3) / 6
                   )
             :
                   (
@@ -8974,16 +8974,16 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     HardSwish ->
-        ((prev[l]) >= 3) ? 
+        ((prev[l]) >= 3) ?
             ((prev[l]), (prev[u]), (prev), (prev))
-        : (((prev[u]) <= -3) ? 
+        : (((prev[u]) <= -3) ?
             (0, 0, 0, 0)
         : (
             // general case: interval spans both -3 and 3
-            (min(0, prev[l])), 
-            (max(prev[u], 0)), 
+            (min(0, prev[l])),
+            (max(prev[u], 0)),
             // Lower poly: convex hull (secant) or lower tangent
-            ((prev + 3) * max(0, min(6, prev + 3)) / 6), 
+            ((prev + 3) * max(0, min(6, prev + 3)) / 6),
             // Upper poly: secant between endpoints
             (prev * ((prev[u] + 3) / 6))
         ))
@@ -9172,7 +9172,7 @@ transformer deeppoly{
 }
 
 2025-06-12 02:43:22,691 - INFO - 2025-06-12 02:43:22.691867 - Extracting HardTanh
-2025-06-12 02:43:22,691 - INFO - 
+2025-06-12 02:43:22,691 - INFO -
 API: HardTanh -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:43:22,692 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:43:52,468 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -9225,7 +9225,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly {
-    HardTanh -> 
+    HardTanh ->
         ((prev[u]) <= -1) ? (
             -1, -1, -1, -1
         ) : (
@@ -9308,13 +9308,13 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
-        ((prev[u]) <= -1) ? 
-            (-1, -1, -1, -1) : 
-        ((prev[l]) >= 1) ? 
-            (1, 1, 1, 1) : 
-        ((prev[l]) >= -1 && (prev[u]) <= 1) ? 
-            (prev[l], prev[u], prev, prev) : 
+    HardTanh ->
+        ((prev[u]) <= -1) ?
+            (-1, -1, -1, -1) :
+        ((prev[l]) >= 1) ?
+            (1, 1, 1, 1) :
+        ((prev[l]) >= -1 && (prev[u]) <= 1) ?
+            (prev[l], prev[u], prev, prev) :
         ((prev[l]) < -1 && (prev[u]) <= 1) ?
             (0, prev[u], 0, prev) :
         ((prev[l]) >= -1 && (prev[u]) > 1) ?
@@ -9375,7 +9375,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         (prev[l] >= 1) ? (1, 1, 1, 1)
         : (prev[u] <= -1) ? (-1, -1, -1, -1)
         : (prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev, prev)
@@ -9437,16 +9437,16 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         ((prev[l] >= 1) ? (1, 1, 1, 1) :
         (prev[u] <= -1) ? (-1, -1, -1, -1) :
-        (prev[l] >= -1 && prev[u] <= 1) ? 
+        (prev[l] >= -1 && prev[u] <= 1) ?
             (prev[l], prev[u], prev, prev) :
-        (prev[l] < -1 && prev[u] > 1) ? 
+        (prev[l] < -1 && prev[u] > 1) ?
             (-1, 1, prev, prev) :
-        (prev[l] < -1 && prev[u] <= 1) ? 
+        (prev[l] < -1 && prev[u] <= 1) ?
             (-1, prev[u], -1, ((prev[u] + 1)/(prev[u] - prev[l]) * prev) - ((prev[u] + 1) * prev[l] / (prev[u] - prev[l]))) :
-        ((prev[l] >= -1 && prev[l] < 1 && prev[u] > 1) ? 
+        ((prev[l] >= -1 && prev[l] < 1 && prev[u] > 1) ?
             (prev[l], 1, ((1 - prev[l])/(prev[u] - prev[l]) * prev) + (prev[u] * (1 - prev[l]) / (prev[u] - prev[l])), 1)
         : (prev[l], prev[u], prev, prev))
         );
@@ -9503,18 +9503,18 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
-        ((prev[u]) <= -1) ? 
-            (-1, -1, -1, -1) : 
-        (((prev[l]) >= 1) ? 
-            (1, 1, 1, 1) : 
-        (((prev[l]) >= -1) & ((prev[u]) <= 1) ? 
-            (prev[l], prev[u], prev, prev) : 
-        (((prev[l]) < -1) & ((prev[u]) > 1) ? 
-            (-1, 1, ((prev - prev[l]) / (prev[u] - prev[l])) * 2 - 1, 1 - ((prev[u] - prev) / (prev[u] - prev[l])) * 2) : 
-        (((prev[l]) < -1) ? 
-            (-1, min(prev[u], 1), ((prev - prev[l]) / (min(prev[u],1) - prev[l])) * (min(prev[u],1) + 1) - 1, min(prev,1)) : 
-        ((prev[u]) > 1) ? 
+    HardTanh ->
+        ((prev[u]) <= -1) ?
+            (-1, -1, -1, -1) :
+        (((prev[l]) >= 1) ?
+            (1, 1, 1, 1) :
+        (((prev[l]) >= -1) & ((prev[u]) <= 1) ?
+            (prev[l], prev[u], prev, prev) :
+        (((prev[l]) < -1) & ((prev[u]) > 1) ?
+            (-1, 1, ((prev - prev[l]) / (prev[u] - prev[l])) * 2 - 1, 1 - ((prev[u] - prev) / (prev[u] - prev[l])) * 2) :
+        (((prev[l]) < -1) ?
+            (-1, min(prev[u], 1), ((prev - prev[l]) / (min(prev[u],1) - prev[l])) * (min(prev[u],1) + 1) - 1, min(prev,1)) :
+        ((prev[u]) > 1) ?
             (max(prev[l], -1), 1, max(prev, -1), ((1 - prev[l]) / (prev[u] - prev[l])) * (prev - prev[l]) + max(prev, -1)) :
         (prev[l], prev[u], prev, prev)
         )))));
@@ -9571,16 +9571,16 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
-        ((prev[u] <= -1.0) ? 
-            (-1.0, -1.0, -1.0, -1.0) : 
-            ((prev[l] >= 1.0) ? 
-                (1.0, 1.0, 1.0, 1.0) : 
-                ((prev[l] >= -1.0 && prev[u] <= 1.0) ? 
-                    (prev[l], prev[u], prev, prev) : 
+    HardTanh ->
+        ((prev[u] <= -1.0) ?
+            (-1.0, -1.0, -1.0, -1.0) :
+            ((prev[l] >= 1.0) ?
+                (1.0, 1.0, 1.0, 1.0) :
+                ((prev[l] >= -1.0 && prev[u] <= 1.0) ?
+                    (prev[l], prev[u], prev, prev) :
                     ((prev[l] < -1.0 && prev[u] > 1.0) ?
                         (-1.0, 1.0, prev, prev) :
-                        ((prev[l] < -1.0) ? 
+                        ((prev[l] < -1.0) ?
                             (-1.0, prev[u], prev, prev) :
                             (prev[l], 1.0, prev, prev)
                         )
@@ -9708,14 +9708,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         ((prev[u]) <= -1) ? (-1, -1, -1, -1) :
         ((prev[l]) >= 1) ? (1, 1, 1, 1) :
         (((prev[l]) >= -1) & ((prev[u]) <= 1)) ? (prev[l], prev[u], prev, prev) :
         (((prev[l]) < -1) & ((prev[u]) > 1)) ? (-1, 1, -1, 1) :
-        (((prev[l]) < -1) & ((prev[u]) <= 1)) ? 
+        (((prev[l]) < -1) & ((prev[u]) <= 1)) ?
             (-1, prev[u], -1, prev - ((prev[l] + 1) / ((prev[u]) - (prev[l]))) * (prev - 1)) :
-        (((prev[l]) >= -1) & ((prev[u]) > 1)) ? 
+        (((prev[l]) >= -1) & ((prev[u]) > 1)) ?
             (prev[l], 1, prev - ((prev[u] - 1) / ((prev[u]) - (prev[l]))) * (prev - 1), 1) :
         (prev[l], prev[u], prev, prev);
 }
@@ -9771,7 +9771,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh(min_v,max_v) -> 
+    HardTanh(min_v,max_v) ->
         ((prev[u]) <= min_v) ? (min_v, min_v, min_v, min_v) :
         ((prev[l]) >= max_v) ? (max_v, max_v, max_v, max_v) :
         ((prev[l]) >= min_v && (prev[u]) <= max_v) ? (prev[l], prev[u], prev, prev) :
@@ -9833,16 +9833,16 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
-        ((prev[u] <= -1) ? 
+    HardTanh ->
+        ((prev[u] <= -1) ?
             (-1, -1, -1, -1) :
-        ((prev[l] >= 1) ? 
+        ((prev[l] >= 1) ?
             (1, 1, 1, 1) :
-        ((prev[l] >= -1) & (prev[u] <= 1) ? 
+        ((prev[l] >= -1) & (prev[u] <= 1) ?
             (prev[l], prev[u], prev, prev) :
-        ((prev[l] < -1) & (prev[u] <= 1) ? 
+        ((prev[l] < -1) & (prev[u] <= 1) ?
             (-1, prev[u], -1, prev) :
-        ((prev[l] >= -1) & (prev[u] > 1) ? 
+        ((prev[l] >= -1) & (prev[u] > 1) ?
             (prev[l], 1, prev, 1) :
         (-1, 1, -1, 1)
         )))));
@@ -10040,13 +10040,13 @@ constraintflow.core.astTC.TypeMismatchException: * is not defined on PolyExp and
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
-        ((prev[u]) <= -1) ? 
-            (-1, -1, -1, -1) : 
-        ((prev[l]) >= 1) ? 
-            (1, 1, 1, 1) : 
+    HardTanh ->
+        ((prev[u]) <= -1) ?
+            (-1, -1, -1, -1) :
+        ((prev[l]) >= 1) ?
+            (1, 1, 1, 1) :
         (
-            max(-1, prev[l]), 
+            max(-1, prev[l]),
             min(1, prev[u]),
 
             // Lower poly
@@ -10120,10 +10120,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh(min_v, max_v) -> 
-        ((prev[u] <= min_v) ? 
+    HardTanh(min_v, max_v) ->
+        ((prev[u] <= min_v) ?
             (min_v, min_v, min_v, min_v)
-        : (prev[l] >= max_v) ? 
+        : (prev[l] >= max_v) ?
             (max_v, max_v, max_v, max_v)
         : (prev[l] >= min_v && prev[u] <= max_v) ?
             (prev[l], prev[u], prev, prev)
@@ -10193,7 +10193,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         ((prev[u]) <= -1) ? (-1, -1, -1, -1) :
         ((prev[l]) >= 1)  ? (1, 1, 1, 1)  :
         (((prev[l]) >= -1) && ((prev[u]) <= 1)) ? (prev[l], prev[u], prev, prev) :
@@ -10318,7 +10318,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         ((prev[u]) <= -1) ? (-1, -1, -1, -1) :
         ((prev[l]) >= 1) ? (1, 1, 1, 1) :
         ((prev[l]) >= -1 && (prev[u]) <= 1) ? (prev[l], prev[u], prev, prev) :
@@ -10379,7 +10379,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh(min_val, max_val) -> 
+    HardTanh(min_val, max_val) ->
         ((prev[u] <= min_val) ? (min_val, min_val, min_val, min_val) :
          (prev[l] >= max_val) ? (max_val, max_val, max_val, max_val) :
          (prev[l] >= min_val && prev[u] <= max_val) ? (prev[l], prev[u], prev, prev) :
@@ -10441,10 +10441,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         (prev[u] <= -1) ? (-1, -1, -1, -1) :
         (prev[l] >= 1)  ? (1, 1, 1, 1) :
-        (prev[l] >= -1 && prev[u] <= 1) ? 
+        (prev[l] >= -1 && prev[u] <= 1) ?
             (prev[l], prev[u], prev, prev) :
         (prev[l] < -1 && prev[u] <= 1) ?
             (-1, prev[u], -1, prev) :
@@ -10504,7 +10504,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         ((prev[l] >= 1) ? (1,1,1,1)
         : (prev[u] <= -1) ? (-1,-1,-1,-1)
         : (prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev, prev)
@@ -10565,13 +10565,13 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh(min_v, max_v) -> 
-        ((prev[u] <= min_v) ? 
-            (min_v, min_v, min_v, min_v) : 
-            ((prev[l] >= max_v) ? 
-                (max_v, max_v, max_v, max_v) : 
-                (max(prev[l], min_v), min(prev[u], max_v), 
-                    (prev - min_v) * ((max_v - min_v) / (max(prev[u], max_v) - min_v)) + min_v, 
+    HardTanh(min_v, max_v) ->
+        ((prev[u] <= min_v) ?
+            (min_v, min_v, min_v, min_v) :
+            ((prev[l] >= max_v) ?
+                (max_v, max_v, max_v, max_v) :
+                (max(prev[l], min_v), min(prev[u], max_v),
+                    (prev - min_v) * ((max_v - min_v) / (max(prev[u], max_v) - min_v)) + min_v,
                     (prev - max_v) * ((max_v - min_v) / (min(prev[l], min_v) - max_v)) + max_v
                 )
             )
@@ -10697,17 +10697,17 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh(min_v, max_v) -> 
-        ((prev[u] <= min_v) ? 
-            (min_v, min_v, min_v, min_v) : 
-            ((prev[l] >= max_v) ? 
-                (max_v, max_v, max_v, max_v) : 
-                ((prev[l] >= min_v && prev[u] <= max_v) ? 
-                    (prev[l], prev[u], prev, prev) : 
-                    ((prev[l] < min_v && prev[u] > max_v) ? 
-                        (min_v, max_v, prev, prev) : 
-                        ((prev[l] < min_v) ? 
-                            (min_v, min(prev[u], max_v), prev*(prev[u]-min_v)/(prev[u]-prev[l]) + min_v*(prev[l]-min_v)/(prev[u]-prev[l]), prev*(min(prev[u], max_v)-min_v)/(prev[u]-prev[l]) + min_v*(prev[u]-min(prev[u], max_v))/(prev[u]-prev[l])) : 
+    HardTanh(min_v, max_v) ->
+        ((prev[u] <= min_v) ?
+            (min_v, min_v, min_v, min_v) :
+            ((prev[l] >= max_v) ?
+                (max_v, max_v, max_v, max_v) :
+                ((prev[l] >= min_v && prev[u] <= max_v) ?
+                    (prev[l], prev[u], prev, prev) :
+                    ((prev[l] < min_v && prev[u] > max_v) ?
+                        (min_v, max_v, prev, prev) :
+                        ((prev[l] < min_v) ?
+                            (min_v, min(prev[u], max_v), prev*(prev[u]-min_v)/(prev[u]-prev[l]) + min_v*(prev[l]-min_v)/(prev[u]-prev[l]), prev*(min(prev[u], max_v)-min_v)/(prev[u]-prev[l]) + min_v*(prev[u]-min(prev[u], max_v))/(prev[u]-prev[l])) :
                         (max(prev[l], min_v), max_v, prev*(max_v-prev[l])/(prev[u]-prev[l]) + max_v*(prev[u]-max_v)/(prev[u]-prev[l]), prev*(max_v-prev[l])/(prev[u]-prev[l]) + max_v*(prev[u]-max_v)/(prev[u]-prev[l]))
                         )
                     )
@@ -10767,10 +10767,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
-        ((prev[u] <= -1.0) ? 
-            (-1.0, -1.0, -1.0, -1.0) 
-        : ((prev[l] >= 1.0) ? 
+    HardTanh ->
+        ((prev[u] <= -1.0) ?
+            (-1.0, -1.0, -1.0, -1.0)
+        : ((prev[l] >= 1.0) ?
             (1.0, 1.0, 1.0, 1.0)
         : ((prev[l] >= -1.0) & (prev[u] <= 1.0) ?
             (prev[l], prev[u], prev, prev)
@@ -10834,14 +10834,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         (prev[u] <= -1) ? (-1, -1, -1, -1) :
         (prev[l] >= 1) ? (1, 1, 1, 1) :
-        (prev[l] >= -1 && prev[u] <= 1) ? 
+        (prev[l] >= -1 && prev[u] <= 1) ?
             (prev[l], prev[u], prev, prev) :
-        (prev[l] < -1 && prev[u] <= 1) ? 
+        (prev[l] < -1 && prev[u] <= 1) ?
             (-1, prev[u], -1, prev) :
-        (prev[l] >= -1 && prev[u] > 1) ? 
+        (prev[l] >= -1 && prev[u] > 1) ?
             (prev[l], 1, prev, 1) :
         (-1, 1, -1, 1);
 }
@@ -10957,7 +10957,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         ((prev[u]) <= -1) ? (-1, -1, -1, -1) :
         ((prev[l]) >= 1) ? (1, 1, 1, 1) :
         ((prev[l]) >= -1 && (prev[u]) <= 1) ? (prev[l], prev[u], prev, prev) :
@@ -11019,7 +11019,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         ((prev[u] <= -1) ? (-1, -1, -1, -1) :
         ((prev[l] >= 1) ? (1, 1, 1, 1) :
         ((prev[l] >= -1) & (prev[u] <= 1)) ? (prev[l], prev[u], prev, prev) :
@@ -11079,10 +11079,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
-        ((prev[u]) <= -1) ? 
+    HardTanh ->
+        ((prev[u]) <= -1) ?
             (-1, -1, -1, -1)
-        : ((prev[l]) >= 1) ? 
+        : ((prev[l]) >= 1) ?
             (1, 1, 1, 1)
         : ((prev[l]) >= -1 && (prev[u]) <= 1) ?
             ((prev[l]), (prev[u]), (prev), (prev))
@@ -11092,7 +11092,7 @@ transformer deeppoly{
             ((prev[l]), 1, (prev), 1)
         : ((prev[l]) < -1 && (prev[u]) > 1) ?
             (-1, 1, -1, 1)
-        : 
+        :
             (curr[l], curr[u], curr[L], curr[U]);
 }
 
@@ -11147,7 +11147,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         ((prev[u]) <= -1) ?  (-1, -1, -1, -1)
       : ((prev[l]) >= 1)  ?  (1, 1, 1, 1)
       : ((prev[l]) >= -1 && (prev[u]) <= 1) ? (prev[l], prev[u], prev, prev)
@@ -11162,7 +11162,7 @@ transformer deeppoly{
 2025-06-12 02:47:07,881 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         ((prev[u]) <= -1) ?  (-1, -1, -1, -1)
       : ((prev[l]) >= 1)  ?  (1, 1, 1, 1)
       : ((prev[l]) >= -1 && (prev[u]) <= 1) ? (prev[l], prev[u], prev, prev)
@@ -11172,7 +11172,7 @@ transformer deeppoly{
 }
 
 2025-06-12 02:47:07,881 - INFO - 2025-06-12 02:47:07.881616 - Extracting Max
-2025-06-12 02:47:07,881 - INFO - 
+2025-06-12 02:47:07,881 - INFO -
 API: Max -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:47:07,881 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:47:22,757 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -11225,7 +11225,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> (prev_0[l] >= prev_1[u]) ? 
+    Max -> (prev_0[l] >= prev_1[u]) ?
         (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
         (prev_1[l] >= prev_0[u]) ?
             (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
@@ -11284,12 +11284,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> (f(prev_0, prev_1)) ? 
+    Max -> (f(prev_0, prev_1)) ?
         (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : (
-        f(prev_1, prev_0)) ? 
-        (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
+        f(prev_1, prev_0)) ?
+        (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
         (
-            max(prev_0[l], prev_1[l]), 
+            max(prev_0[l], prev_1[l]),
             max(prev_0[u], prev_1[u]),
             (prev_0[L] * (prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l]))) + (prev_1[L] * (prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l]))),
             (prev_0[U] * (prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l]))) + (prev_1[U] * (prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))
@@ -11348,8 +11348,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> ( (f(prev_0, prev_1)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : ( (f(prev_1, prev_0)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : ( 
-        max(prev_0[l], prev_1[l]), 
+    Max -> ( (f(prev_0, prev_1)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : ( (f(prev_1, prev_0)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : (
+        max(prev_0[l], prev_1[l]),
         max(prev_0[u], prev_1[u]),
         ((prev_0[L] * (prev_0[u] - prev_1[l]) + prev_1[L] * (prev_1[u] - prev_0[l])) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l]))),
         ((prev_0[U] * (prev_0[u] - prev_1[l]) + prev_1[U] * (prev_1[u] - prev_0[l])) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))
@@ -11583,7 +11583,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> (f(prev_0, prev_1) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
+    Max -> (f(prev_0, prev_1) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
            (f(prev_1, prev_0) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
            (max(prev_0[l], prev_1[l]),
             max(prev_0[u], prev_1[u]),
@@ -11704,22 +11704,22 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> 
-        (prev_0[l] >= prev_1[u]) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-        (prev_1[l] >= prev_0[u]) ? 
-            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
+    Max ->
+        (prev_0[l] >= prev_1[u]) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (prev_1[l] >= prev_0[u]) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
             (
                 max(prev_0[l], prev_1[l]),
                 max(prev_0[u], prev_1[u]),
-                ((prev_0[u] - prev_1[l]) >= (prev_1[u] - prev_0[l])) ? 
+                ((prev_0[u] - prev_1[l]) >= (prev_1[u] - prev_0[l])) ?
                     (prev_0[L]) : (prev_1[L]),
-                ((prev_0[u] - prev_1[l]) >= (prev_1[u] - prev_0[l])) ? 
+                ((prev_0[u] - prev_1[l]) >= (prev_1[u] - prev_0[l])) ?
                     (
                         prev_0[U] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))
                         + prev_1[U] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))
                     )
-                    : 
+                    :
                     (
                         prev_1[U] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))
                         + prev_0[U] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))
@@ -11779,16 +11779,16 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> 
-        (f(prev_0, prev_1)) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) 
-        : (f(prev_1, prev_0)) ? 
-            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) 
+    Max ->
+        (f(prev_0, prev_1)) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U])
+        : (f(prev_1, prev_0)) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U])
         : (
-            max(prev_0[l], prev_1[l]), 
-            max(prev_0[u], prev_1[u]), 
-            (prev_0[L] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l]))) + 
-             prev_1[L] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))), 
+            max(prev_0[l], prev_1[l]),
+            max(prev_0[u], prev_1[u]),
+            (prev_0[L] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l]))) +
+             prev_1[L] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))),
             (prev_0[U] + prev_1[U])
         );
 }
@@ -11844,7 +11844,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> 
+    Max ->
         (prev_0[l] >= prev_1[u])
             ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U])
         : (prev_1[l] >= prev_0[u])
@@ -11913,7 +11913,7 @@ transformer deeppoly{
 
         (prev_0[u] >= prev_1[u]) ? prev_0[u] : prev_1[u],
 
-        (prev_0[l] >= prev_1[u]) ? prev_0 : 
+        (prev_0[l] >= prev_1[u]) ? prev_0 :
         (prev_1[l] >= prev_0[u]) ? prev_1 :
         (prev_0 + prev_1) / 2,
 
@@ -11975,15 +11975,15 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> 
-        (f(prev_0, prev_1)) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-            (f(prev_1, prev_0)) ? 
-                (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
-                (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), 
-                    (prev_0[L] * ((prev_0[u]-prev_1[l])/(prev_0[u]-prev_0[l]+prev_1[u]-prev_1[l]))) 
-                        + (prev_1[L] * ((prev_1[u]-prev_0[l])/(prev_0[u]-prev_0[l]+prev_1[u]-prev_1[l]))), 
-                    (prev_0[U] * ((prev_0[u]-prev_1[l])/(prev_0[u]-prev_0[l]+prev_1[u]-prev_1[l]))) 
+    Max ->
+        (f(prev_0, prev_1)) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+            (f(prev_1, prev_0)) ?
+                (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+                (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]),
+                    (prev_0[L] * ((prev_0[u]-prev_1[l])/(prev_0[u]-prev_0[l]+prev_1[u]-prev_1[l])))
+                        + (prev_1[L] * ((prev_1[u]-prev_0[l])/(prev_0[u]-prev_0[l]+prev_1[u]-prev_1[l]))),
+                    (prev_0[U] * ((prev_0[u]-prev_1[l])/(prev_0[u]-prev_0[l]+prev_1[u]-prev_1[l])))
                         + (prev_1[U] * ((prev_1[u]-prev_0[l])/(prev_0[u]-prev_0[l]+prev_1[u]-prev_1[l])))
                 );
 }
@@ -12039,15 +12039,15 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> 
-        (prev_0[l] >= prev_1[u]) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-        (prev_1[l] >= prev_0[u]) ? 
-            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
+    Max ->
+        (prev_0[l] >= prev_1[u]) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (prev_1[l] >= prev_0[u]) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
             (
-                max(prev_0[l], prev_1[l]), 
-                max(prev_0[u], prev_1[u]), 
-                (prev_0[L] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) + (prev_1[L] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))), 
+                max(prev_0[l], prev_1[l]),
+                max(prev_0[u], prev_1[u]),
+                (prev_0[L] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) + (prev_1[L] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))),
                 (prev_0[U] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) + (prev_1[U] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l]))))
             );
 }
@@ -12105,8 +12105,8 @@ Code:
 transformer deeppoly{
     Max -> (f(prev_0, prev_1)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : (
             f(prev_1, prev_0) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
-            (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), 
-            ((prev_0[L] * (prev_0[l] >= prev_1[l])) + (prev_1[L] * (prev_1[l] > prev_0[l]))), 
+            (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]),
+            ((prev_0[L] * (prev_0[l] >= prev_1[l])) + (prev_1[L] * (prev_1[l] > prev_0[l]))),
             ((prev_0[U] * (prev_0[u] >= prev_1[u])) + (prev_1[U] * (prev_1[u] > prev_0[u]))))
     );
 }
@@ -12287,11 +12287,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> 
-        (prev_0[l] >= prev_1[u]) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-        (prev_1[l] >= prev_0[u]) ? 
-            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
+    Max ->
+        (prev_0[l] >= prev_1[u]) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (prev_1[l] >= prev_0[u]) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
             (
                 max(prev_0[l], prev_1[l]),
                 max(prev_0[u], prev_1[u]),
@@ -12417,7 +12417,7 @@ Code:
 transformer deeppoly {
     Max -> ( (f(prev_0, prev_1)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
             ((f(prev_1, prev_0)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
-                (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), 
+                (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]),
                  (prev_0[L] * ((prev_0[u]-prev_1[l])/(prev_0[u]-prev_1[l]+1e-10))) + (prev_1[L] * ((prev_1[u]-prev_0[l])/(prev_1[u]-prev_0[l]+1e-10))),
                  (prev_0[U] * ((prev_0[u]-prev_1[l])/(prev_0[u]-prev_1[l]+1e-10))) + (prev_1[U] * ((prev_1[u]-prev_0[l])/(prev_1[u]-prev_0[l]+1e-10)))
                 )
@@ -12538,15 +12538,15 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> 
-        (prev_0[l] >= prev_1[u]) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-        (prev_1[l] >= prev_0[u]) ? 
-            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
+    Max ->
+        (prev_0[l] >= prev_1[u]) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (prev_1[l] >= prev_0[u]) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
             (
-              max(prev_0[l], prev_1[l]), 
-              max(prev_0[u], prev_1[u]), 
-              (prev_0[L] + prev_1[L]) / 2, 
+              max(prev_0[l], prev_1[l]),
+              max(prev_0[u], prev_1[u]),
+              (prev_0[L] + prev_1[L]) / 2,
               (prev_0[U] + prev_1[U]) / 2
             );
 }
@@ -12731,11 +12731,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> 
-        (f(prev_0, prev_1)) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-        (f(prev_1, prev_0)) ? 
-            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
+    Max ->
+        (f(prev_0, prev_1)) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (f(prev_1, prev_0)) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
             (max(prev_0[l], prev_1[l]),
              max(prev_0[u], prev_1[u]),
              ((prev_0[L]) * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_0[l]) + (prev_1[u] - prev_1[l])))) + ((prev_1[L]) * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_0[l]) + (prev_1[u] - prev_1[l])))),
@@ -12794,11 +12794,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> 
-        (prev_0[l] >= prev_1[u]) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-        (prev_1[l] >= prev_0[u]) ? 
-            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
+    Max ->
+        (prev_0[l] >= prev_1[u]) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (prev_1[l] >= prev_0[u]) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
             (
                 (max(prev_0[l], prev_1[l])),
                 (max(prev_0[u], prev_1[u])),
@@ -12858,13 +12858,13 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> 
+    Max ->
         (prev_0[l] >= prev_1[u]) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
         (prev_1[l] >= prev_0[u]) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
         (
-            max(prev_0[l], prev_1[l]), 
-            max(prev_0[u], prev_1[u]), 
-            (prev_0[L] + prev_1[L] + abs(prev_0[L] - prev_1[L])) / 2, 
+            max(prev_0[l], prev_1[l]),
+            max(prev_0[u], prev_1[u]),
+            (prev_0[L] + prev_1[L] + abs(prev_0[L] - prev_1[L])) / 2,
             (prev_0[U] + prev_1[U] + abs(prev_0[U] - prev_1[U])) / 2
         );
 }
@@ -13038,12 +13038,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Max -> (f(prev_0, prev_1) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) 
-          : (f(prev_1, prev_0) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) 
-          : (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), 
-             (prev_0[L] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) + 
-             (prev_1[L] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))), 
-             (prev_0[U] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) + 
+    Max -> (f(prev_0, prev_1) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U])
+          : (f(prev_1, prev_0) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U])
+          : (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]),
+             (prev_0[L] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) +
+             (prev_1[L] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))),
+             (prev_0[U] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) +
              (prev_1[U] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l]))))
             )
           )
@@ -13055,19 +13055,19 @@ transformer deeppoly{
 2025-06-12 02:49:59,546 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deeppoly{
-    Max -> (f(prev_0, prev_1) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) 
-          : (f(prev_1, prev_0) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) 
-          : (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), 
-             (prev_0[L] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) + 
-             (prev_1[L] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))), 
-             (prev_0[U] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) + 
+    Max -> (f(prev_0, prev_1) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U])
+          : (f(prev_1, prev_0) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U])
+          : (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]),
+             (prev_0[L] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) +
+             (prev_1[L] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))),
+             (prev_0[U] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) +
              (prev_1[U] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l]))))
             )
           )
 }
 
 2025-06-12 02:49:59,546 - INFO - 2025-06-12 02:49:59.546814 - Extracting Maxpool
-2025-06-12 02:49:59,547 - INFO - 
+2025-06-12 02:49:59,547 - INFO -
 API: Maxpool -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:49:59,547 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:50:10,056 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -13120,7 +13120,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    MaxPool -> 
+    MaxPool ->
       ( (max(prev_0[l], prev_1[l], ..., prev_n[l])),
         (max(prev_0[u], prev_1[u], ..., prev_n[u])),
         (max(prev_0[L], prev_1[L], ..., prev_n[L])),
@@ -13239,9 +13239,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly {
     Maxpool -> (
-        max(prev_0[l], prev_1[l]), 
-        max(prev_0[u], prev_1[u]), 
-        (prev_0[l] >= prev_1[u]) ? prev_0 : ((prev_1[l] >= prev_0[u]) ? prev_1 : (prev_0 + prev_1)/2), 
+        max(prev_0[l], prev_1[l]),
+        max(prev_0[u], prev_1[u]),
+        (prev_0[l] >= prev_1[u]) ? prev_0 : ((prev_1[l] >= prev_0[u]) ? prev_1 : (prev_0 + prev_1)/2),
         (prev_0[u] >= prev_1[l]) ? prev_0 : ((prev_1[u] >= prev_0[l]) ? prev_1 : (prev_0 + prev_1)/2)
     );
 }
@@ -13305,8 +13305,8 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly{
     Maxpool -> (
-        max(prev_0[l], prev_1[l]), 
-        max(prev_0[u], prev_1[u]), 
+        max(prev_0[l], prev_1[l]),
+        max(prev_0[u], prev_1[u]),
         (prev_0[l] >= prev_1[u]) ? prev_0 : ((prev_1[l] >= prev_0[u]) ? prev_1 : 0.5 * prev_0 + 0.5 * prev_1),
         (prev_0[u] >= prev_1[u]) ? prev_0 : prev_1
     );
@@ -13365,15 +13365,15 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
-        (prev_0[l] >= prev_1[u]) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-        (prev_1[l] >= prev_0[u]) ? 
-            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
-            (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), 
-             ((prev_0[L] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) + 
+    Maxpool ->
+        (prev_0[l] >= prev_1[u]) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (prev_1[l] >= prev_0[u]) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+            (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]),
+             ((prev_0[L] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) +
               (prev_1[L] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l]))))),
-             ((prev_0[U] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) + 
+             ((prev_0[U] * ((prev_0[u] - prev_1[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))) +
               (prev_1[U] * ((prev_1[u] - prev_0[l]) / ((prev_0[u] - prev_1[l]) + (prev_1[u] - prev_0[l])))))
             );
 }
@@ -13429,7 +13429,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    MaxPool -> 
+    MaxPool ->
         (f(prev_0, prev_1) ? prev_0[l] : (f(prev_1, prev_0) ? prev_1[l] : max(prev_0[l], prev_1[l])),
          f(prev_0, prev_1) ? prev_0[u] : (f(prev_1, prev_0) ? prev_1[u] : max(prev_0[u], prev_1[u])),
          f(prev_0, prev_1) ? prev_0[L] : (f(prev_1, prev_0) ? prev_1[L] : 0.5*prev_0[L] + 0.5*prev_1[L]),
@@ -13495,7 +13495,7 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
+    Maxpool ->
       ( (max(prev_0[l], prev_1[l])),
         (max(prev_0[u], prev_1[u])),
         ( (prev_0[l] >= prev_1[u]) ? prev_0 : ( (prev_1[l] >= prev_0[u]) ? prev_1 : max(prev_0, prev_1) ) ),
@@ -13556,7 +13556,7 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
+    Maxpool ->
         (f(prev_0, prev_1)) ? (
             prev_0[l],
             prev_0[u],
@@ -13630,13 +13630,13 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
-        (prev_0[l] >= prev_1[u]) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-        (prev_1[l] >= prev_0[u]) ? 
-            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
-            (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), 
-                (prev_0[L] >= prev_1[L]) ? prev_0[L] : prev_1[L], 
+    Maxpool ->
+        (prev_0[l] >= prev_1[u]) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (prev_1[l] >= prev_0[u]) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+            (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]),
+                (prev_0[L] >= prev_1[L]) ? prev_0[L] : prev_1[L],
                 (prev_0[U] >= prev_1[U]) ? prev_0[U] : prev_1[U]);
 }
 
@@ -13763,8 +13763,8 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
-        (prev_0[l] >= prev_1[u]) ? 
+    Maxpool ->
+        (prev_0[l] >= prev_1[u]) ?
             (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
         (prev_1[l] >= prev_0[u]) ?
             (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
@@ -13827,7 +13827,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
+    Maxpool ->
         (f(prev_0, prev_1)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U])
         : (f(prev_1, prev_0)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U])
         : (
@@ -13890,10 +13890,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    MaxPool -> 
-        (f(prev_0, prev_1)) ? 
+    MaxPool ->
+        (f(prev_0, prev_1)) ?
             (prev_0[l], prev_0[u], prev_0[L], prev_0[U])
-        : (f(prev_1, prev_0)) ? 
+        : (f(prev_1, prev_0)) ?
             (prev_1[l], prev_1[u], prev_1[L], prev_1[U])
         : (
             max(prev_0[l], prev_1[l]),
@@ -13956,11 +13956,11 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
-        (prev_0[l] >= prev_1[u]) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-        (prev_1[l] >= prev_0[u]) ? 
-            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
+    Maxpool ->
+        (prev_0[l] >= prev_1[u]) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (prev_1[l] >= prev_0[u]) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
         (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]),
             (prev_0[L] >= prev_1[L]) ? prev_0[L] : prev_1[L],
             (prev_0[U] >= prev_1[U]) ? prev_0[U] : prev_1[U]);
@@ -14023,10 +14023,10 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
-        (max(prev_0[l], prev_1[l]), 
-         max(prev_0[u], prev_1[u]), 
-         (prev_0[L] >= prev_1[L]) ? prev_0[L] : prev_1[L], 
+    Maxpool ->
+        (max(prev_0[l], prev_1[l]),
+         max(prev_0[u], prev_1[u]),
+         (prev_0[L] >= prev_1[L]) ? prev_0[L] : prev_1[L],
          (prev_0[U] >= prev_1[U]) ? prev_0[U] : prev_1[U]);
 }
 
@@ -14148,11 +14148,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    MaxPool -> 
-        ( (max(prev_0[l], prev_1[l])), 
+    MaxPool ->
+        ( (max(prev_0[l], prev_1[l])),
           (max(prev_0[u], prev_1[u])),
           (select(prev_0[l] >= prev_1[l], prev_0[L], prev_1[L])),
-          (select(prev_0[u] >= prev_1[u], prev_0[U], prev_1[U])) 
+          (select(prev_0[u] >= prev_1[u], prev_0[U], prev_1[U]))
         );
 }
 
@@ -14207,7 +14207,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
+    Maxpool ->
         (max(prev_0[l], prev_1[l], ..., prev_n[l]),
          max(prev_0[u], prev_1[u], ..., prev_n[u]),
          (argmax(prev_0[l], prev_1[l], ..., prev_n[l]) == 0) ? prev_0 : ((argmax(prev_0[l], prev_1[l], ..., prev_n[l]) == 1) ? prev_1 : ...),
@@ -14321,8 +14321,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
-        (argmax_i(prev_i[l]), 
+    Maxpool ->
+        (argmax_i(prev_i[l]),
          argmax_i(prev_i[u]),
          prev_argmax_L,
          prev_argmax_U)
@@ -14379,15 +14379,15 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    MaxPool -> 
-        (f(prev_0, prev_1)) ? 
+    MaxPool ->
+        (f(prev_0, prev_1)) ?
             (prev_0[l], prev_0[u], prev_0[L], prev_0[U])
-        : (f(prev_1, prev_0)) ? 
+        : (f(prev_1, prev_0)) ?
             (prev_1[l], prev_1[u], prev_1[L], prev_1[U])
         : (
-            max(prev_0[l], prev_1[l]), 
-            max(prev_0[u], prev_1[u]), 
-            (prev_0[L] * ((prev_0[l] >= prev_1[l]) ? 1 : 0) + prev_1[L] * ((prev_1[l] > prev_0[l]) ? 1 : 0)), 
+            max(prev_0[l], prev_1[l]),
+            max(prev_0[u], prev_1[u]),
+            (prev_0[L] * ((prev_0[l] >= prev_1[l]) ? 1 : 0) + prev_1[L] * ((prev_1[l] > prev_0[l]) ? 1 : 0)),
             (prev_0[U] * ((prev_0[u] >= prev_1[u]) ? 1 : 0) + prev_1[U] * ((prev_1[u] > prev_0[u]) ? 1 : 0))
         );
 }
@@ -14559,13 +14559,13 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    MaxPool -> 
-        (f(prev_0, prev_1)) ? 
-            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : 
-            (f(prev_1, prev_0)) ? 
-                (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : 
-                (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), 
-                 (prev_0[L] + prev_1[L]) * 0.5, 
+    MaxPool ->
+        (f(prev_0, prev_1)) ?
+            (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+            (f(prev_1, prev_0)) ?
+                (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+                (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]),
+                 (prev_0[L] + prev_1[L]) * 0.5,
                  (prev_0[U] + prev_1[U]) * 0.5);
 }
 
@@ -14627,11 +14627,11 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Maxpool -> ( 
-        max(prev_0[l], prev_1[l]), 
-        max(prev_0[u], prev_1[u]), 
-        (prev_0[L] * (prev_0[u] >= prev_1[u]) + prev_1[L] * (prev_1[u] > prev_0[u])), 
-        (prev_0[U] * (prev_0[l] >= prev_1[l]) + prev_1[U] * (prev_1[l] > prev_0[l])) 
+    Maxpool -> (
+        max(prev_0[l], prev_1[l]),
+        max(prev_0[u], prev_1[u]),
+        (prev_0[L] * (prev_0[u] >= prev_1[u]) + prev_1[L] * (prev_1[u] > prev_0[u])),
+        (prev_0[U] * (prev_0[l] >= prev_1[l]) + prev_1[U] * (prev_1[l] > prev_0[l]))
     );
 }
 
@@ -14693,9 +14693,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly{
     Maxpool -> (
-        max(prev_0[l], prev_1[l]), 
-        max(prev_0[u], prev_1[u]), 
-        (prev_0[L] >= prev_1[L]) ? prev_0[L] : prev_1[L], 
+        max(prev_0[l], prev_1[l]),
+        max(prev_0[u], prev_1[u]),
+        (prev_0[L] >= prev_1[L]) ? prev_0[L] : prev_1[L],
         (prev_0[U] >= prev_1[U]) ? prev_0[U] : prev_1[U]
     );
 }
@@ -14753,7 +14753,7 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Maxpool -> 
+    Maxpool ->
         (prev_0[l] >= prev_1[u]) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
         (prev_1[l] >= prev_0[u]) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
         (
@@ -14823,9 +14823,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly{
     Maxpool -> (
-        max(prev_0[l], prev_1[l]), 
-        max(prev_0[u], prev_1[u]), 
-        (prev_0[L] >= prev_1[L]) ? prev_0[L] : prev_1[L], 
+        max(prev_0[l], prev_1[l]),
+        max(prev_0[u], prev_1[u]),
+        (prev_0[L] >= prev_1[L]) ? prev_0[L] : prev_1[L],
         (prev_0[U] >= prev_1[U]) ? prev_0[U] : prev_1[U]
     );
 }
@@ -14881,9 +14881,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    MaxPool -> 
-        (prev_0[l] >= prev_1[l]) ? 
-            ((prev_0[l]), (max(prev_0[u], prev_1[u])), (prev_0), (prev_0)) : 
+    MaxPool ->
+        (prev_0[l] >= prev_1[l]) ?
+            ((prev_0[l]), (max(prev_0[u], prev_1[u])), (prev_0), (prev_0)) :
             ((prev_1[l]), (max(prev_0[u], prev_1[u])), (prev_1), (prev_1));
 }
 
@@ -14951,7 +14951,7 @@ transformer deeppoly{
 }
 
 2025-06-12 02:51:51,702 - INFO - 2025-06-12 02:51:51.702812 - Extracting Min
-2025-06-12 02:51:51,703 - INFO - 
+2025-06-12 02:51:51,703 - INFO -
 API: Min -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:51:51,703 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:51:58,605 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -15417,8 +15417,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Min -> (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 
-            (prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L], 
+    Min -> (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]),
+            (prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L],
             (prev_0[u] <= prev_1[u]) ? prev_0[U] : prev_1[U]);
 }
 
@@ -15473,7 +15473,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Min -> (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 
+    Min -> (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]),
             (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L],
             (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]);
 }
@@ -15890,11 +15890,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Min -> 
+    Min ->
         (f(prev_0, prev_1))      ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U])
       : (f(prev_1, prev_0))      ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U])
-      : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 
-         (prev_0[L] + prev_1[L] - abs(prev_0[L] - prev_1[L]))/2, 
+      : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]),
+         (prev_0[L] + prev_1[L] - abs(prev_0[L] - prev_1[L]))/2,
          (prev_0[U] + prev_1[U] - abs(prev_0[U] - prev_1[U]))/2);
 }
 
@@ -16005,10 +16005,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Min -> 
-        (f(prev_0, prev_1)) ? 
+    Min ->
+        (f(prev_0, prev_1)) ?
             (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
-        (f(prev_1, prev_0)) ? 
+        (f(prev_1, prev_0)) ?
             (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
             (
                 min(prev_0[l], prev_1[l]),
@@ -16129,7 +16129,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Min -> 
+    Min ->
         ( (min(prev_0[l], prev_1[l])),
           (min(prev_0[u], prev_1[u])),
           (min(prev_0[L], prev_1[L])),
@@ -16426,7 +16426,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Min -> 
+    Min ->
         ( (min(prev_0[l], prev_1[l])),
           (min(prev_0[u], prev_1[u])),
           (prev_0[L] <= prev_1[L] ? prev_0[L] : prev_1[L]),
@@ -16484,8 +16484,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Min -> (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 
-            (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], 
+    Min -> (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]),
+            (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L],
             (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]);
 }
 
@@ -16656,10 +16656,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Min -> 
-        (prev_0[l] <= prev_1[l]) ? 
+    Min ->
+        (prev_0[l] <= prev_1[l]) ?
             (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
-        (prev_1[l] <= prev_0[l]) && (prev_1[u] <= prev_0[u]) ? 
+        (prev_1[l] <= prev_0[l]) && (prev_1[u] <= prev_0[u]) ?
             (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
         (
             min(prev_0[l], prev_1[l]),
@@ -16720,7 +16720,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Min -> 
+    Min ->
         (f(prev_0, prev_1)) ?      // prev_0[l] >= prev_1[u], so prev_0 >= prev_1 always
             (prev_1[l], prev_0[u], prev_1[L], prev_0[U])
         : (f(prev_1, prev_0)) ?    // prev_1[l] >= prev_0[u], so prev_1 >= prev_0 always
@@ -16740,7 +16740,7 @@ transformer deeppoly{
 2025-06-12 02:53:28,217 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deeppoly{
-    Min -> 
+    Min ->
         (f(prev_0, prev_1)) ?      // prev_0[l] >= prev_1[u], so prev_0 >= prev_1 always
             (prev_1[l], prev_0[u], prev_1[L], prev_0[U])
         : (f(prev_1, prev_0)) ?    // prev_1[l] >= prev_0[u], so prev_1 >= prev_0 always
@@ -16755,7 +16755,7 @@ transformer deeppoly{
 }
 
 2025-06-12 02:53:28,217 - INFO - 2025-06-12 02:53:28.217399 - Extracting Minpool
-2025-06-12 02:53:28,217 - INFO - 
+2025-06-12 02:53:28,217 - INFO -
 API: Minpool -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:53:28,217 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:53:36,607 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -16815,9 +16815,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly{
     Minpool -> (
-        min(prev_0[l], prev_1[l]), 
-        min(prev_0[u], prev_1[u]), 
-        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], 
+        min(prev_0[l], prev_1[l]),
+        min(prev_0[u], prev_1[u]),
+        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L],
         (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]
     );
 }
@@ -16879,9 +16879,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Minpool -> (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 
+    Minpool -> (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]),
                 // Lower PolyExp
-                (prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L], 
+                (prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L],
                 // Upper PolyExp
                 (prev_0[u] <= prev_1[u]) ? prev_0[U] : prev_1[U]);
 }
@@ -17063,7 +17063,7 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Minpool -> (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 
+    Minpool -> (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]),
                 (prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L],
                 (prev_0[u] <= prev_1[u]) ? prev_0[U] : prev_1[U]);
 }
@@ -17119,8 +17119,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Minpool -> ((min(prev_0[l], prev_1[l])), (min(prev_0[u], prev_1[u])), 
-                (if prev_0[l] <= prev_1[l] then prev_0[L] else prev_1[L]), 
+    Minpool -> ((min(prev_0[l], prev_1[l])), (min(prev_0[u], prev_1[u])),
+                (if prev_0[l] <= prev_1[l] then prev_0[L] else prev_1[L]),
                 (if prev_0[u] <= prev_1[u] then prev_0[U] else prev_1[U]));
 }
 
@@ -17176,8 +17176,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Minpool -> (min(prev_0[l], prev_1[l], ..., prev_n[l]), min(prev_0[u], prev_1[u], ..., prev_n[u]), 
-                min(prev_0[L], prev_1[L], ..., prev_n[L]), 
+    Minpool -> (min(prev_0[l], prev_1[l], ..., prev_n[l]), min(prev_0[u], prev_1[u], ..., prev_n[u]),
+                min(prev_0[L], prev_1[L], ..., prev_n[L]),
                 min(prev_0[U], prev_1[U], ..., prev_n[U]))
 }
 
@@ -17422,9 +17422,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly{
     Minpool -> (
-        min(prev_0[l], prev_1[l]), 
-        min(prev_0[u], prev_1[u]), 
-        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], 
+        min(prev_0[l], prev_1[l]),
+        min(prev_0[u], prev_1[u]),
+        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L],
         (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]
     );
 }
@@ -17661,9 +17661,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly{
     Minpool -> (
-        min(prev_0[l], prev_1[l]), 
-        min(prev_0[u], prev_1[u]), 
-        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], 
+        min(prev_0[l], prev_1[l]),
+        min(prev_0[u], prev_1[u]),
+        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L],
         (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]
     );
 }
@@ -17726,10 +17726,10 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 
 Code:
 transformer deeppoly{
-    Minpool -> 
-        (min(prev_0[l], prev_1[l]), 
-         min(prev_0[u], prev_1[u]), 
-         (prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L], 
+    Minpool ->
+        (min(prev_0[l], prev_1[l]),
+         min(prev_0[u], prev_1[u]),
+         (prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L],
          (prev_0[u] <= prev_1[u]) ? prev_0[U] : prev_1[U]);
 }
 
@@ -17916,9 +17916,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly{
     Minpool -> (
-        min(prev_0[l], prev_1[l]), 
-        min(prev_0[u], prev_1[u]), 
-        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], 
+        min(prev_0[l], prev_1[l]),
+        min(prev_0[u], prev_1[u]),
+        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L],
         (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]
     );
 }
@@ -18095,9 +18095,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly{
     Minpool -> (
-        min(prev_0[l], prev_1[l]), 
-        min(prev_0[u], prev_1[u]), 
-        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], 
+        min(prev_0[l], prev_1[l]),
+        min(prev_0[u], prev_1[u]),
+        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L],
         (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]
     );
 }
@@ -18154,9 +18154,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     MinPool -> (
-        min(prev_0[l], prev_1[l]), 
-        min(prev_0[u], prev_1[u]), 
-        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], 
+        min(prev_0[l], prev_1[l]),
+        min(prev_0[u], prev_1[u]),
+        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L],
         (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]
     );
 }
@@ -18212,7 +18212,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    MinPool -> 
+    MinPool ->
         let l = min(prev_0[l], prev_1[l], ..., prev_n[l]);
         let u = min(prev_0[u], prev_1[u], ..., prev_n[u]);
         let L = min(prev_0[L], prev_1[L], ..., prev_n[L]);
@@ -18279,9 +18279,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly{
     Minpool -> (
-        min(prev_0[l], prev_1[l]), 
-        min(prev_0[u], prev_1[u]), 
-        (prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L], 
+        min(prev_0[l], prev_1[l]),
+        min(prev_0[u], prev_1[u]),
+        (prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L],
         (prev_0[u] <= prev_1[u]) ? prev_0[U] : prev_1[U]
     );
 }
@@ -18344,9 +18344,9 @@ constraintflow.core.astTC.UndefinedVarException: prev_0 is undefined
 Code:
 transformer deeppoly{
     Minpool -> (
-        min(prev_0[l], prev_1[l]), 
-        min(prev_0[u], prev_1[u]), 
-        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], 
+        min(prev_0[l], prev_1[l]),
+        min(prev_0[u], prev_1[u]),
+        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L],
         (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]
     );
 }
@@ -18575,7 +18575,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Minpool -> 
+    Minpool ->
         (min(prev_0[l], prev_1[l], ..., prev_n[l]),
          min(prev_0[u], prev_1[u], ..., prev_n[u]),
          min(prev_0[L], prev_1[L], ..., prev_n[L]),
@@ -18588,7 +18588,7 @@ transformer deeppoly{
 2025-06-12 02:54:47,009 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deeppoly{
-    Minpool -> 
+    Minpool ->
         (min(prev_0[l], prev_1[l], ..., prev_n[l]),
          min(prev_0[u], prev_1[u], ..., prev_n[u]),
          min(prev_0[L], prev_1[L], ..., prev_n[L]),
@@ -18596,7 +18596,7 @@ transformer deeppoly{
 }
 
 2025-06-12 02:54:47,009 - INFO - 2025-06-12 02:54:47.009333 - Extracting Mult
-2025-06-12 02:54:47,009 - INFO - 
+2025-06-12 02:54:47,009 - INFO -
 API: Mult -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:54:47,009 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:55:01,905 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -18649,7 +18649,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Mult -> 
+    Mult ->
         (simplify_lower(prev_0,1) * simplify_lower(prev_1,1),
          simplify_upper(prev_0,1) * simplify_upper(prev_1,1),
          prev_0 * prev_1,
@@ -18854,7 +18854,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Mult -> 
+    Mult ->
         ( (min(simplify_lower(prev_0, prev_1[l]), simplify_lower(prev_0, prev_1[u]), simplify_lower(prev_1, prev_0[l]), simplify_lower(prev_1, prev_0[u]))),
           (max(simplify_upper(prev_0, prev_1[l]), simplify_upper(prev_0, prev_1[u]), simplify_upper(prev_1, prev_0[l]), simplify_upper(prev_1, prev_0[u]))),
           0,
@@ -18992,15 +18992,15 @@ Code:
 transformer deeppoly{
     Mult -> (
         min(
-            simplify_lower(prev_0, prev_1[l]), 
-            simplify_lower(prev_0, prev_1[u]), 
-            simplify_lower(prev_1, prev_0[l]), 
+            simplify_lower(prev_0, prev_1[l]),
+            simplify_lower(prev_0, prev_1[u]),
+            simplify_lower(prev_1, prev_0[l]),
             simplify_lower(prev_1, prev_0[u])
         ),
         max(
-            simplify_upper(prev_0, prev_1[l]), 
-            simplify_upper(prev_0, prev_1[u]), 
-            simplify_upper(prev_1, prev_0[l]), 
+            simplify_upper(prev_0, prev_1[l]),
+            simplify_upper(prev_0, prev_1[u]),
+            simplify_upper(prev_1, prev_0[l]),
             simplify_upper(prev_1, prev_0[u])
         ),
         prev_0 * prev_1,
@@ -19129,7 +19129,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Mult -> 
+    Mult ->
         ( (simplify_lower(prev_0, 1) * simplify_lower(prev_1, 1)).min(
               simplify_lower(prev_0, 1) * simplify_upper(prev_1, 1),
               simplify_upper(prev_0, 1) * simplify_lower(prev_1, 1),
@@ -19198,15 +19198,15 @@ Code:
 transformer deeppoly{
     Mult -> (
         min(
-            simplify_lower(prev_0, prev_1[l]), 
-            simplify_lower(prev_0, prev_1[u]), 
-            simplify_lower(prev_1, prev_0[l]), 
+            simplify_lower(prev_0, prev_1[l]),
+            simplify_lower(prev_0, prev_1[u]),
+            simplify_lower(prev_1, prev_0[l]),
             simplify_lower(prev_1, prev_0[u])
         ),
         max(
-            simplify_upper(prev_0, prev_1[l]), 
-            simplify_upper(prev_0, prev_1[u]), 
-            simplify_upper(prev_1, prev_0[l]), 
+            simplify_upper(prev_0, prev_1[l]),
+            simplify_upper(prev_0, prev_1[u]),
+            simplify_upper(prev_1, prev_0[l]),
             simplify_upper(prev_1, prev_0[u])
         ),
         prev_0 * prev_1,
@@ -19266,10 +19266,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Mult -> 
-        ( (simplify_lower(prev_0, prev_1[l]) + simplify_lower(prev_0, prev_1[u]) + simplify_lower(prev_1, prev_0[l]) + simplify_lower(prev_1, prev_0[u])).min(), 
-          (simplify_upper(prev_0, prev_1[l]) + simplify_upper(prev_0, prev_1[u]) + simplify_upper(prev_1, prev_0[l]) + simplify_upper(prev_1, prev_0[u])).max(), 
-          prev_0 * prev_1, 
+    Mult ->
+        ( (simplify_lower(prev_0, prev_1[l]) + simplify_lower(prev_0, prev_1[u]) + simplify_lower(prev_1, prev_0[l]) + simplify_lower(prev_1, prev_0[u])).min(),
+          (simplify_upper(prev_0, prev_1[l]) + simplify_upper(prev_0, prev_1[u]) + simplify_upper(prev_1, prev_0[l]) + simplify_upper(prev_1, prev_0[u])).max(),
+          prev_0 * prev_1,
           prev_0 * prev_1
         );
 }
@@ -19327,15 +19327,15 @@ Code:
 transformer deeppoly{
     Mult ->
         ((prev_0[l] >= 0) & (prev_1[l] >= 0)) ? (
-            simplify_lower(prev_0, prev_1[l]), 
-            simplify_upper(prev_0, prev_1[u]), 
-            prev_0 * prev_1, 
+            simplify_lower(prev_0, prev_1[l]),
+            simplify_upper(prev_0, prev_1[u]),
+            prev_0 * prev_1,
             prev_0 * prev_1
         ) :
         ((prev_0[u] <= 0) & (prev_1[u] <= 0)) ? (
-            simplify_lower(prev_0, prev_1[u]), 
-            simplify_upper(prev_0, prev_1[l]), 
-            prev_0 * prev_1, 
+            simplify_lower(prev_0, prev_1[u]),
+            simplify_upper(prev_0, prev_1[l]),
+            prev_0 * prev_1,
             prev_0 * prev_1
         ) :
         (
@@ -19399,15 +19399,15 @@ Code:
 transformer deeppoly{
     Mult -> (
         min(
-            prev_0[l]*prev_1[l], 
-            prev_0[l]*prev_1[u], 
-            prev_0[u]*prev_1[l], 
+            prev_0[l]*prev_1[l],
+            prev_0[l]*prev_1[u],
+            prev_0[u]*prev_1[l],
             prev_0[u]*prev_1[u]
         ),
         max(
-            prev_0[l]*prev_1[l], 
-            prev_0[l]*prev_1[u], 
-            prev_0[u]*prev_1[l], 
+            prev_0[l]*prev_1[l],
+            prev_0[l]*prev_1[u],
+            prev_0[u]*prev_1[l],
             prev_0[u]*prev_1[u]
         ),
         // best linear lower bound
@@ -19471,13 +19471,13 @@ Code:
 transformer deeppoly{
     Mult -> (
         min(
-            simplify_lower(prev_0, prev_1[l]), 
+            simplify_lower(prev_0, prev_1[l]),
             simplify_lower(prev_0, prev_1[u]),
             simplify_lower(prev_1, prev_0[l]),
             simplify_lower(prev_1, prev_0[u])
         ),
         max(
-            simplify_upper(prev_0, prev_1[l]), 
+            simplify_upper(prev_0, prev_1[l]),
             simplify_upper(prev_0, prev_1[u]),
             simplify_upper(prev_1, prev_0[l]),
             simplify_upper(prev_1, prev_0[u])
@@ -19538,10 +19538,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Mult -> 
-        (f(prev_0, prev_1)) ? 
-            ((simplify_lower(prev_0, prev_1[l])), (simplify_upper(prev_0, prev_1[u])), (prev_0 * prev_1[L]), (prev_0 * prev_1[U])) : 
-        (f(prev_1, prev_0)) ? 
+    Mult ->
+        (f(prev_0, prev_1)) ?
+            ((simplify_lower(prev_0, prev_1[l])), (simplify_upper(prev_0, prev_1[u])), (prev_0 * prev_1[L]), (prev_0 * prev_1[U])) :
+        (f(prev_1, prev_0)) ?
             ((simplify_lower(prev_1, prev_0[l])), (simplify_upper(prev_1, prev_0[u])), (prev_1 * prev_0[L]), (prev_1 * prev_0[U])) :
         (
             min(simplify_lower(prev_0, prev_1[l]), simplify_lower(prev_0, prev_1[u]), simplify_upper(prev_0, prev_1[l]), simplify_upper(prev_0, prev_1[u])),
@@ -19603,45 +19603,45 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Mult -> 
+    Mult ->
         // Case: prev_0[l] >= 0 && prev_1[l] >= 0
         (prev_0[l] >= 0 && prev_1[l] >= 0) ? (
-            simplify_lower(prev_0, prev_1[l]), 
-            simplify_upper(prev_0, prev_1[u]), 
-            prev_0[L] * prev_1[L], 
+            simplify_lower(prev_0, prev_1[l]),
+            simplify_upper(prev_0, prev_1[u]),
+            prev_0[L] * prev_1[L],
             prev_0[U] * prev_1[U]
         ) :
         // Case: prev_0[u] <= 0 && prev_1[u] <= 0
         (prev_0[u] <= 0 && prev_1[u] <= 0) ? (
-            simplify_lower(prev_0, prev_1[u]), 
-            simplify_upper(prev_0, prev_1[l]), 
+            simplify_lower(prev_0, prev_1[u]),
+            simplify_upper(prev_0, prev_1[l]),
             prev_0[L] * prev_1[L],
-            prev_0[U] * prev_1[U]             
+            prev_0[U] * prev_1[U]
         ) :
         // General case
         (
             min(
-                simplify_lower(prev_0, prev_1[l]), 
-                simplify_lower(prev_0, prev_1[u]), 
-                simplify_lower(prev_1, prev_0[l]), 
+                simplify_lower(prev_0, prev_1[l]),
+                simplify_lower(prev_0, prev_1[u]),
+                simplify_lower(prev_1, prev_0[l]),
                 simplify_lower(prev_1, prev_0[u])
-            ), 
+            ),
             max(
-                simplify_upper(prev_0, prev_1[l]), 
-                simplify_upper(prev_0, prev_1[u]), 
-                simplify_upper(prev_1, prev_0[l]), 
+                simplify_upper(prev_0, prev_1[l]),
+                simplify_upper(prev_0, prev_1[u]),
+                simplify_upper(prev_1, prev_0[l]),
                 simplify_upper(prev_1, prev_0[u])
-            ), 
+            ),
             min(
-                prev_0[L] * prev_1[L], 
-                prev_0[L] * prev_1[U], 
-                prev_0[U] * prev_1[L], 
+                prev_0[L] * prev_1[L],
+                prev_0[L] * prev_1[U],
+                prev_0[U] * prev_1[L],
                 prev_0[U] * prev_1[U]
             ),
             max(
-                prev_0[L] * prev_1[L], 
-                prev_0[L] * prev_1[U], 
-                prev_0[U] * prev_1[L], 
+                prev_0[L] * prev_1[L],
+                prev_0[L] * prev_1[U],
+                prev_0[U] * prev_1[L],
                 prev_0[U] * prev_1[U]
             )
         );
@@ -20345,7 +20345,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Mult -> 
+    Mult ->
       ( (max(
             simplify_lower(prev_0, prev_1[l]),
             simplify_lower(prev_0, prev_1[u]),
@@ -20483,11 +20483,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Mult -> 
+    Mult ->
         (f(prev_0, prev_1)) ? (
-            simplify_lower(prev_0, prev_1[l]), 
-            simplify_upper(prev_0, prev_1[u]), 
-            replace_lower(prev_0, prev_1[L]), 
+            simplify_lower(prev_0, prev_1[l]),
+            simplify_upper(prev_0, prev_1[u]),
+            replace_lower(prev_0, prev_1[L]),
             replace_upper(prev_0, prev_1[U])
         ) : (
             min(
@@ -20638,13 +20638,13 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Mult -> 
+    Mult ->
         ( (min(simplify_lower(prev_0, prev_1[l]), simplify_lower(prev_0, prev_1[u]), simplify_lower(prev_0[u], prev_1), simplify_lower(prev_0[l], prev_1), simplify_lower(prev_0[u], prev_1[u]), simplify_lower(prev_0[l], prev_1[l]))),
-          (max(simplify_upper(prev_0, prev_1[l]), simplify_upper(prev_0, prev_1[u]), simplify_upper(prev_0[u], prev_1), simplify_upper(prev_0[l], prev_1), simplify_upper(prev_0[u], prev_1[u]), simplify_upper(prev_0[l], prev_1[l]))), 
+          (max(simplify_upper(prev_0, prev_1[l]), simplify_upper(prev_0, prev_1[u]), simplify_upper(prev_0[u], prev_1), simplify_upper(prev_0[l], prev_1), simplify_upper(prev_0[u], prev_1[u]), simplify_upper(prev_0[l], prev_1[l]))),
           // PolyExp L
-          (backsubs_lower(prev_0*prev_1, prev_0) + backsubs_lower(prev_0*prev_1, prev_1)), 
+          (backsubs_lower(prev_0*prev_1, prev_0) + backsubs_lower(prev_0*prev_1, prev_1)),
           // PolyExp U
-          (backsubs_upper(prev_0*prev_1, prev_0) + backsubs_upper(prev_0*prev_1, prev_1)) 
+          (backsubs_upper(prev_0*prev_1, prev_0) + backsubs_upper(prev_0*prev_1, prev_1))
         );
 }
 
@@ -20701,20 +20701,20 @@ Code:
 transformer deeppoly{
     Mult -> (
         min(
-            simplify_lower(prev_0,1) * simplify_lower(prev_1,1), 
-            simplify_lower(prev_0,1) * simplify_upper(prev_1,1), 
-            simplify_upper(prev_0,1) * simplify_lower(prev_1,1), 
+            simplify_lower(prev_0,1) * simplify_lower(prev_1,1),
+            simplify_lower(prev_0,1) * simplify_upper(prev_1,1),
+            simplify_upper(prev_0,1) * simplify_lower(prev_1,1),
             simplify_upper(prev_0,1) * simplify_upper(prev_1,1)
         ),
         max(
-            simplify_lower(prev_0,1) * simplify_lower(prev_1,1), 
-            simplify_lower(prev_0,1) * simplify_upper(prev_1,1), 
-            simplify_upper(prev_0,1) * simplify_lower(prev_1,1), 
+            simplify_lower(prev_0,1) * simplify_lower(prev_1,1),
+            simplify_lower(prev_0,1) * simplify_upper(prev_1,1),
+            simplify_upper(prev_0,1) * simplify_lower(prev_1,1),
             simplify_upper(prev_0,1) * simplify_upper(prev_1,1)
         ),
-        prev_0 * (simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2 + prev_1 * (simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2 
+        prev_0 * (simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2 + prev_1 * (simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2
             - ((simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2) * ((simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2),
-        prev_0 * (simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2 + prev_1 * (simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2 
+        prev_0 * (simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2 + prev_1 * (simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2
             - ((simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2) * ((simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2)
     );
 }
@@ -20727,26 +20727,26 @@ transformer deeppoly{
 transformer deeppoly{
     Mult -> (
         min(
-            simplify_lower(prev_0,1) * simplify_lower(prev_1,1), 
-            simplify_lower(prev_0,1) * simplify_upper(prev_1,1), 
-            simplify_upper(prev_0,1) * simplify_lower(prev_1,1), 
+            simplify_lower(prev_0,1) * simplify_lower(prev_1,1),
+            simplify_lower(prev_0,1) * simplify_upper(prev_1,1),
+            simplify_upper(prev_0,1) * simplify_lower(prev_1,1),
             simplify_upper(prev_0,1) * simplify_upper(prev_1,1)
         ),
         max(
-            simplify_lower(prev_0,1) * simplify_lower(prev_1,1), 
-            simplify_lower(prev_0,1) * simplify_upper(prev_1,1), 
-            simplify_upper(prev_0,1) * simplify_lower(prev_1,1), 
+            simplify_lower(prev_0,1) * simplify_lower(prev_1,1),
+            simplify_lower(prev_0,1) * simplify_upper(prev_1,1),
+            simplify_upper(prev_0,1) * simplify_lower(prev_1,1),
             simplify_upper(prev_0,1) * simplify_upper(prev_1,1)
         ),
-        prev_0 * (simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2 + prev_1 * (simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2 
+        prev_0 * (simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2 + prev_1 * (simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2
             - ((simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2) * ((simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2),
-        prev_0 * (simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2 + prev_1 * (simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2 
+        prev_0 * (simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2 + prev_1 * (simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2
             - ((simplify_lower(prev_0,1) + simplify_upper(prev_0,1))/2) * ((simplify_lower(prev_1,1) + simplify_upper(prev_1,1))/2)
     );
 }
 
 2025-06-12 02:56:58,578 - INFO - 2025-06-12 02:56:58.578532 - Extracting Relu
-2025-06-12 02:56:58,578 - INFO - 
+2025-06-12 02:56:58,578 - INFO -
 API: Relu -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:56:58,578 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:57:05,874 - INFO - [STEP 1] Sample 1: Validation passed.
@@ -20754,7 +20754,7 @@ API: Relu -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:57:05,875 - INFO - Succeed. Saved to logs/2025-06-12_02-32-28/results/GPT-4o/success/Relu.txt
 
 2025-06-12 02:57:05,875 - INFO - 2025-06-12 02:57:05.875217 - Extracting Relu6
-2025-06-12 02:57:05,875 - INFO - 
+2025-06-12 02:57:05,875 - INFO -
 API: Relu6 -> Model: GPT-4o @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-12 02:57:05,875 - INFO - [STEP 1] Starting step 1/1
 2025-06-12 02:57:26,078 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -20869,14 +20869,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
-        ((prev[l] >= 6)) ? (6, 6, 6, 6) : 
+    Relu6 ->
+        ((prev[l] >= 6)) ? (6, 6, 6, 6) :
         ((prev[u] <= 0)) ? (0, 0, 0, 0) :
-        ((prev[l] >= 0) && (prev[u] <= 6)) ? (prev[l], prev[u], prev, prev) : 
-        ((prev[l] < 0) && (prev[u] > 0) && (prev[u] <= 6)) ? 
+        ((prev[l] >= 0) && (prev[u] <= 6)) ? (prev[l], prev[u], prev, prev) :
+        ((prev[l] < 0) && (prev[u] > 0) && (prev[u] <= 6)) ?
             (0, prev[u], 0, (prev[u]/(prev[u] - prev[l]))*prev - ((prev[u]*prev[l])/(prev[u] - prev[l]))) :
-        ((prev[l] >= 0) && (prev[l] < 6) && (prev[u] > 6)) ? 
-            (prev[l], 6, prev, ((6 - prev[l])/(prev[u] - prev[l]))* (prev - prev[l]) + prev[l]) : 
+        ((prev[l] >= 0) && (prev[l] < 6) && (prev[u] > 6)) ?
+            (prev[l], 6, prev, ((6 - prev[l])/(prev[u] - prev[l]))* (prev - prev[l]) + prev[l]) :
         (0, 6, 0, 6);
 }
 
@@ -21004,7 +21004,7 @@ transformer deeppoly {
         ((prev[l]) >= 0 && (prev[u]) <= 6) ? ((prev[l]), (prev[u]), (prev), (prev)) :
         ((prev[l]) < 0 && (prev[u]) <= 6) ? (0, (prev[u]), 0, ((prev[u]) / ((prev[u]) - (prev[l]))) * (prev) - ((prev[u]) * (prev[l]) / (prev[u] - prev[l]))) :
         ((prev[l]) >= 0 && (prev[u]) > 6) ? ((prev[l]), 6, (prev), ((6 - prev[l]) / (prev[u] - prev[l])) * (prev) + ((prev[u] - 6) * prev[l]) / (prev[u] - prev[l]))) :
-        (0, 6, 0, 
+        (0, 6, 0,
             min(
                 ((prev[u]) / ((prev[u]) - (prev[l]))) * (prev) - ((prev[u]) * (prev[l]) / (prev[u] - prev[l])),
                 ((6 - prev[l]) / (prev[u] - prev[l])) * (prev) + ((prev[u] - 6) * prev[l]) / (prev[u] - prev[l])
@@ -21073,13 +21073,13 @@ constraintflow.core.astTC.TypeMismatchException: Condition has to be boolean
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
-        ((prev[u]) <= 0) 
-            ? (0, 0, 0, 0) 
-        : (((prev[l]) >= 6) 
-            ? (6, 6, 6, 6) 
-        : (((prev[l]) >= 0) 
-            ? ((prev[l]), min((prev[u]), 6), prev, (prev <= 6 ? prev : 6)) 
+    Relu6 ->
+        ((prev[u]) <= 0)
+            ? (0, 0, 0, 0)
+        : (((prev[l]) >= 6)
+            ? (6, 6, 6, 6)
+        : (((prev[l]) >= 0)
+            ? ((prev[l]), min((prev[u]), 6), prev, (prev <= 6 ? prev : 6))
         : (((prev[u]) <= 6)
             ? (0, (prev[u]), 0, prev)
         : (0, 6, 0, ((prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l])) <= 6 ? (prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l])) : 6)))));
@@ -21202,19 +21202,19 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
-        ((prev[l] >= 6)) ? 
+    Relu6 ->
+        ((prev[l] >= 6)) ?
             (6, 6, 6, 6)
-        : ((prev[u] <= 0)) ? 
+        : ((prev[u] <= 0)) ?
             (0, 0, 0, 0)
-        : ((prev[l] >= 0) & (prev[u] <= 6)) ? 
+        : ((prev[l] >= 0) & (prev[u] <= 6)) ?
             (prev[l], prev[u], prev, prev)
-        : ((prev[l] < 0) & (prev[u] <= 6)) ? 
+        : ((prev[l] < 0) & (prev[u] <= 6)) ?
             (0, prev[u], 0, (prev[u] / (prev[u] - prev[l])) * prev - (prev[u] * prev[l] / (prev[u] - prev[l])))
-        : ((prev[l] >= 0) & (prev[u] > 6)) ? 
+        : ((prev[l] >= 0) & (prev[u] > 6)) ?
             (prev[l], 6, prev, 6)
-        : 
-            (0, 6, 0, 
+        :
+            (0, 6, 0,
                 (prev[u] * (6 - prev[l]) / (prev[u] - prev[l])) * prev +
                 ((prev[u] * prev[l] - 6 * prev[l]) / (prev[u] - prev[l]))
             );
@@ -21271,15 +21271,15 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
         (prev[l] >= 6) ? (6, 6, 6, 6) :
         (prev[u] <= 0) ? (0, 0, 0, 0) :
         (prev[l] >= 0 && prev[u] <= 6) ? (prev[l], prev[u], prev, prev) :
         (prev[l] < 0 && prev[u] > 0 && prev[u] <= 6) ? (0, prev[u], 0, prev * (prev[u] / (prev[u] - prev[l])) - ((prev[u] * prev[l]) / (prev[u] - prev[l]))) :
         (prev[l] >= 0 && prev[u] > 6) ? (prev[l], 6, prev + ((6 - prev[u]) / (prev[u] - prev[l])) * (prev - prev[l]), 6) :
         (prev[l] < 0 && prev[u] > 6) ? (
-            0, 6, 
-            0, 
+            0, 6,
+            0,
             ((prev[u] - 6) / (prev[u] - prev[l])) * prev + ((6 * (0 - prev[l])) / (prev[u] - prev[l]))
         ) :
         (0, 6, 0, 6);
@@ -21336,15 +21336,15 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
-        (prev[l] >= 6) ? (6, 6, 6, 6) : 
-        ((prev[u] <= 0) ? (0, 0, 0, 0) : 
-        ((prev[l] >= 0 && prev[u] <= 6) ? (prev[l], prev[u], prev, prev) : 
-        ((prev[l] < 0 && prev[u] <= 6) ? 
-            (0, prev[u], 0, prev * (prev[u] / (prev[u] - prev[l])) - ((prev[u] * prev[l]) / (prev[u] - prev[l]))) : 
-        ((prev[l] >= 0 && prev[u] > 6) ? 
+    Relu6 ->
+        (prev[l] >= 6) ? (6, 6, 6, 6) :
+        ((prev[u] <= 0) ? (0, 0, 0, 0) :
+        ((prev[l] >= 0 && prev[u] <= 6) ? (prev[l], prev[u], prev, prev) :
+        ((prev[l] < 0 && prev[u] <= 6) ?
+            (0, prev[u], 0, prev * (prev[u] / (prev[u] - prev[l])) - ((prev[u] * prev[l]) / (prev[u] - prev[l]))) :
+        ((prev[l] >= 0 && prev[u] > 6) ?
             (prev[l], 6, prev, prev * (6 - prev[l]) / (prev[u] - prev[l]) + (prev[u] * (prev[l] - 6)) / (prev[u] - prev[l])) :
-        (0, 6, 0, 
+        (0, 6, 0,
             ((prev * (6 - prev[l]) / (prev[u] - prev[l]) + (prev[u] * (prev[l] - 6)) / (prev[u] - prev[l]))) // upper bound between 0 and 6
          )
         )))
@@ -21403,17 +21403,17 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
         ((prev[l] >= 6)) ? (6, 6, 6, 6)
         : ((prev[u] <= 0)) ? (0, 0, 0, 0)
         : ((prev[l] >= 0) && (prev[u] <= 6)) ? (prev[l], prev[u], prev, prev)
-        : ((prev[l] < 0) && (prev[u] > 6)) ? (0, 6, 0, 
-            (prev[u] / (prev[u] - prev[l])) * prev 
+        : ((prev[l] < 0) && (prev[u] > 6)) ? (0, 6, 0,
+            (prev[u] / (prev[u] - prev[l])) * prev
              - ((prev[u] * prev[l]) / (prev[u] - prev[l])))
-        : ((prev[l] < 0) && (prev[u] <= 6)) ? (0, prev[u], 0, 
-            (prev[u] / (prev[u] - prev[l])) * prev 
+        : ((prev[l] < 0) && (prev[u] <= 6)) ? (0, prev[u], 0,
+            (prev[u] / (prev[u] - prev[l])) * prev
              - ((prev[u] * prev[l]) / (prev[u] - prev[l])))
-        : ((prev[l] >= 0) && (prev[u] > 6)) ? (prev[l], 6, prev, 
+        : ((prev[l] >= 0) && (prev[u] > 6)) ? (prev[l], 6, prev,
             ((6 - prev[l]) / (prev[u] - prev[l])) * (prev - prev[l]) + prev[l])
         : (0, 6, 0, 6);
 }
@@ -21469,19 +21469,19 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
-        ((prev[l]) >= 6) ? 
-            (6, 6, 6, 6) 
-        : (((prev[u]) <= 0) ? 
-            (0, 0, 0, 0) 
-        : (((prev[l]) >= 0 && (prev[u]) <= 6) ? 
-            (prev[l], prev[u], prev, prev) 
-        : (((prev[l]) < 0 && (prev[u]) > 6) ? 
-            (0, 6, 0, ((6/(prev[u]-prev[l])) * (prev)) - ((6*prev[l])/(prev[u]-prev[l]))) 
-        : (((prev[l]) < 0 && (prev[u]) <= 6) ? 
-            (0, prev[u], 0, ((prev[u]/(prev[u]-prev[l])) * (prev)) - ((prev[u]*prev[l])/(prev[u]-prev[l]))) 
-        : (((prev[l]) >= 0 && (prev[u]) > 6) ? 
-            (prev[l], 6, prev, 6) 
+    Relu6 ->
+        ((prev[l]) >= 6) ?
+            (6, 6, 6, 6)
+        : (((prev[u]) <= 0) ?
+            (0, 0, 0, 0)
+        : (((prev[l]) >= 0 && (prev[u]) <= 6) ?
+            (prev[l], prev[u], prev, prev)
+        : (((prev[l]) < 0 && (prev[u]) > 6) ?
+            (0, 6, 0, ((6/(prev[u]-prev[l])) * (prev)) - ((6*prev[l])/(prev[u]-prev[l])))
+        : (((prev[l]) < 0 && (prev[u]) <= 6) ?
+            (0, prev[u], 0, ((prev[u]/(prev[u]-prev[l])) * (prev)) - ((prev[u]*prev[l])/(prev[u]-prev[l])))
+        : (((prev[l]) >= 0 && (prev[u]) > 6) ?
+            (prev[l], 6, prev, 6)
         : (0, 6, 0, 6))))));
 }
 
@@ -21536,16 +21536,16 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
-        (prev[l] >= 6) ? 
-            (6, 6, 6, 6) 
-        : ((prev[u] <= 0) ? 
-            (0, 0, 0, 0) 
-        : ((prev[l] >= 0 && prev[u] <= 6) ? 
+    Relu6 ->
+        (prev[l] >= 6) ?
+            (6, 6, 6, 6)
+        : ((prev[u] <= 0) ?
+            (0, 0, 0, 0)
+        : ((prev[l] >= 0 && prev[u] <= 6) ?
             (prev[l], prev[u], prev, prev)
-        : ((prev[l] >= 0 && prev[u] > 6) ? 
+        : ((prev[l] >= 0 && prev[u] > 6) ?
             (prev[l], 6, prev, (6 - prev[l])/(prev[u] - prev[l]) * prev + (prev[u] - 6)/(prev[u] - prev[l]) * 6)
-        : ((prev[l] < 0 && prev[u] <= 6) ? 
+        : ((prev[l] < 0 && prev[u] <= 6) ?
             (0, prev[u], 0, (prev[u]/(prev[u] - prev[l])) * prev - (prev[u] * prev[l])/(prev[u] - prev[l]))
         : (0, 6, 0, (6/(prev[u] - prev[l])) * prev - (6*prev[l])/(prev[u] - prev[l]))
         ))));
@@ -21603,14 +21603,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
         (prev[l] >= 6) ? (6, 6, 6, 6) :
         (prev[u] <= 0) ? (0, 0, 0, 0) :
         (prev[l] >= 0 && prev[u] <= 6) ? (prev[l], prev[u], prev, prev) :
         (prev[l] < 0 && prev[u] <= 6) ? (0, prev[u], 0, ((prev[u]/(prev[u]-prev[l]))*prev) - ((prev[u]*prev[l])/(prev[u]-prev[l]))) :
         (prev[l] >= 0 && prev[u] > 6) ? (prev[l], 6, prev, ((6-prev[l])/(prev[u]-prev[l]))*prev + ((prev[u]-6)/(prev[u]-prev[l]))*6) :
-        (prev[l] < 0 && prev[u] > 6) ? (0, 6, 0, (prev[u]/(prev[u]-prev[l]))*prev - (prev[u]*prev[l])/(prev[u]-prev[l]) < ((6-prev[l])/(prev[u]-prev[l]))*prev + ((prev[u]-6)/(prev[u]-prev[l]))*6 
-            ? ((6-prev[l])/(prev[u]-prev[l]))*prev + ((prev[u]-6)/(prev[u]-prev[l]))*6 
+        (prev[l] < 0 && prev[u] > 6) ? (0, 6, 0, (prev[u]/(prev[u]-prev[l]))*prev - (prev[u]*prev[l])/(prev[u]-prev[l]) < ((6-prev[l])/(prev[u]-prev[l]))*prev + ((prev[u]-6)/(prev[u]-prev[l]))*6
+            ? ((6-prev[l])/(prev[u]-prev[l]))*prev + ((prev[u]-6)/(prev[u]-prev[l]))*6
             : (prev[u]/(prev[u]-prev[l]))*prev - (prev[u]*prev[l])/(prev[u]-prev[l]))) :
         (prev[l], prev[u], prev, prev);
 }
@@ -21666,7 +21666,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
         ((prev[l] >= 6)) ? (6, 6, 6, 6) :
         ((prev[u] <= 0)) ? (0, 0, 0, 0) :
         ((prev[l] >= 0) & (prev[u] <= 6)) ? (prev[l], prev[u], prev, prev) :
@@ -21855,11 +21855,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
         (prev[l] >= 6) ? (6, 6, 6, 6) :
         ((prev[u] <= 0) ? (0, 0, 0, 0) :
             ((prev[l] >= 0 && prev[u] <= 6) ? (prev[l], prev[u], prev, prev) :
-                ((prev[l] < 0 && prev[u] <= 6) ? 
+                ((prev[l] < 0 && prev[u] <= 6) ?
                     (0, prev[u], 0, (prev[u]/(prev[u]-prev[l])) * prev - ((prev[u]*prev[l])/(prev[u]-prev[l]))) :
                 ((prev[l] >= 0 && prev[u] > 6) ?
                     (prev[l], 6, prev, prev + ((6 - prev[u])/(prev[u] - prev[l])) * (prev - prev[l])) :
@@ -21921,11 +21921,11 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
-        ((prev[l]) >= 6) 
-            ? (6, 6, 6, 6) 
-            : (((prev[u]) <= 0) 
-                ? (0, 0, 0, 0) 
+    Relu6 ->
+        ((prev[l]) >= 6)
+            ? (6, 6, 6, 6)
+            : (((prev[u]) <= 0)
+                ? (0, 0, 0, 0)
                 : (
                     ((prev[l]) >= 0 && (prev[u]) <= 6)
                         ? (prev[l], prev[u], prev, prev)
@@ -21999,16 +21999,16 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
-        (prev[l] >= 6) ? 
-            (6, 6, 6, 6) 
-        : 
-            ((prev[u] <= 0) ? 
-                (0, 0, 0, 0) 
-            : 
-                ((prev[l] >= 0 && prev[u] <= 6) ? 
-                    (prev[l], prev[u], prev, prev) 
-                : 
+    Relu6 ->
+        (prev[l] >= 6) ?
+            (6, 6, 6, 6)
+        :
+            ((prev[u] <= 0) ?
+                (0, 0, 0, 0)
+            :
+                ((prev[l] >= 0 && prev[u] <= 6) ?
+                    (prev[l], prev[u], prev, prev)
+                :
                     ((prev[l] < 0 && prev[u] > 6) ?
                         (0, 6, 0, 6)
                     :
@@ -22017,7 +22017,7 @@ transformer deeppoly{
                         :
                             ((prev[l] >= 0 && prev[u] > 6) ?
                                 (prev[l], 6, prev, (((6-prev[l])/(prev[u]-prev[l]))*prev) + ((prev[u]-6)*prev[l]/(prev[u]-prev[l])))
-                            : 
+                            :
                                 (0, 6, 0, 6)
                             )
                         )
@@ -22078,18 +22078,18 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
-        (prev[l] >= 6) ? 
+    Relu6 ->
+        (prev[l] >= 6) ?
             (6, 6, 6, 6)
-        : (prev[u] <= 0) ? 
+        : (prev[u] <= 0) ?
             (0, 0, 0, 0)
-        : (prev[l] >= 0 && prev[u] <= 6) ? 
+        : (prev[l] >= 0 && prev[u] <= 6) ?
             (prev[l], prev[u], prev, prev)
-        : (prev[l] < 0 && prev[u] > 6) ? 
+        : (prev[l] < 0 && prev[u] > 6) ?
             (0, 6, 0, prev * (6-prev[l])/(prev[u]-prev[l]) - (prev[l]*6)/(prev[u]-prev[l]))
-        : (prev[l] < 0) ? 
+        : (prev[l] < 0) ?
             (0, prev[u], 0, prev * prev[u]/(prev[u]-prev[l]))
-        : /* prev[u] > 6 */ 
+        : /* prev[u] > 6 */
             (prev[l], 6, prev, prev * (6-prev[l])/(prev[u]-prev[l]) + ((prev[u]-6)*prev[l])/(prev[u]-prev[l]));
 }
 
@@ -22144,7 +22144,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
         (prev[l] >= 6) ? (6, 6, 6, 6) :
         (prev[u] <= 0) ? (0, 0, 0, 0) :
         (prev[l] >= 0 && prev[u] <= 6) ? (prev[l], prev[u], prev, prev) :
@@ -22281,7 +22281,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
       (prev[l] >= 6) ? (6, 6, 6, 6) :
       (prev[u] <= 0) ? (0, 0, 0, 0) :
       (prev[l] >= 0 && prev[u] <= 6) ? (prev[l], prev[u], prev, prev) :
@@ -22341,7 +22341,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
         ((prev[u]) <= 0) ? (0, 0, 0, 0) :
         ((prev[l]) >= 6) ? (6, 6, 6, 6) :
         ((prev[l]) >= 0 && (prev[u]) <= 6) ? (prev[l], prev[u], prev, prev) :
@@ -22417,7 +22417,7 @@ transformer deeppoly{
         : (((prev[l]) >= 6) ? (6, 6, 6, 6)
         : (((prev[l]) >= 0) ? ((prev[l]), min(prev[u], 6), prev, min(prev, 6))
         : (((prev[u]) <= 6) ? (0, (prev[u]), 0, prev)
-        : (0, 6, 0, 
+        : (0, 6, 0,
             ((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l]))
           )
         )));
@@ -22550,7 +22550,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
         ((prev[l] >= 6) ? (6, 6, 6, 6) :
             (prev[u] <= 0) ? (0, 0, 0, 0) :
             (prev[l] >= 0 && prev[u] <= 6) ? (prev[l], prev[u], prev, prev) :
@@ -22613,9 +22613,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Relu6 ->
-        ((prev[l] >= 6)) ? 
+        ((prev[l] >= 6)) ?
             (6, 6, 6, 6)
-        : ((prev[u] <= 0)) ? 
+        : ((prev[u] <= 0)) ?
             (0, 0, 0, 0)
         : ((prev[l] >= 0) && (prev[u] <= 6)) ?
             (prev[l], prev[u], prev, prev)
@@ -22680,9 +22680,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Relu6 ->
-        ((prev[l] >= 6)) ? 
+        ((prev[l] >= 6)) ?
             (6, 6, 6, 6)
-        : ((prev[u] <= 0)) ? 
+        : ((prev[u] <= 0)) ?
             (0, 0, 0, 0)
         : ((prev[l] >= 0) & (prev[u] <= 6)) ?
             (prev[l], prev[u], prev, prev)
@@ -22744,14 +22744,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
         (prev[l] >= 6) ? (6, 6, 6, 6) :
         (prev[l] >= 0 && prev[u] <= 6) ? (prev[l], prev[u], prev, prev) :
         (prev[u] <= 0) ? (0, 0, 0, 0) :
         (prev[l] < 0 && prev[u] <= 6) ? (
-            0, 
-            prev[u], 
-            0, 
+            0,
+            prev[u],
+            0,
             ((prev[u])/(prev[u]-prev[l]))*prev - ((prev[u]*prev[l])/(prev[u]-prev[l]))
         ) :
         (prev[l] >= 0 && prev[u] > 6) ? (
@@ -22775,14 +22775,14 @@ transformer deeppoly{
 2025-06-12 03:00:27,052 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deeppoly{
-    Relu6 -> 
+    Relu6 ->
         (prev[l] >= 6) ? (6, 6, 6, 6) :
         (prev[l] >= 0 && prev[u] <= 6) ? (prev[l], prev[u], prev, prev) :
         (prev[u] <= 0) ? (0, 0, 0, 0) :
         (prev[l] < 0 && prev[u] <= 6) ? (
-            0, 
-            prev[u], 
-            0, 
+            0,
+            prev[u],
+            0,
             ((prev[u])/(prev[u]-prev[l]))*prev - ((prev[u]*prev[l])/(prev[u]-prev[l]))
         ) :
         (prev[l] >= 0 && prev[u] > 6) ? (

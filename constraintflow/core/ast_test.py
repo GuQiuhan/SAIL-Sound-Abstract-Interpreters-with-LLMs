@@ -1,14 +1,12 @@
 import sys
 
 import antlr4 as antlr
-
+import astBuilder
 import astcf as AST
+import astTC
 import dslLexer
 import dslParser
-import astBuilder
-import astTC
 import verify
-
 
 
 def genAST(inputfile, nprev, nsymb):
@@ -26,4 +24,4 @@ def genAST(inputfile, nprev, nsymb):
     v.visit(ast)
 
 
-genAST(sys.argv[1],int(sys.argv[2]),int(sys.argv[3]))
+genAST(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))

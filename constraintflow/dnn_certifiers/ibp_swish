@@ -5,7 +5,7 @@ func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (co
 
 func priority(Neuron n) = n[layer];
 
-func hswish(Float x) = x <= -3 ? 0 : (x >= 3 ? x : (x * ((x + 3) / 6))); 
+func hswish(Float x) = x <= -3 ? 0 : (x >= 3 ? x : (x * ((x + 3) / 6)));
 
 transformer ibp{
     HardSwish -> prev[u] <= (-3/2) ? (hswish(prev[u]), hswish(prev[l])) : (prev[l] > (-3/2) ? (hswish(prev[l]), hswish(prev[u])) : (-3/8, max(hswish(prev[u]), hswish(prev[l]))));

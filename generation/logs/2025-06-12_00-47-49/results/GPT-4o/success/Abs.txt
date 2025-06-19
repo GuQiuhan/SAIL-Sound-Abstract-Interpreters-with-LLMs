@@ -5,5 +5,5 @@ transformer deeppoly{
         : (prev[u] <= 0)
             ? (-(prev[u]), -(prev[l]), -prev, -prev)
         : (0, max(prev[u], -prev[l]), 0, max(prev[u], -prev[l]))
-;  
+;
 }

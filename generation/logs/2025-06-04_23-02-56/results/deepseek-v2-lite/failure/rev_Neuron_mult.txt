@@ -1,9 +1,9 @@
 transformer deeppoly{
     Rev_Neuron_mult -> (def MulCond as (prev[l] >= 0) and (prev[u] >= 0);
-                        (MulCond) ? ((prev[l]), (prev[u]), (prev), (prev)) : 
-                        ((prev[l]<=0) and (prev[u]<=0)) ? ((prev[u]), (prev[l]), (prev), (prev)) : 
-                        (((prev[u]) <= 0) and ((prev[L]) >= 0)) ? ((prev[L]), (prev[L]), (prev*prev[l]/prev[L]), (prev*prev[u]/prev[L])) : 
-                        (((prev[L]) <= 0) and ((prev[U]) >= 0)) ? ((prev[U]), (prev[U]), (prev*prev[l]/prev[U]), (prev*prev[u]/prev[U])) : 
-                        (((prev[U]) <= 0) and ((prev[L]) <= 0)) ? ((prev[U]), (prev[L]), (prev*prev[l]/prev[L]), (prev*prev[u]/prev[L])) : 
+                        (MulCond) ? ((prev[l]), (prev[u]), (prev), (prev)) :
+                        ((prev[l]<=0) and (prev[u]<=0)) ? ((prev[u]), (prev[l]), (prev), (prev)) :
+                        (((prev[u]) <= 0) and ((prev[L]) >= 0)) ? ((prev[L]), (prev[L]), (prev*prev[l]/prev[L]), (prev*prev[u]/prev[L])) :
+                        (((prev[L]) <= 0) and ((prev[U]) >= 0)) ? ((prev[U]), (prev[U]), (prev*prev[l]/prev[U]), (prev*prev[u]/prev[U])) :
+                        (((prev[U]) <= 0) and ((prev[L]) <= 0)) ? ((prev[U]), (prev[L]), (prev*prev[l]/prev[L]), (prev*prev[u]/prev[L])) :
                         (((prev[l]) >= 0) and ((prev[U]) <= 0)) ? ((prev[L]), (prev[U]), (prev*prev[l]/prev[L]), (prev*prev[u]/prev[L])) );
 }

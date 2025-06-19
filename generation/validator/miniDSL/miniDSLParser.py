@@ -1,9 +1,11 @@
 # Generated from miniDSL.g4 by ANTLR 4.7.2
 # encoding: utf-8
-from antlr4 import *
+import sys
 from io import StringIO
 from typing.io import TextIO
-import sys
+
+from antlr4 import *
+
 
 def serializedATN():
     with StringIO() as buf:
@@ -35,13 +37,13 @@ def serializedATN():
         buf.write("\3\16\3\16\3\16\3\16\3\16\3\16\7\16\u011c\n\16\f\16\16")
         buf.write("\16\u011f\13\16\3\17\3\17\3\20\3\20\3\21\3\21\3\22\3\22")
         buf.write("\3\23\3\23\3\24\3\24\3\25\3\25\3\25\2\5\4\22\32\26\2\4")
-        buf.write("\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(\2\n\3\2>X\3")
+        buf.write('\6\b\n\f\16\20\22\24\26\30\32\34\36 "$&(\2\n\3\2>X\3')
         buf.write("\2\678\3\2\3\4\3\29:\3\2\60\62\6\2\b\b\27\35\37\37!#\4")
         buf.write("\2;=gg\3\2\n\13\2\u0149\2*\3\2\2\2\4D\3\2\2\2\6M\3\2\2")
         buf.write("\2\bY\3\2\2\2\n[\3\2\2\2\f_\3\2\2\2\16b\3\2\2\2\20o\3")
         buf.write("\2\2\2\22z\3\2\2\2\24\u008b\3\2\2\2\26\u0092\3\2\2\2\30")
         buf.write("\u0098\3\2\2\2\32\u00da\3\2\2\2\34\u0120\3\2\2\2\36\u0122")
-        buf.write("\3\2\2\2 \u0124\3\2\2\2\"\u0126\3\2\2\2$\u0128\3\2\2\2")
+        buf.write('\3\2\2\2 \u0124\3\2\2\2"\u0126\3\2\2\2$\u0128\3\2\2\2')
         buf.write("&\u012a\3\2\2\2(\u012c\3\2\2\2*+\7\7\2\2+,\7j\2\2,-\7")
         buf.write(")\2\2-.\5\b\5\2./\7*\2\2/\3\3\2\2\2\60\61\b\3\1\2\61\62")
         buf.write("\7\5\2\2\62\63\7%\2\2\63\64\5(\25\2\64\65\7\26\2\2\65")
@@ -79,7 +81,7 @@ def serializedATN():
         buf.write("\7`\2\2\u00a2\u00db\7a\2\2\u00a3\u00db\7b\2\2\u00a4\u00db")
         buf.write("\7c\2\2\u00a5\u00db\7d\2\2\u00a6\u00a7\7%\2\2\u00a7\u00a8")
         buf.write("\5\32\16\2\u00a8\u00a9\7&\2\2\u00a9\u00db\3\2\2\2\u00aa")
-        buf.write("\u00ab\7\'\2\2\u00ab\u00ac\5\26\f\2\u00ac\u00ad\7(\2\2")
+        buf.write("\u00ab\7'\2\2\u00ab\u00ac\5\26\f\2\u00ac\u00ad\7(\2\2")
         buf.write("\u00ad\u00db\3\2\2\2\u00ae\u00af\7$\2\2\u00af\u00db\5")
         buf.write("\32\16\21\u00b0\u00b1\7\30\2\2\u00b1\u00db\5\32\16\20")
         buf.write("\u00b2\u00b3\5\34\17\2\u00b3\u00b4\7%\2\2\u00b4\u00b5")
@@ -89,7 +91,7 @@ def serializedATN():
         buf.write("\u00bd\7&\2\2\u00bd\u00db\3\2\2\2\u00be\u00bf\5 \21\2")
         buf.write("\u00bf\u00c0\7%\2\2\u00c0\u00c1\5\32\16\2\u00c1\u00c2")
         buf.write("\7\26\2\2\u00c2\u00c3\5\32\16\2\u00c3\u00c4\7&\2\2\u00c4")
-        buf.write("\u00db\3\2\2\2\u00c5\u00c6\5\"\22\2\u00c6\u00c7\7%\2\2")
+        buf.write('\u00db\3\2\2\2\u00c5\u00c6\5"\22\2\u00c6\u00c7\7%\2\2')
         buf.write("\u00c7\u00c8\5\32\16\2\u00c8\u00c9\7&\2\2\u00c9\u00db")
         buf.write("\3\2\2\2\u00ca\u00cb\7e\2\2\u00cb\u00cc\7%\2\2\u00cc\u00cd")
         buf.write("\5\36\20\2\u00cd\u00ce\7\26\2\2\u00ce\u00cf\5\32\16\2")
@@ -109,9 +111,9 @@ def serializedATN():
         buf.write("\5$\23\2\u00de\u00df\5\32\16\23\u00df\u011c\3\2\2\2\u00e0")
         buf.write("\u00e1\f\17\2\2\u00e1\u00e2\7,\2\2\u00e2\u00e3\5\32\16")
         buf.write("\2\u00e3\u00e4\7-\2\2\u00e4\u00e5\5\32\16\20\u00e5\u011c")
-        buf.write("\3\2\2\2\u00e6\u00e7\f\24\2\2\u00e7\u00e8\7\'\2\2\u00e8")
+        buf.write("\3\2\2\2\u00e6\u00e7\f\24\2\2\u00e7\u00e8\7'\2\2\u00e8")
         buf.write("\u00e9\5&\24\2\u00e9\u00ea\7(\2\2\u00ea\u011c\3\2\2\2")
-        buf.write("\u00eb\u00ec\f\23\2\2\u00ec\u00ed\7\'\2\2\u00ed\u00ee")
+        buf.write("\u00eb\u00ec\f\23\2\2\u00ec\u00ed\7'\2\2\u00ed\u00ee")
         buf.write("\7j\2\2\u00ee\u011c\7(\2\2\u00ef\u00f0\f\16\2\2\u00f0")
         buf.write("\u00f1\7\25\2\2\u00f1\u00f2\7/\2\2\u00f2\u00f3\7%\2\2")
         buf.write("\u00f3\u00f4\5(\25\2\u00f4\u00f5\7\26\2\2\u00f5\u00f6")
@@ -137,64 +139,236 @@ def serializedATN():
         buf.write("\3\2\2\2\u0120\u0121\t\3\2\2\u0121\35\3\2\2\2\u0122\u0123")
         buf.write("\t\4\2\2\u0123\37\3\2\2\2\u0124\u0125\t\5\2\2\u0125!\3")
         buf.write("\2\2\2\u0126\u0127\t\6\2\2\u0127#\3\2\2\2\u0128\u0129")
-        buf.write("\t\7\2\2\u0129%\3\2\2\2\u012a\u012b\t\b\2\2\u012b\'\3")
+        buf.write("\t\7\2\2\u0129%\3\2\2\2\u012a\u012b\t\b\2\2\u012b'\3")
         buf.write("\2\2\2\u012c\u012d\t\t\2\2\u012d)\3\2\2\2\16DJYoz\u0080")
         buf.write("\u008b\u0092\u0098\u00da\u011b\u011d")
         return buf.getvalue()
 
 
-class miniDSLParser ( Parser ):
+class miniDSLParser(Parser):
 
     grammarFileName = "miniDSL.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'minimize'", "'maximize'", "'flow'", 
-                     "'->'", "'transformer'", "'In'", "'out'", "'backward'", 
-                     "'forward'", "'Int'", "'Float'", "'Bool'", "'PolyExp'", 
-                     "'SymExp'", "'Neuron'", "'Noise'", "'Ct'", "'List'", 
-                     "'.'", "','", "'+'", "'-'", "'*'", "'/'", "'and'", 
-                     "'or'", "'<'", "'='", "'=='", "'!='", "'>'", "'<='", 
-                     "'>='", "'!'", "'('", "')'", "'['", "']'", "'{'", "'}'", 
-                     "';'", "'?'", "':'", "'if'", "'traverse'", "'sum'", 
-                     "'len'", "'avg'", "'sub'", "'map'", "'map_list'", "'dot'", 
-                     "'argmin'", "'argmax'", "'min'", "'max'", "'weight'", 
-                     "'bias'", "'layer'", "'Affine'", "'Relu'", "'Relu6'", 
-                     "'Abs'", "'HardTanh'", "'HardSigmoid'", "'HardSwish'", 
-                     "'Maxpool'", "'Minpool'", "'Avgpool'", "'rev_Affine'", 
-                     "'Neuron_mult'", "'Neuron_add'", "'Neuron_max'", "'Neuron_min'", 
-                     "'Neuron_list_mult'", "'rev_Relu'", "'rev_Relu6'", 
-                     "'rev_Abs'", "'rev_HardSigmoid'", "'rev_HardTanh'", 
-                     "'rev_HardSwish'", "'rev_Maxpool'", "'rev_Neuron_mult'", 
-                     "'rev_Neuron_add'", "'rev_Neuron_max'", "'rev_Neuron_min'", 
-                     "'Sigmoid'", "'Tanh'", "'def Shape as'", "'func'", 
-                     "'eps'", "'true'", "'false'", "'curr'", "'prev'", "'prev_0'", 
-                     "'prev_1'", "'curr_list'", "'lp'", "'concat'", "'equations'" ]
+    literalNames = [
+        "<INVALID>",
+        "'minimize'",
+        "'maximize'",
+        "'flow'",
+        "'->'",
+        "'transformer'",
+        "'In'",
+        "'out'",
+        "'backward'",
+        "'forward'",
+        "'Int'",
+        "'Float'",
+        "'Bool'",
+        "'PolyExp'",
+        "'SymExp'",
+        "'Neuron'",
+        "'Noise'",
+        "'Ct'",
+        "'List'",
+        "'.'",
+        "','",
+        "'+'",
+        "'-'",
+        "'*'",
+        "'/'",
+        "'and'",
+        "'or'",
+        "'<'",
+        "'='",
+        "'=='",
+        "'!='",
+        "'>'",
+        "'<='",
+        "'>='",
+        "'!'",
+        "'('",
+        "')'",
+        "'['",
+        "']'",
+        "'{'",
+        "'}'",
+        "';'",
+        "'?'",
+        "':'",
+        "'if'",
+        "'traverse'",
+        "'sum'",
+        "'len'",
+        "'avg'",
+        "'sub'",
+        "'map'",
+        "'map_list'",
+        "'dot'",
+        "'argmin'",
+        "'argmax'",
+        "'min'",
+        "'max'",
+        "'weight'",
+        "'bias'",
+        "'layer'",
+        "'Affine'",
+        "'Relu'",
+        "'Relu6'",
+        "'Abs'",
+        "'HardTanh'",
+        "'HardSigmoid'",
+        "'HardSwish'",
+        "'Maxpool'",
+        "'Minpool'",
+        "'Avgpool'",
+        "'rev_Affine'",
+        "'Neuron_mult'",
+        "'Neuron_add'",
+        "'Neuron_max'",
+        "'Neuron_min'",
+        "'Neuron_list_mult'",
+        "'rev_Relu'",
+        "'rev_Relu6'",
+        "'rev_Abs'",
+        "'rev_HardSigmoid'",
+        "'rev_HardTanh'",
+        "'rev_HardSwish'",
+        "'rev_Maxpool'",
+        "'rev_Neuron_mult'",
+        "'rev_Neuron_add'",
+        "'rev_Neuron_max'",
+        "'rev_Neuron_min'",
+        "'Sigmoid'",
+        "'Tanh'",
+        "'def Shape as'",
+        "'func'",
+        "'eps'",
+        "'true'",
+        "'false'",
+        "'curr'",
+        "'prev'",
+        "'prev_0'",
+        "'prev_1'",
+        "'curr_list'",
+        "'lp'",
+        "'concat'",
+        "'equations'",
+    ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "FLOW", "ARROW", 
-                      "TRANSFORMER", "IN", "OUT", "BACKWARD", "FORWARD", 
-                      "INTT", "FLOATT", "BOOL", "POLYEXP", "ZONOEXP", "NEURON", 
-                      "NOISE", "CT", "LIST", "DOT", "COMMA", "PLUS", "MINUS", 
-                      "MULT", "DIV", "AND", "OR", "LT", "EQ", "EQQ", "NEQ", 
-                      "GT", "LEQ", "GEQ", "NOT", "LPAREN", "RPAREN", "LSQR", 
-                      "RSQR", "LBRACE", "RBRACE", "SEMI", "QUES", "COLON", 
-                      "IF", "TRAV", "SUM", "LEN", "AVG", "SUB", "MAP", "MAPLIST", 
-                      "DOTT", "ARGMIN", "ARGMAX", "MIN", "MAX", "WEIGHT", 
-                      "BIAS", "LAYER", "AFFINE", "RELU", "RELU6", "ABS", 
-                      "HARDTANH", "HARDSIGMOID", "HARDSWISH", "MAXPOOL", 
-                      "MINPOOL", "AVGPOOL", "REVAFFINE", "NEURON_MULT", 
-                      "NEURON_ADD", "NEURON_MAX", "NEURON_MIN", "NEURON_LIST_MULT", 
-                      "REVRELU", "REVRELU6", "REVABS", "REVHARDSIGMOID", 
-                      "REVHARDTANH", "REVHARDSWISH", "REVMAXPOOL", "REVNEURON_MULT", 
-                      "REVNEURON_ADD", "REVNEURON_MAX", "REVNEURON_MIN", 
-                      "SIGMOID", "TANH", "SHAPE", "FUNC", "EPSILON", "TRUE", 
-                      "FALSE", "CURR", "PREV", "PREV_0", "PREV_1", "CURRLIST", 
-                      "LP", "CONCAT", "EQUATIONS", "IntConst", "FloatConst", 
-                      "VAR", "WS", "LineComment" ]
+    symbolicNames = [
+        "<INVALID>",
+        "<INVALID>",
+        "<INVALID>",
+        "FLOW",
+        "ARROW",
+        "TRANSFORMER",
+        "IN",
+        "OUT",
+        "BACKWARD",
+        "FORWARD",
+        "INTT",
+        "FLOATT",
+        "BOOL",
+        "POLYEXP",
+        "ZONOEXP",
+        "NEURON",
+        "NOISE",
+        "CT",
+        "LIST",
+        "DOT",
+        "COMMA",
+        "PLUS",
+        "MINUS",
+        "MULT",
+        "DIV",
+        "AND",
+        "OR",
+        "LT",
+        "EQ",
+        "EQQ",
+        "NEQ",
+        "GT",
+        "LEQ",
+        "GEQ",
+        "NOT",
+        "LPAREN",
+        "RPAREN",
+        "LSQR",
+        "RSQR",
+        "LBRACE",
+        "RBRACE",
+        "SEMI",
+        "QUES",
+        "COLON",
+        "IF",
+        "TRAV",
+        "SUM",
+        "LEN",
+        "AVG",
+        "SUB",
+        "MAP",
+        "MAPLIST",
+        "DOTT",
+        "ARGMIN",
+        "ARGMAX",
+        "MIN",
+        "MAX",
+        "WEIGHT",
+        "BIAS",
+        "LAYER",
+        "AFFINE",
+        "RELU",
+        "RELU6",
+        "ABS",
+        "HARDTANH",
+        "HARDSIGMOID",
+        "HARDSWISH",
+        "MAXPOOL",
+        "MINPOOL",
+        "AVGPOOL",
+        "REVAFFINE",
+        "NEURON_MULT",
+        "NEURON_ADD",
+        "NEURON_MAX",
+        "NEURON_MIN",
+        "NEURON_LIST_MULT",
+        "REVRELU",
+        "REVRELU6",
+        "REVABS",
+        "REVHARDSIGMOID",
+        "REVHARDTANH",
+        "REVHARDSWISH",
+        "REVMAXPOOL",
+        "REVNEURON_MULT",
+        "REVNEURON_ADD",
+        "REVNEURON_MAX",
+        "REVNEURON_MIN",
+        "SIGMOID",
+        "TANH",
+        "SHAPE",
+        "FUNC",
+        "EPSILON",
+        "TRUE",
+        "FALSE",
+        "CURR",
+        "PREV",
+        "PREV_0",
+        "PREV_1",
+        "CURRLIST",
+        "LP",
+        "CONCAT",
+        "EQUATIONS",
+        "IntConst",
+        "FloatConst",
+        "VAR",
+        "WS",
+        "LineComment",
+    ]
 
     RULE_transformer = 0
     RULE_statement = 1
@@ -217,130 +391,149 @@ class miniDSLParser ( Parser ):
     RULE_metadata = 18
     RULE_direction = 19
 
-    ruleNames =  [ "transformer", "statement", "func_decl", "op_list", "op_stmt", 
-                   "trans_decl", "operator", "trans_ret", "types", "arglist", 
-                   "expr_list", "exprs", "expr", "argmax_op", "lp_op", "max_op", 
-                   "list_op", "binop", "metadata", "direction" ]
+    ruleNames = [
+        "transformer",
+        "statement",
+        "func_decl",
+        "op_list",
+        "op_stmt",
+        "trans_decl",
+        "operator",
+        "trans_ret",
+        "types",
+        "arglist",
+        "expr_list",
+        "exprs",
+        "expr",
+        "argmax_op",
+        "lp_op",
+        "max_op",
+        "list_op",
+        "binop",
+        "metadata",
+        "direction",
+    ]
 
     EOF = Token.EOF
-    T__0=1
-    T__1=2
-    FLOW=3
-    ARROW=4
-    TRANSFORMER=5
-    IN=6
-    OUT=7
-    BACKWARD=8
-    FORWARD=9
-    INTT=10
-    FLOATT=11
-    BOOL=12
-    POLYEXP=13
-    ZONOEXP=14
-    NEURON=15
-    NOISE=16
-    CT=17
-    LIST=18
-    DOT=19
-    COMMA=20
-    PLUS=21
-    MINUS=22
-    MULT=23
-    DIV=24
-    AND=25
-    OR=26
-    LT=27
-    EQ=28
-    EQQ=29
-    NEQ=30
-    GT=31
-    LEQ=32
-    GEQ=33
-    NOT=34
-    LPAREN=35
-    RPAREN=36
-    LSQR=37
-    RSQR=38
-    LBRACE=39
-    RBRACE=40
-    SEMI=41
-    QUES=42
-    COLON=43
-    IF=44
-    TRAV=45
-    SUM=46
-    LEN=47
-    AVG=48
-    SUB=49
-    MAP=50
-    MAPLIST=51
-    DOTT=52
-    ARGMIN=53
-    ARGMAX=54
-    MIN=55
-    MAX=56
-    WEIGHT=57
-    BIAS=58
-    LAYER=59
-    AFFINE=60
-    RELU=61
-    RELU6=62
-    ABS=63
-    HARDTANH=64
-    HARDSIGMOID=65
-    HARDSWISH=66
-    MAXPOOL=67
-    MINPOOL=68
-    AVGPOOL=69
-    REVAFFINE=70
-    NEURON_MULT=71
-    NEURON_ADD=72
-    NEURON_MAX=73
-    NEURON_MIN=74
-    NEURON_LIST_MULT=75
-    REVRELU=76
-    REVRELU6=77
-    REVABS=78
-    REVHARDSIGMOID=79
-    REVHARDTANH=80
-    REVHARDSWISH=81
-    REVMAXPOOL=82
-    REVNEURON_MULT=83
-    REVNEURON_ADD=84
-    REVNEURON_MAX=85
-    REVNEURON_MIN=86
-    SIGMOID=87
-    TANH=88
-    SHAPE=89
-    FUNC=90
-    EPSILON=91
-    TRUE=92
-    FALSE=93
-    CURR=94
-    PREV=95
-    PREV_0=96
-    PREV_1=97
-    CURRLIST=98
-    LP=99
-    CONCAT=100
-    EQUATIONS=101
-    IntConst=102
-    FloatConst=103
-    VAR=104
-    WS=105
-    LineComment=106
+    T__0 = 1
+    T__1 = 2
+    FLOW = 3
+    ARROW = 4
+    TRANSFORMER = 5
+    IN = 6
+    OUT = 7
+    BACKWARD = 8
+    FORWARD = 9
+    INTT = 10
+    FLOATT = 11
+    BOOL = 12
+    POLYEXP = 13
+    ZONOEXP = 14
+    NEURON = 15
+    NOISE = 16
+    CT = 17
+    LIST = 18
+    DOT = 19
+    COMMA = 20
+    PLUS = 21
+    MINUS = 22
+    MULT = 23
+    DIV = 24
+    AND = 25
+    OR = 26
+    LT = 27
+    EQ = 28
+    EQQ = 29
+    NEQ = 30
+    GT = 31
+    LEQ = 32
+    GEQ = 33
+    NOT = 34
+    LPAREN = 35
+    RPAREN = 36
+    LSQR = 37
+    RSQR = 38
+    LBRACE = 39
+    RBRACE = 40
+    SEMI = 41
+    QUES = 42
+    COLON = 43
+    IF = 44
+    TRAV = 45
+    SUM = 46
+    LEN = 47
+    AVG = 48
+    SUB = 49
+    MAP = 50
+    MAPLIST = 51
+    DOTT = 52
+    ARGMIN = 53
+    ARGMAX = 54
+    MIN = 55
+    MAX = 56
+    WEIGHT = 57
+    BIAS = 58
+    LAYER = 59
+    AFFINE = 60
+    RELU = 61
+    RELU6 = 62
+    ABS = 63
+    HARDTANH = 64
+    HARDSIGMOID = 65
+    HARDSWISH = 66
+    MAXPOOL = 67
+    MINPOOL = 68
+    AVGPOOL = 69
+    REVAFFINE = 70
+    NEURON_MULT = 71
+    NEURON_ADD = 72
+    NEURON_MAX = 73
+    NEURON_MIN = 74
+    NEURON_LIST_MULT = 75
+    REVRELU = 76
+    REVRELU6 = 77
+    REVABS = 78
+    REVHARDSIGMOID = 79
+    REVHARDTANH = 80
+    REVHARDSWISH = 81
+    REVMAXPOOL = 82
+    REVNEURON_MULT = 83
+    REVNEURON_ADD = 84
+    REVNEURON_MAX = 85
+    REVNEURON_MIN = 86
+    SIGMOID = 87
+    TANH = 88
+    SHAPE = 89
+    FUNC = 90
+    EPSILON = 91
+    TRUE = 92
+    FALSE = 93
+    CURR = 94
+    PREV = 95
+    PREV_0 = 96
+    PREV_1 = 97
+    CURRLIST = 98
+    LP = 99
+    CONCAT = 100
+    EQUATIONS = 101
+    IntConst = 102
+    FloatConst = 103
+    VAR = 104
+    WS = 105
+    LineComment = 106
 
-    def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
+    def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.7.2")
-        self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
+        self._interp = ParserATNSimulator(
+            self, self.atn, self.decisionsToDFA, self.sharedContextCache
+        )
         self._predicates = None
 
-
-
     class TransformerContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -354,8 +547,7 @@ class miniDSLParser ( Parser ):
             return self.getToken(miniDSLParser.LBRACE, 0)
 
         def op_list(self):
-            return self.getTypedRuleContext(miniDSLParser.Op_listContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.Op_listContext, 0)
 
         def RBRACE(self):
             return self.getToken(miniDSLParser.RBRACE, 0)
@@ -363,14 +555,11 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_transformer
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTransformer" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTransformer"):
                 return visitor.visitTransformer(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def transformer(self):
 
@@ -397,123 +586,125 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class StatementContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return miniDSLParser.RULE_statement
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
 
-
     class FlowstmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.StatementContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.StatementContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def FLOW(self):
             return self.getToken(miniDSLParser.FLOW, 0)
+
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
-        def direction(self):
-            return self.getTypedRuleContext(miniDSLParser.DirectionContext,0)
 
-        def COMMA(self, i:int=None):
+        def direction(self):
+            return self.getTypedRuleContext(miniDSLParser.DirectionContext, 0)
+
+        def COMMA(self, i: int = None):
             if i is None:
                 return self.getTokens(miniDSLParser.COMMA)
             else:
                 return self.getToken(miniDSLParser.COMMA, i)
-        def expr(self, i:int=None):
+
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def VAR(self):
             return self.getToken(miniDSLParser.VAR, 0)
+
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
+
         def SEMI(self):
             return self.getToken(miniDSLParser.SEMI, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFlowstmt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFlowstmt"):
                 return visitor.visitFlowstmt(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class FuncstmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.StatementContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.StatementContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def FUNC(self):
             return self.getToken(miniDSLParser.FUNC, 0)
+
         def func_decl(self):
-            return self.getTypedRuleContext(miniDSLParser.Func_declContext,0)
+            return self.getTypedRuleContext(miniDSLParser.Func_declContext, 0)
 
         def EQ(self):
             return self.getToken(miniDSLParser.EQ, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
         def SEMI(self):
             return self.getToken(miniDSLParser.SEMI, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFuncstmt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFuncstmt"):
                 return visitor.visitFuncstmt(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class SeqstmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.StatementContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.StatementContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def statement(self, i:int=None):
+        def statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.StatementContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.StatementContext,i)
+                return self.getTypedRuleContext(miniDSLParser.StatementContext, i)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitSeqstmt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitSeqstmt"):
                 return visitor.visitSeqstmt(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class TransstmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.StatementContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.StatementContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def transformer(self):
-            return self.getTypedRuleContext(miniDSLParser.TransformerContext,0)
+            return self.getTypedRuleContext(miniDSLParser.TransformerContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTransstmt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTransstmt"):
                 return visitor.visitTransstmt(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-    def statement(self, _p:int=0):
+    def statement(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = miniDSLParser.StatementContext(self, self._ctx, _parentState)
@@ -581,23 +772,31 @@ class miniDSLParser ( Parser ):
             self._ctx.stop = self._input.LT(-1)
             self.state = 72
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,1,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 1, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = miniDSLParser.SeqstmtContext(self, miniDSLParser.StatementContext(self, _parentctx, _parentState))
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_statement)
+                    localctx = miniDSLParser.SeqstmtContext(
+                        self,
+                        miniDSLParser.StatementContext(self, _parentctx, _parentState),
+                    )
+                    self.pushNewRecursionContext(
+                        localctx, _startState, self.RULE_statement
+                    )
                     self.state = 68
                     if not self.precpred(self._ctx, 1):
                         from antlr4.error.Errors import FailedPredicateException
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
+
+                        raise FailedPredicateException(
+                            self, "self.precpred(self._ctx, 1)"
+                        )
                     self.state = 69
-                    self.statement(2) 
+                    self.statement(2)
                 self.state = 74
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,1,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 1, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -608,8 +807,9 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class Func_declContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -620,8 +820,7 @@ class miniDSLParser ( Parser ):
             return self.getToken(miniDSLParser.LPAREN, 0)
 
         def arglist(self):
-            return self.getTypedRuleContext(miniDSLParser.ArglistContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.ArglistContext, 0)
 
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
@@ -629,14 +828,11 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_func_decl
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunc_decl" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFunc_decl"):
                 return visitor.visitFunc_decl(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def func_decl(self):
 
@@ -661,33 +857,29 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class Op_listContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def op_stmt(self):
-            return self.getTypedRuleContext(miniDSLParser.Op_stmtContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.Op_stmtContext, 0)
 
         def SEMI(self):
             return self.getToken(miniDSLParser.SEMI, 0)
 
         def op_list(self):
-            return self.getTypedRuleContext(miniDSLParser.Op_listContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.Op_listContext, 0)
 
         def getRuleIndex(self):
             return miniDSLParser.RULE_op_list
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOp_list" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitOp_list"):
                 return visitor.visitOp_list(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def op_list(self):
 
@@ -696,7 +888,7 @@ class miniDSLParser ( Parser ):
         try:
             self.state = 87
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 2, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 80
@@ -715,7 +907,6 @@ class miniDSLParser ( Parser ):
                 self.op_list()
                 pass
 
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -725,33 +916,29 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class Op_stmtContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def operator(self):
-            return self.getTypedRuleContext(miniDSLParser.OperatorContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.OperatorContext, 0)
 
         def ARROW(self):
             return self.getToken(miniDSLParser.ARROW, 0)
 
         def trans_ret(self):
-            return self.getTypedRuleContext(miniDSLParser.Trans_retContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.Trans_retContext, 0)
 
         def getRuleIndex(self):
             return miniDSLParser.RULE_op_stmt
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOp_stmt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitOp_stmt"):
                 return visitor.visitOp_stmt(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def op_stmt(self):
 
@@ -774,8 +961,9 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class Trans_declContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -788,14 +976,11 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_trans_decl
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTrans_decl" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTrans_decl"):
                 return visitor.visitTrans_decl(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def trans_decl(self):
 
@@ -816,8 +1001,9 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class OperatorContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -905,25 +1091,59 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_operator
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOperator" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitOperator"):
                 return visitor.visitOperator(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def operator(self):
 
         localctx = miniDSLParser.OperatorContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_operator)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 96
             _la = self._input.LA(1)
-            if not(((((_la - 60)) & ~0x3f) == 0 and ((1 << (_la - 60)) & ((1 << (miniDSLParser.AFFINE - 60)) | (1 << (miniDSLParser.RELU - 60)) | (1 << (miniDSLParser.RELU6 - 60)) | (1 << (miniDSLParser.ABS - 60)) | (1 << (miniDSLParser.HARDTANH - 60)) | (1 << (miniDSLParser.HARDSIGMOID - 60)) | (1 << (miniDSLParser.HARDSWISH - 60)) | (1 << (miniDSLParser.MAXPOOL - 60)) | (1 << (miniDSLParser.MINPOOL - 60)) | (1 << (miniDSLParser.AVGPOOL - 60)) | (1 << (miniDSLParser.REVAFFINE - 60)) | (1 << (miniDSLParser.NEURON_MULT - 60)) | (1 << (miniDSLParser.NEURON_ADD - 60)) | (1 << (miniDSLParser.NEURON_MAX - 60)) | (1 << (miniDSLParser.NEURON_MIN - 60)) | (1 << (miniDSLParser.NEURON_LIST_MULT - 60)) | (1 << (miniDSLParser.REVRELU - 60)) | (1 << (miniDSLParser.REVRELU6 - 60)) | (1 << (miniDSLParser.REVABS - 60)) | (1 << (miniDSLParser.REVHARDSIGMOID - 60)) | (1 << (miniDSLParser.REVHARDTANH - 60)) | (1 << (miniDSLParser.REVHARDSWISH - 60)) | (1 << (miniDSLParser.REVMAXPOOL - 60)) | (1 << (miniDSLParser.REVNEURON_MULT - 60)) | (1 << (miniDSLParser.REVNEURON_ADD - 60)) | (1 << (miniDSLParser.REVNEURON_MAX - 60)) | (1 << (miniDSLParser.REVNEURON_MIN - 60)))) != 0)):
+            if not (
+                (
+                    (((_la - 60)) & ~0x3F) == 0
+                    and (
+                        (1 << (_la - 60))
+                        & (
+                            (1 << (miniDSLParser.AFFINE - 60))
+                            | (1 << (miniDSLParser.RELU - 60))
+                            | (1 << (miniDSLParser.RELU6 - 60))
+                            | (1 << (miniDSLParser.ABS - 60))
+                            | (1 << (miniDSLParser.HARDTANH - 60))
+                            | (1 << (miniDSLParser.HARDSIGMOID - 60))
+                            | (1 << (miniDSLParser.HARDSWISH - 60))
+                            | (1 << (miniDSLParser.MAXPOOL - 60))
+                            | (1 << (miniDSLParser.MINPOOL - 60))
+                            | (1 << (miniDSLParser.AVGPOOL - 60))
+                            | (1 << (miniDSLParser.REVAFFINE - 60))
+                            | (1 << (miniDSLParser.NEURON_MULT - 60))
+                            | (1 << (miniDSLParser.NEURON_ADD - 60))
+                            | (1 << (miniDSLParser.NEURON_MAX - 60))
+                            | (1 << (miniDSLParser.NEURON_MIN - 60))
+                            | (1 << (miniDSLParser.NEURON_LIST_MULT - 60))
+                            | (1 << (miniDSLParser.REVRELU - 60))
+                            | (1 << (miniDSLParser.REVRELU6 - 60))
+                            | (1 << (miniDSLParser.REVABS - 60))
+                            | (1 << (miniDSLParser.REVHARDSIGMOID - 60))
+                            | (1 << (miniDSLParser.REVHARDTANH - 60))
+                            | (1 << (miniDSLParser.REVHARDSWISH - 60))
+                            | (1 << (miniDSLParser.REVMAXPOOL - 60))
+                            | (1 << (miniDSLParser.REVNEURON_MULT - 60))
+                            | (1 << (miniDSLParser.REVNEURON_ADD - 60))
+                            | (1 << (miniDSLParser.REVNEURON_MAX - 60))
+                            | (1 << (miniDSLParser.REVNEURON_MIN - 60))
+                        )
+                    )
+                    != 0
+                )
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -937,86 +1157,83 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class Trans_retContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return miniDSLParser.RULE_trans_ret
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
 
-
-
     class CondtransContext(Trans_retContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.Trans_retContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.Trans_retContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
         def QUES(self):
             return self.getToken(miniDSLParser.QUES, 0)
-        def trans_ret(self, i:int=None):
+
+        def trans_ret(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.Trans_retContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.Trans_retContext,i)
+                return self.getTypedRuleContext(miniDSLParser.Trans_retContext, i)
 
         def COLON(self):
             return self.getToken(miniDSLParser.COLON, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCondtrans" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCondtrans"):
                 return visitor.visitCondtrans(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ParentransContext(Trans_retContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.Trans_retContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.Trans_retContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
+
         def trans_ret(self):
-            return self.getTypedRuleContext(miniDSLParser.Trans_retContext,0)
+            return self.getTypedRuleContext(miniDSLParser.Trans_retContext, 0)
 
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParentrans" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitParentrans"):
                 return visitor.visitParentrans(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class TransContext(Trans_retContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.Trans_retContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.Trans_retContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr_list(self):
-            return self.getTypedRuleContext(miniDSLParser.Expr_listContext,0)
+            return self.getTypedRuleContext(miniDSLParser.Expr_listContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTrans" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTrans"):
                 return visitor.visitTrans(self)
             else:
                 return visitor.visitChildren(self)
-
-
 
     def trans_ret(self):
 
@@ -1025,7 +1242,7 @@ class miniDSLParser ( Parser ):
         try:
             self.state = 109
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 3, self._ctx)
             if la_ == 1:
                 localctx = miniDSLParser.CondtransContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
@@ -1059,7 +1276,6 @@ class miniDSLParser ( Parser ):
                 self.expr_list()
                 pass
 
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1069,8 +1285,9 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class TypesContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1099,8 +1316,7 @@ class miniDSLParser ( Parser ):
             return self.getToken(miniDSLParser.CT, 0)
 
         def types(self):
-            return self.getTypedRuleContext(miniDSLParser.TypesContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.TypesContext, 0)
 
         def LIST(self):
             return self.getToken(miniDSLParser.LIST, 0)
@@ -1108,15 +1324,13 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_types
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTypes" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTypes"):
                 return visitor.visitTypes(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-    def types(self, _p:int=0):
+    def types(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = miniDSLParser.TypesContext(self, self._ctx, _parentState)
@@ -1166,23 +1380,28 @@ class miniDSLParser ( Parser ):
             self._ctx.stop = self._input.LT(-1)
             self.state = 126
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 5, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = miniDSLParser.TypesContext(self, _parentctx, _parentState)
+                    localctx = miniDSLParser.TypesContext(
+                        self, _parentctx, _parentState
+                    )
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_types)
                     self.state = 122
                     if not self.precpred(self._ctx, 1):
                         from antlr4.error.Errors import FailedPredicateException
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
+
+                        raise FailedPredicateException(
+                            self, "self.precpred(self._ctx, 1)"
+                        )
                     self.state = 123
-                    self.match(miniDSLParser.LIST) 
+                    self.match(miniDSLParser.LIST)
                 self.state = 128
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 5, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1193,14 +1412,14 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class ArglistContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def types(self):
-            return self.getTypedRuleContext(miniDSLParser.TypesContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.TypesContext, 0)
 
         def VAR(self):
             return self.getToken(miniDSLParser.VAR, 0)
@@ -1209,20 +1428,16 @@ class miniDSLParser ( Parser ):
             return self.getToken(miniDSLParser.COMMA, 0)
 
         def arglist(self):
-            return self.getTypedRuleContext(miniDSLParser.ArglistContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.ArglistContext, 0)
 
         def getRuleIndex(self):
             return miniDSLParser.RULE_arglist
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArglist" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitArglist"):
                 return visitor.visitArglist(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def arglist(self):
 
@@ -1231,7 +1446,7 @@ class miniDSLParser ( Parser ):
         try:
             self.state = 137
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 6, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 129
@@ -1252,7 +1467,6 @@ class miniDSLParser ( Parser ):
                 self.match(miniDSLParser.VAR)
                 pass
 
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1262,33 +1476,29 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class Expr_listContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
         def COMMA(self):
             return self.getToken(miniDSLParser.COMMA, 0)
 
         def expr_list(self):
-            return self.getTypedRuleContext(miniDSLParser.Expr_listContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.Expr_listContext, 0)
 
         def getRuleIndex(self):
             return miniDSLParser.RULE_expr_list
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpr_list" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitExpr_list"):
                 return visitor.visitExpr_list(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def expr_list(self):
 
@@ -1297,7 +1507,7 @@ class miniDSLParser ( Parser ):
         try:
             self.state = 144
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 7, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 139
@@ -1314,7 +1524,6 @@ class miniDSLParser ( Parser ):
                 self.expr(0)
                 pass
 
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1324,30 +1533,26 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class ExprsContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
         def exprs(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprsContext,0)
-
+            return self.getTypedRuleContext(miniDSLParser.ExprsContext, 0)
 
         def getRuleIndex(self):
             return miniDSLParser.RULE_exprs
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExprs" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitExprs"):
                 return visitor.visitExprs(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def exprs(self):
 
@@ -1356,7 +1561,7 @@ class miniDSLParser ( Parser ):
         try:
             self.state = 150
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,8,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 8, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 146
@@ -1371,7 +1576,6 @@ class miniDSLParser ( Parser ):
                 self.expr(0)
                 pass
 
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1381,706 +1585,737 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class ExprContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return miniDSLParser.RULE_expr
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
 
-
     class LpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LP(self):
             return self.getToken(miniDSLParser.LP, 0)
+
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
-        def lp_op(self):
-            return self.getTypedRuleContext(miniDSLParser.Lp_opContext,0)
 
-        def COMMA(self, i:int=None):
+        def lp_op(self):
+            return self.getTypedRuleContext(miniDSLParser.Lp_opContext, 0)
+
+        def COMMA(self, i: int = None):
             if i is None:
                 return self.getTokens(miniDSLParser.COMMA)
             else:
                 return self.getToken(miniDSLParser.COMMA, i)
-        def expr(self, i:int=None):
+
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitLp"):
                 return visitor.visitLp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ArgmaxOpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def argmax_op(self):
-            return self.getTypedRuleContext(miniDSLParser.Argmax_opContext,0)
+            return self.getTypedRuleContext(miniDSLParser.Argmax_opContext, 0)
 
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
-        def expr(self, i:int=None):
+
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def COMMA(self):
             return self.getToken(miniDSLParser.COMMA, 0)
+
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArgmaxOp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitArgmaxOp"):
                 return visitor.visitArgmaxOp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class PrevContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def PREV(self):
             return self.getToken(miniDSLParser.PREV, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPrev" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPrev"):
                 return visitor.visitPrev(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class MaxOpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def max_op(self):
-            return self.getTypedRuleContext(miniDSLParser.Max_opContext,0)
+            return self.getTypedRuleContext(miniDSLParser.Max_opContext, 0)
 
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
-        def expr(self, i:int=None):
+
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def COMMA(self):
             return self.getToken(miniDSLParser.COMMA, 0)
+
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMaxOp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMaxOp"):
                 return visitor.visitMaxOp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class DotContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def DOT(self):
             return self.getToken(miniDSLParser.DOT, 0)
+
         def DOTT(self):
             return self.getToken(miniDSLParser.DOTT, 0)
+
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
+
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDot" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitDot"):
                 return visitor.visitDot(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class Map_listContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def DOT(self):
             return self.getToken(miniDSLParser.DOT, 0)
+
         def MAPLIST(self):
             return self.getToken(miniDSLParser.MAPLIST, 0)
+
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
+
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMap_list" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMap_list"):
                 return visitor.visitMap_list(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class FloatContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def FloatConst(self):
             return self.getToken(miniDSLParser.FloatConst, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFloat" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFloat"):
                 return visitor.visitFloat(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class CondContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def QUES(self):
             return self.getToken(miniDSLParser.QUES, 0)
+
         def COLON(self):
             return self.getToken(miniDSLParser.COLON, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCond" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCond"):
                 return visitor.visitCond(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class EpsilonContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def EPSILON(self):
             return self.getToken(miniDSLParser.EPSILON, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitEpsilon" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitEpsilon"):
                 return visitor.visitEpsilon(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class VarExpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def VAR(self):
             return self.getToken(miniDSLParser.VAR, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVarExp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitVarExp"):
                 return visitor.visitVarExp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class NegContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def MINUS(self):
             return self.getToken(miniDSLParser.MINUS, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitNeg" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitNeg"):
                 return visitor.visitNeg(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class NotContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def NOT(self):
             return self.getToken(miniDSLParser.NOT, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitNot" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitNot"):
                 return visitor.visitNot(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ListOpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def list_op(self):
-            return self.getTypedRuleContext(miniDSLParser.List_opContext,0)
+            return self.getTypedRuleContext(miniDSLParser.List_opContext, 0)
 
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitListOp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitListOp"):
                 return visitor.visitListOp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class Curr_listContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def CURRLIST(self):
             return self.getToken(miniDSLParser.CURRLIST, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCurr_list" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCurr_list"):
                 return visitor.visitCurr_list(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class CurrContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def CURR(self):
             return self.getToken(miniDSLParser.CURR, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCurr" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCurr"):
                 return visitor.visitCurr(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class MaxOpListContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def max_op(self):
-            return self.getTypedRuleContext(miniDSLParser.Max_opContext,0)
+            return self.getTypedRuleContext(miniDSLParser.Max_opContext, 0)
 
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMaxOpList" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMaxOpList"):
                 return visitor.visitMaxOpList(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class MapContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def DOT(self):
             return self.getToken(miniDSLParser.DOT, 0)
+
         def MAP(self):
             return self.getToken(miniDSLParser.MAP, 0)
+
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
+
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMap" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMap"):
                 return visitor.visitMap(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ExprarrayContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LSQR(self):
             return self.getToken(miniDSLParser.LSQR, 0)
+
         def expr_list(self):
-            return self.getTypedRuleContext(miniDSLParser.Expr_listContext,0)
+            return self.getTypedRuleContext(miniDSLParser.Expr_listContext, 0)
 
         def RSQR(self):
             return self.getToken(miniDSLParser.RSQR, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExprarray" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitExprarray"):
                 return visitor.visitExprarray(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class GetMetadataContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
         def LSQR(self):
             return self.getToken(miniDSLParser.LSQR, 0)
+
         def metadata(self):
-            return self.getTypedRuleContext(miniDSLParser.MetadataContext,0)
+            return self.getTypedRuleContext(miniDSLParser.MetadataContext, 0)
 
         def RSQR(self):
             return self.getToken(miniDSLParser.RSQR, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitGetMetadata" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitGetMetadata"):
                 return visitor.visitGetMetadata(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class FalseContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def FALSE(self):
             return self.getToken(miniDSLParser.FALSE, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFalse" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFalse"):
                 return visitor.visitFalse(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ConcatContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def DOT(self):
             return self.getToken(miniDSLParser.DOT, 0)
+
         def CONCAT(self):
             return self.getToken(miniDSLParser.CONCAT, 0)
+
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
+
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConcat" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitConcat"):
                 return visitor.visitConcat(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class CurryContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def VAR(self):
             return self.getToken(miniDSLParser.VAR, 0)
+
         def exprs(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprsContext,0)
+            return self.getTypedRuleContext(miniDSLParser.ExprsContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCurry" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCurry"):
                 return visitor.visitCurry(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class IntContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def IntConst(self):
             return self.getToken(miniDSLParser.IntConst, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitInt" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitInt"):
                 return visitor.visitInt(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class Prev_0Context(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def PREV_0(self):
             return self.getToken(miniDSLParser.PREV_0, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPrev_0" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPrev_0"):
                 return visitor.visitPrev_0(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class Prev_1Context(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def PREV_1(self):
             return self.getToken(miniDSLParser.PREV_1, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPrev_1" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPrev_1"):
                 return visitor.visitPrev_1(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class TraverseContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def DOT(self):
             return self.getToken(miniDSLParser.DOT, 0)
+
         def TRAV(self):
             return self.getToken(miniDSLParser.TRAV, 0)
+
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
-        def direction(self):
-            return self.getTypedRuleContext(miniDSLParser.DirectionContext,0)
 
-        def COMMA(self, i:int=None):
+        def direction(self):
+            return self.getTypedRuleContext(miniDSLParser.DirectionContext, 0)
+
+        def COMMA(self, i: int = None):
             if i is None:
                 return self.getTokens(miniDSLParser.COMMA)
             else:
                 return self.getToken(miniDSLParser.COMMA, i)
+
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
+
         def LBRACE(self):
             return self.getToken(miniDSLParser.LBRACE, 0)
+
         def RBRACE(self):
             return self.getToken(miniDSLParser.RBRACE, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTraverse" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTraverse"):
                 return visitor.visitTraverse(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class BinopExpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(miniDSLParser.ExprContext)
             else:
-                return self.getTypedRuleContext(miniDSLParser.ExprContext,i)
+                return self.getTypedRuleContext(miniDSLParser.ExprContext, i)
 
         def binop(self):
-            return self.getTypedRuleContext(miniDSLParser.BinopContext,0)
+            return self.getTypedRuleContext(miniDSLParser.BinopContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBinopExp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitBinopExp"):
                 return visitor.visitBinopExp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class GetElementContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
         def LSQR(self):
             return self.getToken(miniDSLParser.LSQR, 0)
+
         def VAR(self):
             return self.getToken(miniDSLParser.VAR, 0)
+
         def RSQR(self):
             return self.getToken(miniDSLParser.RSQR, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitGetElement" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitGetElement"):
                 return visitor.visitGetElement(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class TrueContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def TRUE(self):
             return self.getToken(miniDSLParser.TRUE, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTrue" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTrue"):
                 return visitor.visitTrue(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ParenExpContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
+
         def expr(self):
-            return self.getTypedRuleContext(miniDSLParser.ExprContext,0)
+            return self.getTypedRuleContext(miniDSLParser.ExprContext, 0)
 
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParenExp" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitParenExp"):
                 return visitor.visitParenExp(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class FuncCallContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a miniDSLParser.ExprContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a miniDSLParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def VAR(self):
             return self.getToken(miniDSLParser.VAR, 0)
+
         def LPAREN(self):
             return self.getToken(miniDSLParser.LPAREN, 0)
+
         def expr_list(self):
-            return self.getTypedRuleContext(miniDSLParser.Expr_listContext,0)
+            return self.getTypedRuleContext(miniDSLParser.Expr_listContext, 0)
 
         def RPAREN(self):
             return self.getToken(miniDSLParser.RPAREN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFuncCall" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitFuncCall"):
                 return visitor.visitFuncCall(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-    def expr(self, _p:int=0):
+    def expr(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = miniDSLParser.ExprContext(self, self._ctx, _parentState)
@@ -2091,7 +2326,7 @@ class miniDSLParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 216
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,9,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 9, self._ctx)
             if la_ == 1:
                 localctx = miniDSLParser.FalseContext(self, localctx)
                 self._ctx = localctx
@@ -2335,26 +2570,33 @@ class miniDSLParser ( Parser ):
                 self.exprs()
                 pass
 
-
             self._ctx.stop = self._input.LT(-1)
             self.state = 283
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 11, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
                     self.state = 281
                     self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input, 10, self._ctx)
                     if la_ == 1:
-                        localctx = miniDSLParser.BinopExpContext(self, miniDSLParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = miniDSLParser.BinopExpContext(
+                            self,
+                            miniDSLParser.ExprContext(self, _parentctx, _parentState),
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 218
                         if not self.precpred(self._ctx, 16):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 16)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 16)"
+                            )
                         self.state = 219
                         self.binop()
                         self.state = 220
@@ -2362,12 +2604,20 @@ class miniDSLParser ( Parser ):
                         pass
 
                     elif la_ == 2:
-                        localctx = miniDSLParser.CondContext(self, miniDSLParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = miniDSLParser.CondContext(
+                            self,
+                            miniDSLParser.ExprContext(self, _parentctx, _parentState),
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 222
                         if not self.precpred(self._ctx, 13):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 13)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 13)"
+                            )
                         self.state = 223
                         self.match(miniDSLParser.QUES)
                         self.state = 224
@@ -2379,12 +2629,20 @@ class miniDSLParser ( Parser ):
                         pass
 
                     elif la_ == 3:
-                        localctx = miniDSLParser.GetMetadataContext(self, miniDSLParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = miniDSLParser.GetMetadataContext(
+                            self,
+                            miniDSLParser.ExprContext(self, _parentctx, _parentState),
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 228
                         if not self.precpred(self._ctx, 18):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 18)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 18)"
+                            )
                         self.state = 229
                         self.match(miniDSLParser.LSQR)
                         self.state = 230
@@ -2394,12 +2652,20 @@ class miniDSLParser ( Parser ):
                         pass
 
                     elif la_ == 4:
-                        localctx = miniDSLParser.GetElementContext(self, miniDSLParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = miniDSLParser.GetElementContext(
+                            self,
+                            miniDSLParser.ExprContext(self, _parentctx, _parentState),
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 233
                         if not self.precpred(self._ctx, 17):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 17)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 17)"
+                            )
                         self.state = 234
                         self.match(miniDSLParser.LSQR)
                         self.state = 235
@@ -2409,12 +2675,20 @@ class miniDSLParser ( Parser ):
                         pass
 
                     elif la_ == 5:
-                        localctx = miniDSLParser.TraverseContext(self, miniDSLParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = miniDSLParser.TraverseContext(
+                            self,
+                            miniDSLParser.ExprContext(self, _parentctx, _parentState),
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 237
                         if not self.precpred(self._ctx, 12):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 12)"
+                            )
                         self.state = 238
                         self.match(miniDSLParser.DOT)
                         self.state = 239
@@ -2446,12 +2720,20 @@ class miniDSLParser ( Parser ):
                         pass
 
                     elif la_ == 6:
-                        localctx = miniDSLParser.MapContext(self, miniDSLParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = miniDSLParser.MapContext(
+                            self,
+                            miniDSLParser.ExprContext(self, _parentctx, _parentState),
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 253
                         if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 7)"
+                            )
                         self.state = 254
                         self.match(miniDSLParser.DOT)
                         self.state = 255
@@ -2465,12 +2747,20 @@ class miniDSLParser ( Parser ):
                         pass
 
                     elif la_ == 7:
-                        localctx = miniDSLParser.Map_listContext(self, miniDSLParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = miniDSLParser.Map_listContext(
+                            self,
+                            miniDSLParser.ExprContext(self, _parentctx, _parentState),
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 260
                         if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 6)"
+                            )
                         self.state = 261
                         self.match(miniDSLParser.DOT)
                         self.state = 262
@@ -2484,12 +2774,20 @@ class miniDSLParser ( Parser ):
                         pass
 
                     elif la_ == 8:
-                        localctx = miniDSLParser.DotContext(self, miniDSLParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = miniDSLParser.DotContext(
+                            self,
+                            miniDSLParser.ExprContext(self, _parentctx, _parentState),
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 267
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 5)"
+                            )
                         self.state = 268
                         self.match(miniDSLParser.DOT)
                         self.state = 269
@@ -2503,12 +2801,20 @@ class miniDSLParser ( Parser ):
                         pass
 
                     elif la_ == 9:
-                        localctx = miniDSLParser.ConcatContext(self, miniDSLParser.ExprContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
+                        localctx = miniDSLParser.ConcatContext(
+                            self,
+                            miniDSLParser.ExprContext(self, _parentctx, _parentState),
+                        )
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_expr
+                        )
                         self.state = 274
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
+
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 4)"
+                            )
                         self.state = 275
                         self.match(miniDSLParser.DOT)
                         self.state = 276
@@ -2521,10 +2827,9 @@ class miniDSLParser ( Parser ):
                         self.match(miniDSLParser.RPAREN)
                         pass
 
-             
                 self.state = 285
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 11, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2535,8 +2840,9 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class Argmax_opContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2549,25 +2855,22 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_argmax_op
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArgmax_op" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitArgmax_op"):
                 return visitor.visitArgmax_op(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def argmax_op(self):
 
         localctx = miniDSLParser.Argmax_opContext(self, self._ctx, self.state)
         self.enterRule(localctx, 26, self.RULE_argmax_op)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 286
             _la = self._input.LA(1)
-            if not(_la==miniDSLParser.ARGMIN or _la==miniDSLParser.ARGMAX):
+            if not (_la == miniDSLParser.ARGMIN or _la == miniDSLParser.ARGMAX):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2581,34 +2884,31 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class Lp_opContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return miniDSLParser.RULE_lp_op
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLp_op" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitLp_op"):
                 return visitor.visitLp_op(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def lp_op(self):
 
         localctx = miniDSLParser.Lp_opContext(self, self._ctx, self.state)
         self.enterRule(localctx, 28, self.RULE_lp_op)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 288
             _la = self._input.LA(1)
-            if not(_la==miniDSLParser.T__0 or _la==miniDSLParser.T__1):
+            if not (_la == miniDSLParser.T__0 or _la == miniDSLParser.T__1):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2622,8 +2922,9 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class Max_opContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2636,25 +2937,22 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_max_op
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMax_op" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMax_op"):
                 return visitor.visitMax_op(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def max_op(self):
 
         localctx = miniDSLParser.Max_opContext(self, self._ctx, self.state)
         self.enterRule(localctx, 30, self.RULE_max_op)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 290
             _la = self._input.LA(1)
-            if not(_la==miniDSLParser.MIN or _la==miniDSLParser.MAX):
+            if not (_la == miniDSLParser.MIN or _la == miniDSLParser.MAX):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2668,8 +2966,9 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class List_opContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2685,25 +2984,35 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_list_op
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitList_op" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitList_op"):
                 return visitor.visitList_op(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def list_op(self):
 
         localctx = miniDSLParser.List_opContext(self, self._ctx, self.state)
         self.enterRule(localctx, 32, self.RULE_list_op)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 292
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << miniDSLParser.SUM) | (1 << miniDSLParser.LEN) | (1 << miniDSLParser.AVG))) != 0)):
+            if not (
+                (
+                    ((_la) & ~0x3F) == 0
+                    and (
+                        (1 << _la)
+                        & (
+                            (1 << miniDSLParser.SUM)
+                            | (1 << miniDSLParser.LEN)
+                            | (1 << miniDSLParser.AVG)
+                        )
+                    )
+                    != 0
+                )
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2717,8 +3026,9 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class BinopContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2761,25 +3071,44 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_binop
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBinop" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitBinop"):
                 return visitor.visitBinop(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def binop(self):
 
         localctx = miniDSLParser.BinopContext(self, self._ctx, self.state)
         self.enterRule(localctx, 34, self.RULE_binop)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 294
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << miniDSLParser.IN) | (1 << miniDSLParser.PLUS) | (1 << miniDSLParser.MINUS) | (1 << miniDSLParser.MULT) | (1 << miniDSLParser.DIV) | (1 << miniDSLParser.AND) | (1 << miniDSLParser.OR) | (1 << miniDSLParser.LT) | (1 << miniDSLParser.EQQ) | (1 << miniDSLParser.GT) | (1 << miniDSLParser.LEQ) | (1 << miniDSLParser.GEQ))) != 0)):
+            if not (
+                (
+                    ((_la) & ~0x3F) == 0
+                    and (
+                        (1 << _la)
+                        & (
+                            (1 << miniDSLParser.IN)
+                            | (1 << miniDSLParser.PLUS)
+                            | (1 << miniDSLParser.MINUS)
+                            | (1 << miniDSLParser.MULT)
+                            | (1 << miniDSLParser.DIV)
+                            | (1 << miniDSLParser.AND)
+                            | (1 << miniDSLParser.OR)
+                            | (1 << miniDSLParser.LT)
+                            | (1 << miniDSLParser.EQQ)
+                            | (1 << miniDSLParser.GT)
+                            | (1 << miniDSLParser.LEQ)
+                            | (1 << miniDSLParser.GEQ)
+                        )
+                    )
+                    != 0
+                )
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2793,8 +3122,9 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class MetadataContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2813,25 +3143,36 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_metadata
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMetadata" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMetadata"):
                 return visitor.visitMetadata(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def metadata(self):
 
         localctx = miniDSLParser.MetadataContext(self, self._ctx, self.state)
         self.enterRule(localctx, 36, self.RULE_metadata)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 296
             _la = self._input.LA(1)
-            if not(((((_la - 57)) & ~0x3f) == 0 and ((1 << (_la - 57)) & ((1 << (miniDSLParser.WEIGHT - 57)) | (1 << (miniDSLParser.BIAS - 57)) | (1 << (miniDSLParser.LAYER - 57)) | (1 << (miniDSLParser.EQUATIONS - 57)))) != 0)):
+            if not (
+                (
+                    (((_la - 57)) & ~0x3F) == 0
+                    and (
+                        (1 << (_la - 57))
+                        & (
+                            (1 << (miniDSLParser.WEIGHT - 57))
+                            | (1 << (miniDSLParser.BIAS - 57))
+                            | (1 << (miniDSLParser.LAYER - 57))
+                            | (1 << (miniDSLParser.EQUATIONS - 57))
+                        )
+                    )
+                    != 0
+                )
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2845,8 +3186,9 @@ class miniDSLParser ( Parser ):
         return localctx
 
     class DirectionContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2859,25 +3201,22 @@ class miniDSLParser ( Parser ):
         def getRuleIndex(self):
             return miniDSLParser.RULE_direction
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDirection" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitDirection"):
                 return visitor.visitDirection(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def direction(self):
 
         localctx = miniDSLParser.DirectionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 38, self.RULE_direction)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 298
             _la = self._input.LA(1)
-            if not(_la==miniDSLParser.BACKWARD or _la==miniDSLParser.FORWARD):
+            if not (_la == miniDSLParser.BACKWARD or _la == miniDSLParser.FORWARD):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2890,9 +3229,7 @@ class miniDSLParser ( Parser ):
             self.exitRule()
         return localctx
 
-
-
-    def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
+    def sempred(self, localctx: RuleContext, ruleIndex: int, predIndex: int):
         if self._predicates == None:
             self._predicates = dict()
         self._predicates[1] = self.statement_sempred
@@ -2904,53 +3241,38 @@ class miniDSLParser ( Parser ):
         else:
             return pred(localctx, predIndex)
 
-    def statement_sempred(self, localctx:StatementContext, predIndex:int):
-            if predIndex == 0:
-                return self.precpred(self._ctx, 1)
-         
+    def statement_sempred(self, localctx: StatementContext, predIndex: int):
+        if predIndex == 0:
+            return self.precpred(self._ctx, 1)
 
-    def types_sempred(self, localctx:TypesContext, predIndex:int):
-            if predIndex == 1:
-                return self.precpred(self._ctx, 1)
-         
+    def types_sempred(self, localctx: TypesContext, predIndex: int):
+        if predIndex == 1:
+            return self.precpred(self._ctx, 1)
 
-    def expr_sempred(self, localctx:ExprContext, predIndex:int):
-            if predIndex == 2:
-                return self.precpred(self._ctx, 16)
-         
+    def expr_sempred(self, localctx: ExprContext, predIndex: int):
+        if predIndex == 2:
+            return self.precpred(self._ctx, 16)
 
-            if predIndex == 3:
-                return self.precpred(self._ctx, 13)
-         
+        if predIndex == 3:
+            return self.precpred(self._ctx, 13)
 
-            if predIndex == 4:
-                return self.precpred(self._ctx, 18)
-         
+        if predIndex == 4:
+            return self.precpred(self._ctx, 18)
 
-            if predIndex == 5:
-                return self.precpred(self._ctx, 17)
-         
+        if predIndex == 5:
+            return self.precpred(self._ctx, 17)
 
-            if predIndex == 6:
-                return self.precpred(self._ctx, 12)
-         
+        if predIndex == 6:
+            return self.precpred(self._ctx, 12)
 
-            if predIndex == 7:
-                return self.precpred(self._ctx, 7)
-         
+        if predIndex == 7:
+            return self.precpred(self._ctx, 7)
 
-            if predIndex == 8:
-                return self.precpred(self._ctx, 6)
-         
+        if predIndex == 8:
+            return self.precpred(self._ctx, 6)
 
-            if predIndex == 9:
-                return self.precpred(self._ctx, 5)
-         
+        if predIndex == 9:
+            return self.precpred(self._ctx, 5)
 
-            if predIndex == 10:
-                return self.precpred(self._ctx, 4)
-         
-
-
-
-
+        if predIndex == 10:
+            return self.precpred(self._ctx, 4)

@@ -19,23 +19,25 @@ Note:
 """
 
 
+import argparse
+import json
 import multiprocessing
 import os
+
+import openai
+import requests
 import torch
 from flask import Flask, jsonify, request
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-import requests
 from key import OPENAI_KEY
-import openai
-import json
-import argparse
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from utils import *
 
 os.environ["OPENAI_API_KEY"] = OPENAI_KEY
 
 from vllm import LLM, SamplingParams
+
 # login to the hugging_face with the token below in the server to access models
-# TOKEN="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" # token `qiuhan_read`: hugging_face token to llama3.2; llama3.3; 
+# TOKEN="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" # token `qiuhan_read`: hugging_face token to llama3.2; llama3.3;
 
 
 def launch_model_server(model_config, port, max_tokens=256):
@@ -46,6 +48,7 @@ def launch_model_server(model_config, port, max_tokens=256):
     print(f"[✓] Starting {model_id.upper()} model on port {port}")
 
     if any(keyword in model_id for keyword in {"o4-mini", "gpt-4.1", "gpt-4o"}):
+
         @app.route("/chat", methods=["POST"])
         def text_generation():
             data = request.json
@@ -56,6 +59,7 @@ def launch_model_server(model_config, port, max_tokens=256):
             system_msg = data.get("system_msg", None)
 
             from openai import OpenAI
+
             client = OpenAI()
 
             response = client.responses.create(
@@ -63,13 +67,20 @@ def launch_model_server(model_config, port, max_tokens=256):
                 input=messages,
             )
 
-            return jsonify({
-                "model": model_id,
-                "generated_texts": response.output_text,
-            })
+            return jsonify(
+                {
+                    "model": model_id,
+                    "generated_texts": response.output_text,
+                }
+            )
 
-
-    elif any(keyword in model_id for keyword in {"llama-3.3", "llama-4", }):
+    elif any(
+        keyword in model_id
+        for keyword in {
+            "llama-3.3",
+            "llama-4",
+        }
+    ):
         tokenizer = AutoTokenizer.from_pretrained(model_id)
         model = AutoModelForCausalLM.from_pretrained(
             model_id,
@@ -94,10 +105,12 @@ def launch_model_server(model_config, port, max_tokens=256):
                 do_sample=True,
             )
 
-            return jsonify({
-                "model": model_id,
-                "generated_texts": [outputs[0]["generated_text"]],
-            })
+            return jsonify(
+                {
+                    "model": model_id,
+                    "generated_texts": [outputs[0]["generated_text"]],
+                }
+            )
 
         @app.route("/chat", methods=["POST"])
         def hf_chat():
@@ -113,12 +126,19 @@ def launch_model_server(model_config, port, max_tokens=256):
                 pad_token_id=tokenizer.eos_token_id,
                 do_sample=True,
             )
-            return jsonify({
-                "model": model_id,
-                "generated_texts": [outputs[0]["generated_text"]],
-            })
+            return jsonify(
+                {
+                    "model": model_id,
+                    "generated_texts": [outputs[0]["generated_text"]],
+                }
+            )
 
-    elif any(keyword in model_id for keyword in {"deepseek",}):
+    elif any(
+        keyword in model_id
+        for keyword in {
+            "deepseek",
+        }
+    ):
         os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
         llm = LLM(
             model=model_id,
@@ -145,45 +165,47 @@ def launch_model_server(model_config, port, max_tokens=256):
             outputs = llm.generate(prompts=[prompt], sampling_params=sampling_params)
             generations = [output.outputs[0].text for output in outputs]
 
-            return jsonify({
-                "model": model_id,
-                "generated_texts": generations,
-            })
-            
+            return jsonify(
+                {
+                    "model": model_id,
+                    "generated_texts": generations,
+                }
+            )
 
     else:
         raise ValueError(f"Unknown model name: {model_id}")
 
     app.run(host="ggnds-serv-01.cs.illinois.edu", port=port)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Launch one or more model servers.")
 
     parser.add_argument(
-        "--model","-m",
+        "--model",
+        "-m",
         nargs="+",  # multiple models
         default=["deepseek"],
         choices=["llama-3.3", "llama-4", "deepseek", "gpt-4o", "gpt-4.1", "o4-mini"],
         help=(
             "One or more model keywords to launch. E.g., --model deepseek llama. "
             "Available options: llama-3.3, llama-4, deepseek, gpt-4o, gpt-4.1, o4-mini"
-            "Default is ['deepseek'].")
+            "Default is ['deepseek']."
+        ),
     )
 
     args = parser.parse_args()
     requested_models = [m.lower() for m in args.model]
-
 
     selected_configs = []
     for config in MODEL_PORT_PAIRS:
         for keyword in requested_models:
             if keyword in config["model"].lower():
                 selected_configs.append(config)
-                break  
+                break
 
     if not selected_configs:
         raise ValueError(f"No models matched: {requested_models}")
-
 
     processes = []
     for config in selected_configs:

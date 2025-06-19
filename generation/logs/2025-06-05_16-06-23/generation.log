@@ -1,12 +1,12 @@
 2025-06-05 16:06:23,628 - INFO - 2025-06-05 16:06:23.628223 - Extracting Abs
-2025-06-05 16:06:23,628 - INFO - 
+2025-06-05 16:06:23,628 - INFO -
 API: Abs -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:06:23,628 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:06:32,837 - INFO - [STEP 1] Sample 1: Validation passed.
 2025-06-05 16:06:32,838 - INFO - Succeed. Saved to logs/2025-06-05_16-06-23/results/deepseek-v2-lite/success/Abs.txt
 
 2025-06-05 16:06:32,838 - INFO - 2025-06-05 16:06:32.838147 - Extracting Affine
-2025-06-05 16:06:32,838 - INFO - 
+2025-06-05 16:06:32,838 - INFO -
 API: Affine -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:06:32,838 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:06:38,861 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -1584,7 +1584,7 @@ transformer deeppoly{Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bia
 transformer deeppoly{Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);}
 
 2025-06-05 16:07:39,440 - INFO - 2025-06-05 16:07:39.440360 - Extracting Avgpool
-2025-06-05 16:07:39,440 - INFO - 
+2025-06-05 16:07:39,440 - INFO -
 API: Avgpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:07:39,440 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:07:46,271 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -2560,7 +2560,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Avgpool -> 
+    Avgpool ->
         // Implement the transformer for Avgpool operator here
 }
 
@@ -2569,7 +2569,7 @@ transformer deeppoly{
 2025-06-05 16:08:17,964 - INFO - Succeed. Saved to logs/2025-06-05_16-06-23/results/deepseek-v2-lite/success/Avgpool.txt
 
 2025-06-05 16:08:17,964 - INFO - 2025-06-05 16:08:17.964661 - Extracting HardSigmoid
-2025-06-05 16:08:17,964 - INFO - 
+2025-06-05 16:08:17,964 - INFO -
 API: HardSigmoid -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:08:17,964 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:08:29,263 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -2846,10 +2846,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     HardSigmoid -> (
-        (prev[l] <= -3) ? (0, 0, 0, 0) : 
-        ((prev[u] >= 3) ? (1, 1, 1, 1) : 
-        ((prev[l] >= 0) ? (0, prev[u], 0, prev) : 
-        ((prev[u] <= 0) ? (prev[l], 0, prev[L], 0) : 
+        (prev[l] <= -3) ? (0, 0, 0, 0) :
+        ((prev[u] >= 3) ? (1, 1, 1, 1) :
+        ((prev[l] >= 0) ? (0, prev[u], 0, prev) :
+        ((prev[u] <= 0) ? (prev[l], 0, prev[L], 0) :
         (0, (prev[u] <= 3) ? (prev[u] / 3) : 1, 0, (prev <= 3) ? (prev / 3) : 1) ) ) );
 }
 
@@ -3493,7 +3493,7 @@ transformer deeppoly{
 2025-06-05 16:09:41,955 - INFO - Succeed. Saved to logs/2025-06-05_16-06-23/results/deepseek-v2-lite/success/HardSigmoid.txt
 
 2025-06-05 16:09:41,955 - INFO - 2025-06-05 16:09:41.955439 - Extracting HardSwish
-2025-06-05 16:09:41,955 - INFO - 
+2025-06-05 16:09:41,955 - INFO -
 API: HardSwish -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:09:41,955 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:09:51,481 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -3547,7 +3547,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     HardSwish -> (
-        (prev[l] >= 0) ? 
+        (prev[l] >= 0) ?
             ((prev[l] >= 3) ? ((prev[l] >= 6) ? (0, (prev[u]), 0, (prev)) : (0, 3, 0, 3)) : (0, (prev[u]), 0, (prev*(prev+3)/(6)))) :
             ((prev[u] <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (prev*(prev+3)/(6))))
     );
@@ -3821,7 +3821,7 @@ transformer deeppoly{
 2025-06-05 16:10:15,905 - INFO - Succeed. Saved to logs/2025-06-05_16-06-23/results/deepseek-v2-lite/success/HardSwish.txt
 
 2025-06-05 16:10:15,905 - INFO - 2025-06-05 16:10:15.905290 - Extracting HardTanh
-2025-06-05 16:10:15,905 - INFO - 
+2025-06-05 16:10:15,905 - INFO -
 API: HardTanh -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:10:15,905 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:10:30,656 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -4754,13 +4754,13 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     HardTanh -> (
-        (prev[l] >= 1) ? ((prev[l]), (prev[u]), (prev[l]), (prev[u])) : 
-        ((prev[u] <= -1) ? ((prev[u]), (prev[u]), (prev[u]), (prev[u])) : 
-        ((prev[l] <= 0 && prev[u] >= 0) ? (0, 0, 0, 0) : 
-        ((prev[l] < 0 && prev[u] >= 0) ? (0, (prev[u]), 0, (prev[u])) : 
-        ((prev[l] >= 0 && prev[u] < 0) ? ((prev[l]), 0, (prev[l]), 0) : 
-        ((prev[l] < -1 && prev[u] > 1) ? (-1, 1, -1, 1) : 
-        ((prev[l] < -1) ? (-1, 0, -1, 0) : 
+        (prev[l] >= 1) ? ((prev[l]), (prev[u]), (prev[l]), (prev[u])) :
+        ((prev[u] <= -1) ? ((prev[u]), (prev[u]), (prev[u]), (prev[u])) :
+        ((prev[l] <= 0 && prev[u] >= 0) ? (0, 0, 0, 0) :
+        ((prev[l] < 0 && prev[u] >= 0) ? (0, (prev[u]), 0, (prev[u])) :
+        ((prev[l] >= 0 && prev[u] < 0) ? ((prev[l]), 0, (prev[l]), 0) :
+        ((prev[l] < -1 && prev[u] > 1) ? (-1, 1, -1, 1) :
+        ((prev[l] < -1) ? (-1, 0, -1, 0) :
         ((prev[u] > 1) ? (0, 1, 0, 1)))))))));
 }
 
@@ -4821,7 +4821,7 @@ transformer deeppoly{
 2025-06-05 16:11:28,974 - INFO - Succeed. Saved to logs/2025-06-05_16-06-23/results/deepseek-v2-lite/success/HardTanh.txt
 
 2025-06-05 16:11:28,974 - INFO - 2025-06-05 16:11:28.974353 - Extracting Maxpool
-2025-06-05 16:11:28,974 - INFO - 
+2025-06-05 16:11:28,974 - INFO -
 API: Maxpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:11:28,974 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:11:38,707 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -5902,7 +5902,7 @@ transformer deeppoly{
 2025-06-05 16:12:29,295 - INFO - Succeed. Saved to logs/2025-06-05_16-06-23/results/deepseek-v2-lite/success/Maxpool.txt
 
 2025-06-05 16:12:29,295 - INFO - 2025-06-05 16:12:29.295237 - Extracting Minpool
-2025-06-05 16:12:29,295 - INFO - 
+2025-06-05 16:12:29,295 - INFO -
 API: Minpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:12:29,295 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:12:38,929 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -6932,9 +6932,9 @@ constraintflow.core.astTC.TypeMismatchException: Arguments of backsubs_lower are
 Code:
 transformer deeppoly{
     Minpool -> (
-        prev[l], 
-        prev[u], 
-        min(backsubs_lower(prev[l], curr, curr[layer]), backsubs_lower(prev[u], curr, curr[layer])), 
+        prev[l],
+        prev[u],
+        min(backsubs_lower(prev[l], curr, curr[layer]), backsubs_lower(prev[u], curr, curr[layer])),
         min(backsubs_upper(prev[u], curr, curr[layer]), backsubs_upper(prev[l], curr, curr[layer]))
     );
 }
@@ -7203,7 +7203,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Minpool -> 
+    Minpool ->
         let L = min(prev[L1], prev[L2]);
             U = max(prev[U1], prev[U2]);
         in (L, U, L, U);
@@ -7486,7 +7486,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Minpool -> 
+    Minpool ->
 }
 
 2025-06-05 16:13:49,025 - INFO - [STEP 1] Sample 2: Validation failed.
@@ -7550,7 +7550,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:13:49,096 - INFO - 2025-06-05 16:13:49.096632 - Extracting Neuron_add
-2025-06-05 16:13:49,096 - INFO - 
+2025-06-05 16:13:49,096 - INFO -
 API: Neuron_add -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:13:49,096 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:13:56,553 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -9370,7 +9370,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:15:08,696 - INFO - 2025-06-05 16:15:08.696777 - Extracting Neuron_list_mult
-2025-06-05 16:15:08,696 - INFO - 
+2025-06-05 16:15:08,696 - INFO -
 API: Neuron_list_mult -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:15:08,696 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:15:13,300 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -10099,9 +10099,9 @@ constraintflow.core.astTC.UndefinedVarException: prev is undefined
 Code:
 transformer deeppoly{
     Neuron_list_mult -> (
-        (prev[l]) * (curr[weight][l]), 
-        (prev[u]) * (curr[weight][u]), 
-        backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), 
+        (prev[l]) * (curr[weight][l]),
+        (prev[u]) * (curr[weight][u]),
+        backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]),
         backsubs_upper(prev.dot(curr[weight]), curr, curr[layer])
     );
 }
@@ -11189,7 +11189,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:16:43,990 - INFO - 2025-06-05 16:16:43.990280 - Extracting Neuron_max
-2025-06-05 16:16:43,990 - INFO - 
+2025-06-05 16:16:43,990 - INFO -
 API: Neuron_max -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:16:43,990 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:16:48,984 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -11353,8 +11353,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Neuron_max -> (
-        (prev[l] >= prev[2u]) ? (prev[l], prev[u], prev, prev) : 
-        ((prev[2l] >= prev[u]) ? (prev[2l], prev[2u], prev, prev) : 
+        (prev[l] >= prev[2u]) ? (prev[l], prev[u], prev, prev) :
+        ((prev[2l] >= prev[u]) ? (prev[2l], prev[2u], prev, prev) :
         (max(prev[l], prev[2l]), max(prev[u], prev[2u]), max(prev[L], prev[2L]), max(prev[U], prev[2U])))
     );
 }
@@ -11539,7 +11539,7 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Neuron_max -> 
+    Neuron_max ->
         max((prev[l]), (prev[u]), (prev[L]), (prev[U]), curr[l], curr[u])
 }
 
@@ -12907,7 +12907,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:17:53,293 - INFO - 2025-06-05 16:17:53.293683 - Extracting Neuron_min
-2025-06-05 16:17:53,293 - INFO - 
+2025-06-05 16:17:53,293 - INFO -
 API: Neuron_min -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:17:53,293 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:18:07,274 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -13069,9 +13069,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Neuron_min -> (
-        (prev[l][0] <= prev[l][1] ? prev[l][0] : prev[l][1]), 
-        (prev[u][0] >= prev[u][1] ? prev[u][0] : prev[u][1]), 
-        (prev[L][0] <= prev[L][1] ? prev[L][0] : prev[L][1]), 
+        (prev[l][0] <= prev[l][1] ? prev[l][0] : prev[l][1]),
+        (prev[u][0] >= prev[u][1] ? prev[u][0] : prev[u][1]),
+        (prev[L][0] <= prev[L][1] ? prev[L][0] : prev[L][1]),
         (prev[U][0] >= prev[U][1] ? prev[U][0] : prev[U][1])
     );
 }
@@ -14650,7 +14650,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:19:33,266 - INFO - 2025-06-05 16:19:33.266356 - Extracting Neuron_mult
-2025-06-05 16:19:33,266 - INFO - 
+2025-06-05 16:19:33,266 - INFO -
 API: Neuron_mult -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:19:33,266 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:19:38,090 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -16619,14 +16619,14 @@ transformer deeppoly{
 }
 
 2025-06-05 16:20:40,620 - INFO - 2025-06-05 16:20:40.620904 - Extracting Relu
-2025-06-05 16:20:40,620 - INFO - 
+2025-06-05 16:20:40,620 - INFO -
 API: Relu -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:20:40,620 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:20:47,162 - INFO - [STEP 1] Sample 1: Validation passed.
 2025-06-05 16:20:47,162 - INFO - Succeed. Saved to logs/2025-06-05_16-06-23/results/deepseek-v2-lite/success/Relu.txt
 
 2025-06-05 16:20:47,162 - INFO - 2025-06-05 16:20:47.162578 - Extracting Relu6
-2025-06-05 16:20:47,162 - INFO - 
+2025-06-05 16:20:47,162 - INFO -
 API: Relu6 -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:20:47,162 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:20:56,013 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -17333,7 +17333,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:22:06,098 - INFO - 2025-06-05 16:22:06.098117 - Extracting rev_Abs
-2025-06-05 16:22:06,098 - INFO - 
+2025-06-05 16:22:06,098 - INFO -
 API: rev_Abs -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:22:06,098 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:22:13,513 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -18312,20 +18312,20 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     RevAbs -> (
-        (prev[l] >= 0) ? (prev[l], prev[u], prev, prev) : 
-        (prev[u] <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : 
+        (prev[l] >= 0) ? (prev[l], prev[u], prev, prev) :
+        (prev[u] <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) :
         (
-            (prev[l] < 0 && prev[u] > 0) ? 
+            (prev[l] < 0 && prev[u] > 0) ?
             (
-                0, 
-                max(prev[u], 0-prev[l]), 
-                prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l])), 
+                0,
+                max(prev[u], 0-prev[l]),
+                prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l])),
                 prev
-            ) : 
+            ) :
             (
-                0, 
-                0, 
-                0, 
+                0,
+                0,
+                0,
                 0
             )
         )
@@ -18938,7 +18938,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:23:36,720 - INFO - 2025-06-05 16:23:36.720309 - Extracting rev_Affine
-2025-06-05 16:23:36,720 - INFO - 
+2025-06-05 16:23:36,720 - INFO -
 API: rev_Affine -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:23:36,720 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:23:42,285 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -20578,7 +20578,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:24:52,774 - INFO - 2025-06-05 16:24:52.774943 - Extracting rev_HardSigmoid
-2025-06-05 16:24:52,774 - INFO - 
+2025-06-05 16:24:52,774 - INFO -
 API: rev_HardSigmoid -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:24:52,775 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:25:00,935 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -20957,10 +20957,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Rev_HardSigmoid -> 
-        (backsubs_lower((1/curr[alpha]) * ((prev[l]) * (curr[alpha]) + curr[beta]), curr, curr[layer]), 
-         backsubs_upper((1/curr[alpha]) * ((prev[u]) * (curr[alpha]) + curr[beta]), curr, curr[layer]), 
-         (1/curr[alpha]) * ((prev[L]) * (curr[alpha]) + curr[beta]), 
+    Rev_HardSigmoid ->
+        (backsubs_lower((1/curr[alpha]) * ((prev[l]) * (curr[alpha]) + curr[beta]), curr, curr[layer]),
+         backsubs_upper((1/curr[alpha]) * ((prev[u]) * (curr[alpha]) + curr[beta]), curr, curr[layer]),
+         (1/curr[alpha]) * ((prev[L]) * (curr[alpha]) + curr[beta]),
          (1/curr[alpha]) * ((prev[U]) * (curr[alpha]) + curr[beta]));
 }
 
@@ -21069,13 +21069,13 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    RevHardSigmoid -> (((prev[l]) * (0.2)) + (0.5) >= curr) ? 
-        (0, (prev[u]) * (0.2), 0, (prev[U]) * (0.2)) : 
-        ((((prev[u]) * (0.2)) + (0.5)) <= curr) ? 
-            ((prev[l]) * (0.2), 1, (prev[L]) * (0.2), 1) : 
-            (backsubs_lower(((curr - (0.5)) / (0.2)) - ((prev[l]) * (0.2)), curr, curr[layer]), 
-             backsubs_upper(((curr - (0.5)) / (0.2)) - ((prev[u]) * (0.2)), curr, curr[layer]), 
-             ((curr - (0.5)) / (0.2)) - ((prev[U]) * (0.2)), 
+    RevHardSigmoid -> (((prev[l]) * (0.2)) + (0.5) >= curr) ?
+        (0, (prev[u]) * (0.2), 0, (prev[U]) * (0.2)) :
+        ((((prev[u]) * (0.2)) + (0.5)) <= curr) ?
+            ((prev[l]) * (0.2), 1, (prev[L]) * (0.2), 1) :
+            (backsubs_lower(((curr - (0.5)) / (0.2)) - ((prev[l]) * (0.2)), curr, curr[layer]),
+             backsubs_upper(((curr - (0.5)) / (0.2)) - ((prev[u]) * (0.2)), curr, curr[layer]),
+             ((curr - (0.5)) / (0.2)) - ((prev[U]) * (0.2)),
              ((curr - (0.5)) / (0.2)) - ((prev[L]) * (0.2)));
 }
 
@@ -21187,26 +21187,26 @@ Code:
 transformer deeppoly{
     Rev_HardSigmoid -> (
         (prev[l] >= 0) ? (
-            (prev[l] - 0.1) * (0.25), 
-            (prev[u] - 0.1) * (0.25), 
-            (prev[L] - 0.1) * (0.25), 
+            (prev[l] - 0.1) * (0.25),
+            (prev[u] - 0.1) * (0.25),
+            (prev[L] - 0.1) * (0.25),
             (prev[U] - 0.1) * (0.25)
         ) : (
             (prev[u] >= 0) ? (
-                (prev[u] - 0.1) * (0.25), 
-                (prev[u] - 0.1) * (0.25), 
-                (prev[U] - 0.1) * (0.25), 
+                (prev[u] - 0.1) * (0.25),
+                (prev[u] - 0.1) * (0.25),
+                (prev[U] - 0.1) * (0.25),
                 (prev[U] - 0.1) * (0.25)
             ) : (
                 (prev[u] <= -1) ? (
-                    (prev[u] - 0.1) * (0.25), 
-                    (prev[u] - 0.1) * (0.25), 
-                    (prev[U] - 0.1) * (0.25), 
+                    (prev[u] - 0.1) * (0.25),
+                    (prev[u] - 0.1) * (0.25),
+                    (prev[U] - 0.1) * (0.25),
                     (prev[U] - 0.1) * (0.25)
                 ) : (
-                    (prev[u] - 0.1) * (0.25), 
-                    (prev[u] - 0.1) * (0.25), 
-                    (prev[U] - 0.1) * (0.25), 
+                    (prev[u] - 0.1) * (0.25),
+                    (prev[u] - 0.1) * (0.25),
+                    (prev[U] - 0.1) * (0.25),
                     (prev[U] - 0.1) * (0.25)
                 )
             )
@@ -22255,7 +22255,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:26:29,455 - INFO - 2025-06-05 16:26:29.455395 - Extracting rev_HardSwish
-2025-06-05 16:26:29,455 - INFO - 
+2025-06-05 16:26:29,455 - INFO -
 API: rev_HardSwish -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:26:29,455 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:26:39,029 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -22525,13 +22525,13 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    RevHardSwish -> ((prev[l]) * (3)) >= 0 ? ((prev[l]) * (3), (prev[u]) * (3), (prev[L]) * (3), (prev[U]) * (3)) : (((prev[u]) * (3)) <= 0) ? (0, 0, 0, 0) : 
-    (((prev[l]) * (3)) > (1)) ? ((prev[u]) * (3), (prev[u]) * (3), (prev[U]) * (3), (prev[U]) * (3)) : 
-    (((prev[l]) * (3)) < (-3)) ? ((prev[l]) * (3), (prev[l]) * (3), (prev[L]) * (3), (prev[L]) * (3)) : 
-    ((prev[l]) * (3)) >= (1) ? (0, (prev[u]) * (3) - (((prev[u] * 3) - 1) * (prev[l] * 3)) / 2, 0, (((prev[u]) * (3) + (prev[l]) * (3)) / 2) - ((((prev[u] * 3) - 1) * (prev[l] * 3)) / 2)) : 
-    ((prev[l]) * (3)) <= (-3) ? ((prev[l]) * (3), (prev[l]) * (3), (prev[L]) * (3), (prev[L]) * (3)) : 
-    (((prev[u]) * (3)) < (1)) ? ((prev[l]) * (3), (prev[u]) * (3) - (((prev[u] * 3) - 1) * (prev[l] * 3)) / 2, (prev[L]) * (3), (((prev[u]) * (3) + (prev[l]) * (3)) / 2) - ((((prev[u] * 3) - 1) * (prev[l] * 3)) / 2)) : 
-    ((prev[u]) * (3)) >= (-3) ? (0, (prev[u]) * (3), 0, (((prev[u]) * (3) + (prev[l]) * (3)) / 2) - ((((prev[u] * 3) - 1) * (prev[l] * 3)) / 2)) : 
+    RevHardSwish -> ((prev[l]) * (3)) >= 0 ? ((prev[l]) * (3), (prev[u]) * (3), (prev[L]) * (3), (prev[U]) * (3)) : (((prev[u]) * (3)) <= 0) ? (0, 0, 0, 0) :
+    (((prev[l]) * (3)) > (1)) ? ((prev[u]) * (3), (prev[u]) * (3), (prev[U]) * (3), (prev[U]) * (3)) :
+    (((prev[l]) * (3)) < (-3)) ? ((prev[l]) * (3), (prev[l]) * (3), (prev[L]) * (3), (prev[L]) * (3)) :
+    ((prev[l]) * (3)) >= (1) ? (0, (prev[u]) * (3) - (((prev[u] * 3) - 1) * (prev[l] * 3)) / 2, 0, (((prev[u]) * (3) + (prev[l]) * (3)) / 2) - ((((prev[u] * 3) - 1) * (prev[l] * 3)) / 2)) :
+    ((prev[l]) * (3)) <= (-3) ? ((prev[l]) * (3), (prev[l]) * (3), (prev[L]) * (3), (prev[L]) * (3)) :
+    (((prev[u]) * (3)) < (1)) ? ((prev[l]) * (3), (prev[u]) * (3) - (((prev[u] * 3) - 1) * (prev[l] * 3)) / 2, (prev[L]) * (3), (((prev[u]) * (3) + (prev[l]) * (3)) / 2) - ((((prev[u] * 3) - 1) * (prev[l] * 3)) / 2)) :
+    ((prev[u]) * (3)) >= (-3) ? (0, (prev[u]) * (3), 0, (((prev[u]) * (3) + (prev[l]) * (3)) / 2) - ((((prev[u] * 3) - 1) * (prev[l] * 3)) / 2)) :
     ((prev[u]) * (3)) <= (3) ? ((prev[l]) * (3), (prev[u]) * (3), (prev[L]) * (3), (prev[U]) * (3));
 }
 
@@ -22587,15 +22587,15 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Rev_HardSwish -> (
-        (prev[l] >= 0) ? 
-            ((prev[l] < 3) ? 
-                (0, 3, 0, 3) : 
+        (prev[l] >= 0) ?
+            ((prev[l] < 3) ?
+                (0, 3, 0, 3) :
                 (prev[l] - 3, prev[u], prev[L] - 3, prev[U])
-            ) : 
-            ((prev[u] <= 0) ? 
-                (0, 0, 0, 0) : 
-                ((prev[u] > 3) ? 
-                    (prev[u] - 3, prev[u], prev[U] - 3, prev[U]) : 
+            ) :
+            ((prev[u] <= 0) ?
+                (0, 0, 0, 0) :
+                ((prev[u] > 3) ?
+                    (prev[u] - 3, prev[u], prev[U] - 3, prev[U]) :
                     ((3 * prev[l] - 3) / (3 - 2 * prev[l]), 3, ((3 * prev[L] - 3) / (3 - 2 * prev[L])), 3)
                 )
             )
@@ -22709,17 +22709,17 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Rev_HardSwish -> (
-        (prev[l] >= 0) ? 
+        (prev[l] >= 0) ?
         (
-            (prev[l] * 3/4) >= 0 ? 
-            ((prev[l] * 3/4), (prev[u] * 3/4), (prev[l] * 3/4), (prev[u] * 3/4)) : 
+            (prev[l] * 3/4) >= 0 ?
+            ((prev[l] * 3/4), (prev[u] * 3/4), (prev[l] * 3/4), (prev[u] * 3/4)) :
             (0, (prev[u] * 3/4), 0, (((prev[u] * 3/4) / ((prev[u] * 3/4) - (prev[l] * 3/4))) * (prev[u] * 3/4)) - (((prev[u] * 3/4) * (prev[l] * 3/4)) / ((prev[u] * 3/4) - (prev[l] * 3/4)))
-            ) : 
-        (prev[u] <= 0) ? 
-        (0, 0, 0, 0) : 
+            ) :
+        (prev[u] <= 0) ?
+        (0, 0, 0, 0) :
         (
-            (prev[l] <= 0 && prev[u] >= 0) ? 
-            ((prev[l] * 3/4), (prev[u] * 3/4), (prev[l] * 3/4), (prev[u] * 3/4)) : 
+            (prev[l] <= 0 && prev[u] >= 0) ?
+            ((prev[l] * 3/4), (prev[u] * 3/4), (prev[l] * 3/4), (prev[u] * 3/4)) :
             (0, (prev[u] * 3/4), 0, (((prev[u] * 3/4) / ((prev[u] * 3/4) - (prev[l] * 3/4))) * (prev[u] * 3/4)) - (((prev[u] * 3/4) * (prev[l] * 3/4)) / ((prev[u] * 3/4) - (prev[l] * 3/4)))
             )
         )
@@ -23116,9 +23116,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Rev_HardSwish -> 
-        (prev[l] >= 0) ? ((prev[l]) / 3, (prev[u]) / 3, (prev[L]) / 3, (prev[U]) / 3) : 
-        ((prev[u] <= 0) ? (0, 0, 0, 0) : 
+    Rev_HardSwish ->
+        (prev[l] >= 0) ? ((prev[l]) / 3, (prev[u]) / 3, (prev[L]) / 3, (prev[U]) / 3) :
+        ((prev[u] <= 0) ? (0, 0, 0, 0) :
         (0, (prev[u]) / 3, 0, (((prev[u]) / 3) * (prev)) - (((prev[u]) * (prev[l])) / 3) ));
 }
 
@@ -23720,10 +23720,10 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    RevHardSwish -> 
+    RevHardSwish ->
         (prev[l] <= -3) ? (0, 0, 0, 0) :
         (prev[u] >= 3) ? (prev[u], prev[u], prev[u], prev[u]) :
-        (prev[l] > -3 && prev[u] < 3) ? 
+        (prev[l] > -3 && prev[u] < 3) ?
             (0, (prev[u] * (3 + prev[l]) / 6), 0, (prev[u] * (3 * prev[L] + prev[l] * prev[U]) / 6)) :
             (backsubs_lower((prev[u] * (3 + prev[l]) / 6), curr), backsubs_upper((prev[u] * (3 + prev[l]) / 6), curr), (prev[u] * (3 + prev[l]) / 6), (prev[u] * (3 * prev[L] + prev[l] * prev[U]) / 6));
 }
@@ -23779,9 +23779,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Rev_HardSwish -> (backsubs_lower(min(max(0, prev[l]), 6), curr, curr[layer]), 
-                     backsubs_upper(min(max(0, prev[u]), 6), curr, curr[layer]), 
-                     min(max(0, prev[L]), 6), 
+    Rev_HardSwish -> (backsubs_lower(min(max(0, prev[l]), 6), curr, curr[layer]),
+                     backsubs_upper(min(max(0, prev[u]), 6), curr, curr[layer]),
+                     min(max(0, prev[L]), 6),
                      min(max(0, prev[U]), 6));
 }
 
@@ -23957,7 +23957,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:28:23,003 - INFO - 2025-06-05 16:28:23.003925 - Extracting rev_HardTanh
-2025-06-05 16:28:23,003 - INFO - 
+2025-06-05 16:28:23,003 - INFO -
 API: rev_HardTanh -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:28:23,004 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:28:29,836 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -24384,8 +24384,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Rev_HardTanh -> (if (prev[l] < -1) { (-1, -1, -1, -1) } 
-    else if (prev[u] > 1) { (1, 1, 1, 1) } 
+    Rev_HardTanh -> (if (prev[l] < -1) { (-1, -1, -1, -1) }
+    else if (prev[u] > 1) { (1, 1, 1, 1) }
     else { (prev[l], prev[u], prev, prev) });
 }
 
@@ -25593,7 +25593,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:29:38,866 - INFO - 2025-06-05 16:29:38.866571 - Extracting rev_Maxpool
-2025-06-05 16:29:38,866 - INFO - 
+2025-06-05 16:29:38,866 - INFO -
 API: rev_Maxpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:29:38,866 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:29:47,368 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -25869,9 +25869,9 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Rev_Maxpool -> (case (prev[l]) of 
-        (prev[i][l] >= prev[j][u]) => (prev[i][l], prev[i][u], prev[i][L], prev[i][U]), 
-        (prev[i][u] <= prev[j][l]) => (prev[j][l], prev[j][u], prev[j][L], prev[j][U]), 
+    Rev_Maxpool -> (case (prev[l]) of
+        (prev[i][l] >= prev[j][u]) => (prev[i][l], prev[i][u], prev[i][L], prev[i][U]),
+        (prev[i][u] <= prev[j][l]) => (prev[j][l], prev[j][u], prev[j][L], prev[j][U]),
         otherwise => (max(prev[i][l], prev[j][l]), max(prev[i][u], prev[j][u]), max(prev[i][L], prev[j][L]), max(prev[i][U], prev[j][U])));
 }
 
@@ -27013,14 +27013,14 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    Rev_Maxpool -> (curr[l] <= prev[l]) ? (curr[l], curr[u], curr[L], curr[U]) : 
-                   (curr[u] >= prev[u]) ? (prev[u], prev[u], backsubs_lower(prev, curr), backsubs_upper(prev, curr)) : 
-                   (curr[L] <= prev[L]) ? (prev[L], curr[u], prev[L], curr[U]) : 
-                   (curr[U] >= prev[U]) ? (prev[U], prev[U], curr[L], prev[U]) : 
-                   (curr[l] <= prev[u]) ? (prev[l], prev[u], backsubs_lower(prev, curr), backsubs_upper(prev, curr)) : 
-                   (curr[u] >= prev[l]) ? (prev[l], prev[l], backsubs_lower(prev, curr), backsubs_upper(prev, curr)) : 
-                   (curr[L] <= prev[L]) ? (prev[L], prev[l], prev[L], backsubs_upper(prev, curr)) : 
-                   (curr[U] >= prev[U]) ? (prev[U], prev[u], backsubs_lower(prev, curr), prev[U]) : 
+    Rev_Maxpool -> (curr[l] <= prev[l]) ? (curr[l], curr[u], curr[L], curr[U]) :
+                   (curr[u] >= prev[u]) ? (prev[u], prev[u], backsubs_lower(prev, curr), backsubs_upper(prev, curr)) :
+                   (curr[L] <= prev[L]) ? (prev[L], curr[u], prev[L], curr[U]) :
+                   (curr[U] >= prev[U]) ? (prev[U], prev[U], curr[L], prev[U]) :
+                   (curr[l] <= prev[u]) ? (prev[l], prev[u], backsubs_lower(prev, curr), backsubs_upper(prev, curr)) :
+                   (curr[u] >= prev[l]) ? (prev[l], prev[l], backsubs_lower(prev, curr), backsubs_upper(prev, curr)) :
+                   (curr[L] <= prev[L]) ? (prev[L], prev[l], prev[L], backsubs_upper(prev, curr)) :
+                   (curr[U] >= prev[U]) ? (prev[U], prev[u], backsubs_lower(prev, curr), prev[U]) :
                    (0, 0, 0, 0);
 }
 
@@ -27250,7 +27250,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:30:46,367 - INFO - 2025-06-05 16:30:46.366995 - Extracting rev_Neuron_add
-2025-06-05 16:30:46,367 - INFO - 
+2025-06-05 16:30:46,367 - INFO -
 API: rev_Neuron_add -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:30:46,367 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:30:52,413 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -28940,7 +28940,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:31:51,795 - INFO - 2025-06-05 16:31:51.795314 - Extracting rev_Neuron_max
-2025-06-05 16:31:51,795 - INFO - 
+2025-06-05 16:31:51,795 - INFO -
 API: rev_Neuron_max -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:31:51,795 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:32:04,107 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -30572,7 +30572,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:33:15,162 - INFO - 2025-06-05 16:33:15.162273 - Extracting rev_Neuron_min
-2025-06-05 16:33:15,162 - INFO - 
+2025-06-05 16:33:15,162 - INFO -
 API: rev_Neuron_min -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:33:15,162 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:33:24,322 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -32212,7 +32212,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:34:38,028 - INFO - 2025-06-05 16:34:38.028931 - Extracting rev_Neuron_mult
-2025-06-05 16:34:38,029 - INFO - 
+2025-06-05 16:34:38,029 - INFO -
 API: rev_Neuron_mult -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:34:38,029 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:34:57,685 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -32265,8 +32265,8 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    RevNeuronMult -> ((prev[l]) >= 0) ? ((prev[l] * (prev[l]), prev[u] * (prev[u]), (prev[L] * prev), (prev[U] * prev))): 
-    (((prev[u]) <= 0) ? ((prev[u] * (prev[u]), prev[l] * (prev[l]), (prev[U] * prev), (prev[L] * prev))): 
+    RevNeuronMult -> ((prev[l]) >= 0) ? ((prev[l] * (prev[l]), prev[u] * (prev[u]), (prev[L] * prev), (prev[U] * prev))):
+    (((prev[u]) <= 0) ? ((prev[u] * (prev[u]), prev[l] * (prev[l]), (prev[U] * prev), (prev[L] * prev))):
     ((0, max(prev[u] * prev[u], prev[l] * prev[l]), prev, prev * (prev[U] * prev + prev[L] * prev) / (prev[U] - prev[L])))
     }
 
@@ -33106,28 +33106,28 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 Code:
 transformer deeppoly{
     Rev_Neuron_mult -> (
-        (prev[l] * curr[l]) >= 0 ? (prev[l] * curr[l], prev[u] * curr[u], prev[l] * curr[L], prev[u] * curr[U]) : 
-        (prev[u] * curr[l]) >= 0 ? (prev[u] * curr[l], prev[u] * curr[u], prev[u] * curr[L], prev[u] * curr[U]) : 
-        (prev[l] * curr[u]) >= 0 ? (prev[l] * curr[u], prev[u] * curr[u], prev[l] * curr[U], prev[u] * curr[U]) : 
-        (prev[u] * curr[u]) >= 0 ? (prev[u] * curr[u], prev[u] * curr[u], prev[u] * curr[U], prev[u] * curr[U]) : 
+        (prev[l] * curr[l]) >= 0 ? (prev[l] * curr[l], prev[u] * curr[u], prev[l] * curr[L], prev[u] * curr[U]) :
+        (prev[u] * curr[l]) >= 0 ? (prev[u] * curr[l], prev[u] * curr[u], prev[u] * curr[L], prev[u] * curr[U]) :
+        (prev[l] * curr[u]) >= 0 ? (prev[l] * curr[u], prev[u] * curr[u], prev[l] * curr[U], prev[u] * curr[U]) :
+        (prev[u] * curr[u]) >= 0 ? (prev[u] * curr[u], prev[u] * curr[u], prev[u] * curr[U], prev[u] * curr[U]) :
         (
-            (prev[l] * curr[L]) >= 0 ? (prev[l] * curr[L], prev[u] * curr[U], prev[l] * curr[L], prev[u] * curr[U]) : 
-            (prev[u] * curr[L]) >= 0 ? (prev[u] * curr[L], prev[u] * curr[U], prev[u] * curr[L], prev[u] * curr[U]) : 
-            (prev[l] * curr[U]) >= 0 ? (prev[l] * curr[U], prev[u] * curr[U], prev[l] * curr[U], prev[u] * curr[U]) : 
-            (prev[u] * curr[U]) >= 0 ? (prev[u] * curr[U], prev[u] * curr[U], prev[u] * curr[U], prev[u] * curr[U]) : 
+            (prev[l] * curr[L]) >= 0 ? (prev[l] * curr[L], prev[u] * curr[U], prev[l] * curr[L], prev[u] * curr[U]) :
+            (prev[u] * curr[L]) >= 0 ? (prev[u] * curr[L], prev[u] * curr[U], prev[u] * curr[L], prev[u] * curr[U]) :
+            (prev[l] * curr[U]) >= 0 ? (prev[l] * curr[U], prev[u] * curr[U], prev[l] * curr[U], prev[u] * curr[U]) :
+            (prev[u] * curr[U]) >= 0 ? (prev[u] * curr[U], prev[u] * curr[U], prev[u] * curr[U], prev[u] * curr[U]) :
             (
-                (prev[l] * curr[l]) < 0 ? (prev[l] * curr[l], prev[u] * curr[u], prev[l] * curr[L], prev[u] * curr[U]) : 
-                (prev[u] * curr[l]) < 0 ? (prev[u] * curr[l], prev[u] * curr[u], prev[u] * curr[L], prev[u] * curr[U]) : 
-                (prev[l] * curr[u]) < 0 ? (prev[l] * curr[u], prev[u] * curr[u], prev[l] * curr[U], prev[u] * curr[U]) : 
-                (prev[u] * curr[u]) < 0 ? (prev[u] * curr[u], prev[u] * curr[u], prev[u] * curr[U], prev[u] * curr[U]) : 
+                (prev[l] * curr[l]) < 0 ? (prev[l] * curr[l], prev[u] * curr[u], prev[l] * curr[L], prev[u] * curr[U]) :
+                (prev[u] * curr[l]) < 0 ? (prev[u] * curr[l], prev[u] * curr[u], prev[u] * curr[L], prev[u] * curr[U]) :
+                (prev[l] * curr[u]) < 0 ? (prev[l] * curr[u], prev[u] * curr[u], prev[l] * curr[U], prev[u] * curr[U]) :
+                (prev[u] * curr[u]) < 0 ? (prev[u] * curr[u], prev[u] * curr[u], prev[u] * curr[U], prev[u] * curr[U]) :
                 (
-                    (prev[l] * curr[L]) < 0 ? (prev[l] * curr[L], prev[u] * curr[U], prev[l] * curr[L], prev[u] * curr[U]) : 
-                    (prev[u] * curr[L]) < 0 ? (prev[u] * curr[L], prev[u] * curr[U], prev[u] * curr[L], prev[u] * curr[U]) : 
-                    (prev[l] * curr[U]) < 0 ? (prev[l] * curr[U], prev[u] * curr[U], prev[l] * curr[U], prev[u] * curr[U]) : 
-                    (prev[u] * curr[U]) < 0 ? (prev[u] * curr[U], prev[u] * curr[U], prev[u] * curr[U], prev[u] * curr[U]) : 
-                    (prev[l] * curr[l] * curr[L]) / ((prev[l] * curr[l]) - (prev[u] * curr[u])) : 
-                    (prev[u] * curr[u] * curr[U]) / ((prev[u] * curr[u]) - (prev[l] * curr[l])) : 
-                    (prev[l] * curr[u] * curr[U]) / ((prev[l] * curr[u]) - (prev[u] * curr[l])) : 
+                    (prev[l] * curr[L]) < 0 ? (prev[l] * curr[L], prev[u] * curr[U], prev[l] * curr[L], prev[u] * curr[U]) :
+                    (prev[u] * curr[L]) < 0 ? (prev[u] * curr[L], prev[u] * curr[U], prev[u] * curr[L], prev[u] * curr[U]) :
+                    (prev[l] * curr[U]) < 0 ? (prev[l] * curr[U], prev[u] * curr[U], prev[l] * curr[U], prev[u] * curr[U]) :
+                    (prev[u] * curr[U]) < 0 ? (prev[u] * curr[U], prev[u] * curr[U], prev[u] * curr[U], prev[u] * curr[U]) :
+                    (prev[l] * curr[l] * curr[L]) / ((prev[l] * curr[l]) - (prev[u] * curr[u])) :
+                    (prev[u] * curr[u] * curr[U]) / ((prev[u] * curr[u]) - (prev[l] * curr[l])) :
+                    (prev[l] * curr[u] * curr[U]) / ((prev[l] * curr[u]) - (prev[u] * curr[l])) :
                     (prev[u] * curr[l] * curr[L]) / ((prev[u] * curr[l]) - (prev[l] * curr[u]))
                 )
             )
@@ -33884,7 +33884,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:37:03,368 - INFO - 2025-06-05 16:37:03.368564 - Extracting rev_Relu
-2025-06-05 16:37:03,368 - INFO - 
+2025-06-05 16:37:03,368 - INFO -
 API: rev_Relu -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:37:03,368 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:37:14,326 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -35524,7 +35524,7 @@ transformer deeppoly{
 }
 
 2025-06-05 16:39:57,774 - INFO - 2025-06-05 16:39:57.773986 - Extracting rev_Relu6
-2025-06-05 16:39:57,774 - INFO - 
+2025-06-05 16:39:57,774 - INFO -
 API: rev_Relu6 -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 16:39:57,774 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 16:40:09,990 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -37161,4 +37161,3 @@ transformer deeppoly{
 transformer deeppoly{
     Rev_Relu6 -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 6) ? (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))) ) : (6, 6, 6, 6));
 }
-

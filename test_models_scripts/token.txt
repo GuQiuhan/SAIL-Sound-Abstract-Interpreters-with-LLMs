@@ -1,3 +1,2 @@
 login to the hugging_face with the token below in the server to access models
 token="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" # token `qiuhan_read`: hugging_face token to llama3.2; llama3.3
-

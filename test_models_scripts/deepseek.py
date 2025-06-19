@@ -1,11 +1,12 @@
 import os
+
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 from vllm import LLM, SamplingParams
 
 llm = LLM(
     model="/share/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-Coder-V2-Lite-Instruct/snapshots/e434a23f91ba5b4923cf6c9d9a238eb4a08e3a11",
-    dtype="bfloat16" ,
-    trust_remote_code=True ,
+    dtype="bfloat16",
+    trust_remote_code=True,
     max_model_len=8192,
 )
 
@@ -23,12 +24,12 @@ They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= c
 So every transformer in each case of the case analysis must return four values.
 """
 
-prmpt_relu= """
+prmpt_relu = """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
 transformer deeppoly{
     Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))) ));
-} 
+}
 """
 
 prmpt_abs = """
@@ -68,7 +69,7 @@ for output in outputs:
 
 
 # works well
-'''generation:
+"""generation:
 ```constraintflow
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
@@ -78,4 +79,4 @@ transformer deeppoly{
 ```
 
 This transformer for `relu6` operator will return four values based on the input bounds, following the DeepPoly constraints.
-'''
+"""

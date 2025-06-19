@@ -31,46 +31,50 @@ Note:
 """
 
 
-
-import subprocess
 import argparse
 import os
 import signal
+import subprocess
 import time
 
 parser = argparse.ArgumentParser(description="Run model.py and gen.py in sequence.")
 
 parser.add_argument(
-    "-m","--model",
+    "-m",
+    "--model",
     type=str,
     default="deepseek",
     choices=["llama-3.3", "llama-4", "deepseek", "gpt-4o", "gpt-4.1", "o4-mini"],
-    help="Name of the model to run. Options: llama3, deepseek. "
-         "Default is deepseek."
+    help="Name of the model to run. Options: llama3, deepseek. " "Default is deepseek.",
 )
 
 parser.add_argument(
-    "-c","--certifier",
+    "-c",
+    "--certifier",
     type=str,
     default="deeppoly",
     choices=["deeppoly", "ibp", "deepz"],
     help="Name of the certifier to use. Options: deeppoly, ibp, deepz. "
-         "Default is deeppoly."
+    "Default is deeppoly.",
 )
 args = parser.parse_args()
 
 model_process = subprocess.Popen(
     ["python", "models.py", "--model", args.model],
-    #stdout=subprocess.DEVNULL,
-    #stderr=subprocess.DEVNULL
+    # stdout=subprocess.DEVNULL,
+    # stderr=subprocess.DEVNULL
 )
 
-print(f"\033[94mStarted model.py with model {args.model} (PID: {model_process.pid})\033[0m")
+print(
+    f"\033[94mStarted model.py with model {args.model} (PID: {model_process.pid})\033[0m"
+)
 
 
 time.sleep(5)
 
-print(f"\033[93mRunning gen.py with model {args.model} and certifier {args.certifier}...\033[0m")
+print(
+    f"\033[93mRunning gen.py with model {args.model} and certifier {args.certifier}...\033[0m"
+)
 
 gen_exit_code = subprocess.call(
     ["python", "gen.py", "--model", args.model, "--certifier", args.certifier]

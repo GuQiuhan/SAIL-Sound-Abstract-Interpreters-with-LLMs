@@ -1,5 +1,5 @@
 # setup.py
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
     name="constraintflow",
@@ -9,6 +9,6 @@ setup(
         "antlr4-python3-runtime==4.7.2",
         "tabulate",
     ],
-    python_requires='>=3.7',
+    python_requires=">=3.7",
     include_package_data=True,
 )

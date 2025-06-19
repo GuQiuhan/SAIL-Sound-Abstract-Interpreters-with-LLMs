@@ -1,9 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-from tabulate import tabulate
-
 from experiments.experiments_correct import run_verifier as run_experiment_correct
+from tabulate import tabulate
 
 sns.set_theme(style="darkgrid")
 
@@ -19,7 +18,9 @@ for c in certifiers:
         print(f"Running {c} with parameters {p}")
         ret_dict_correct = run_experiment_correct(folder + c + "_affine", p, p)
         print()
-        verification_times[c].append(ret_dict_correct[list(ret_dict_correct.keys())[0]][0])
+        verification_times[c].append(
+            ret_dict_correct[list(ret_dict_correct.keys())[0]][0]
+        )
 
 
 # Logarithmic scale for better visualization
@@ -33,7 +34,7 @@ table = []
 row1 = []
 for b in parameter_values:
     row1.append(b)
-table.append(["Certifier"]+row1)
+table.append(["Certifier"] + row1)
 for c in certifiers:
     row = [c]
     for b in range(len(log_parameter_values)):
@@ -42,22 +43,47 @@ for c in certifiers:
 print()
 print()
 print(tabulate(table))
-print(f"The verification times for different parameter values as shown in Fig. 17 of the paper.")
+print(
+    f"The verification times for different parameter values as shown in Fig. 17 of the paper."
+)
 
 
+plt.plot(
+    log_parameter_values,
+    log_verification_times_deep_poly,
+    "o-",
+    label="DeepPoly",
+    color="blue",
+)
+plt.plot(
+    log_parameter_values,
+    log_verification_times_deep_z,
+    "o-",
+    label="DeepZ",
+    color="purple",
+)
+plt.plot(
+    log_parameter_values,
+    log_verification_times_relu_val,
+    "o-",
+    label="IBP",
+    color="green",
+)
+plt.plot(
+    log_parameter_values,
+    log_verification_times_refine_zono,
+    "o-",
+    label="RefineZono",
+    color="red",
+)
 
-plt.plot(log_parameter_values, log_verification_times_deep_poly, 'o-', label='DeepPoly', color='blue')
-plt.plot(log_parameter_values, log_verification_times_deep_z, 'o-', label='DeepZ', color='purple')
-plt.plot(log_parameter_values, log_verification_times_relu_val, 'o-', label='IBP', color='green')
-plt.plot(log_parameter_values, log_verification_times_refine_zono, 'o-', label='RefineZono', color='red')
-
-plt.xlabel(r'Parameter value $(n_{\text{prev}})$', fontsize=24)
-plt.ylabel(r'Verification Time $(V)$', fontsize=24)
+plt.xlabel(r"Parameter value $(n_{\text{prev}})$", fontsize=24)
+plt.ylabel(r"Verification Time $(V)$", fontsize=24)
 
 y_axis_labels = [2, 8, 32, 128, 512, 2048, 8192, 32768]
 plt.xticks(log_parameter_values, parameter_values, fontsize=18)
 plt.yticks(np.log2(y_axis_labels), y_axis_labels, fontsize=18)
 plt.legend(fontsize=24)
-plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.grid(True, which="both", linestyle="--", linewidth=0.5)
 
 plt.show()

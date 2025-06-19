@@ -11,7 +11,9 @@ class Step:
         self.counter_example = ""  # List to store counter examples
         self.given_code = ""  # provided code
 
-    def set_augmentation_prompt(self, aug_prompt: str, error_generation: str, counter_example: str):
+    def set_augmentation_prompt(
+        self, aug_prompt: str, error_generation: str, counter_example: str
+    ):
         self.aug_prompt = aug_prompt
         self.error_generation = error_generation
         self.counter_example = counter_example
@@ -30,7 +32,7 @@ class Step:
                     + "\n"
                     + augmented_prompt[error_index:]
                 )
-            
+
             last_api_index = augmented_prompt.rfind("API: ")
             generation_index = augmented_prompt.find("Counter Example:", last_api_index)
             if generation_index != -1:
@@ -50,12 +52,12 @@ class Step:
                     + "\n"
                     + augmented_prompt[ce_index:]
                 )
-            
+
         return augmented_prompt
 
 
-s= Step(
-                            prompter=lambda code: f"""
+s = Step(
+    prompter=lambda code: f"""
 # DeepPoly DSL Transformer Generation
 
 You are a formal methods expert writing a new transformer rule for a PyTorch operator in the DeepPoly DSL. Below is the abstract domain shape and two existing examples (ReLU and Affine). Now generate a new DSL transformer for the operator below.
@@ -68,14 +70,13 @@ Error Generation:
 Counter Example:
 Generation: (Add your transformer below. Only generate the Transformer rule (no comments, no extra output)):
 """,
-                            composer=None,
-                            eos=["\n# END"],
-                            validator=None,  # @qiuhan: Constraintflow
-                        )
- 
+    composer=None,
+    eos=["\n# END"],
+    validator=None,  # @qiuhan: Constraintflow
+)
 
-s.set_augmentation_prompt("aug_prompt","error_generation","counter_example")
-op=s.prompter("")
+
+s.set_augmentation_prompt("aug_prompt", "error_generation", "counter_example")
+op = s.prompter("")
 print(op)
 print(s.prompter_with_augmentation(op))
-

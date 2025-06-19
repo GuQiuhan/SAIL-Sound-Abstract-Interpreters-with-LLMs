@@ -1,9 +1,9 @@
 transformer deeppoly{
-    Relu6 -> 
-        ((prev[l] >= 6)) ? 
-            (6, 6, 6, 6) : 
-        ((prev[u] <= 0)) ? 
-            (0, 0, 0, 0) : 
+    Relu6 ->
+        ((prev[l] >= 6)) ?
+            (6, 6, 6, 6) :
+        ((prev[u] <= 0)) ?
+            (0, 0, 0, 0) :
         ((prev[l] >= 0) & (prev[u] <= 6)) ?
             (prev[l], prev[u], prev, prev) :
         ((prev[l] < 0) & (prev[u] <= 6)) ?

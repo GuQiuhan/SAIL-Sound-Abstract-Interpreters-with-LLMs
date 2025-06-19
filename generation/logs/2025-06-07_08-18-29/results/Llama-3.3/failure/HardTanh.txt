@@ -1,7 +1,7 @@
 transformer deeppoly{
-    HardTanh -> 
-        ((prev[l]) >= 1)? ((1), (1), (1), (1)) : 
-        (((prev[u]) <= -1)? ((-1), (-1), (-1), (-1)) : 
-        (((prev[l]) >= 0) && ((prev[u]) <= 1)? ((prev[l]), (prev[u]), (prev), (prev)) : 
+    HardTanh ->
+        ((prev[l]) >= 1)? ((1), (1), (1), (1)) :
+        (((prev[u]) <= -1)? ((-1), (-1), (-1), (-1)) :
+        (((prev[l]) >= 0) && ((prev[u]) <= 1)? ((prev[l]), (prev[u]), (prev), (prev)) :
         (((prev[l]) < 0) && ((prev[u]) > 0)? ((0), (1), (0 + ((prev[u] - 0) / (prev[u] - prev[l])) * prev - ((prev[u] * 0) / (prev[u] - prev[l]))), (1 - ((1 - 0) / (prev[u] - prev[l])) * prev + ((1 * 0) / (prev[u] - prev[l])))) : ((-1), (-1), (-1), (-1)))));
 }

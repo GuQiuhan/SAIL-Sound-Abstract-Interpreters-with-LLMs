@@ -1,6 +1,6 @@
 transformer deeppoly{
     Maxpool -> // Assuming the kernel size is 2x2 and stride is 2
-        (prev[l1] >= prev[l2]) ? 
-            ((prev[l1]), (prev[u1]), (prev[L1]), (prev[U1])) : 
+        (prev[l1] >= prev[l2]) ?
+            ((prev[l1]), (prev[u1]), (prev[L1]), (prev[U1])) :
             ((prev[l2]), (prev[u2]), (prev[L2]), (prev[U2]));
 }

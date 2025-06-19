@@ -1,5 +1,5 @@
 2025-06-19 19:21:27,398 - INFO - 2025-06-19 19:21:27.398155 - Extracting join
-2025-06-19 19:21:27,398 - INFO - 
+2025-06-19 19:21:27,398 - INFO -
 API: join -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
 2025-06-19 19:21:27,398 - INFO - [STEP 1] Starting step 1/2
 2025-06-19 19:21:51,549 - INFO - [STEP 2] Starting step 2/2
@@ -7,7 +7,7 @@ API: join -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
 2025-06-19 19:21:57,637 - INFO - Succeed. Saved to tmplogs/2025-06-19_19-21-27/results/gpt-4o/success/join.txt
 
 2025-06-19 19:21:57,638 - INFO - 2025-06-19 19:21:57.637985 - Extracting meet
-2025-06-19 19:21:57,638 - INFO - 
+2025-06-19 19:21:57,638 - INFO -
 API: meet -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
 2025-06-19 19:21:57,638 - INFO - [STEP 1] Starting step 1/2
 2025-06-19 19:22:41,579 - INFO - [STEP 2] Starting step 2/2

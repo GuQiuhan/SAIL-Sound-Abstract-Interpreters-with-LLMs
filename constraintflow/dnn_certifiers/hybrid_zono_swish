@@ -10,17 +10,17 @@ func f(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
 func f2(Float x) = x * ((x + 3) / 6);
 
 transformer hybridzono{
-    HardSwish -> (prev[l] < -3) ? 
-                    (prev[u] < -3 ? 
-                        (0, 0, 0, 0) : 
-                        (prev[u] < 0 ? 
-                            (-3/8, 0, 3/8, 0) : 
-                            (-3/8, f(prev[u]), max(f(prev[u]), 3/8), 0))) : 
-                    ((prev[l] < 3) ? 
-                        ((prev[u] < 3) ? 
-                            (-3/8, max(f2(prev[l]), f2(prev[u])),max(3/8, max(f2(prev[l]), f2(prev[u]))), 0) : 
+    HardSwish -> (prev[l] < -3) ?
+                    (prev[u] < -3 ?
+                        (0, 0, 0, 0) :
+                        (prev[u] < 0 ?
+                            (-3/8, 0, 3/8, 0) :
+                            (-3/8, f(prev[u]), max(f(prev[u]), 3/8), 0))) :
+                    ((prev[l] < 3) ?
+                        ((prev[u] < 3) ?
+                            (-3/8, max(f2(prev[l]), f2(prev[u])),max(3/8, max(f2(prev[l]), f2(prev[u]))), 0) :
                             (-3/8, prev[u], max(3/8, f(prev[u])), 0 )) :
-                        (prev[l], prev[u], prev[b], prev[z])); 
+                        (prev[l], prev[u], prev[b], prev[z]));
 }
 
 

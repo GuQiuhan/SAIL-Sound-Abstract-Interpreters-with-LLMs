@@ -1,13 +1,13 @@
+import random
+
 from constraintflow import astcf as AST
 from constraintflow import astTC
 from constraintflow.astVisitor import ASTVisitor
-import random
-
 
 
 class BuggyAst(ASTVisitor):
     def __init__(self):
-        pass 
+        pass
 
     def visitShapeDecl(self, node):
         self.Gamma = dict()
@@ -18,32 +18,32 @@ class BuggyAst(ASTVisitor):
                 self.Gamma[t.name].append(e.name)
 
     def visitInt(self, node):
-        node.value += random.randint(-1,1)
+        node.value += random.randint(-1, 1)
 
     def visitFloat(self, node):
-        node.value += random.randint(-1,1)
+        node.value += random.randint(-1, 1)
 
     def visitBinOp(self, node):
-        if node.op in ['+', '-']:
+        if node.op in ["+", "-"]:
             index = random.randint(0, 1)
-            node.op = ['+', '-'][index]
-        elif node.op in ['*', '/']:
+            node.op = ["+", "-"][index]
+        elif node.op in ["*", "/"]:
             index = random.randint(0, 2)
-            node.op = ['+', '-', '*'][index]
-    
+            node.op = ["+", "-", "*"][index]
+
     def visitGetElement(self, node):
         etype = node.type
         if isinstance(etype, astTC.ArrayType):
-            index = random.randint(0, len(self.Gamma[etype.base])-1)
+            index = random.randint(0, len(self.Gamma[etype.base]) - 1)
             node.elem.name = self.Gamma[etype.base][index]
         else:
-            index = random.randint(0, len(self.Gamma[etype])-1)
+            index = random.randint(0, len(self.Gamma[etype]) - 1)
             node.elem.name = self.Gamma[etype][index]
 
     def visitExprList(self, node: AST.ExprListNode):
         for e in node.exprlist:
             self.visit(e)
-            
+
     def visitUnOp(self, node: AST.UnOpNode):
         self.visit(node.expr)
 
@@ -61,7 +61,7 @@ class BuggyAst(ASTVisitor):
     def visitLp(self, node: AST.LpNode):
         self.visit(node.expr)
         self.visit(node.constraints)
-    
+
     def visitMapList(self, node: AST.MapNode):
         self.visit(node.expr)
 
@@ -82,13 +82,11 @@ class BuggyAst(ASTVisitor):
         self.visit(node.texpr)
         self.visit(node.fexpr)
 
-
     def visitTraverse(self, node: AST.TraverseNode):
         self.visit(node.expr)
         self.visit(node.priority)
         self.visit(node.stop)
         self.visit(node.func)
-
 
     def visitListOp(self, node: AST.ListOpNode):
         self.visit(node.expr)
@@ -136,7 +134,7 @@ class BuggyAst(ASTVisitor):
         self.visit(node.stmt2)
 
     def visitFlow(self, node):
-        pass 
+        pass
 
     def visitProg(self, node: AST.ProgramNode):
         self.visit(node.shape)

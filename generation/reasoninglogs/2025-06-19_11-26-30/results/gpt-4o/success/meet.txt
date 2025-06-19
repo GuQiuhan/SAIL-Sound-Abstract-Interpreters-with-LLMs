@@ -1,4 +1,4 @@
-The `meet` operator in abstract interpretation or neural network verification is used to compute the intersection (greatest lower bound) of two abstract domains 
+The `meet` operator in abstract interpretation or neural network verification is used to compute the intersection (greatest lower bound) of two abstract domains
 or elements—in this context, two sets of DeepPoly bounds (one for each operand).
 
 Suppose we have two input neurons to `meet`:
@@ -12,7 +12,7 @@ The meet operator produces new bounds that are *at least as precise as both*, i.
    - Upper bound: `min(u₀, u₁)`
 
 2. **Symbolic Poly Bounds:**
-   - Poly lower: the "tightest" (largest) lower bound, expressed as `max(L₀, L₁)`. In the DSL setting, this is not trivial—it may be constructed by checking 
+   - Poly lower: the "tightest" (largest) lower bound, expressed as `max(L₀, L₁)`. In the DSL setting, this is not trivial—it may be constructed by checking
 `prev_0[l] >= prev_1[l]` and picking the corresponding poly bound.
    - Poly upper: the "tightest" (smallest) upper bound, i.e., `min(U₀, U₁)`.
 

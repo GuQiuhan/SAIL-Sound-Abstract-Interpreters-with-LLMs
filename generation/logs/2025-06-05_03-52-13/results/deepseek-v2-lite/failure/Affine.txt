@@ -5,7 +5,7 @@ transformer deeppoly{
     Wx_u = W * prev[u] + b[u];
     Wx_L = W * prev[L] + b[L];
     Wx_U = W * prev[U] + b[U];
-    
+
     // Return the deeppoly bounds for Wx + b
     return (min(Wx_l, Wx_u), max(Wx_l, Wx_u), Wx_L, Wx_U);
 }

@@ -10,17 +10,17 @@ func f2(Float x) = x * ((x + 3) / 6);
 func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
 
 transformer deeppoly{
-    HardSwish -> (prev[l] < -3) ? 
-                    (prev[u] < -3 ? 
-                        (0, 0, 0, 0) : 
-                        (prev[u] < 0 ? 
-                            (-3/8, 0, -3/8, 0) : 
-                            (-3/8, f1(prev[u]), -3/8, f1(prev[u]) * (prev - prev[l])))) : 
-                    ((prev[l] < 3) ? 
-                        ((prev[u] < 3) ? 
-                            (-3/8, f3(prev), -3/8, slope(prev[u], prev[l]) * prev + intercept(prev[u], prev[l])) : 
+    HardSwish -> (prev[l] < -3) ?
+                    (prev[u] < -3 ?
+                        (0, 0, 0, 0) :
+                        (prev[u] < 0 ?
+                            (-3/8, 0, -3/8, 0) :
+                            (-3/8, f1(prev[u]), -3/8, f1(prev[u]) * (prev - prev[l])))) :
+                    ((prev[l] < 3) ?
+                        ((prev[u] < 3) ?
+                            (-3/8, f3(prev), -3/8, slope(prev[u], prev[l]) * prev + intercept(prev[u], prev[l])) :
                             (-3/8, prev[u], -3/8, prev[u] * ((prev + 3) / (prev[u] + 3)))) :
-                        (prev[l], prev[u], prev, prev)); 
+                        (prev[l], prev[u], prev, prev));
 }
 
 

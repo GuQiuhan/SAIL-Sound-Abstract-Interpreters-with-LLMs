@@ -1,5 +1,5 @@
 transformer deeppoly{
-    Neuron_list_mult -> 
+    Neuron_list_mult ->
         // Assume we have prev1, prev2 as the input neurons
         // Calculate the multiplied result and its bounds
         let result = prev1 * prev2;

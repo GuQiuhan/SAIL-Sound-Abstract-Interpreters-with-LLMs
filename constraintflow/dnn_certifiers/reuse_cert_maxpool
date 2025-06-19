@@ -16,8 +16,8 @@ func backsubs_upper(PolyExp e, Neuron n) = (e.traverse(backward, priority2, true
 func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
 
 transformer reuse_cert{
-    Maxpool -> len(argmax(prev, f)) > 0 ? 
-                (max(prev[l]), max(prev[u]), avg(argmax(prev, f)), avg(argmax(prev, f)), avg(argmax(prev, f)[Lc]), avg(argmax(prev, f)[Uc])) : 
+    Maxpool -> len(argmax(prev, f)) > 0 ?
+                (max(prev[l]), max(prev[u]), avg(argmax(prev, f)), avg(argmax(prev, f)), avg(argmax(prev, f)[Lc]), avg(argmax(prev, f)[Uc])) :
                 (max(prev[l]), max(prev[u]), max(prev[l]), max(prev[u]), max(prev[l]), max(prev[u]));
 }
 

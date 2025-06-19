@@ -1,6 +1,6 @@
 transformer deeppoly{
-    HardSigmoid -> 
-        ((prev[u]) <= -2.5) ? (0, 0, 0, 0) : 
+    HardSigmoid ->
+        ((prev[u]) <= -2.5) ? (0, 0, 0, 0) :
         ((prev[l]) >= 2.5) ? (1, 1, 1, 1) :
         (
             (max(0, min(1, 0.2 * (prev[l]) + 0.5))),

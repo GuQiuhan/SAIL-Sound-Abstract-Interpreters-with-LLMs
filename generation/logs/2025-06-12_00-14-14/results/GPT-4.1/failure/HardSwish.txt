@@ -1,5 +1,5 @@
 transformer deeppoly{
-    HardSwish -> 
+    HardSwish ->
         ( (prev[l] >= 3) ? (
                 prev[l],
                 prev[u],

@@ -1,12 +1,12 @@
 2025-06-05 15:04:57,138 - INFO - 2025-06-05 15:04:57.138441 - Extracting Abs
-2025-06-05 15:04:57,138 - INFO - 
+2025-06-05 15:04:57,138 - INFO -
 API: Abs -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 15:04:57,138 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 15:05:04,989 - INFO - [STEP 1] Sample 1: Validation passed.
 2025-06-05 15:05:04,990 - INFO - Succeed. Saved to logs/2025-06-05_15-04-57/results/deepseek-v2-lite/success/Abs.txt
 
 2025-06-05 15:05:04,990 - INFO - 2025-06-05 15:05:04.990191 - Extracting Affine
-2025-06-05 15:05:04,990 - INFO - 
+2025-06-05 15:05:04,990 - INFO -
 API: Affine -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 15:05:04,990 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 15:05:09,712 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -278,7 +278,7 @@ transformer deeppoly{
         Float u = b;
         PolyExp L = b;
         PolyExp U = b;
-        
+
         // Iterate over each input neuron
         for (i in 0 to prev.length) {
             l += prev[i] * W[i][0];
@@ -286,7 +286,7 @@ transformer deeppoly{
             L += prev[i] * W[i][0];
             U += prev[i] * W[i][1];
         }
-        
+
         // Return the bounds
         return (l, u, L, U);
     }
@@ -450,7 +450,7 @@ transformer deeppoly{
         // Input to Affine consists of weights and biases
         // The transformer should compute the bounds for each neuron in the output layer
         // For each neuron, it should compute the lower and upper bounds, and the corresponding linear expression bounds
-        
+
         // The transformer should return a tuple of four values: lower bound, upper bound, linear expression lower bound, linear expression upper bound
     }
 }
@@ -504,11 +504,11 @@ transformer deeppoly{
         // Calculate the lower and upper bounds for the output of the Affine operator
         Float l = weight * prev[l] + bias;
         Float u = weight * prev[u] + bias;
-        
+
         // Calculate the polynomial expressions for the lower and upper bounds
         PolyExp L = weight * prev[L] + bias;
         PolyExp U = weight * prev[U] + bias;
-        
+
         // Return the bounds and polynomial expressions
         return (l, u, L, U);
     }
@@ -1667,7 +1667,7 @@ transformer deeppoly{
         Float u = b[u] + (W[u] * prev[u]);
         PolyExp L = b[L] + (W[L] * prev[L]);
         PolyExp U = b[U] + (W[U] * prev[U]);
-        
+
         return (l, u, L, U);
     }
 }
@@ -1747,7 +1747,7 @@ transformer deeppoly{
 }
 
 2025-06-05 15:06:50,083 - INFO - 2025-06-05 15:06:50.083161 - Extracting Avgpool
-2025-06-05 15:06:50,083 - INFO - 
+2025-06-05 15:06:50,083 - INFO -
 API: Avgpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 15:06:50,083 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 15:07:02,557 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -1804,11 +1804,11 @@ transformer deeppoly{
         // Calculate the lower and upper bounds for the output
         (prev[l])->((curr[l]) = sum(prev[l]) / size),
         (prev[u])->((curr[u]) = sum(prev[u]) / size),
-        
+
         // Calculate the polynomial expressions for the lower and upper bounds
         (prev[L])->((curr[L]) = sum(prev[L]) / size),
         (prev[U])->((curr[U]) = sum(prev[U]) / size),
-        
+
         // Return the bounds and polynomial expressions
         (curr[l], curr[u], curr[L], curr[U])
     );
@@ -2834,7 +2834,7 @@ transformer deeppoly{
         // curr[u] = max(prev[u1], prev[u2], prev[u3], prev[u4])
         // curr[L] = linear combination of prev[L1], prev[L2], prev[L3], prev[L4]
         // curr[U] = linear combination of prev[U1], prev[U2], prev[U3], prev[U4]
-        
+
         // This transformer needs to handle the specific case where the pooling window is not at the border
         // and ensure that the bounds are correctly propagated through the average pooling operation.
     );
@@ -2947,9 +2947,9 @@ Code:
 transformer deeppoly{
     Avgpool -> (let size as ... // size of the pooling window
                 in (let avg as (prev[l] + prev[u]) / 2
-                    in (avg - (sqrt(((prev[u] - prev[l])^2) / (4 * size^2))), 
-                        avg + (sqrt(((prev[u] - prev[l])^2) / (4 * size^2))), 
-                        avg - (sqrt(((prev[U] - prev[L])^2) / (4 * size^2))), 
+                    in (avg - (sqrt(((prev[u] - prev[l])^2) / (4 * size^2))),
+                        avg + (sqrt(((prev[u] - prev[l])^2) / (4 * size^2))),
+                        avg - (sqrt(((prev[U] - prev[L])^2) / (4 * size^2))),
                         avg + (sqrt(((prev[U] - prev[L])^2) / (4 * size^2))))));
 }
 
@@ -3010,7 +3010,7 @@ transformer deeppoly{
         // and we are using a 2x2 pooling window with stride 2
         let pool_shape = (height / 2, width / 2);
         let output = np.zeros(pool_shape);
-        
+
         for batch in range(batch_size):
             for channel in range(channels):
                 for i in range(pool_shape[0]):
@@ -3019,16 +3019,16 @@ transformer deeppoly{
                         start_j = j * 2;
                         end_i = start_i + 2;
                         end_j = start_j + 2;
-                        
+
                         # Extract the region from prev
                         region = prev[batch, channel, start_i:end_i, start_j:end_j];
-                        
+
                         # Compute the average of the region
                         avg_value = np.mean(region);
-                        
+
                         # Store the result in output
                         output[i, j] = avg_value;
-        
+
         // Return the DeepPoly bounds for the output
         return (min(output), max(output), output, output);
     }
@@ -3311,15 +3311,15 @@ transformer deeppoly{
         # Define the bounds for the output of the Avgpool operation
         # Assume input shape is (batch_size, channels, height, width)
         # and output shape is (batch_size, channels, output_height, output_width)
-        
+
         # For simplicity, let's assume the pooling region is 2x2 and stride is 2
-        
+
         # Bounds for the output (curr) based on the input bounds (prev)
         let curr[l] = (prev[l] + prev[l] + prev[l] + prev[l]) / 4;
         let curr[u] = (prev[u] + prev[u] + prev[u] + prev[u]) / 4;
         let curr[L] = (prev[L] + prev[L] + prev[L] + prev[L]) / 4;
         let curr[U] = (prev[U] + prev[U] + prev[U] + prev[U]) / 4;
-        
+
         # Return the bounds
         [(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]
     );
@@ -3383,34 +3383,34 @@ transformer deeppoly{
         // Input size M x N
         // For simplicity, let's assume h = w = 2 and stride = 1
         // For each output element, the average is taken over a 2x2 window from the input
-        
+
         // For each output element, we need to sum the values in the 2x2 window and divide by 4 (since it's average pooling)
-        
+
         // Example calculation for one output element at position (i, j)
         // curr[l] = min(sum(prev[l] for all elements in the window)) / 4
         // curr[u] = max(sum(prev[u] for all elements in the window)) / 4
         // curr[L] = PolyExp representing the lower bound of the sum of window elements
         // curr[U] = PolyExp representing the upper bound of the sum of window elements
-        
+
         // Since PolyExp is a polynomial expression, we need to compute the lower and upper bounds of the sum of the window elements
         // This can be complex and typically requires symbolic computation or numerical approximation
-        
+
         // For simplicity, let's assume we have computed these bounds as PolyExp L_sum and PolyExp U_sum
         // Then the bounds for curr would be:
         // curr[l] = L_sum / 4
         // curr[u] = U_sum / 4
         // curr[L] = L_sum
         // curr[U] = U_sum
-        
+
         // In practice, you would replace L_sum and U_sum with the actual computed polynomial expressions
-        
+
         // Example output for a specific case
         // Let's assume we have a specific window and its bounds
         (prev[l] >= 0) ? ((prev[l].sum / 4), (prev[u].sum / 4), (prev[L].sum / 4), (prev[U].sum / 4)) : (
             (prev[u] <= 0) ? (0, 0, 0, 0) : (
-                0, 
-                (prev[u].sum / 4), 
-                0, 
+                0,
+                (prev[u].sum / 4),
+                0,
                 ((prev[u].sum * prev[L] - prev[u] * prev[L].sum) / (prev[u] - prev[l]))
             )
         )
@@ -3532,11 +3532,11 @@ transformer deeppoly{
         // Calculate the lower and upper bounds for the output
         let avg_l = (prev[l] + prev[l] + ... + prev[l]) / n; // n is the number of inputs
         let avg_u = (prev[u] + prev[u] + ... + prev[u]) / n; // n is the number of inputs
-        
+
         // Calculate the PolyExp bounds for the output
         let PolyExp_L = (prev[L] + prev[L] + ... + prev[L]) / n; // n is the number of inputs
         let PolyExp_U = (prev[U] + prev[U] + ... + prev[U]) / n; // n is the number of inputs
-        
+
         // Return the bounds and PolyExp bounds
         (avg_l, avg_u, PolyExp_L, PolyExp_U)
     );
@@ -3551,18 +3551,18 @@ transformer deeppoly{
         // Calculate the lower and upper bounds for the output
         let avg_l = (prev[l] + prev[l] + ... + prev[l]) / n; // n is the number of inputs
         let avg_u = (prev[u] + prev[u] + ... + prev[u]) / n; // n is the number of inputs
-        
+
         // Calculate the PolyExp bounds for the output
         let PolyExp_L = (prev[L] + prev[L] + ... + prev[L]) / n; // n is the number of inputs
         let PolyExp_U = (prev[U] + prev[U] + ... + prev[U]) / n; // n is the number of inputs
-        
+
         // Return the bounds and PolyExp bounds
         (avg_l, avg_u, PolyExp_L, PolyExp_U)
     );
 }
 
 2025-06-05 15:09:01,164 - INFO - 2025-06-05 15:09:01.164792 - Extracting HardSigmoid
-2025-06-05 15:09:01,164 - INFO - 
+2025-06-05 15:09:01,164 - INFO -
 API: HardSigmoid -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 15:09:01,164 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 15:09:08,245 - INFO - [STEP 1] Sample 1: Validation failed.
@@ -3571,7 +3571,7 @@ API: HardSigmoid -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.e
 2025-06-05 15:09:08,666 - INFO - Succeed. Saved to logs/2025-06-05_15-04-57/results/deepseek-v2-lite/success/HardSigmoid.txt
 
 2025-06-05 15:09:08,666 - INFO - 2025-06-05 15:09:08.666297 - Extracting HardSwish
-2025-06-05 15:09:08,666 - INFO - 
+2025-06-05 15:09:08,666 - INFO -
 API: HardSwish -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 15:09:08,666 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 15:09:21,019 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -4569,11 +4569,11 @@ Code:
 transformer deeppoly{
     HardSwish -> (
         (prev[l] >= 0) ? (
-            (prev[l]), (prev[u]), 
+            (prev[l]), (prev[u]),
             (prev * (prev + 3) / 6), ((prev[u] * (prev[u] + 3) / 6))
         ) : (
             ((prev[u] <= 0) ? (0, 0, 0, 0) : (
-                (0, (prev[u]), 
+                (0, (prev[u]),
                 (prev * (prev + 3) / 6), ((prev[u] * (prev[u] + 3) / 6))
                 )
             )
@@ -4701,7 +4701,7 @@ transformer deeppoly{
 }
 
 2025-06-05 15:11:15,424 - INFO - 2025-06-05 15:11:15.424573 - Extracting HardTanh
-2025-06-05 15:11:15,424 - INFO - 
+2025-06-05 15:11:15,424 - INFO -
 API: HardTanh -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 15:11:15,424 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 15:11:23,927 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -5692,12 +5692,12 @@ AttributeError: 'NoneType' object has no attribute 'accept'
 
 Code:
 transformer deeppoly{
-    HardTanh -> ((prev[l] >= -1) && (prev[u] <= 1)) ? (prev[l], prev[u], prev, prev) : 
-                 ((prev[u] <= -1) ? (-1, -1, -1, -1) : 
-                 ((prev[l] >= 1) ? (1, 1, 1, 1) : 
-                 ((prev[l] < -1) ? (-1, max(prev[u], -1), prev, ((-1 / (-1 - prev[l])) * prev) + ((-1 * prev[l]) / (-1 - prev[l]))) : 
-                 ((prev[u] > 1) ? (1, 1, 1, 1) : 
-                 ((prev[u] > 1) ? (1, 1, 1, 1) : 
+    HardTanh -> ((prev[l] >= -1) && (prev[u] <= 1)) ? (prev[l], prev[u], prev, prev) :
+                 ((prev[u] <= -1) ? (-1, -1, -1, -1) :
+                 ((prev[l] >= 1) ? (1, 1, 1, 1) :
+                 ((prev[l] < -1) ? (-1, max(prev[u], -1), prev, ((-1 / (-1 - prev[l])) * prev) + ((-1 * prev[l]) / (-1 - prev[l]))) :
+                 ((prev[u] > 1) ? (1, 1, 1, 1) :
+                 ((prev[u] > 1) ? (1, 1, 1, 1) :
                  ((prev[l] < 1) ? (-1, 1, prev, ((1 / (1 - prev[l])) * prev) - ((1 * prev[l]) / (1 - prev[l]))) : (0, 0, 0, 0)))))));
 }
 
@@ -6037,7 +6037,7 @@ transformer deeppoly{
 }
 
 2025-06-05 15:13:05,148 - INFO - 2025-06-05 15:13:05.148842 - Extracting Maxpool
-2025-06-05 15:13:05,148 - INFO - 
+2025-06-05 15:13:05,148 - INFO -
 API: Maxpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-05 15:13:05,148 - INFO - [STEP 1] Starting step 1/1
 2025-06-05 15:13:22,326 - WARNING - [STEP 1] Sample 1: Validator exception. Full traceback:
@@ -6092,8 +6092,8 @@ Code:
 transformer deeppoly{
     Maxpool -> [
         // Define the bounds for the output neuron based on the input bounds
-        (prev[l]) >= 0 ? (prev[l], prev[u], prev, prev) : 
-        (prev[u]) <= 0 ? (0, 0, 0, 0) : 
+        (prev[l]) >= 0 ? (prev[l], prev[u], prev, prev) :
+        (prev[u]) <= 0 ? (0, 0, 0, 0) :
         // Determine the maximum value for the neuron from the inputs
         (prev[l]) <= 0 <= (prev[u]) ? (0, max(prev[u], 0-prev[l]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l]))) :
         // For other cases, need to consider pooling window size and stride

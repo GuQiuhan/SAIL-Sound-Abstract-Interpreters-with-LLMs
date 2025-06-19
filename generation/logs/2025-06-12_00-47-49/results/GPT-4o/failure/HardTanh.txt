@@ -1,5 +1,5 @@
 transformer deeppoly{
-    HardTanh -> 
+    HardTanh ->
         ((prev[l]) >= 1) ? (1, 1, 1, 1) :
         ((prev[u]) <= -1) ? (-1, -1, -1, -1) :
         (((prev[l]) >= -1) & ((prev[u]) <= 1)) ? (prev[l], prev[u], prev, prev) :

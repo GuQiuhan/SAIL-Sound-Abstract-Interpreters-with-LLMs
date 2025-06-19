@@ -1,5 +1,5 @@
 transformer deeppoly{
-    HardSigmoid -> 
+    HardSigmoid ->
         ((prev[u] <= -2)) ? (0, 0, 0, 0) :
         ((prev[l] >= 2)) ? (1, 1, 1, 1) :
         (((prev[l] >= -2) & (prev[u] <= 2))) ? (

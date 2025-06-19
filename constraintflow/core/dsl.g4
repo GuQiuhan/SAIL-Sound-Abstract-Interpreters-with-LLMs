@@ -4,8 +4,8 @@ prog :
     shape_decl statement EOF
 ;
 
-shape_decl : 
-    SHAPE LPAREN arglist RPAREN LBRACE expr RBRACE SEMI 
+shape_decl :
+    SHAPE LPAREN arglist RPAREN LBRACE expr RBRACE SEMI
 ;
 
 statement : FLOW LPAREN direction COMMA expr COMMA expr COMMA VAR RPAREN SEMI #flowstmt
@@ -15,47 +15,47 @@ statement : FLOW LPAREN direction COMMA expr COMMA expr COMMA VAR RPAREN SEMI #f
 ;
 
 func_decl :
-    VAR LPAREN arglist RPAREN 
+    VAR LPAREN arglist RPAREN
 ;
 
 transformer: trans_decl LBRACE op_list RBRACE ;
 
 op_list: op_stmt SEMI
-	|	op_stmt SEMI op_list
-	;
+    |   op_stmt SEMI op_list
+    ;
 
 op_stmt: operator ARROW trans_ret ;
 
-trans_decl : TRANSFORMER VAR;     
+trans_decl : TRANSFORMER VAR;
 
 operator :
-    AFFINE    
+    AFFINE
     | RELU
     | RELU6
-    | ABS  
-    | HARDTANH   
-    | HARDSIGMOID   
-    | HARDSWISH   
-    | MAXPOOL   
-    | MINPOOL   
-    | AVGPOOL   
+    | ABS
+    | HARDTANH
+    | HARDSIGMOID
+    | HARDSWISH
+    | MAXPOOL
+    | MINPOOL
+    | AVGPOOL
     | NEURON_MULT
     | NEURON_ADD
     | NEURON_MAX
     | NEURON_MIN
     | NEURON_LIST_MULT
-    | REVAFFINE   
-    | REVRELU      
-    | REVRELU6      
-    | REVABS      
-    | REVHARDSIGMOID      
-    | REVHARDTANH      
-    | REVHARDSWISH      
+    | REVAFFINE
+    | REVRELU
+    | REVRELU6
+    | REVABS
+    | REVHARDSIGMOID
+    | REVHARDTANH
+    | REVHARDSWISH
     | REVMAXPOOL
     | REVNEURON_MULT
     | REVNEURON_ADD
     | REVNEURON_MAX
-    | REVNEURON_MIN     
+    | REVNEURON_MIN
 ;
 
 trans_ret :
@@ -64,93 +64,93 @@ trans_ret :
     | expr_list #trans
 ;
 
-types:  INTT 
-	|	FLOATT 
-	|	BOOL 
-	|	POLYEXP 
-	|	ZONOEXP 
-	|	NEURON 
+types:  INTT
+    |   FLOATT
+    |   BOOL
+    |   POLYEXP
+    |   ZONOEXP
+    |   NEURON
     |   NOISE
-	|	CT  
+    |   CT
     |   types LIST
     ;
 
-arglist : types VAR COMMA arglist 
-	|	types VAR ;
+arglist : types VAR COMMA arglist
+    |   types VAR ;
 
 expr_list : expr COMMA expr_list
-	|	expr ; 
+    |   expr ;
 
 exprs: expr exprs
     | expr;
 
-expr: FALSE					                        #false
-    | TRUE 					                        #true
-    | IntConst 					                    #int
-    | FloatConst 				                    #float
-    | VAR                     			            #varExp
-    | EPSILON 					                    #epsilon
-    | CURR					                        #curr
-    | PREV					                        #prev
-    | PREV_0					                    #prev_0
-    | PREV_1					                    #prev_1
-    | CURRLIST					                    #curr_list
-    | LPAREN expr RPAREN      			            #parenExp
+expr: FALSE                                         #false
+    | TRUE                                          #true
+    | IntConst                                      #int
+    | FloatConst                                    #float
+    | VAR                                           #varExp
+    | EPSILON                                       #epsilon
+    | CURR                                          #curr
+    | PREV                                          #prev
+    | PREV_0                                        #prev_0
+    | PREV_1                                        #prev_1
+    | CURRLIST                                      #curr_list
+    | LPAREN expr RPAREN                            #parenExp
     | LSQR expr_list RSQR                           #exprarray
     | expr LSQR metadata RSQR                       #getMetadata
     | expr LSQR VAR RSQR                            #getElement
-    | expr binop expr         			            #binopExp
-    | NOT expr       				                #not
-    | MINUS expr				                    #neg
-    | expr QUES expr COLON expr 		            #cond
-    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE		#traverse
-    | argmax_op LPAREN expr COMMA expr RPAREN 	    #argmaxOp
+    | expr binop expr                               #binopExp
+    | NOT expr                                      #not
+    | MINUS expr                                    #neg
+    | expr QUES expr COLON expr                     #cond
+    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE     #traverse
+    | argmax_op LPAREN expr COMMA expr RPAREN       #argmaxOp
     | max_op LPAREN expr RPAREN                     #maxOpList
     | max_op LPAREN expr COMMA expr RPAREN          #maxOp
-    | list_op LPAREN expr RPAREN 			        #listOp
-    | expr DOT MAP LPAREN expr RPAREN 		        #map
-    | expr DOT MAPLIST LPAREN expr RPAREN 		    #map_list
-    | expr DOT DOTT LPAREN expr RPAREN 		        #dot
-    | expr DOT CONCAT LPAREN expr RPAREN 		    #concat
+    | list_op LPAREN expr RPAREN                    #listOp
+    | expr DOT MAP LPAREN expr RPAREN               #map
+    | expr DOT MAPLIST LPAREN expr RPAREN           #map_list
+    | expr DOT DOTT LPAREN expr RPAREN              #dot
+    | expr DOT CONCAT LPAREN expr RPAREN            #concat
     | LP LPAREN lp_op COMMA expr COMMA expr RPAREN  #lp
-    | VAR LPAREN expr_list RPAREN 		            #funcCall
+    | VAR LPAREN expr_list RPAREN                   #funcCall
     | VAR exprs                                     #curry
 ;
 
 argmax_op: ARGMAX
-	|	ARGMIN ;
+    |   ARGMIN ;
 
 lp_op:  'minimize'
-	|	'maximize' ;
+    |   'maximize' ;
 
 max_op: MAX
     |   MIN ;
 
 list_op: SUM
-    |   LEN 
+    |   LEN
     |   AVG ;
 
-binop: DIV 
-	|	MULT  
-	|	MINUS 
-	|	PLUS  
-	|	AND 
-	|	OR 
-	|	GEQ 
-	|	LEQ
+binop: DIV
+    |   MULT
+    |   MINUS
+    |   PLUS
+    |   AND
+    |   OR
+    |   GEQ
+    |   LEQ
     |   LT
     |   GT
-    |   EQQ 
+    |   EQQ
     |   IN
     ;
 
-metadata: WEIGHT 
-	|	BIAS 
-	|	EQUATIONS 
-	|	LAYER ;
+metadata: WEIGHT
+    |   BIAS
+    |   EQUATIONS
+    |   LAYER ;
 
 direction: BACKWARD
-	|	FORWARD ;
+    |   FORWARD ;
 
 FLOW: 'flow' ;
 ARROW: '->' ;
@@ -258,10 +258,10 @@ FloatConst: [0-9]+'.'[0-9]+([Ee] [+-]? [0-9]+)? ;
 
 fragment Digit : [0-9] ;
 
-fragment Sign : [+-] ; 
+fragment Sign : [+-] ;
 
 VAR : Nondigit (Nondigit | Digit | '\'')* ;
 fragment Nondigit : [a-zA-Z_] ;
 
-WS : [ \t\r\n]+ -> skip ;	// skip spaces, tabs, newlines
+WS : [ \t\r\n]+ -> skip ;   // skip spaces, tabs, newlines
 LineComment : '//' ~[\r\n]* -> channel(HIDDEN) ;

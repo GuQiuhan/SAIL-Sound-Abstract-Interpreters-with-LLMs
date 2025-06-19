@@ -1,6 +1,6 @@
-from tabulate import tabulate
 from experiments.experiments_correct import run_verifier as run_experiment_correct
 from experiments.experiments_incorrect import run_verifier as run_experiment_incorrect
+from tabulate import tabulate
 
 folder = "dnn_certifiers/"
 certifiers = ["deeppoly", "vegas", "deepz", "refinezono", "ibp", "hybrid_zono"]
@@ -25,20 +25,24 @@ for c in certifiers:
         gen_time[c][b] = ret_dict_correct[list(ret_dict_correct.keys())[0]][1]
         verification_time[c][b] = ret_dict_correct[list(ret_dict_correct.keys())[0]][0]
         bug_time[c][b] = ret_dict_incorrect[list(ret_dict_incorrect.keys())[0]][0]
-        
+
 table = []
 row1 = []
 for b in basicops:
     row1.append("")
     row1.append(b)
     row1.append("")
-table.append(["Certifier"]+row1)
-heading = ['G', 'V', 'B']*len(basicops)
-table.append([" "]+heading)
+table.append(["Certifier"] + row1)
+heading = ["G", "V", "B"] * len(basicops)
+table.append([" "] + heading)
 for c in certifiers:
     row = [c]
     for b in basicops:
-        row += [round(gen_time[c][b], 3), round(verification_time[c][b], 3), round(bug_time[c][b], 3)]
+        row += [
+            round(gen_time[c][b], 3),
+            round(verification_time[c][b], 3),
+            round(bug_time[c][b], 3),
+        ]
     table.append(row)
 print()
 print()

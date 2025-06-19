@@ -4,15 +4,15 @@ func priority(Neuron n) = n[layer];
 func create_c(Neuron n, PolyExp e) = n == e;
 
 transformer vegas{
-    rev_HardSwish -> 
-    prev[l] >= 3 ? 
+    rev_HardSwish ->
+    prev[l] >= 3 ?
         (max(prev[l], curr[l]), min(prev[u], curr[u]), curr[L], curr[U]) :
-        (prev[l] > 0 ? 
+        (prev[l] > 0 ?
             (prev[u] >= 3 ?
                 (max(prev[l] / 2, curr[l]), curr[u], curr[L], curr[U]) :
                 (max(prev[l] / 2, curr[l]), min(2 * prev[u], curr[u]), curr[L], curr[U])
-            ) : 
-            (prev[u] >= 0 ? 
+            ) :
+            (prev[u] >= 0 ?
                 (curr[l], curr[u], curr[L], curr[U]):
                 (min(0, max(-3, curr[l])), min(0, max(-3, curr[u])), curr[L], curr[U])
             )
@@ -22,4 +22,3 @@ transformer vegas{
 }
 
 flow(backward, priority, true, vegas);
-

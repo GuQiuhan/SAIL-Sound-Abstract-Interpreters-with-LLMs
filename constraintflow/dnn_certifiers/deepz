@@ -17,22 +17,22 @@ transformer deepz{
     Maxpool -> len(argmax(prev, f)) > 0 ? (max(prev[l]), max(prev[u]),  avg(argmax(prev, f)[z])) :
      (max(prev[l]), max(prev[u]), ((max(prev[u]) + max(prev[l])) / 2) + (((max(prev[u]) - max(prev[l])) / 2) * eps));
     Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev[z])) : (((prev[u]) <= 0) ? (0, 0, 0) : (0, (prev[u]), ((prev[u]) / 2) + (((prev[u]) / 2) * eps)));
-    Abs -> ((prev[l]) >= 0) ? 
-                ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) <= 0) ? 
-                    (-(prev[u]), -(prev[l]), -(prev[z])) : 
+    Abs -> ((prev[l]) >= 0) ?
+                ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) <= 0) ?
+                    (-(prev[u]), -(prev[l]), -(prev[z])) :
                     (0, max(-prev[l], prev[u]), ((max(-prev[l], prev[u])) / 2) + (((max(-prev[l], prev[u])) / 2) * eps)));
-    HardSwish -> (prev[l] < -3) ? 
-                    (prev[u] < -3 ? 
-                        (0, 0, 0) : 
-                        (prev[u] < 0 ? 
-                            (-3/8, 0, (-3/16) * (1 - eps)) : 
-                            (-3/8, f1(prev[u]), (f1(prev[u])/2 - (3/16)) + ((f1(prev[u])/2 + (3/16)) * eps) ))) : 
-                    ((prev[l] < 3) ? 
-                        ((prev[u] < 3) ? 
-                            (-3/8, max(f2(prev[l]), f2(prev[u])), ((max(f2(prev[l]), f2(prev[u]))/2 )- (3/16)) + (eps * (max(f2(prev[l]), f2(prev[u]))/2 + (3/16)))) : 
+    HardSwish -> (prev[l] < -3) ?
+                    (prev[u] < -3 ?
+                        (0, 0, 0) :
+                        (prev[u] < 0 ?
+                            (-3/8, 0, (-3/16) * (1 - eps)) :
+                            (-3/8, f1(prev[u]), (f1(prev[u])/2 - (3/16)) + ((f1(prev[u])/2 + (3/16)) * eps) ))) :
+                    ((prev[l] < 3) ?
+                        ((prev[u] < 3) ?
+                            (-3/8, max(f2(prev[l]), f2(prev[u])), ((max(f2(prev[l]), f2(prev[u]))/2 )- (3/16)) + (eps * (max(f2(prev[l]), f2(prev[u]))/2 + (3/16)))) :
                             (-3/8, prev[u], (prev[u]/2 - (3/16)) + (eps * (prev[u]/2 + (3/16))) )) :
-                        (prev[l], prev[u], prev[z])); 
+                        (prev[l], prev[u], prev[z]));
 }
 
 flow(forward, priority, true, deepz);

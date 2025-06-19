@@ -7,13 +7,13 @@ func priority(Neuron n) = n[layer];
 func foo(Neuron n) = n[c];
 
 transformer refinezono{
-    Relu -> (prev[l] >= 0) ? 
-        (prev[l], prev[u], prev[z], (prev[l] <= curr) and (prev[u] >= curr)) : 
+    Relu -> (prev[l] >= 0) ?
+        (prev[l], prev[u], prev[z], (prev[l] <= curr) and (prev[u] >= curr)) :
         (
-            (prev[u] <= 0) ? 
-            (0, 0, 0, curr == 0) : 
-            (0, prev[u], (prev[u] / 2) + ((prev[u] / 2) * eps), 
-            (prev[l] <= prev) and (prev[u] >= prev) and 
+            (prev[u] <= 0) ?
+            (0, 0, 0, curr == 0) :
+            (0, prev[u], (prev[u] / 2) + ((prev[u] / 2) * eps),
+            (prev[l] <= prev) and (prev[u] >= prev) and
             (((prev <= 0) and (curr == 0) ) or ((prev > 0) and (curr == prev)) )
             )
         );

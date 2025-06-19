@@ -1,5 +1,5 @@
 transformer deeppoly{
-    Relu -> 
+    Relu ->
         (prev[l] >= 0) ?                              // Case: input always non-negative
             (prev[l], prev[u], prev, prev)
         : (prev[u] <= 0) ?                           // Case: input always non-positive

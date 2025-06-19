@@ -17,35 +17,35 @@ transformer RefineZono{
     Affine -> (lp(minimize, prev.dot(curr[weight]) + curr[bias], prev.map_list(foo)), lp(maximize, prev.dot(curr[weight]) + curr[bias], prev.map_list(foo)), prev[z].dot(curr[weight]) + (curr[bias]), (prev.dot(curr[weight]) + curr[bias]) == curr);
     Maxpool -> len(argmax(prev, f)) > 0 ? (max(prev[l]), max(prev[u]),  avg(argmax(prev, f)[z]), (curr <= max(prev[u])) and (curr >= max(prev[l]))) :
         (max(prev[l]), max(prev[u]), ((max(prev[u]) + max(prev[l])) / 2) + (((max(prev[u]) - max(prev[l])) / 2) * eps), (curr <= max(prev[u])) and (curr >= max(prev[l])));
-    Relu -> (prev[l] >= 0) ? 
-        (prev[l], prev[u], prev[z], (prev[l] <= curr) and (prev[u] >= curr)) : 
+    Relu -> (prev[l] >= 0) ?
+        (prev[l], prev[u], prev[z], (prev[l] <= curr) and (prev[u] >= curr)) :
         (
-            (prev[u] <= 0) ? 
-            (0, 0, 0, curr == 0) : 
-            (0, prev[u], (prev[u] / 2) + ((prev[u] / 2) * eps), 
-            (prev[l] <= prev) and (prev[u] >= prev) and 
+            (prev[u] <= 0) ?
+            (0, 0, 0, curr == 0) :
+            (0, prev[u], (prev[u] / 2) + ((prev[u] / 2) * eps),
+            (prev[l] <= prev) and (prev[u] >= prev) and
             (((prev <= 0) and (curr == 0) ) or ((prev > 0) and (curr == prev)) )
             )
         );
-    Abs -> (prev[l] >= 0) ? 
-        (prev[l], prev[u], prev[z], (prev == curr)) : 
-            (prev[u] <= 0) ? 
-                (-prev[u], -prev[l], -prev[z], (curr == -prev)) : 
-                (0, max(-prev[l], prev[u]), (max(-prev[l], prev[u]) / 2) + ((max(-prev[l], prev[u]) / 2) * eps), 
+    Abs -> (prev[l] >= 0) ?
+        (prev[l], prev[u], prev[z], (prev == curr)) :
+            (prev[u] <= 0) ?
+                (-prev[u], -prev[l], -prev[z], (curr == -prev)) :
+                (0, max(-prev[l], prev[u]), (max(-prev[l], prev[u]) / 2) + ((max(-prev[l], prev[u]) / 2) * eps),
                 (((prev <= 0) and (curr == -prev) ) or ((prev > 0) and (curr == prev)) )
                 );
-    HardSwish -> (prev[l] < -3) ? 
-                (prev[u] < -3 ? 
-                    (0, 0, 0, curr==0) : 
-                    (prev[u] < 0 ? 
-                        (-3/8, 0, (-3/16) * (1 - eps), ((curr >= (-3/8)) and (curr <= 0))) : 
-                        (-3/8, f1(prev[u]), (f1(prev[u])/2 - (3/16)) + ((f1(prev[u])/2 + (3/16)) * eps), ((curr >= (-3/8)) and (curr <= f1(prev[u]))) ))) : 
-                ((prev[l] < 3) ? 
-                    ((prev[u] < 3) ? 
-                        (-3/8, max(f2(prev[l]), f2(prev[u])), ((max(f2(prev[l]), f2(prev[u]))/2 )- (3/16)) + (eps * (max(f2(prev[l]), f2(prev[u]))/2 + (3/16))), ((curr >= (-3/8)) and (curr <= max(f2(prev[l]), f2(prev[u]))))) : 
+    HardSwish -> (prev[l] < -3) ?
+                (prev[u] < -3 ?
+                    (0, 0, 0, curr==0) :
+                    (prev[u] < 0 ?
+                        (-3/8, 0, (-3/16) * (1 - eps), ((curr >= (-3/8)) and (curr <= 0))) :
+                        (-3/8, f1(prev[u]), (f1(prev[u])/2 - (3/16)) + ((f1(prev[u])/2 + (3/16)) * eps), ((curr >= (-3/8)) and (curr <= f1(prev[u]))) ))) :
+                ((prev[l] < 3) ?
+                    ((prev[u] < 3) ?
+                        (-3/8, max(f2(prev[l]), f2(prev[u])), ((max(f2(prev[l]), f2(prev[u]))/2 )- (3/16)) + (eps * (max(f2(prev[l]), f2(prev[u]))/2 + (3/16))), ((curr >= (-3/8)) and (curr <= max(f2(prev[l]), f2(prev[u]))))) :
                         (-3/8, prev[u], (prev[u]/2 - (3/16)) + (eps * (prev[u]/2 + (3/16))), ((curr >= (-3/8)) and (curr <= prev[u])) )) :
-                    (prev[l], prev[u], prev[z], curr==prev)); 
-    
+                    (prev[l], prev[u], prev[z], curr==prev));
+
 }
 
 flow(forward, priority, true, RefineZono);

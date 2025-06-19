@@ -1,14 +1,12 @@
-import antlr4 as antlr
 import sys
+
+import antlr4 as antlr
 from tabulate import tabulate
 
-from constraintflow.core import dslLexer
-from constraintflow.core import dslParser
-from constraintflow.core import astBuilder
-from constraintflow.core import astTC
+from constraintflow.core import astBuilder, astTC, dslLexer, dslParser
 from constraintflow.core.buggy_ast import BuggyAst
-
 from constraintflow.provesound.src import verify
+
 
 def run_verifier(inputfile, nprev, nsymb):
     lexer = dslLexer.dslLexer(antlr.FileStream(inputfile))
@@ -25,6 +23,7 @@ def run_verifier(inputfile, nprev, nsymb):
     ret_dict = v.visit(ast)
     return ret_dict
 
+
 if __name__ == "__main__":
     certifier = sys.argv[1]
     nprev = int(sys.argv[2])
@@ -37,13 +36,16 @@ if __name__ == "__main__":
     for b in basicops:
         row1.append(b)
         row1.append("")
-    table.append(["Certifier"]+row1)
-    heading = ['G', 'B']*len(basicops)
-    table.append([" "]+heading)
+    table.append(["Certifier"] + row1)
+    heading = ["G", "B"] * len(basicops)
+    table.append([" "] + heading)
     for c in [certifier]:
         row = [c]
         for b in basicops:
-            row += [round(ret_dict_incorrect[b][1], 3), round(ret_dict_incorrect[b][0], 3)]
+            row += [
+                round(ret_dict_incorrect[b][1], 3),
+                round(ret_dict_incorrect[b][0], 3),
+            ]
         table.append(row)
     print()
     print()

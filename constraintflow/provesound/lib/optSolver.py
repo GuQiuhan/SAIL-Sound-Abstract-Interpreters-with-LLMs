@@ -5,11 +5,11 @@ from constraintflow.provesound.lib.utils import *
 
 
 # This class implements a Z3 based constraint solver. It is used to solve constraints
-# of the form lhs -> rhs. The solver is used to check if the implication holds. Instead 
+# of the form lhs -> rhs. The solver is used to check if the implication holds. Instead
 # of naively checking the implication using Z3, it performs an optimization based on the
 # query. For instance, it if rhs is of the form a+b>c+d, then it sufficies to prove that
-# a>b and b>c. Many such queries are generated during the soundnes check of ConstraintFlow 
-# programs that specify state-of-the-art DNN certifiers. 
+# a>b and b>c. Many such queries are generated during the soundnes check of ConstraintFlow
+# programs that specify state-of-the-art DNN certifiers.
 class OptSolver:
     def __init__(self):
         self.solved = []
@@ -18,25 +18,31 @@ class OptSolver:
         self.final_answer = None
 
         # @qiuhan:
-        self.last_model = None # to get the counterexample
+        self.last_model = None  # to get the counterexample
 
     def clear(self):
         self.solved = []
         self.counter = -1
 
-
     def check(self, lhs, rhs):
         s = Solver()
-        s.add(Not(Implies(lhs, rhs))) 
+        s.add(Not(Implies(lhs, rhs)))
         ret = s.check()
-        return (ret==unsat)
-    
+        return ret == unsat
+
     def common_vars(self, a, b):
-        return len(a.intersection(b))>0
+        return len(a.intersection(b)) > 0
 
     def vars(self, x):
         if x.children() == []:
-            if isinstance(x, float) or isinstance(x, int) or isinstance(x, bool) or isinstance(x, z3.z3.RatNumRef)  or isinstance(x, z3.z3.IntNumRef) or isinstance(x, z3.z3.BoolRef):
+            if (
+                isinstance(x, float)
+                or isinstance(x, int)
+                or isinstance(x, bool)
+                or isinstance(x, z3.z3.RatNumRef)
+                or isinstance(x, z3.z3.IntNumRef)
+                or isinstance(x, z3.z3.BoolRef)
+            ):
                 return set()
             return {x}
         s = set()
@@ -58,23 +64,23 @@ class OptSolver:
     def priority(self, q):
         lhs, rhs = q.children()
         flag = 0
-        if lhs.decl()==plus and rhs.decl()==plus:
+        if lhs.decl() == plus and rhs.decl() == plus:
             if len(get_summands(lhs)) == len(get_summands(rhs)):
                 flag = 1
         lhs = self.vars(lhs)
         rhs = self.vars(rhs)
         return (flag, len(lhs.intersection(rhs)))
 
-    def get_sufficient_formulae(self, lhs, rhs):        
+    def get_sufficient_formulae(self, lhs, rhs):
         g = OptGraph(lhs)
         l = g.get_sufficient_queries(rhs)
         l.sort(reverse=True, key=self.priority)
         return l
 
-    def get_sub_lemmas(self, rhs, default_order = False):
+    def get_sub_lemmas(self, rhs, default_order=False):
         top_level = rhs.decl()
         if top_level not in comparison:
-            return None 
+            return None
         left, right = rhs.children()
         if left.decl() == if_:
             # return [(left, right)]
@@ -85,7 +91,7 @@ class OptSolver:
             if not m2:
                 m2 = [(left.children()[2], right)]
             m = m1 + m2
-            return m 
+            return m
         left_ = get_summands(left)
         right_ = get_summands(right)
         m = []
@@ -93,7 +99,7 @@ class OptSolver:
             for i in range(len(left_)):
                 m.append((left_[i], right_[i]))
             return m
-        if len(left_)!=len(right_):
+        if len(left_) != len(right_):
             # if (len(left_)-1) % (len(right_)-1):
             #     m.append((left_[-1], right_[-1]))
             #     r = (len(left_)-1) / (len(right_)-1)
@@ -102,7 +108,7 @@ class OptSolver:
             #         for j in range(1, r):
             #             l += left_[i*r+j]
             #         m.append((l, right_[i]))
-            return None 
+            return None
         for i in range(len(left_)):
             flag = False
             v1 = self.vars(left_[i])
@@ -111,8 +117,8 @@ class OptSolver:
                 if len(v1.intersection(v2)) > 0:
                     m.append((left_[i], right_[j]))
                     del right_[j]
-                    flag = True 
-                    break 
+                    flag = True
+                    break
             if not flag:
                 m = []
                 break
@@ -124,42 +130,42 @@ class OptSolver:
             for i in range(len(left_)):
                 m.append((left_[i], right_[i]))
             return m
-    
+
     def solve_sub_lemma(self, lhs, m, top_level):
-        if(len(m) == 1):
+        if len(m) == 1:
             res = self.check(lhs, top_level(*m[0]))
             if not res:
-                return False 
+                return False
             return True
         i = 0
         for r in m:
-            i= i+1
+            i = i + 1
             l_, r_ = r
             l_top_level = l_.decl()
             r_top_level = r_.decl()
             if l_top_level == if_ and r_top_level == if_:
                 if l_.children()[0] == r_.children()[0]:
-                    ll = lhs 
+                    ll = lhs
                     rr = top_level(l_.children()[1], r_.children()[1])
                     t1 = self.check(ll, rr)
                     t2 = self.check(lhs, top_level(l_.children()[2], r_.children()[2]))
-                    if  (t1 and t2):
-                        continue 
+                    if t1 and t2:
+                        continue
             res = self.check(lhs, top_level(*r))
             if not res:
-                return False 
-        return True 
-    
+                return False
+        return True
+
     def opt_solve(self, lhs, rhs):
-        
+
         m = self.get_sub_lemmas(rhs)
         if m:
             if self.solve_sub_lemma(lhs, m, rhs.decl()):
-                return True 
+                return True
             m = self.get_sub_lemmas(rhs, default_order=True)
             if self.solve_sub_lemma(lhs, m, rhs.decl()):
-                return True 
-        return self.check(lhs, rhs) 
+                return True
+        return self.check(lhs, rhs)
 
     def check_if(self, lhs, rhs):
         top_level1 = rhs.decl()
@@ -174,39 +180,37 @@ class OptSolver:
                 rhs2 = top_level1(rhs_l.children()[2], rhs_r)
                 return [(lhs1, rhs1), (lhs2, rhs2)]
         return [(lhs, rhs)]
-    
+
     def fast_solve(self, lhs, rhs):
         top_level = rhs.decl()
         rhs_left, rhs_right = rhs.children()
         lhs_ = self.get_clauses(lhs)
         if top_level in [le]:
             if le(rhs_left, rhs_right) in lhs_:
-                return True 
+                return True
             if eqq(rhs_left, rhs_right) in lhs_:
-                return True 
+                return True
         if top_level in [ge]:
             if ge(rhs_left, rhs_right) in lhs_:
-                return True 
+                return True
             if eqq(rhs_left, rhs_right) in lhs_:
-                return True 
+                return True
         return False
-    
+
     def solve_temp(self, lhs, rhs):
         m = self.get_sufficient_formulae(lhs, rhs)
         if m:
             for r in m:
                 if self.opt_solve(lhs, r):
-                    return True 
+                    return True
         return self.opt_solve(lhs, rhs)
-    
+
     def check_quantifier(self, lhs, rhs):
         return isinstance(rhs, z3.z3.QuantifierRef)
-    
-    
+
     def solve(self, lhs, rhs):
         # @qiuhan:
         self.last_model = None  # Reset last model on each call
-
 
         if self.check_quantifier(lhs, rhs):
             return self.check(lhs, rhs)
@@ -216,7 +220,7 @@ class OptSolver:
         for i in m_if:
             ret = self.solve_temp(*i)
             if not ret:
-                #return False 
+                # return False
                 # @qiuhan: Unsound->try to get counterexample
                 solver = Solver()
                 solver.add(Not(Implies(i[0], i[1])))

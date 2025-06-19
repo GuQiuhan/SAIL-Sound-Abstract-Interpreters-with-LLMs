@@ -1,6 +1,6 @@
 transformer deeppoly{
-    Relu -> 
-        (prev[l] >= 0) 
+    Relu ->
+        (prev[l] >= 0)
             ? (prev[l], prev[u], prev, prev)
         : (prev[u] <= 0)
             ? (0, 0, 0, 0)

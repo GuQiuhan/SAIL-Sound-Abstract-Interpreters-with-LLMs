@@ -1,11 +1,15 @@
 # set models to use
 MODEL_PORT_PAIRS = [
-    {"model":"meta-llama/Llama-3.3-70B-Instruct", "port": 8081,"type": "hf"},
-    {"model":"meta-llama/Llama-4-Scout-17B-16E-Instruct", "port": 8080,"type": "hf"},
-    {"model": "/share/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-Coder-V2-Lite-Instruct/snapshots/e434a23f91ba5b4923cf6c9d9a238eb4a08e3a11", "port": 8082, "type": "vllm"},
-    {"model":"gpt-4.1", "port": 8083,"type": "hf"},
-    {"model":"gpt-4o", "port": 8084,"type": "hf"},
-    {"model":"o4-mini", "port": 8085,"type": "hf"},
+    {"model": "meta-llama/Llama-3.3-70B-Instruct", "port": 8081, "type": "hf"},
+    {"model": "meta-llama/Llama-4-Scout-17B-16E-Instruct", "port": 8080, "type": "hf"},
+    {
+        "model": "/share/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-Coder-V2-Lite-Instruct/snapshots/e434a23f91ba5b4923cf6c9d9a238eb4a08e3a11",
+        "port": 8082,
+        "type": "vllm",
+    },
+    {"model": "gpt-4.1", "port": 8083, "type": "hf"},
+    {"model": "gpt-4o", "port": 8084, "type": "hf"},
+    {"model": "o4-mini", "port": 8085, "type": "hf"},
 ]
 
 # for gen.py
@@ -33,46 +37,46 @@ Here is the grammar of Constraintflow DSL:
 
 '''
 expr_list : expr COMMA expr_list
-	|	expr ; 
+    |   expr ;
 
 exprs: expr exprs
     | expr;
 
-metadata: WEIGHT 
-	|	BIAS 
-	|	EQUATIONS 
-	|	LAYER ;
+metadata: WEIGHT
+    |   BIAS
+    |   EQUATIONS
+    |   LAYER ;
 
-expr: FALSE					                        #false
-    | TRUE 					                        #true
-    | IntConst 					                    #int
-    | FloatConst 				                    #float
-    | VAR                     			            #varExp
-    | EPSILON 					                    #epsilon
-    | CURR					                        #curr
-    | PREV					                        #prev
-    | PREV_0					                    #prev_0
-    | PREV_1					                    #prev_1
-    | CURRLIST					                    #curr_list
-    | LPAREN expr RPAREN      			            #parenExp
+expr: FALSE                                         #false
+    | TRUE                                          #true
+    | IntConst                                      #int
+    | FloatConst                                    #float
+    | VAR                                           #varExp
+    | EPSILON                                       #epsilon
+    | CURR                                          #curr
+    | PREV                                          #prev
+    | PREV_0                                        #prev_0
+    | PREV_1                                        #prev_1
+    | CURRLIST                                      #curr_list
+    | LPAREN expr RPAREN                            #parenExp
     | LSQR expr_list RSQR                           #exprarray
     | expr LSQR metadata RSQR                       #getMetadata
     | expr LSQR VAR RSQR                            #getElement
-    | expr binop expr         			            #binopExp
-    | NOT expr       				                #not
-    | MINUS expr				                    #neg
-    | expr QUES expr COLON expr 		            #cond
-    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE		#traverse
-    | argmax_op LPAREN expr COMMA expr RPAREN 	    #argmaxOp
+    | expr binop expr                               #binopExp
+    | NOT expr                                      #not
+    | MINUS expr                                    #neg
+    | expr QUES expr COLON expr                     #cond
+    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE     #traverse
+    | argmax_op LPAREN expr COMMA expr RPAREN       #argmaxOp
     | max_op LPAREN expr RPAREN                     #maxOpList
     | max_op LPAREN expr COMMA expr RPAREN          #maxOp
-    | list_op LPAREN expr RPAREN 			        #listOp
-    | expr DOT MAP LPAREN expr RPAREN 		        #map
-    | expr DOT MAPLIST LPAREN expr RPAREN 		    #map_list
-    | expr DOT DOTT LPAREN expr RPAREN 		        #dot
-    | expr DOT CONCAT LPAREN expr RPAREN 		    #concat
+    | list_op LPAREN expr RPAREN                    #listOp
+    | expr DOT MAP LPAREN expr RPAREN               #map
+    | expr DOT MAPLIST LPAREN expr RPAREN           #map_list
+    | expr DOT DOTT LPAREN expr RPAREN              #dot
+    | expr DOT CONCAT LPAREN expr RPAREN            #concat
     | LP LPAREN lp_op COMMA expr COMMA expr RPAREN  #lp
-    | VAR LPAREN expr_list RPAREN 		            #funcCall
+    | VAR LPAREN expr_list RPAREN                   #funcCall
     | VAR exprs                                     #curry
 ;
 
@@ -85,7 +89,7 @@ trans_ret :
 
 DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
 They must follow the constraints that: curr[l] <= curr <= curr[u] & curr[L] <= curr <= curr[U]. `curr` here means the current neuron, `prev` means the inputs to the operator.
-When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
+When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.
 So every transformer in each case of the case analysis must return four values. Use any funstions below if needed instead of use arithmetic operators.
 Function you can use:
 - func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
@@ -101,12 +105,12 @@ Function you can use:
 Don't add comments to DSL.
 """
 
-prmpt_relu_deeppoly= """
+prmpt_relu_deeppoly = """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
 transformer deeppoly{
     Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l]))) ));
-} 
+}
 """
 
 prmpt_abs_deeppoly = """
@@ -134,46 +138,46 @@ Here is the grammar of Constraintflow DSL:
 
 '''
 expr_list : expr COMMA expr_list
-	|	expr ; 
+    |   expr ;
 
 exprs: expr exprs
     | expr;
 
-metadata: WEIGHT 
-	|	BIAS 
-	|	EQUATIONS 
-	|	LAYER ;
+metadata: WEIGHT
+    |   BIAS
+    |   EQUATIONS
+    |   LAYER ;
 
-expr: FALSE					                        #false
-    | TRUE 					                        #true
-    | IntConst 					                    #int
-    | FloatConst 				                    #float
-    | VAR                     			            #varExp
-    | EPSILON 					                    #epsilon
-    | CURR					                        #curr
-    | PREV					                        #prev
-    | PREV_0					                    #prev_0
-    | PREV_1					                    #prev_1
-    | CURRLIST					                    #curr_list
-    | LPAREN expr RPAREN      			            #parenExp
+expr: FALSE                                         #false
+    | TRUE                                          #true
+    | IntConst                                      #int
+    | FloatConst                                    #float
+    | VAR                                           #varExp
+    | EPSILON                                       #epsilon
+    | CURR                                          #curr
+    | PREV                                          #prev
+    | PREV_0                                        #prev_0
+    | PREV_1                                        #prev_1
+    | CURRLIST                                      #curr_list
+    | LPAREN expr RPAREN                            #parenExp
     | LSQR expr_list RSQR                           #exprarray
     | expr LSQR metadata RSQR                       #getMetadata
     | expr LSQR VAR RSQR                            #getElement
-    | expr binop expr         			            #binopExp
-    | NOT expr       				                #not
-    | MINUS expr				                    #neg
-    | expr QUES expr COLON expr 		            #cond
-    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE		#traverse
-    | argmax_op LPAREN expr COMMA expr RPAREN 	    #argmaxOp
+    | expr binop expr                               #binopExp
+    | NOT expr                                      #not
+    | MINUS expr                                    #neg
+    | expr QUES expr COLON expr                     #cond
+    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE     #traverse
+    | argmax_op LPAREN expr COMMA expr RPAREN       #argmaxOp
     | max_op LPAREN expr RPAREN                     #maxOpList
     | max_op LPAREN expr COMMA expr RPAREN          #maxOp
-    | list_op LPAREN expr RPAREN 			        #listOp
-    | expr DOT MAP LPAREN expr RPAREN 		        #map
-    | expr DOT MAPLIST LPAREN expr RPAREN 		    #map_list
-    | expr DOT DOTT LPAREN expr RPAREN 		        #dot
-    | expr DOT CONCAT LPAREN expr RPAREN 		    #concat
+    | list_op LPAREN expr RPAREN                    #listOp
+    | expr DOT MAP LPAREN expr RPAREN               #map
+    | expr DOT MAPLIST LPAREN expr RPAREN           #map_list
+    | expr DOT DOTT LPAREN expr RPAREN              #dot
+    | expr DOT CONCAT LPAREN expr RPAREN            #concat
     | LP LPAREN lp_op COMMA expr COMMA expr RPAREN  #lp
-    | VAR LPAREN expr_list RPAREN 		            #funcCall
+    | VAR LPAREN expr_list RPAREN                   #funcCall
     | VAR exprs                                     #curry
 ;
 
@@ -186,7 +190,7 @@ trans_ret :
 
 IBP certifier uses two kinds of bounds to overapproximate the operator: (Float l, Float u).
 They must follow the constraints that: curr[l] <= curr <= curr[u]. `curr` here means the current neuron, `prev` means the inputs to the operator.
-When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
+When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.
 So every transformer in each case of the case analysis must return two values. Use any functions below if needed instead of using arithmetic operators.
 
 Functions you can use:
@@ -205,7 +209,7 @@ Don't add comments to DSL.
 """
 
 
-prmpt_relu_ibp= """
+prmpt_relu_ibp = """
 def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
 
 transformer ibp{
@@ -239,46 +243,46 @@ Here is the grammar of Constraintflow DSL:
 
 '''
 expr_list : expr COMMA expr_list
-	|	expr ; 
+    |   expr ;
 
 exprs: expr exprs
     | expr;
 
-metadata: WEIGHT 
-	|	BIAS 
-	|	EQUATIONS 
-	|	LAYER ;
+metadata: WEIGHT
+    |   BIAS
+    |   EQUATIONS
+    |   LAYER ;
 
-expr: FALSE					                        #false
-    | TRUE 					                        #true
-    | IntConst 					                    #int
-    | FloatConst 				                    #float
-    | VAR                     			            #varExp
-    | EPSILON 					                    #epsilon
-    | CURR					                        #curr
-    | PREV					                        #prev
-    | PREV_0					                    #prev_0
-    | PREV_1					                    #prev_1
-    | CURRLIST					                    #curr_list
-    | LPAREN expr RPAREN      			            #parenExp
+expr: FALSE                                         #false
+    | TRUE                                          #true
+    | IntConst                                      #int
+    | FloatConst                                    #float
+    | VAR                                           #varExp
+    | EPSILON                                       #epsilon
+    | CURR                                          #curr
+    | PREV                                          #prev
+    | PREV_0                                        #prev_0
+    | PREV_1                                        #prev_1
+    | CURRLIST                                      #curr_list
+    | LPAREN expr RPAREN                            #parenExp
     | LSQR expr_list RSQR                           #exprarray
     | expr LSQR metadata RSQR                       #getMetadata
     | expr LSQR VAR RSQR                            #getElement
-    | expr binop expr         			            #binopExp
-    | NOT expr       				                #not
-    | MINUS expr				                    #neg
-    | expr QUES expr COLON expr 		            #cond
-    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE		#traverse
-    | argmax_op LPAREN expr COMMA expr RPAREN 	    #argmaxOp
+    | expr binop expr                               #binopExp
+    | NOT expr                                      #not
+    | MINUS expr                                    #neg
+    | expr QUES expr COLON expr                     #cond
+    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE     #traverse
+    | argmax_op LPAREN expr COMMA expr RPAREN       #argmaxOp
     | max_op LPAREN expr RPAREN                     #maxOpList
     | max_op LPAREN expr COMMA expr RPAREN          #maxOp
-    | list_op LPAREN expr RPAREN 			        #listOp
-    | expr DOT MAP LPAREN expr RPAREN 		        #map
-    | expr DOT MAPLIST LPAREN expr RPAREN 		    #map_list
-    | expr DOT DOTT LPAREN expr RPAREN 		        #dot
-    | expr DOT CONCAT LPAREN expr RPAREN 		    #concat
+    | list_op LPAREN expr RPAREN                    #listOp
+    | expr DOT MAP LPAREN expr RPAREN               #map
+    | expr DOT MAPLIST LPAREN expr RPAREN           #map_list
+    | expr DOT DOTT LPAREN expr RPAREN              #dot
+    | expr DOT CONCAT LPAREN expr RPAREN            #concat
     | LP LPAREN lp_op COMMA expr COMMA expr RPAREN  #lp
-    | VAR LPAREN expr_list RPAREN 		            #funcCall
+    | VAR LPAREN expr_list RPAREN                   #funcCall
     | VAR exprs                                     #curry
 ;
 
@@ -291,7 +295,7 @@ trans_ret :
 
 DeepZ certifier uses three components to overapproximate each operator: (Float l, Float u, SymExp z).
 They must follow the constraints that: curr[l] <= curr <= curr[u] and curr In curr[z].
-When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.  
+When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.
 So every transformer in each case of the case analysis must return two values. Use any functions below if needed instead of using arithmetic operators.
 
 Functions you can use:
@@ -310,7 +314,7 @@ Don't add comments to DSL.
 """
 
 
-prmpt_relu_deepz= """
+prmpt_relu_deepz = """
 def Shape as (Float l, Float u, SymExp z){[(curr[l]<=curr),(curr[u]>=curr),(curr In curr[z])]};
 
 transformer deepz{
@@ -322,10 +326,10 @@ prmpt_abs_deepz = """
 def Shape as (Float l, Float u, SymExp z){[(curr[l]<=curr),(curr[u]>=curr),(curr In curr[z])]};
 
 transformer deepz{
-    Abs -> ((prev[l]) >= 0) ? 
-                ((prev[l]), (prev[u]), (prev[z])) : 
-                (((prev[u]) <= 0) ? 
-                    (-(prev[u]), -(prev[l]), -(prev[z])) : 
+    Abs -> ((prev[l]) >= 0) ?
+                ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) <= 0) ?
+                    (-(prev[u]), -(prev[l]), -(prev[z])) :
                     (0, max(-prev[l], prev[u]), ((max(-prev[l], prev[u])) / 2) + (((max(-prev[l], prev[u])) / 2) * eps)));
 }
 """

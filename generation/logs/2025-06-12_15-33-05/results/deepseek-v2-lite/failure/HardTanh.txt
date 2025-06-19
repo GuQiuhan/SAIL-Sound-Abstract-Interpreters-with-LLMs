@@ -1,8 +1,8 @@
 transformer deepz{
-    HardTanh -> ((prev[l] <= -1) || (prev[u] >= 1)) ? (-1, 0, 0) : 
-                (((prev[l] >= -1) || (prev[u] <= 1)) ? (1, 0, 0) : 
-                ((prev[l] > -1) && (prev[u] < 1)) ? ((prev[l]), (prev[u]), (prev[z])) : 
-                    ((prev[l] * ((prev[l] + 3) / 6)) > (-1 * ((prev[l] + 3) / 6))) ? ((-1 * ((prev[l] + 3) / 6)), (prev[u]), (((prev[u]) / 2) + (((prev[u]) / 2) * eps))) : 
-                    ((prev[l] * ((prev[l] + 3) / 6)) < (-1 * ((prev[l] + 3) / 6))) ? ((prev[l]), (-1 * ((prev[l] + 3) / 6)), ((prev[l] / 2) + (((prev[l]) / 2) * eps))) : 
+    HardTanh -> ((prev[l] <= -1) || (prev[u] >= 1)) ? (-1, 0, 0) :
+                (((prev[l] >= -1) || (prev[u] <= 1)) ? (1, 0, 0) :
+                ((prev[l] > -1) && (prev[u] < 1)) ? ((prev[l]), (prev[u]), (prev[z])) :
+                    ((prev[l] * ((prev[l] + 3) / 6)) > (-1 * ((prev[l] + 3) / 6))) ? ((-1 * ((prev[l] + 3) / 6)), (prev[u]), (((prev[u]) / 2) + (((prev[u]) / 2) * eps))) :
+                    ((prev[l] * ((prev[l] + 3) / 6)) < (-1 * ((prev[l] + 3) / 6))) ? ((prev[l]), (-1 * ((prev[l] + 3) / 6)), ((prev[l] / 2) + (((prev[l]) / 2) * eps))) :
                     ((-1 * ((prev[l] + 3) / 6)), (prev[u]), (((prev[u]) / 2) + (((prev[u]) / 2) * eps))));
 }

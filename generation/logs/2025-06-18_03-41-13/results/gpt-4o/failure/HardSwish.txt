@@ -1,7 +1,7 @@
 transformer deeppoly{
-    HardSwish -> 
-        ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev) : 
-        ((prev[u] <= -3) ? (0, 0, 0, 0) : 
+    HardSwish ->
+        ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+        ((prev[u] <= -3) ? (0, 0, 0, 0) :
         (
             (l, u, L, U) where
             l = min(0, prev[l], (prev[u] + 3) * prev[u] / 6),

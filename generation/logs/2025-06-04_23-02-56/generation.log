@@ -1,12 +1,12 @@
 2025-06-04 23:02:56,625 - INFO - 2025-06-04 23:02:56.625414 - Extracting Abs
-2025-06-04 23:02:56,625 - INFO - 
+2025-06-04 23:02:56,625 - INFO -
 API: Abs -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:02:56,625 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:03:09,915 - INFO - Validation passed.
 2025-06-04 23:03:09,915 - INFO - Succeed. Saved to results/deepseek-v2-lite/success/Abs.txt
 
 2025-06-04 23:03:09,915 - INFO - 2025-06-04 23:03:09.915723 - Extracting Affine
-2025-06-04 23:03:09,915 - INFO - 
+2025-06-04 23:03:09,915 - INFO -
 API: Affine -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:03:09,916 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:03:17,669 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -44,7 +44,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:03:50,807 - INFO - 2025-06-04 23:03:50.807877 - Extracting Avgpool
-2025-06-04 23:03:50,808 - INFO - 
+2025-06-04 23:03:50,808 - INFO -
 API: Avgpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:03:50,808 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:04:00,276 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -70,21 +70,21 @@ API: Avgpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8
 2025-06-04 23:04:38,886 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deeppoly{
-    Avgpool -> 
+    Avgpool ->
         // Calculate the lower and upper bounds for the output
         let avg_l = (prev[l] + prev[l] + ... + prev[l]) / num_elements; // Replace ... with actual number of elements in prev
         let avg_u = (prev[u] + prev[u] + ... + prev[u]) / num_elements; // Replace ... with actual number of elements in prev
-        
+
         // Calculate the PolyExp bounds
         let L = (prev[L] + prev[L] + ... + prev[L]) / num_elements; // Replace ... with actual number of elements in prev
         let U = (prev[U] + prev[U] + ... + prev[U]) / num_elements; // Replace ... with actual number of elements in prev
-        
+
         // Return the bounds
         (avg_l, avg_u, L, U);
 }
 
 2025-06-04 23:04:38,886 - INFO - 2025-06-04 23:04:38.886254 - Extracting HardSigmoid
-2025-06-04 23:04:38,886 - INFO - 
+2025-06-04 23:04:38,886 - INFO -
 API: HardSigmoid -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:04:38,886 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:04:40,085 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -109,17 +109,17 @@ API: HardSigmoid -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.e
  during generating code:
 transformer deeppoly{
     HardSigmoid -> (
-        (prev[l] >= -3) ? (0, 1, 0, prev) : 
+        (prev[l] >= -3) ? (0, 1, 0, prev) :
         (
-            (prev[u] <= 3) ? (0, 1, 0, prev) : 
+            (prev[u] <= 3) ? (0, 1, 0, prev) :
             (
-                (prev[l] < -3) ? (0, 0.5, 0, (prev + 3) / 6) : 
+                (prev[l] < -3) ? (0, 0.5, 0, (prev + 3) / 6) :
                 (
-                    (prev[u] > 3) ? (0.5, 1, (prev - 3) / 6, 1) : 
+                    (prev[u] > 3) ? (0.5, 1, (prev - 3) / 6, 1) :
                     (
-                        (prev[l] >= 0) ? (0, (prev + 3) / 6, 0, (prev + 3) / 6) : 
+                        (prev[l] >= 0) ? (0, (prev + 3) / 6, 0, (prev + 3) / 6) :
                         (
-                            (prev[u] <= 0) ? (0, (prev - 3) / 6, 0, (prev - 3) / 6) : 
+                            (prev[u] <= 0) ? (0, (prev - 3) / 6, 0, (prev - 3) / 6) :
                             (0, (prev - 3) / 6 + 0.5, (prev + 3) / 6 - (prev[l] * (prev[u] - prev[l]) / 18), (prev + 3) / 6)
                         )
                     )
@@ -130,7 +130,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:06:36,716 - INFO - 2025-06-04 23:06:36.716903 - Extracting HardSwish
-2025-06-04 23:06:36,717 - INFO - 
+2025-06-04 23:06:36,717 - INFO -
 API: HardSwish -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:06:36,717 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:06:51,000 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -158,7 +158,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:07:52,235 - INFO - 2025-06-04 23:07:52.235027 - Extracting HardTanh
-2025-06-04 23:07:52,235 - INFO - 
+2025-06-04 23:07:52,235 - INFO -
 API: HardTanh -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:07:52,235 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:07:55,468 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -187,7 +187,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:08:25,595 - INFO - 2025-06-04 23:08:25.595565 - Extracting Maxpool
-2025-06-04 23:08:25,595 - INFO - 
+2025-06-04 23:08:25,595 - INFO -
 API: Maxpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:08:25,595 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:08:30,943 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -230,7 +230,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:09:24,195 - INFO - 2025-06-04 23:09:24.195123 - Extracting Minpool
-2025-06-04 23:09:24,195 - INFO - 
+2025-06-04 23:09:24,195 - INFO -
 API: Minpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:09:24,195 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:09:26,284 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -260,7 +260,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:10:10,607 - INFO - 2025-06-04 23:10:10.607971 - Extracting Neuron_add
-2025-06-04 23:10:10,608 - INFO - 
+2025-06-04 23:10:10,608 - INFO -
 API: Neuron_add -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:10:10,608 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:10:20,317 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -290,7 +290,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:11:18,865 - INFO - 2025-06-04 23:11:18.865677 - Extracting Neuron_list_mult
-2025-06-04 23:11:18,865 - INFO - 
+2025-06-04 23:11:18,865 - INFO -
 API: Neuron_list_mult -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:11:18,865 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:11:26,024 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -316,7 +316,7 @@ API: Neuron_list_mult -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illin
 2025-06-04 23:12:20,509 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
 transformer deeppoly{
-    Neuron_list_mult -> 
+    Neuron_list_mult ->
         // Assume we have prev1, prev2 as the input neurons
         // Calculate the multiplied result and its bounds
         let result = prev1 * prev2;
@@ -328,7 +328,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:12:20,509 - INFO - 2025-06-04 23:12:20.509764 - Extracting Neuron_max
-2025-06-04 23:12:20,509 - INFO - 
+2025-06-04 23:12:20,509 - INFO -
 API: Neuron_max -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:12:20,509 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:12:27,102 - WARNING - Validator raised an exception: prev is undefined
@@ -358,7 +358,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:13:08,803 - INFO - 2025-06-04 23:13:08.803412 - Extracting Neuron_min
-2025-06-04 23:13:08,803 - INFO - 
+2025-06-04 23:13:08,803 - INFO -
 API: Neuron_min -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:13:08,803 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:13:26,954 - WARNING - Validator raised an exception: prev is undefined
@@ -388,7 +388,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:14:36,373 - INFO - 2025-06-04 23:14:36.373583 - Extracting Neuron_mult
-2025-06-04 23:14:36,373 - INFO - 
+2025-06-04 23:14:36,373 - INFO -
 API: Neuron_mult -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:14:36,373 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:14:51,595 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -418,14 +418,14 @@ transformer deeppoly{
 }
 
 2025-06-04 23:15:26,437 - INFO - 2025-06-04 23:15:26.437352 - Extracting Relu
-2025-06-04 23:15:26,437 - INFO - 
+2025-06-04 23:15:26,437 - INFO -
 API: Relu -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:15:26,437 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:15:29,213 - INFO - Validation passed.
 2025-06-04 23:15:29,214 - INFO - Succeed. Saved to results/deepseek-v2-lite/success/Relu.txt
 
 2025-06-04 23:15:29,214 - INFO - 2025-06-04 23:15:29.214064 - Extracting Relu6
-2025-06-04 23:15:29,214 - INFO - 
+2025-06-04 23:15:29,214 - INFO -
 API: Relu6 -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:15:29,214 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:15:32,742 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -450,7 +450,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:16:34,159 - INFO - 2025-06-04 23:16:34.159025 - Extracting rev_Abs
-2025-06-04 23:16:34,159 - INFO - 
+2025-06-04 23:16:34,159 - INFO -
 API: rev_Abs -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:16:34,159 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:16:37,131 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -480,7 +480,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:17:20,769 - INFO - 2025-06-04 23:17:20.769975 - Extracting rev_Affine
-2025-06-04 23:17:20,770 - INFO - 
+2025-06-04 23:17:20,770 - INFO -
 API: rev_Affine -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:17:20,770 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:17:21,933 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -510,7 +510,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:18:18,376 - INFO - 2025-06-04 23:18:18.376177 - Extracting rev_HardSigmoid
-2025-06-04 23:18:18,376 - INFO - 
+2025-06-04 23:18:18,376 - INFO -
 API: rev_HardSigmoid -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:18:18,376 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:18:21,283 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -540,7 +540,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:19:56,882 - INFO - 2025-06-04 23:19:56.882587 - Extracting rev_HardSwish
-2025-06-04 23:19:56,882 - INFO - 
+2025-06-04 23:19:56,882 - INFO -
 API: rev_HardSwish -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:19:56,882 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:20:02,572 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -570,7 +570,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:21:37,768 - INFO - 2025-06-04 23:21:37.768486 - Extracting rev_HardTanh
-2025-06-04 23:21:37,768 - INFO - 
+2025-06-04 23:21:37,768 - INFO -
 API: rev_HardTanh -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:21:37,768 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:21:38,782 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -600,7 +600,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:22:13,660 - INFO - 2025-06-04 23:22:13.660480 - Extracting rev_Maxpool
-2025-06-04 23:22:13,660 - INFO - 
+2025-06-04 23:22:13,660 - INFO -
 API: rev_Maxpool -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:22:13,660 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:22:17,328 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -630,7 +630,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:22:42,295 - INFO - 2025-06-04 23:22:42.294986 - Extracting rev_Neuron_add
-2025-06-04 23:22:42,295 - INFO - 
+2025-06-04 23:22:42,295 - INFO -
 API: rev_Neuron_add -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:22:42,295 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:22:56,926 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -660,7 +660,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:24:04,627 - INFO - 2025-06-04 23:24:04.627930 - Extracting rev_Neuron_max
-2025-06-04 23:24:04,628 - INFO - 
+2025-06-04 23:24:04,628 - INFO -
 API: rev_Neuron_max -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:24:04,628 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:24:12,525 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -690,7 +690,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:25:11,774 - INFO - 2025-06-04 23:25:11.774149 - Extracting rev_Neuron_min
-2025-06-04 23:25:11,774 - INFO - 
+2025-06-04 23:25:11,774 - INFO -
 API: rev_Neuron_min -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:25:11,774 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:25:22,082 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -720,7 +720,7 @@ transformer deeppoly{
 }
 
 2025-06-04 23:26:06,683 - INFO - 2025-06-04 23:26:06.683547 - Extracting rev_Neuron_mult
-2025-06-04 23:26:06,683 - INFO - 
+2025-06-04 23:26:06,683 - INFO -
 API: rev_Neuron_mult -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:26:06,683 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:26:19,201 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -747,23 +747,23 @@ API: rev_Neuron_mult -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illino
  during generating code:
 transformer deeppoly{
     Rev_Neuron_mult -> (def MulCond as (prev[l] >= 0) and (prev[u] >= 0);
-                        (MulCond) ? ((prev[l]), (prev[u]), (prev), (prev)) : 
-                        ((prev[l]<=0) and (prev[u]<=0)) ? ((prev[u]), (prev[l]), (prev), (prev)) : 
-                        (((prev[u]) <= 0) and ((prev[L]) >= 0)) ? ((prev[L]), (prev[L]), (prev*prev[l]/prev[L]), (prev*prev[u]/prev[L])) : 
-                        (((prev[L]) <= 0) and ((prev[U]) >= 0)) ? ((prev[U]), (prev[U]), (prev*prev[l]/prev[U]), (prev*prev[u]/prev[U])) : 
-                        (((prev[U]) <= 0) and ((prev[L]) <= 0)) ? ((prev[U]), (prev[L]), (prev*prev[l]/prev[L]), (prev*prev[u]/prev[L])) : 
+                        (MulCond) ? ((prev[l]), (prev[u]), (prev), (prev)) :
+                        ((prev[l]<=0) and (prev[u]<=0)) ? ((prev[u]), (prev[l]), (prev), (prev)) :
+                        (((prev[u]) <= 0) and ((prev[L]) >= 0)) ? ((prev[L]), (prev[L]), (prev*prev[l]/prev[L]), (prev*prev[u]/prev[L])) :
+                        (((prev[L]) <= 0) and ((prev[U]) >= 0)) ? ((prev[U]), (prev[U]), (prev*prev[l]/prev[U]), (prev*prev[u]/prev[U])) :
+                        (((prev[U]) <= 0) and ((prev[L]) <= 0)) ? ((prev[U]), (prev[L]), (prev*prev[l]/prev[L]), (prev*prev[u]/prev[L])) :
                         (((prev[l]) >= 0) and ((prev[U]) <= 0)) ? ((prev[L]), (prev[U]), (prev*prev[l]/prev[L]), (prev*prev[u]/prev[L])) );
 }
 
 2025-06-04 23:27:13,479 - INFO - 2025-06-04 23:27:13.479049 - Extracting rev_Relu
-2025-06-04 23:27:13,479 - INFO - 
+2025-06-04 23:27:13,479 - INFO -
 API: rev_Relu -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:27:13,479 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:27:25,285 - INFO - Validation passed.
 2025-06-04 23:27:25,286 - INFO - Succeed. Saved to results/deepseek-v2-lite/success/rev_Relu.txt
 
 2025-06-04 23:27:25,286 - INFO - 2025-06-04 23:27:25.286421 - Extracting rev_Relu6
-2025-06-04 23:27:25,286 - INFO - 
+2025-06-04 23:27:25,286 - INFO -
 API: rev_Relu6 -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu:8080
 2025-06-04 23:27:25,286 - INFO - [STEP 1] Starting step 1/1
 2025-06-04 23:27:33,461 - WARNING - Validator raised an exception: 'NoneType' object has no attribute 'accept'
@@ -788,5 +788,3 @@ API: rev_Relu6 -> Model: deepseek-v2-lite @ http://ggnds-serv-01.cs.illinois.edu
 2025-06-04 23:28:56,947 - INFO - Validation failed, retrying 10/10 with augmentation...
 2025-06-04 23:28:56,947 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
  during generating code:
-
-

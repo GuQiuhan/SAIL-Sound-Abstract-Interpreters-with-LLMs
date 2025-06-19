@@ -1,8 +1,9 @@
 # Generated from miniDSL.g4 by ANTLR 4.7.2
-from antlr4 import *
+import sys
 from io import StringIO
 from typing.io import TextIO
-import sys
+
+from antlr4 import *
 
 
 def serializedATN():
@@ -13,8 +14,8 @@ def serializedATN():
         buf.write("\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23")
         buf.write("\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30")
         buf.write("\4\31\t\31\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36")
-        buf.write("\t\36\4\37\t\37\4 \t \4!\t!\4\"\t\"\4#\t#\4$\t$\4%\t%")
-        buf.write("\4&\t&\4\'\t\'\4(\t(\4)\t)\4*\t*\4+\t+\4,\t,\4-\t-\4.")
+        buf.write('\t\36\4\37\t\37\4 \t \4!\t!\4"\t"\4#\t#\4$\t$\4%\t%')
+        buf.write("\4&\t&\4'\t'\4(\t(\4)\t)\4*\t*\4+\t+\4,\t,\4-\t-\4.")
         buf.write("\t.\4/\t/\4\60\t\60\4\61\t\61\4\62\t\62\4\63\t\63\4\64")
         buf.write("\t\64\4\65\t\65\4\66\t\66\4\67\t\67\48\t8\49\t9\4:\t:")
         buf.write("\4;\t;\4<\t<\4=\t=\4>\t>\4?\t?\4@\t@\4A\tA\4B\tB\4C\t")
@@ -34,8 +35,8 @@ def serializedATN():
         buf.write("\3\21\3\21\3\22\3\22\3\22\3\23\3\23\3\23\3\23\3\23\3\24")
         buf.write("\3\24\3\25\3\25\3\26\3\26\3\27\3\27\3\30\3\30\3\31\3\31")
         buf.write("\3\32\3\32\3\32\3\32\3\33\3\33\3\33\3\34\3\34\3\35\3\35")
-        buf.write("\3\36\3\36\3\36\3\37\3\37\3\37\3 \3 \3!\3!\3!\3\"\3\"")
-        buf.write("\3\"\3#\3#\3$\3$\3%\3%\3&\3&\3\'\3\'\3(\3(\3)\3)\3*\3")
+        buf.write('\3\36\3\36\3\36\3\37\3\37\3\37\3 \3 \3!\3!\3!\3"\3"')
+        buf.write("\3\"\3#\3#\3$\3$\3%\3%\3&\3&\3'\3'\3(\3(\3)\3)\3*\3")
         buf.write("*\3+\3+\3,\3,\3-\3-\3-\3.\3.\3.\3.\3.\3.\3.\3.\3.\3/\3")
         buf.write("/\3/\3/\3\60\3\60\3\60\3\60\3\61\3\61\3\61\3\61\3\62\3")
         buf.write("\62\3\62\3\62\3\63\3\63\3\63\3\63\3\64\3\64\3\64\3\64")
@@ -71,9 +72,9 @@ def serializedATN():
         buf.write("\u038c\nk\fk\16k\u038f\13k\3l\3l\3m\6m\u0394\nm\rm\16")
         buf.write("m\u0395\3m\3m\3n\3n\3n\3n\7n\u039e\nn\fn\16n\u03a1\13")
         buf.write("n\3n\3n\2\2o\3\3\5\4\7\5\t\6\13\7\r\b\17\t\21\n\23\13")
-        buf.write("\25\f\27\r\31\16\33\17\35\20\37\21!\22#\23%\24\'\25)\26")
-        buf.write("+\27-\30/\31\61\32\63\33\65\34\67\359\36;\37= ?!A\"C#")
-        buf.write("E$G%I&K\'M(O)Q*S+U,W-Y.[/]\60_\61a\62c\63e\64g\65i\66")
+        buf.write("\25\f\27\r\31\16\33\17\35\20\37\21!\22#\23%\24'\25)\26")
+        buf.write('+\27-\30/\31\61\32\63\33\65\34\67\359\36;\37= ?!A"C#')
+        buf.write("E$G%I&K'M(O)Q*S+U,W-Y.[/]\60_\61a\62c\63e\64g\65i\66")
         buf.write("k\67m8o9q:s;u<w=y>{?}@\177A\u0081B\u0083C\u0085D\u0087")
         buf.write("E\u0089F\u008bG\u008dH\u008fI\u0091J\u0093K\u0095L\u0097")
         buf.write("M\u0099N\u009bO\u009dP\u009fQ\u00a1R\u00a3S\u00a5T\u00a7")
@@ -81,12 +82,12 @@ def serializedATN():
         buf.write("]\u00b9^\u00bb_\u00bd`\u00bfa\u00c1b\u00c3c\u00c5d\u00c7")
         buf.write("e\u00c9f\u00cbg\u00cdh\u00cfi\u00d1\2\u00d3\2\u00d5j\u00d7")
         buf.write("\2\u00d9k\u00dbl\3\2\b\3\2\62;\4\2GGgg\4\2--//\5\2C\\")
-        buf.write("aac|\5\2\13\f\17\17\"\"\4\2\f\f\17\17\2\u03ac\2\3\3\2")
+        buf.write('aac|\5\2\13\f\17\17""\4\2\f\f\17\17\2\u03ac\2\3\3\2')
         buf.write("\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3\2\2\2\2\13\3\2\2\2")
         buf.write("\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2\2\2\2")
         buf.write("\25\3\2\2\2\2\27\3\2\2\2\2\31\3\2\2\2\2\33\3\2\2\2\2\35")
         buf.write("\3\2\2\2\2\37\3\2\2\2\2!\3\2\2\2\2#\3\2\2\2\2%\3\2\2\2")
-        buf.write("\2\'\3\2\2\2\2)\3\2\2\2\2+\3\2\2\2\2-\3\2\2\2\2/\3\2\2")
+        buf.write("\2'\3\2\2\2\2)\3\2\2\2\2+\3\2\2\2\2-\3\2\2\2\2/\3\2\2")
         buf.write("\2\2\61\3\2\2\2\2\63\3\2\2\2\2\65\3\2\2\2\2\67\3\2\2\2")
         buf.write("\29\3\2\2\2\2;\3\2\2\2\2=\3\2\2\2\2?\3\2\2\2\2A\3\2\2")
         buf.write("\2\2C\3\2\2\2\2E\3\2\2\2\2G\3\2\2\2\2I\3\2\2\2\2K\3\2")
@@ -113,7 +114,7 @@ def serializedATN():
         buf.write("\u010a\3\2\2\2\23\u0113\3\2\2\2\25\u011b\3\2\2\2\27\u011f")
         buf.write("\3\2\2\2\31\u0125\3\2\2\2\33\u012a\3\2\2\2\35\u0132\3")
         buf.write("\2\2\2\37\u0139\3\2\2\2!\u0140\3\2\2\2#\u0146\3\2\2\2")
-        buf.write("%\u0149\3\2\2\2\'\u014e\3\2\2\2)\u0150\3\2\2\2+\u0152")
+        buf.write("%\u0149\3\2\2\2'\u014e\3\2\2\2)\u0150\3\2\2\2+\u0152")
         buf.write("\3\2\2\2-\u0154\3\2\2\2/\u0156\3\2\2\2\61\u0158\3\2\2")
         buf.write("\2\63\u015a\3\2\2\2\65\u015e\3\2\2\2\67\u0161\3\2\2\2")
         buf.write("9\u0163\3\2\2\2;\u0165\3\2\2\2=\u0168\3\2\2\2?\u016b\3")
@@ -177,7 +178,7 @@ def serializedATN():
         buf.write("\7g\2\2\u013b\u013c\7w\2\2\u013c\u013d\7t\2\2\u013d\u013e")
         buf.write("\7q\2\2\u013e\u013f\7p\2\2\u013f \3\2\2\2\u0140\u0141")
         buf.write("\7P\2\2\u0141\u0142\7q\2\2\u0142\u0143\7k\2\2\u0143\u0144")
-        buf.write("\7u\2\2\u0144\u0145\7g\2\2\u0145\"\3\2\2\2\u0146\u0147")
+        buf.write('\7u\2\2\u0144\u0145\7g\2\2\u0145"\3\2\2\2\u0146\u0147')
         buf.write("\7E\2\2\u0147\u0148\7v\2\2\u0148$\3\2\2\2\u0149\u014a")
         buf.write("\7N\2\2\u014a\u014b\7k\2\2\u014b\u014c\7u\2\2\u014c\u014d")
         buf.write("\7v\2\2\u014d&\3\2\2\2\u014e\u014f\7\60\2\2\u014f(\3\2")
@@ -330,9 +331,9 @@ def serializedATN():
         buf.write("\7k\2\2\u0307\u0308\7f\2\2\u0308\u00b0\3\2\2\2\u0309\u030a")
         buf.write("\7V\2\2\u030a\u030b\7c\2\2\u030b\u030c\7p\2\2\u030c\u030d")
         buf.write("\7j\2\2\u030d\u00b2\3\2\2\2\u030e\u030f\7f\2\2\u030f\u0310")
-        buf.write("\7g\2\2\u0310\u0311\7h\2\2\u0311\u0312\7\"\2\2\u0312\u0313")
+        buf.write('\7g\2\2\u0310\u0311\7h\2\2\u0311\u0312\7"\2\2\u0312\u0313')
         buf.write("\7U\2\2\u0313\u0314\7j\2\2\u0314\u0315\7c\2\2\u0315\u0316")
-        buf.write("\7r\2\2\u0316\u0317\7g\2\2\u0317\u0318\7\"\2\2\u0318\u0319")
+        buf.write('\7r\2\2\u0316\u0317\7g\2\2\u0317\u0318\7"\2\2\u0318\u0319')
         buf.write("\7c\2\2\u0319\u031a\7u\2\2\u031a\u00b4\3\2\2\2\u031b\u031c")
         buf.write("\7h\2\2\u031c\u031d\7w\2\2\u031d\u031e\7p\2\2\u031e\u031f")
         buf.write("\7e\2\2\u031f\u00b6\3\2\2\2\u0320\u0321\7g\2\2\u0321\u0322")
@@ -396,7 +397,7 @@ class miniDSLLexer(Lexer):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     T__0 = 1
     T__1 = 2
@@ -505,75 +506,342 @@ class miniDSLLexer(Lexer):
     WS = 105
     LineComment = 106
 
-    channelNames = [ u"DEFAULT_TOKEN_CHANNEL", u"HIDDEN" ]
+    channelNames = ["DEFAULT_TOKEN_CHANNEL", "HIDDEN"]
 
-    modeNames = [ "DEFAULT_MODE" ]
+    modeNames = ["DEFAULT_MODE"]
 
-    literalNames = [ "<INVALID>",
-            "'minimize'", "'maximize'", "'flow'", "'->'", "'transformer'", 
-            "'In'", "'out'", "'backward'", "'forward'", "'Int'", "'Float'", 
-            "'Bool'", "'PolyExp'", "'SymExp'", "'Neuron'", "'Noise'", "'Ct'", 
-            "'List'", "'.'", "','", "'+'", "'-'", "'*'", "'/'", "'and'", 
-            "'or'", "'<'", "'='", "'=='", "'!='", "'>'", "'<='", "'>='", 
-            "'!'", "'('", "')'", "'['", "']'", "'{'", "'}'", "';'", "'?'", 
-            "':'", "'if'", "'traverse'", "'sum'", "'len'", "'avg'", "'sub'", 
-            "'map'", "'map_list'", "'dot'", "'argmin'", "'argmax'", "'min'", 
-            "'max'", "'weight'", "'bias'", "'layer'", "'Affine'", "'Relu'", 
-            "'Relu6'", "'Abs'", "'HardTanh'", "'HardSigmoid'", "'HardSwish'", 
-            "'Maxpool'", "'Minpool'", "'Avgpool'", "'rev_Affine'", "'Neuron_mult'", 
-            "'Neuron_add'", "'Neuron_max'", "'Neuron_min'", "'Neuron_list_mult'", 
-            "'rev_Relu'", "'rev_Relu6'", "'rev_Abs'", "'rev_HardSigmoid'", 
-            "'rev_HardTanh'", "'rev_HardSwish'", "'rev_Maxpool'", "'rev_Neuron_mult'", 
-            "'rev_Neuron_add'", "'rev_Neuron_max'", "'rev_Neuron_min'", 
-            "'Sigmoid'", "'Tanh'", "'def Shape as'", "'func'", "'eps'", 
-            "'true'", "'false'", "'curr'", "'prev'", "'prev_0'", "'prev_1'", 
-            "'curr_list'", "'lp'", "'concat'", "'equations'" ]
+    literalNames = [
+        "<INVALID>",
+        "'minimize'",
+        "'maximize'",
+        "'flow'",
+        "'->'",
+        "'transformer'",
+        "'In'",
+        "'out'",
+        "'backward'",
+        "'forward'",
+        "'Int'",
+        "'Float'",
+        "'Bool'",
+        "'PolyExp'",
+        "'SymExp'",
+        "'Neuron'",
+        "'Noise'",
+        "'Ct'",
+        "'List'",
+        "'.'",
+        "','",
+        "'+'",
+        "'-'",
+        "'*'",
+        "'/'",
+        "'and'",
+        "'or'",
+        "'<'",
+        "'='",
+        "'=='",
+        "'!='",
+        "'>'",
+        "'<='",
+        "'>='",
+        "'!'",
+        "'('",
+        "')'",
+        "'['",
+        "']'",
+        "'{'",
+        "'}'",
+        "';'",
+        "'?'",
+        "':'",
+        "'if'",
+        "'traverse'",
+        "'sum'",
+        "'len'",
+        "'avg'",
+        "'sub'",
+        "'map'",
+        "'map_list'",
+        "'dot'",
+        "'argmin'",
+        "'argmax'",
+        "'min'",
+        "'max'",
+        "'weight'",
+        "'bias'",
+        "'layer'",
+        "'Affine'",
+        "'Relu'",
+        "'Relu6'",
+        "'Abs'",
+        "'HardTanh'",
+        "'HardSigmoid'",
+        "'HardSwish'",
+        "'Maxpool'",
+        "'Minpool'",
+        "'Avgpool'",
+        "'rev_Affine'",
+        "'Neuron_mult'",
+        "'Neuron_add'",
+        "'Neuron_max'",
+        "'Neuron_min'",
+        "'Neuron_list_mult'",
+        "'rev_Relu'",
+        "'rev_Relu6'",
+        "'rev_Abs'",
+        "'rev_HardSigmoid'",
+        "'rev_HardTanh'",
+        "'rev_HardSwish'",
+        "'rev_Maxpool'",
+        "'rev_Neuron_mult'",
+        "'rev_Neuron_add'",
+        "'rev_Neuron_max'",
+        "'rev_Neuron_min'",
+        "'Sigmoid'",
+        "'Tanh'",
+        "'def Shape as'",
+        "'func'",
+        "'eps'",
+        "'true'",
+        "'false'",
+        "'curr'",
+        "'prev'",
+        "'prev_0'",
+        "'prev_1'",
+        "'curr_list'",
+        "'lp'",
+        "'concat'",
+        "'equations'",
+    ]
 
-    symbolicNames = [ "<INVALID>",
-            "FLOW", "ARROW", "TRANSFORMER", "IN", "OUT", "BACKWARD", "FORWARD", 
-            "INTT", "FLOATT", "BOOL", "POLYEXP", "ZONOEXP", "NEURON", "NOISE", 
-            "CT", "LIST", "DOT", "COMMA", "PLUS", "MINUS", "MULT", "DIV", 
-            "AND", "OR", "LT", "EQ", "EQQ", "NEQ", "GT", "LEQ", "GEQ", "NOT", 
-            "LPAREN", "RPAREN", "LSQR", "RSQR", "LBRACE", "RBRACE", "SEMI", 
-            "QUES", "COLON", "IF", "TRAV", "SUM", "LEN", "AVG", "SUB", "MAP", 
-            "MAPLIST", "DOTT", "ARGMIN", "ARGMAX", "MIN", "MAX", "WEIGHT", 
-            "BIAS", "LAYER", "AFFINE", "RELU", "RELU6", "ABS", "HARDTANH", 
-            "HARDSIGMOID", "HARDSWISH", "MAXPOOL", "MINPOOL", "AVGPOOL", 
-            "REVAFFINE", "NEURON_MULT", "NEURON_ADD", "NEURON_MAX", "NEURON_MIN", 
-            "NEURON_LIST_MULT", "REVRELU", "REVRELU6", "REVABS", "REVHARDSIGMOID", 
-            "REVHARDTANH", "REVHARDSWISH", "REVMAXPOOL", "REVNEURON_MULT", 
-            "REVNEURON_ADD", "REVNEURON_MAX", "REVNEURON_MIN", "SIGMOID", 
-            "TANH", "SHAPE", "FUNC", "EPSILON", "TRUE", "FALSE", "CURR", 
-            "PREV", "PREV_0", "PREV_1", "CURRLIST", "LP", "CONCAT", "EQUATIONS", 
-            "IntConst", "FloatConst", "VAR", "WS", "LineComment" ]
+    symbolicNames = [
+        "<INVALID>",
+        "FLOW",
+        "ARROW",
+        "TRANSFORMER",
+        "IN",
+        "OUT",
+        "BACKWARD",
+        "FORWARD",
+        "INTT",
+        "FLOATT",
+        "BOOL",
+        "POLYEXP",
+        "ZONOEXP",
+        "NEURON",
+        "NOISE",
+        "CT",
+        "LIST",
+        "DOT",
+        "COMMA",
+        "PLUS",
+        "MINUS",
+        "MULT",
+        "DIV",
+        "AND",
+        "OR",
+        "LT",
+        "EQ",
+        "EQQ",
+        "NEQ",
+        "GT",
+        "LEQ",
+        "GEQ",
+        "NOT",
+        "LPAREN",
+        "RPAREN",
+        "LSQR",
+        "RSQR",
+        "LBRACE",
+        "RBRACE",
+        "SEMI",
+        "QUES",
+        "COLON",
+        "IF",
+        "TRAV",
+        "SUM",
+        "LEN",
+        "AVG",
+        "SUB",
+        "MAP",
+        "MAPLIST",
+        "DOTT",
+        "ARGMIN",
+        "ARGMAX",
+        "MIN",
+        "MAX",
+        "WEIGHT",
+        "BIAS",
+        "LAYER",
+        "AFFINE",
+        "RELU",
+        "RELU6",
+        "ABS",
+        "HARDTANH",
+        "HARDSIGMOID",
+        "HARDSWISH",
+        "MAXPOOL",
+        "MINPOOL",
+        "AVGPOOL",
+        "REVAFFINE",
+        "NEURON_MULT",
+        "NEURON_ADD",
+        "NEURON_MAX",
+        "NEURON_MIN",
+        "NEURON_LIST_MULT",
+        "REVRELU",
+        "REVRELU6",
+        "REVABS",
+        "REVHARDSIGMOID",
+        "REVHARDTANH",
+        "REVHARDSWISH",
+        "REVMAXPOOL",
+        "REVNEURON_MULT",
+        "REVNEURON_ADD",
+        "REVNEURON_MAX",
+        "REVNEURON_MIN",
+        "SIGMOID",
+        "TANH",
+        "SHAPE",
+        "FUNC",
+        "EPSILON",
+        "TRUE",
+        "FALSE",
+        "CURR",
+        "PREV",
+        "PREV_0",
+        "PREV_1",
+        "CURRLIST",
+        "LP",
+        "CONCAT",
+        "EQUATIONS",
+        "IntConst",
+        "FloatConst",
+        "VAR",
+        "WS",
+        "LineComment",
+    ]
 
-    ruleNames = [ "T__0", "T__1", "FLOW", "ARROW", "TRANSFORMER", "IN", 
-                  "OUT", "BACKWARD", "FORWARD", "INTT", "FLOATT", "BOOL", 
-                  "POLYEXP", "ZONOEXP", "NEURON", "NOISE", "CT", "LIST", 
-                  "DOT", "COMMA", "PLUS", "MINUS", "MULT", "DIV", "AND", 
-                  "OR", "LT", "EQ", "EQQ", "NEQ", "GT", "LEQ", "GEQ", "NOT", 
-                  "LPAREN", "RPAREN", "LSQR", "RSQR", "LBRACE", "RBRACE", 
-                  "SEMI", "QUES", "COLON", "IF", "TRAV", "SUM", "LEN", "AVG", 
-                  "SUB", "MAP", "MAPLIST", "DOTT", "ARGMIN", "ARGMAX", "MIN", 
-                  "MAX", "WEIGHT", "BIAS", "LAYER", "AFFINE", "RELU", "RELU6", 
-                  "ABS", "HARDTANH", "HARDSIGMOID", "HARDSWISH", "MAXPOOL", 
-                  "MINPOOL", "AVGPOOL", "REVAFFINE", "NEURON_MULT", "NEURON_ADD", 
-                  "NEURON_MAX", "NEURON_MIN", "NEURON_LIST_MULT", "REVRELU", 
-                  "REVRELU6", "REVABS", "REVHARDSIGMOID", "REVHARDTANH", 
-                  "REVHARDSWISH", "REVMAXPOOL", "REVNEURON_MULT", "REVNEURON_ADD", 
-                  "REVNEURON_MAX", "REVNEURON_MIN", "SIGMOID", "TANH", "SHAPE", 
-                  "FUNC", "EPSILON", "TRUE", "FALSE", "CURR", "PREV", "PREV_0", 
-                  "PREV_1", "CURRLIST", "LP", "CONCAT", "EQUATIONS", "IntConst", 
-                  "FloatConst", "Digit", "Sign", "VAR", "Nondigit", "WS", 
-                  "LineComment" ]
+    ruleNames = [
+        "T__0",
+        "T__1",
+        "FLOW",
+        "ARROW",
+        "TRANSFORMER",
+        "IN",
+        "OUT",
+        "BACKWARD",
+        "FORWARD",
+        "INTT",
+        "FLOATT",
+        "BOOL",
+        "POLYEXP",
+        "ZONOEXP",
+        "NEURON",
+        "NOISE",
+        "CT",
+        "LIST",
+        "DOT",
+        "COMMA",
+        "PLUS",
+        "MINUS",
+        "MULT",
+        "DIV",
+        "AND",
+        "OR",
+        "LT",
+        "EQ",
+        "EQQ",
+        "NEQ",
+        "GT",
+        "LEQ",
+        "GEQ",
+        "NOT",
+        "LPAREN",
+        "RPAREN",
+        "LSQR",
+        "RSQR",
+        "LBRACE",
+        "RBRACE",
+        "SEMI",
+        "QUES",
+        "COLON",
+        "IF",
+        "TRAV",
+        "SUM",
+        "LEN",
+        "AVG",
+        "SUB",
+        "MAP",
+        "MAPLIST",
+        "DOTT",
+        "ARGMIN",
+        "ARGMAX",
+        "MIN",
+        "MAX",
+        "WEIGHT",
+        "BIAS",
+        "LAYER",
+        "AFFINE",
+        "RELU",
+        "RELU6",
+        "ABS",
+        "HARDTANH",
+        "HARDSIGMOID",
+        "HARDSWISH",
+        "MAXPOOL",
+        "MINPOOL",
+        "AVGPOOL",
+        "REVAFFINE",
+        "NEURON_MULT",
+        "NEURON_ADD",
+        "NEURON_MAX",
+        "NEURON_MIN",
+        "NEURON_LIST_MULT",
+        "REVRELU",
+        "REVRELU6",
+        "REVABS",
+        "REVHARDSIGMOID",
+        "REVHARDTANH",
+        "REVHARDSWISH",
+        "REVMAXPOOL",
+        "REVNEURON_MULT",
+        "REVNEURON_ADD",
+        "REVNEURON_MAX",
+        "REVNEURON_MIN",
+        "SIGMOID",
+        "TANH",
+        "SHAPE",
+        "FUNC",
+        "EPSILON",
+        "TRUE",
+        "FALSE",
+        "CURR",
+        "PREV",
+        "PREV_0",
+        "PREV_1",
+        "CURRLIST",
+        "LP",
+        "CONCAT",
+        "EQUATIONS",
+        "IntConst",
+        "FloatConst",
+        "Digit",
+        "Sign",
+        "VAR",
+        "Nondigit",
+        "WS",
+        "LineComment",
+    ]
 
     grammarFileName = "miniDSL.g4"
 
-    def __init__(self, input=None, output:TextIO = sys.stdout):
+    def __init__(self, input=None, output: TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.7.2")
-        self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA, PredictionContextCache())
+        self._interp = LexerATNSimulator(
+            self, self.atn, self.decisionsToDFA, PredictionContextCache()
+        )
         self._actions = None
         self._predicates = None
-
-

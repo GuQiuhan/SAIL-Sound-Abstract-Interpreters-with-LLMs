@@ -1,8 +1,8 @@
 transformer deeppoly{
     Affine -> (
-        simplify_lower(prev, curr[weight]) + curr[bias], 
-        simplify_upper(prev, curr[weight]) + curr[bias], 
-        replace_lower(prev, curr[weight]) + curr[bias], 
+        simplify_lower(prev, curr[weight]) + curr[bias],
+        simplify_upper(prev, curr[weight]) + curr[bias],
+        replace_lower(prev, curr[weight]) + curr[bias],
         replace_upper(prev, curr[weight]) + curr[bias]
     );
 }
