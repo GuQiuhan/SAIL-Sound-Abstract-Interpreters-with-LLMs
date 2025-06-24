@@ -107,3 +107,8 @@ This script guides the model to generate DSLs for neural operators using multi-s
 
 * [x] read code of constraintflow and print out the counterexamples to prompt model
 * [x] package constraitflow
+* [ ] formal proofs of the soundness, completeness, (efficiency) of proposed algorithms
+* [ ] reasoning for `join` and `meet` operators
+* [ ] llm repair
+* [ ] the controller/orchestrator
+* [ ] formalize the generation, verification, repair phases into algorithms

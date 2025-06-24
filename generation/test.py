@@ -2,25 +2,7 @@
 
 
 """
-DSL Transformer Generation Script
------------------------------------------------------------
-
-This script automatically generates ConstraintFlow-style DSL transformers
-for deep learning operators.
-
-1. Supports multiple abstract domains (certifiers: DeepPoly, IBP, DeepZ)
-and multiple models (e.g., DeepSeek, GPT-4, LLaMA).
-2. Automatically detects whether the model is chat-based (e.g., DeepSeek) or prompt-based.
-3. Extracts the DSL transformer block from generated output based on the certifier type.
-4. Validates generated code using formal verification tools.
-5. Logs successful and failed generations; saves results with timestamps.
-
-Usage:
-    python gen_dsl_transformer.py --model deepseek --certifier deeppoly
-    (Optional: --log-dir <log_folder> --output-dir <output_folder>)
-
-Output:
-    Results are saved under logs/<timestamp>/results/ by default.
+Add 2-steps reasoning
 """
 
 

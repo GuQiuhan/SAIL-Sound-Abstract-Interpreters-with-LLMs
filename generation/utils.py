@@ -1,3 +1,8 @@
+"""
+Please change the configuration accordingly before using this tool.
+"""
+
+
 # set models to use
 MODEL_PORT_PAIRS = [
     {"model": "meta-llama/Llama-3.3-70B-Instruct", "port": 8081, "type": "hf"},

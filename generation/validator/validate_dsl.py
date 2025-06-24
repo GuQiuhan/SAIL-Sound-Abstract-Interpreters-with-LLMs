@@ -117,25 +117,20 @@ if __name__ == "__main__":
 
     dsl = """
 transformer deeppoly{
-    Relu6 ->
-        ((prev[l]) >= 6) ?
-            (6, 6, 6, 6)
-        :
-            (((prev[u]) <= 0) ?
-                (0, 0, 0, 0)
-            :
-                ((prev[l] >= 0) ?
-                    (prev[l], min(prev[u], 6), prev, prev)
-                :
-                    ((prev[u] <= 6) ?
-                        (0, prev[u], 0, ((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))
-                    :
-                        (0, 6, 0, (((6 - prev[l]) / (prev[u] - prev[l])) * prev) - ((prev[l] * 6) / (prev[u] - prev[l])))
-                    )
-                )
+    HardSigmoid ->
+        ((prev[u]) <= (0 - 2.5)) ? (0, 0, 0, 0) :
+        ((prev[l]) >= 2.5) ? (1, 1, 1, 1) :
+        (
+            (max(0, min(1, 0.2 * (prev[l]) + 0.5))),
+            (max(0, min(1, 0.2 * (prev[u]) + 0.5))),
+            (0.2 * prev + 0.5),
+            (
+                ((0.2 * (prev[u]) + 0.5) - (0.2 * (prev[l]) + 0.5)) / ((prev[u]) - (prev[l])) * prev
+                + ((0.2 * (prev[u]) + 0.5) * (prev[l]) - (0.2 * (prev[l]) + 0.5) * (prev[u])) / ((prev[u]) - (prev[l]))
             )
-        ;
+        );
 }
+
     """
 
     validator = make_constraintflow_validator("deeppoly")

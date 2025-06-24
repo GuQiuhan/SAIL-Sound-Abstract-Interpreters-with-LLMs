@@ -28,6 +28,8 @@ import openai
 import requests
 import torch
 from flask import Flask, jsonify, request
+
+# use your own openai key here
 from key import OPENAI_KEY
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from utils import *
