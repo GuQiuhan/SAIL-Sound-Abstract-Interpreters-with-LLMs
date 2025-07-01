@@ -29,6 +29,7 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 │   │   │   └── failure/
 │   └── ...
 └── requirements.txt     # Python dependencies
+└── setup.py             # Pack the project
 
 ```
 
@@ -112,3 +113,6 @@ This script guides the model to generate DSLs for neural operators using multi-s
 * [ ] llm repair
 * [ ] the controller/orchestrator
 * [ ] formalize the generation, verification, repair phases into algorithms
+* [ ] evaluations: compare with other transformer generation/synthesis baselines
+* [ ] Analysis: - Can it generate more complicated transformers?
+* [ ] Fix constraintflow, including negative floats/ProveSound

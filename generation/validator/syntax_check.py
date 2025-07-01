@@ -14,7 +14,7 @@ class SilentErrorListener(ErrorListener):
         pass
 
 
-class DSLRepair:
+class SyntaxChecker:
     """
     - Only supports DSLs with one transformer and one op_stmt.
     """
@@ -23,7 +23,6 @@ class DSLRepair:
         pass
 
     def check(self, dsl: str) -> bool:
-
         try:
 
             input_stream = InputStream(dsl)
@@ -43,7 +42,13 @@ class DSLRepair:
 
             return dsl
         except:
-            if not self.check_brackets(dsl):
+            if re.search(r"\.\s*(sum|avg|len)\b", dsl):
+                print(
+                    "❗ Detected invalid attribute call like '.sum', attempting to fix."
+                )
+                dsl = self.fix_invalid_attribute_calls(dsl)
+
+            elif not self.check_brackets(dsl):
                 print(
                     "❗ Detected unbalanced brackets. Please fix bracket nesting first."
                 )
@@ -52,6 +57,13 @@ class DSLRepair:
             elif self.has_negative_floats(dsl):
                 print("❗ Detected negative floats.")
                 dsl = self.fix_negative_floats(code=dsl)
+
+            elif "&&" in dsl or "||" in dsl:
+                print(
+                    "❗ Detected illegal operators (&&, ||). Auto-fixing to 'and', 'or'"
+                )
+                dsl = self.check_and_fix_illegal_operators(dsl)
+
             else:
                 print("here")
 
@@ -182,14 +194,34 @@ class DSLRepair:
 
         return "".join(new_code_parts)
 
+    def fix_invalid_attribute_calls(self, code: str) -> str:
+        """
+        Fixes `expr.sum`, `expr.avg`, `expr.len` → `sum(expr)` etc.
+        """
+        pattern = re.compile(r"(\w+\s*\[[^\]]+\])\s*\.(sum|avg|len)\b")
+
+        def replace(match):
+            inner = match.group(1)
+            func = match.group(2)
+            print(f"❌ [Fix] Rewriting '{inner}.{func}' → '{func}({inner})'")
+            return f"{func}({inner})"
+
+        return pattern.sub(replace, code)
+
+    def check_and_fix_illegal_operators(self, code: str) -> str:
+        """
+        Replace illegal operators like '&&' with legal 'and', and '||' with 'or'.
+        """
+        fixed = code.replace("&&", "and").replace("||", "or")
+        return fixed
+
 
 if __name__ == "__main__":
     dsl = """
-transformer deeppoly{
-    HardSigmoid ->
-       ( (prev[u]) <= -2.5) ? (0, 0, 0, 0) : (0,0,0,0)
-;}
+    transformer T {
+        Avgpool -> ((1.0 / curr[size]) * (prev[l].sum));
+    }
     """
 
-    fixed_code = DSLRepair().check(dsl)
+    fixed_code = SyntaxChecker().check(dsl)
     print(fixed_code)

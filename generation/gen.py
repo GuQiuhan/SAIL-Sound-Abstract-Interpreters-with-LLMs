@@ -32,7 +32,8 @@ from typing import Callable, List, Optional
 
 from request import Client
 from utils import *
-from validator.validate_dsl import *
+
+from constraintsflow_patch.generation.validator.soundness_check import *
 
 
 class Step:
