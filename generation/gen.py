@@ -32,8 +32,7 @@ from typing import Callable, List, Optional
 
 from request import Client
 from utils import *
-
-from constraintsflow_patch.generation.validator.soundness_check import *
+from validator.soundness_check import *
 
 
 class Step:
@@ -153,7 +152,7 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                             f"[STEP {index}] Sample {sample_id}: Validation passed."
                         )
                         break
-                    else:
+                    else:  # TODO: augment the prompt with ce
                         logging.info(
                             f"[STEP {index}] Sample {sample_id}: Validation failed."
                         )
@@ -333,7 +332,9 @@ if __name__ == "__main__":
                         return extract_constraintflow_block
 
                     extractor = make_block_extractor(certifier)
-                    validation = make_constraintflow_validator(certifier)
+                    validation = make_constraintflow_validator(
+                        certifier, client, is_chat
+                    )
 
                     if is_chat:
 

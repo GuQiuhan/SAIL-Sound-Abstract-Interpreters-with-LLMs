@@ -3,9 +3,11 @@ import subprocess
 import sys
 import tempfile
 
+from repair import *
 from tabulate import tabulate
 
 from constraintflow.experiments.experiments_correct import run_verifier_from_str
+from generation.request import Client, TGIClient
 
 DSL1_IBP = """
 def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
@@ -90,7 +92,7 @@ flow(forward, priority, true, deeppoly);
 """
 
 
-def make_constraintflow_validator(certifier: str):
+def make_constraintflow_validator(certifier: str, client: Client, is_chat: bool):
     DSL1 = {
         "ibp": DSL1_IBP,
         "deepz": DSL1_DEEPZ,
@@ -107,49 +109,35 @@ def make_constraintflow_validator(certifier: str):
         raise ValueError(f"Unknown certifier: {certifier}")
 
     def validator(dsl: str):
-        full_dsl = DSL1[certifier] + dsl + DSL2[certifier]
-        return run_verifier_from_str(full_dsl)
+        """
+        Returns:
+         -(True, ""): succeed
+         -(False, str): fail, counterexample
+         -(False, ""): fail, invalid, no counterexample
+        """
+        success, repaired_dsl = check(certifier, client, is_chat, dsl)
+        if not success:
+            return False, ""  # invalid, no counterexample
+
+        full_dsl = DSL1[certifier] + repaired_dsl + DSL2[certifier]
+        return run_verifier_from_str(full_dsl)  # return (T/F, ce: str/None)
 
     return validator
 
 
 if __name__ == "__main__":
+    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8084")
 
     dsl = """
 transformer deeppoly{
-    HardSigmoid ->
-        ((prev[u]) <= (0 - 2.5)) ? (0, 0, 0, 0) :
-        ((prev[l]) >= 2.5) ? (1, 1, 1, 1) :
-        (
-            (max(0, min(1, 0.2 * (prev[l]) + 0.5))),
-            (max(0, min(1, 0.2 * (prev[u]) + 0.5))),
-            (0.2 * prev + 0.5),
-            (
-                ((0.2 * (prev[u]) + 0.5) - (0.2 * (prev[l]) + 0.5)) / ((prev[u]) - (prev[l])) * prev
-                + ((0.2 * (prev[u]) + 0.5) * (prev[l]) - (0.2 * (prev[l]) + 0.5) * (prev[u])) / ((prev[u]) - (prev[l]))
-            )
-        );
+    Neuron_max ->  (0,0,0,0);
 }
+
 
     """
 
-    validator = make_constraintflow_validator("deeppoly")
+    validator = make_constraintflow_validator("deeppoly", client, True)
 
     result, ce = validator(dsl)
     print(result)
     print(ce)
-
-
-"""
-
-transformer deeppoly{
-    HardSigmoid ->
-        ((prev[u]) <= (0- 3.0)) ? (0, 0, 0, 0) :
-        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
-        (0,1,0,1);
-}
-
-The current DSL does not support negative floating-point constants directly.
-To express a negative float like -3.0, it must be rewritten as an arithmetic expression, such as 0 - 3.0.
-Otherwise, the parser will throw an error like no viable alternative at input, because -3.0 is not recognized as a valid token.
-"""

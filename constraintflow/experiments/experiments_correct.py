@@ -31,36 +31,40 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
         nsymb (int): Number of symbolic inputs.
 
     Returns:
-        List[List[str or float]]: Formatted table with results (like main()).
+        (T/F, List[List[str or float]]: Formatted table with results (like main()).)
     """
+    try:
+        # Directly use InputStream from string
+        lexer = dslLexer.dslLexer(antlr.InputStream(code))
+        tokens = antlr.CommonTokenStream(lexer)
+        parser = dslParser.dslParser(tokens)
+        tree = parser.prog()
+        ast = astBuilder.ASTBuilder().visit(tree)
+        astTC.ASTTC().visit(ast)
+        v = verify.Verify()
+        v.Nprev = nprev
+        v.Nsym = nsymb
+        ret_dict = v.visit(ast)
 
-    # Directly use InputStream from string
-    lexer = dslLexer.dslLexer(antlr.InputStream(code))
-    tokens = antlr.CommonTokenStream(lexer)
-    parser = dslParser.dslParser(tokens)
-    tree = parser.prog()
-    ast = astBuilder.ASTBuilder().visit(tree)
-    astTC.ASTTC().visit(ast)
-    v = verify.Verify()
-    v.Nprev = nprev
-    v.Nsym = nsymb
-    ret_dict = v.visit(ast)
+        # Collect counterexamples
+        ce = []
 
-    # Collect counterexamples
-    ce = []
+        for op_name, result in ret_dict.items():
+            if len(result) == 3:
+                _, v_, counterex = result
+                if v_ < 1.0 and counterex:
+                    ce.append("Counterexample:")
+                    for var, val in counterex.items():
+                        ce.append(f"  {var} = {val}")
 
-    for op_name, result in ret_dict.items():
-        if len(result) == 3:
-            _, v_, counterex = result
-            if v_ < 1.0 and counterex:
-                ce.append("Counterexample:")
-                for var, val in counterex.items():
-                    ce.append(f"  {var} = {val}")
+        if ce:
+            return False, "\n".join(ce)
+        else:
+            return True, ""
 
-    if ce:
-        return False, "\n".join(ce)
-    else:
-        return True, None
+    except Exception as e:
+        # Any parsing/type-check/verifier error
+        return False, ""
 
 
 if __name__ == "__main__":
@@ -95,7 +99,7 @@ func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 
 transformer deeppoly{
-    Maxpool -> (curr[l], curr[u], curr[L], curr[U]);
+    Maxpool -> (0,0,0,0);
 }
 
 

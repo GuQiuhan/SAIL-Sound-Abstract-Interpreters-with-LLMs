@@ -17,7 +17,7 @@ from typing import Callable, List, Optional
 
 from request import Client
 from utils import *
-from validator.validate_dsl import *
+from validator.soundness_check import *
 
 
 class Step:
@@ -222,7 +222,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     run_timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    run_dir = os.path.join("reaonsinglogs", run_timestamp)
+    run_dir = os.path.join("reasoninglogs", run_timestamp)
     result_dir = os.path.join(run_dir, "results")
     log_path = os.path.join(run_dir, "generation.log")
 
@@ -283,7 +283,7 @@ if __name__ == "__main__":
     with progress_bar as p:
         overall_start_time = time()
 
-        for op_name in p.track(sorted(["join", "meet"])):
+        for op_name in p.track(sorted(opt_list)):
             op_start_time = time()
             doc = {"api": op_name}
 
@@ -464,9 +464,9 @@ Reasoning:
                     steps.append(
                         Step(
                             prompter=prompter2,
-                            composer=c,
+                            composer=extractor,
                             eos=["\n# END"],
-                            validator=None,
+                            validator=validation,
                         )
                     )
 

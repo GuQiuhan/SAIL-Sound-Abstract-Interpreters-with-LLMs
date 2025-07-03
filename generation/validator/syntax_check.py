@@ -1,4 +1,5 @@
 import re
+from typing import Optional, Tuple
 
 from antlr4 import *
 from antlr4 import CommonTokenStream, InputStream
@@ -14,60 +15,80 @@ class SilentErrorListener(ErrorListener):
         pass
 
 
+def parse_tokens_file(filepath: str):
+    token_id_to_name = {}
+    with open(filepath, "r") as f:
+        for line in f:
+            line = line.strip()
+            if "=" not in line or line.startswith("'"):
+                continue
+            name, id_str = line.split("=")
+            if id_str.isdigit():
+                token_id_to_name[int(id_str)] = name
+    return token_id_to_name
+
+
+TOKENS_FILE = "./miniDSL/miniDSLLexer.tokens"
+
+
 class SyntaxChecker:
     """
     - Only supports DSLs with one transformer and one op_stmt.
+    Hard Coding.
+
+    Returns: (success: bool, fixed_code: str, err: Optional[str])
     """
 
     def __init__(self):
-        pass
+        self.token_map = parse_tokens_file(TOKENS_FILE)
+        self.MAX_RETRIES = 5
 
-    def check(self, dsl: str) -> bool:
-        try:
+    def check(self, dsl: str) -> tuple[bool, str, Optional[str]]:
+        last_attempt = None  # 记录最后一次尝试的修复类型
 
-            input_stream = InputStream(dsl)
-            lexer = miniDSLLexer(input_stream)
-            token_stream = CommonTokenStream(lexer)
+        for attempt in range(self.MAX_RETRIES):
+            try:
+                input_stream = InputStream(dsl)
+                lexer = miniDSLLexer(input_stream)
+                token_stream = CommonTokenStream(lexer)
 
-            token_stream.fill()
-            for token in token_stream.tokens:
-                print(f"{token.text} -> {miniDSLLexer.symbolicNames[token.type]}")
+                parser = miniDSLParser(token_stream)
+                parser.removeErrorListeners()
+                parser.addErrorListener(SilentErrorListener())
+                parser._errHandler = BailErrorStrategy()
 
-            parser = miniDSLParser(token_stream)
-            parser.removeErrorListeners()
-            parser.addErrorListener(SilentErrorListener())
-            parser._errHandler = BailErrorStrategy()
+                parser.transformer()
+                return True, dsl, None
+            except:
+                if re.search(r"\.\s*(sum|avg|len)\b", dsl):
+                    print(
+                        "❗ Detected invalid attribute call like '.sum', attempting to fix."
+                    )
+                    dsl = self.fix_invalid_attribute_calls(dsl)
+                    last_attempt = "Issue Type: Invalid attribute call like '.sum'."
 
-            tree = parser.transformer()  # check syntax
+                elif not self.check_brackets(dsl):
+                    print("❗ Detected unbalanced brackets. Attempting to fix.")
+                    dsl = self.fix_brackets(code=dsl)
+                    last_attempt = "Issue Type: Unbalanced brackets."
 
-            return dsl
-        except:
-            if re.search(r"\.\s*(sum|avg|len)\b", dsl):
-                print(
-                    "❗ Detected invalid attribute call like '.sum', attempting to fix."
-                )
-                dsl = self.fix_invalid_attribute_calls(dsl)
+                elif self.has_negative_floats(dsl):
+                    print("❗ Detected negative floats. Attempting to fix.")
+                    dsl = self.fix_negative_floats(code=dsl, token_map=self.token_map)
+                    last_attempt = "Issue Type: Negative float constant."
 
-            elif not self.check_brackets(dsl):
-                print(
-                    "❗ Detected unbalanced brackets. Please fix bracket nesting first."
-                )
-                dsl = self.fix_brackets(code=dsl)
+                elif "&&" in dsl or "||" in dsl:
+                    print("❗ Detected illegal operators. Attempting to fix.")
+                    dsl = self.check_and_fix_illegal_operators(dsl)
+                    last_attempt = (
+                        "Issue Type: Illegal logical operators like '&&', '||'."
+                    )
 
-            elif self.has_negative_floats(dsl):
-                print("❗ Detected negative floats.")
-                dsl = self.fix_negative_floats(code=dsl)
+                else:
+                    print("❗ Syntax error but unknown cause.")
+                    last_attempt = "Unknown syntax error."
 
-            elif "&&" in dsl or "||" in dsl:
-                print(
-                    "❗ Detected illegal operators (&&, ||). Auto-fixing to 'and', 'or'"
-                )
-                dsl = self.check_and_fix_illegal_operators(dsl)
-
-            else:
-                print("here")
-
-            return dsl
+        return False, dsl, last_attempt
 
     def check_brackets(self, code: str) -> bool:
         """
@@ -113,13 +134,15 @@ class SyntaxChecker:
                     stack_map[opening].pop()
                 else:
                     print(
-                        f"❌ Unmatched closing '{closing}' at line {token.line}, column {token.column}"
+                        f"❌ Unmatched closing '{closing}' at line {token.line}, column {token.column}, attempting to fix."
                     )
                     matched = False
 
         for opening, stack in stack_map.items():
             for line, col in stack:
-                print(f"❌ Unmatched opening '{opening}' at line {line}, column {col}")
+                print(
+                    f"❌ Unmatched opening '{opening}' at line {line}, column {col}, attempting to fix."
+                )
                 matched = False
 
         return matched
@@ -154,26 +177,35 @@ class SyntaxChecker:
 
             code = re.sub(r"->\s*", insert_parens, code)
 
+        print(f"⚠️ [Fixed]")
+
         # Step 5: Ensure it ends with `;}`
         return code.rstrip() + ";}"
 
+    # about the negative float, need to modify constraintflow instead of check it later
     def has_negative_floats(self, code: str) -> bool:
+
+        """
         input_stream = InputStream(code)
         lexer = miniDSLLexer(input_stream)
-
         token_stream = CommonTokenStream(lexer)
         token_stream.fill()
         tokens = token_stream.tokens
 
+        for token in token_stream.tokens:
+            name = self.token_map.get(token.type, "UNKNOWN")
+            print(
+                f"{token.text:<20} -> {token.type:<4} ({name})"
+            )
+
         for i in range(len(tokens) - 1):
-            if (
-                tokens[i].type == miniDSLLexer.MINUS
-                and tokens[i + 1].type == miniDSLLexer.FloatConst
-            ):
+            if self.token_map.get(token[i].type, "UNKNOWN") == 'MINUS' and self.token_map.get(token[i+1].type, "UNKNOWN") == 'FloatConst':
                 return True
         return False
+        """
+        return False
 
-    def fix_negative_floats(self, code: str) -> str:
+    def fix_negative_floats(self, code: str, token_map: dict) -> str:
         input_stream = InputStream(code)
         lexer = miniDSLLexer(input_stream)
         token_stream = CommonTokenStream(lexer)
@@ -183,14 +215,15 @@ class SyntaxChecker:
         new_code_parts = []
         i = 0
         while i < len(tokens):
-            if tokens[i].type == miniDSLLexer.MINUS and i + 1 < len(tokens):
-                next_token = tokens[i + 1]
-                if next_token.type == miniDSLLexer.FloatConst:
-                    new_code_parts.append(f"(0 - {next_token.text})")
+            if tokens[i].type == token_map["MINUS"] and i + 1 < len(tokens):
+                if tokens[i + 1].type == token_map["FloatConst"]:
+                    new_code_parts.append(f"(0 - {tokens[i + 1].text})")
                     i += 2
                     continue
             new_code_parts.append(tokens[i].text)
             i += 1
+
+        print(f"⚠️ [Fixed]")
 
         return "".join(new_code_parts)
 
@@ -203,7 +236,7 @@ class SyntaxChecker:
         def replace(match):
             inner = match.group(1)
             func = match.group(2)
-            print(f"❌ [Fix] Rewriting '{inner}.{func}' → '{func}({inner})'")
+            print(f"⚠️ [Fixed] Rewriting '{inner}.{func}' → '{func}({inner})'")
             return f"{func}({inner})"
 
         return pattern.sub(replace, code)
@@ -218,10 +251,26 @@ class SyntaxChecker:
 
 if __name__ == "__main__":
     dsl = """
-    transformer T {
-        Avgpool -> ((1.0 / curr[size]) * (prev[l].sum));
-    }
+transformer deeppoly{
+    HardTanh ->
+        (prev[l] >= 1) ? (1, 1, 1, 1)
+        : (prev[u] <= -1) ? (-1, -1, -1, -1)
+        : (prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev, prev)
+        : (prev[l] < -1 && prev[u] > 1) ? (-1, 1, prev, prev)
+        : (prev[l] < -1) ?
+            (-1, min(prev[u], 1),
+             prev*(min(prev[u], 1)-(-1))/(prev[u] - prev[l]) - ((2*min(prev[u], 1)*(-1))/(prev[u]-prev[l])),
+             prev*(min(prev[u], 1)-(-1))/(prev[u] - prev[l]) - ((2*min(prev[u], 1)*(-1))/(prev[u]-prev[l])))
+        : (max(prev[l], -1), 1,
+           prev*(1-max(prev[l], -1))/(prev[u]-prev[l]) - ((2*1*max(prev[l], -1))/(prev[u]-prev[l])),
+           prev*(1-max(prev[l], -1))/(prev[u]-prev[l]) - ((2*1*max(prev[l], -1))/(prev[u]-prev[l])))
+        ;
+}
     """
 
-    fixed_code = SyntaxChecker().check(dsl)
+    result, fixed_code, err = SyntaxChecker().check(dsl)
+    print(result)
+
     print(fixed_code)
+
+    print(err)
