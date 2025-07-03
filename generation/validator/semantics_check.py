@@ -8,7 +8,7 @@ from miniDSL.miniDSLVisitor import miniDSLVisitor
 Check semantic errors with several manipulated testing. Won't fix automatically.
 Hard coding.
 
-Returns: (T/F, err_messages)
+Returns: (T/F, dsl, err_messages)
 """
 
 
@@ -77,6 +77,12 @@ class SemanticChecker(miniDSLVisitor):
         self.defined_vars.add(name)
         return self.visitChildren(ctx)
 
+    def visitTransformer(self, ctx):
+        return self.visitChildren(ctx)
+
+    def visitTrans(self, ctx):
+        return self.visitChildren(ctx)
+
     # Check undefined variable usage
     def visitVarExp(self, ctx):
         var = ctx.getText()
@@ -102,20 +108,19 @@ class SemanticChecker(miniDSLVisitor):
 
     # Check for invalid function calls using func(x, y) style
     def visitFuncCall(self, ctx):
+        print("3")
         func_name = ctx.VAR().getText()
         if func_name not in self.valid_funcs and func_name not in self.defined_vars:
             self.errors.append(
                 f"[Line {ctx.start.line}] Invalid function call: {func_name}"
             )
-        return self.visitChildren(ctx)
-
-    # Disallow property-style calls like prev[l].sum
-    def visitDot(self, ctx):
-        right = ctx.getChild(2).getText()
-        if right in {"sum", "avg", "len"}:
-            self.errors.append(
-                f"[Line {ctx.start.line}] Invalid attribute call: use '{right}(expr)' instead of 'expr.{right}'"
-            )
+        if func_name in {"max", "min"}:
+            for child in ctx.expr():
+                arg_type = self.infer_type(child)
+                if arg_type == "Neuron" or arg_type == "PolyExp":
+                    self.errors.append(
+                        f"[Line {ctx.start.line}] Invalid use of Neuron in {func_name}: {child.getText()}"
+                    )
         return self.visitChildren(ctx)
 
     # Check that metadata access uses valid keywords (e.g. curr[weight])
@@ -128,12 +133,37 @@ class SemanticChecker(miniDSLVisitor):
             )
         return self.visitChildren(ctx)
 
-    # Check binary operations (e.g. PolyExp * PolyExp)
+    def visitMaxOp(self, ctx):
+        op_name = ctx.getChild(0).getText()  # this gets "max" or "min"
+        for child in ctx.expr():
+            arg_type = self.infer_type(child)
+            if arg_type in {"Neuron", "PolyExp"}:
+                self.errors.append(
+                    f"[Line {ctx.start.line}] Invalid use of {arg_type} in {op_name}: {child.getText()}"
+                )
+        return self.visitChildren(ctx)
+
+    def visitMaxOpList(self, ctx):
+        expr_node = ctx.expr()
+        arg_type = self.infer_type(expr_node)
+        if arg_type in {"Neuron", "PolyExp"}:
+            self.errors.append(
+                f"[Line {ctx.start.line}] Invalid use of {arg_type} in {ctx.getChild(0).getText()}: {expr_node.getText()}"
+            )
+        return self.visitChildren(ctx)
+
+    def visitNeg(self, ctx):
+        arg_type = self.infer_type(ctx.expr())
+        if arg_type == "Neuron":
+            self.errors.append(
+                f"[Line {ctx.start.line}] Cannot apply negation to Neuron."
+            )
+        return self.visitChildren(ctx)
+
+    # Check binary operations (e.g. PolyExp * PolyExp) #TODO
     def visitBinopExp(self, ctx):
         left_type = self.infer_type(ctx.getChild(0))
         right_type = self.infer_type(ctx.getChild(2))
-        print(left_type)
-        print(right_type)
         op = ctx.getChild(1).getText()
         if (left_type, right_type) in self.invalid_type_pairs.get(op, set()):
             self.errors.append(
@@ -144,31 +174,16 @@ class SemanticChecker(miniDSLVisitor):
     def infer_type(self, ctx):
         text = ctx.getText()
 
-        if hasattr(ctx, "VAR"):
-            return self.var_types.get(text, "Unknown")
-
+        # Base Cases
         if any(
-            text.startswith(prefix + "[")
-            and any(
-                k in text
-                for k in [
-                    "L",
-                    "U",
-                ]
-            )
+            text.startswith(prefix + "[") and any(k in text for k in ["L", "U"])
             for prefix in ["curr", "prev", "curr_list", "prev_0", "prev_1"]
         ):
+
             return "PolyExp"
 
         if any(
-            text.startswith(prefix + "[")
-            and any(
-                k in text
-                for k in [
-                    "l",
-                    "u",
-                ]
-            )
+            text.startswith(prefix + "[") and any(k in text for k in ["l", "u"])
             for prefix in ["curr", "prev", "curr_list", "prev_0", "prev_1"]
         ):
             return "Float"
@@ -178,18 +193,42 @@ class SemanticChecker(miniDSLVisitor):
 
         if text.isdigit():
             return "Int"
+
         if "." in text and text.replace(".", "", 1).isdigit():
             return "Float"
 
-        # Binary expression: recursively infer children types
+        # Binary expression
         if ctx.getChildCount() == 3:
             left_ctx = ctx.getChild(0)
             op = ctx.getChild(1).getText()
             right_ctx = ctx.getChild(2)
+
             left_type = self.infer_type(left_ctx)
             right_type = self.infer_type(right_ctx)
 
-            return "PolyExp"
+            # Neuron is not allowed in binary operations
+            if "Neuron" in {left_type, right_type}:
+                return "Neuron"
+
+            # Int + Float -> Float
+            if {left_type, right_type} == {"Int", "Float"}:
+                return "Float"
+
+            if left_type == right_type:
+                return left_type
+
+            # PolyExp dominates
+            if "PolyExp" in {left_type, right_type}:
+                return "PolyExp"
+
+            # Float dominates Int
+            if "Float" in {left_type, right_type}:
+                return "Float"
+
+            return "Unknown"
+
+        if hasattr(ctx, "VAR"):  # have to put this in the end
+            return self.var_types.get(text, "Unknown")
 
         return "Unknown"
 
@@ -213,17 +252,18 @@ def check_semantic(dsl):
 
     try:
         tree = parser.transformer()
+
     except Exception as e:
-        return False, [f"[Parse Error] {str(e)}"]
+        return False, dsl, [f"[Parse Error] {str(e)}"]
 
     if error_listener.errors:
-        return False, error_listener.errors
+        return False, dsl, error_listener.errors
 
     checker = SemanticChecker()
     checker.visit(tree)
 
     if checker.errors:
-        return False, checker.errors
+        return False, dsl, checker.errors
 
     return True, dsl, []
 
@@ -231,19 +271,7 @@ def check_semantic(dsl):
 if __name__ == "__main__":
     dsl = """
 transformer deeppoly{
-    HardTanh ->
-        (prev[l] >= 1) ? (1, 1, 1, 1)
-        : (prev[u] <= -1) ? (-1, -1, -1, -1)
-        : (prev[l] >= -1 and prev[u] <= 1) ? (prev[l], prev[u], prev, prev)
-        : (prev[l] < -1 and prev[u] > 1) ? (-1, 1, prev, prev)
-        : (prev[l] < -1) ?
-            (-1, min(prev[u], 1),
-             prev*(min(prev[u], 1)-(-1))/(prev[u] - prev[l]) - ((2*min(prev[u], 1)*(-1))/(prev[u]-prev[l])),
-             prev*(min(prev[u], 1)-(-1))/(prev[u] - prev[l]) - ((2*min(prev[u], 1)*(-1))/(prev[u]-prev[l])))
-        : (max(prev[l], -1), 1,
-           prev*(1-max(prev[l], -1))/(prev[u]-prev[l]) - ((2*1*max(prev[l], -1))/(prev[u]-prev[l])),
-           prev*(1-max(prev[l], -1))/(prev[u]-prev[l]) - ((2*1*max(prev[l], -1))/(prev[u]-prev[l])))
-        ;
+    HardSigmoid -> (max(prev[L],prev[U]),0,0,0);
 }
     """
     result, dsl, errs = check_semantic(dsl)

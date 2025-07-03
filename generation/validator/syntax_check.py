@@ -58,6 +58,7 @@ class SyntaxChecker:
                 parser._errHandler = BailErrorStrategy()
 
                 parser.transformer()
+                print("✅ Syntax correct.")
                 return True, dsl, None
             except:
                 if re.search(r"\.\s*(sum|avg|len)\b", dsl):
@@ -73,15 +74,15 @@ class SyntaxChecker:
                     last_attempt = "Issue Type: Unbalanced brackets."
 
                 elif self.has_negative_floats(dsl):
-                    print("❗ Detected negative floats. Attempting to fix.")
+                    print("❗ Detected negative floats. Attempting to fix.")  # TODO
                     dsl = self.fix_negative_floats(code=dsl, token_map=self.token_map)
                     last_attempt = "Issue Type: Negative float constant."
 
-                elif "&&" in dsl or "||" in dsl:
+                elif "&&" in dsl or "||" in dsl or "&" in dsl:
                     print("❗ Detected illegal operators. Attempting to fix.")
                     dsl = self.check_and_fix_illegal_operators(dsl)
                     last_attempt = (
-                        "Issue Type: Illegal logical operators like '&&', '||'."
+                        "Issue Type: Illegal logical operators like '&&', '||', '&'."
                     )
 
                 else:
@@ -245,7 +246,7 @@ class SyntaxChecker:
         """
         Replace illegal operators like '&&' with legal 'and', and '||' with 'or'.
         """
-        fixed = code.replace("&&", "and").replace("||", "or")
+        fixed = code.replace("&&", "and").replace("||", "or").replace("&", "and")
         return fixed
 
 

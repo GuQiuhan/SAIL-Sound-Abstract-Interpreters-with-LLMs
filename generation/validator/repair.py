@@ -1,3 +1,4 @@
+import logging
 import re
 from typing import Optional, Tuple
 
@@ -35,6 +36,8 @@ def make_block_extractor(certifier: str, cmpl: str):
 
 
 def model_repair(client: Client, is_chat: bool, dsl: str, err: str) -> str:
+    logging.info("\n💡 [Model Repair] Triggered model repair due to error:\n%s", err)
+    print("\n💡 [Model Repair] Triggered model repair due to error:\n%s", err)
     prompt = f"""You are a DSL repair assistant. Fix the following DSL code based on the error.
 [ERROR]:
 {err}
@@ -53,7 +56,15 @@ Return only the fixed DSL code.
     # Return the first non-empty fix
     for code in completions:
         if code.strip():
+            logging.info("\n💡 [Model Repair] Fix found. Fixed DSL:\n", code)
+            print("\n💡 [Model Repair] Fix found. Fixed DSL:\n", code)
             return code
+
+    logging.info(
+        "\n⚠️ [Model Repair] No useful fix found, returning original DSL:\n", dsl
+    )
+    print("\n⚠️ [Model Repair] No useful fix found, returning original DSL:\n", dsl)
+
     return dsl  # fallback to original if nothing useful is returned
 
 
@@ -73,51 +84,68 @@ def check(
     syntax_attempt = 0
     syntax_checker = SyntaxChecker()
     while syntax_attempt < MAX_RETRIES:
+        logging.info(f"[Syntax Phase] Attempt {syntax_attempt + 1}")
         syn_result, fixed_code, syn_err = syntax_checker.check(fixed_code)
         if syn_result:
+            logging.info("[Syntax Phase] ✅ Syntax check passed.")
             break
+        logging.info(f"[Syntax Phase] ❌ Syntax error:\n{syn_err}")
         fixed_code = model_repair(client, is_chat, fixed_code, syn_err)
         fixed_code = make_block_extractor(certifier, fixed_code)
+        logging.info(f"[Syntax Phase] 🔧 Model-provided fix:\n{fixed_code}")
         syntax_attempt += 1
 
     if not syn_result:
-        return False, ""
+        logging.error(
+            f"[Syntax Phase] ❌ Failed after {MAX_RETRIES} attempts for code:\n",
+            fixed_code,
+        )
+        return False, fixed_code
 
     # ---- Semantic Repair Phase ----
     semantic_attempt = 0
     while semantic_attempt < MAX_RETRIES:
+        logging.info(f"[Semantic Phase] Attempt {semantic_attempt + 1}")
         sem_result, _, sem_errs = check_semantic(fixed_code)
         if sem_result:
+            logging.info("✅ All check passed for code:\n", fixed_code)
             return True, fixed_code
         sem_err = "\n".join(sem_errs)
+        logging.info(f"[Semantic Phase] ❌ Semantic error:\n{sem_err}")
         fixed_code = model_repair(client, is_chat, fixed_code, sem_err)
         fixed_code = make_block_extractor(certifier, fixed_code)
+        logging.info(f"[Semantic Phase] 🔧 Model-provided fix:\n{fixed_code}")
         semantic_attempt += 1
 
-    return False, ""
+    logging.error(
+        f"[Semantic Phase] ❌ Failed after {MAX_RETRIES} attempts for code:\n",
+        fixed_code,
+    )
+    return False, fixed_code
 
 
 if __name__ == "__main__":
+    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8084")
+
     dsl = """
-    transformer deeppoly{
-        HardSwish ->
-        ((prev[l] >= 3)
-            ? (prev[l], prev[u], prev, prev)
-            : ((prev[u] <= -3)
-                ? (0, 0, 0, 0)
-                : ( (0,
-                      max( max(prev[u] * ((prev[u] + 3) / 6), prev[l] * ((prev[l] + 3) / 6)), prev[l] * ((prev[u] + 3) / 6) ),
-                      prev * ((prev + 3) / 6),
-                      prev * ((prev + 3) / 6)
-                  )
-              )
-          )
-    );}
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        ( ((prev[l]) >= -3) & ((prev[u]) <= 3) ?
+            (0.1666666667 * prev[l] + 0.5, 0.1666666667 * prev[u] + 0.5, 0.1666666667 * prev + 0.5, 0.1666666667 * prev + 0.5 ) :
+            ( (prev[l] < -3) & (prev[u] > 3) ?
+                (0, 1, (prev - prev[l]) * (1 - 0) / (prev[u] - prev[l]) + 0, (prev - prev[l]) * (1 - 0) / (prev[u] - prev[l]) + 0)
+                :
+                (max(0, 0.1666666667 * prev[l] + 0.5), min(1, 0.1666666667 * prev[u] + 0.5), max(0, 0.1666666667 * prev + 0.5), min(1, 0.1666666667 * prev + 0.5))
+            )
+        ));
+}
     """
 
-    success, fixed_code, error = check(dsl)
+    success, fixed_code = check("deeppoly", client, True, dsl)
+
     if success:
-        print("✅ DSL is valid.")
+        print("✅ DSL is valid.\n", fixed_code)
     else:
-        print("❌ DSL has errors:\n", error)
-        print("\n🔧 Fixed DSL:\n", fixed_code)
+        print("❌ Invalid DSL even after fix:\n", fixed_code)
