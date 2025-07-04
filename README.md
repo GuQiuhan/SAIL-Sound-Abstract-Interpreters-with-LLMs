@@ -1,6 +1,6 @@
 # LLM-based DSL Generation for Neuron Specification
 
-
+![workflow](https://github.com/GuQiuhan/ConstraintFlow_patch1/blob/main/tables/pics/workflow.png)
 
 > A framework for DSL generation using Large Language Models (LLMs).
 
