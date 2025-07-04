@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Avgpool -> (prev[l].listOp(mean), prev[u].listOp(mean), prev.listOp(mean), prev.listOp(mean));
+}

@@ -3,8 +3,8 @@ import subprocess
 import sys
 import tempfile
 
-from repair import *
 from tabulate import tabulate
+from validator.repair import *
 
 from constraintflow.experiments.experiments_correct import run_verifier_from_str
 from generation.request import Client, TGIClient
@@ -127,18 +127,15 @@ if __name__ == "__main__":
 
     dsl = """
 transformer deeppoly{
-    HardSigmoid ->
-        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
-        (((prev[l]) >= 3) ? (1, 1, 1, 1) :
-        ( ((prev[l]) >= -3) and ((prev[u]) <= 3) ?
-            (0.1666666667 * prev[l] + 0.5, 0.1666666667 * prev[u] + 0.5, 0.1666666667 * prev + 0.5, 0.1666666667 * prev + 0.5 ) :
-            ( (prev[l] < -3) and (prev[u] > 3) ?
-                (0, 1, (prev - prev[l]) * (1 - 0) / (prev[u] - prev[l]) + 0, (prev - prev[l]) * (1 - 0) / (prev[u] - prev[l]) + 0)
-                :
-                (max(0, 0.1666666667 * prev[l] + 0.5), min(1, 0.1666666667 * prev[u] + 0.5),
-                 max(0, 0.1666666667 * prev[l] + 0.5), min(1, 0.1666666667 * prev[u] + 0.5))
-            )
-        ));
+    Abs ->
+        (prev[l] >= 0) ?
+            (prev[l], prev[u], prev, prev)
+        : ((prev[u] <= 0) ?
+            (-(prev[u]), -(prev[l]), -(prev), -(prev))
+        : (0, max_op(prev[u], -prev[l]), prev,
+            prev * ((prev[u] + prev[l]) / (prev[u] - prev[l])) - ((2 * prev[u] * prev[l]) / (prev[u] - prev[l]))
+          )
+        );
 }
     """
 

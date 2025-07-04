@@ -2,8 +2,8 @@ import logging
 import re
 from typing import Optional, Tuple
 
-from semantics_check import check_semantic
-from syntax_check import SyntaxChecker
+from validator.semantics_check import check_semantic
+from validator.syntax_check import SyntaxChecker
 
 from generation.request import Client, TGIClient
 
@@ -36,7 +36,7 @@ def make_block_extractor(certifier: str, cmpl: str):
 
 
 def model_repair(client: Client, is_chat: bool, dsl: str, err: str) -> str:
-    logging.info("\n💡 [Model Repair] Triggered model repair due to error:\n%s", err)
+    logging.info(f"\n💡 [Model Repair] Triggered model repair due to error:\n {err}")
     print("\n💡 [Model Repair] Triggered model repair due to error:\n%s", err)
     prompt = f"""You are a DSL repair assistant. Fix the following DSL code based on the error.
 [ERROR]:
@@ -56,12 +56,12 @@ Return only the fixed DSL code.
     # Return the first non-empty fix
     for code in completions:
         if code.strip():
-            logging.info("\n💡 [Model Repair] Fix found. Fixed DSL:\n", code)
+            logging.info(f"\n💡 [Model Repair] Fix found. Fixed DSL:\n {code}")
             print("\n💡 [Model Repair] Fix found. Fixed DSL:\n", code)
             return code
 
     logging.info(
-        "\n⚠️ [Model Repair] No useful fix found, returning original DSL:\n", dsl
+        f"\n⚠️ [Model Repair] No useful fix found, returning original DSL:\n {dsl}"
     )
     print("\n⚠️ [Model Repair] No useful fix found, returning original DSL:\n", dsl)
 
@@ -97,8 +97,7 @@ def check(
 
     if not syn_result:
         logging.error(
-            f"[Syntax Phase] ❌ Failed after {MAX_RETRIES} attempts for code:\n",
-            fixed_code,
+            f"[Syntax Phase] ❌ Failed after {MAX_RETRIES} attempts for code:\n {fixed_code}"
         )
         return False, fixed_code
 
@@ -108,7 +107,7 @@ def check(
         logging.info(f"[Semantic Phase] Attempt {semantic_attempt + 1}")
         sem_result, _, sem_errs = check_semantic(fixed_code)
         if sem_result:
-            logging.info("✅ All check passed for code:\n", fixed_code)
+            logging.info(f"✅ All check passed for code:\n {fixed_code}")
             return True, fixed_code
         sem_err = "\n".join(sem_errs)
         logging.info(f"[Semantic Phase] ❌ Semantic error:\n{sem_err}")

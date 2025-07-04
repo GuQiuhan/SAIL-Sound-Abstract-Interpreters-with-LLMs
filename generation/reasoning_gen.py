@@ -283,7 +283,11 @@ if __name__ == "__main__":
     with progress_bar as p:
         overall_start_time = time()
 
-        for op_name in p.track(sorted(opt_list)):
+        for op_name in p.track(
+            [
+                "join",
+            ]
+        ):
             op_start_time = time()
             doc = {"api": op_name}
 

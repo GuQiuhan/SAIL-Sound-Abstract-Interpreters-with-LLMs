@@ -1,8 +1,8 @@
 from antlr4 import *
 from antlr4.error.ErrorListener import ErrorListener
-from miniDSL.miniDSLLexer import miniDSLLexer
-from miniDSL.miniDSLParser import miniDSLParser
-from miniDSL.miniDSLVisitor import miniDSLVisitor
+from validator.miniDSL.miniDSLLexer import miniDSLLexer
+from validator.miniDSL.miniDSLParser import miniDSLParser
+from validator.miniDSL.miniDSLVisitor import miniDSLVisitor
 
 """
 Check semantic errors with several manipulated testing. Won't fix automatically.
@@ -26,7 +26,25 @@ class SemanticChecker(miniDSLVisitor):
         self.var_types = dict()
         self.errors = []
 
-        self.valid_funcs = {"sum", "avg", "len", "argmax", "argmin", "max", "min"}
+        # TODO: need to improve the func decl here
+        self.valid_funcs = {
+            "sum",
+            "avg",
+            "len",
+            "argmax",
+            "argmin",
+            "max",
+            "min",
+            "backsubs_lower",
+            "backsubs_upper",
+            "add_lower",
+            "add_upper",
+            "replace_lower",
+            "replace_upper",
+            "simplify_lower",
+            "simplify_lower",
+        }
+
         self.invalid_type_pairs = {
             "*": {
                 ("PolyExp", "PolyExp"),
@@ -108,7 +126,6 @@ class SemanticChecker(miniDSLVisitor):
 
     # Check for invalid function calls using func(x, y) style
     def visitFuncCall(self, ctx):
-        print("3")
         func_name = ctx.VAR().getText()
         if func_name not in self.valid_funcs and func_name not in self.defined_vars:
             self.errors.append(
@@ -270,8 +287,13 @@ def check_semantic(dsl):
 
 if __name__ == "__main__":
     dsl = """
-transformer deeppoly{
-    HardSigmoid -> (max(prev[L],prev[U]),0,0,0);
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
 }
     """
     result, dsl, errs = check_semantic(dsl)

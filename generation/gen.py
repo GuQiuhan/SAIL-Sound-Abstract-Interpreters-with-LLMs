@@ -28,7 +28,7 @@ import traceback
 from abc import ABC, abstractmethod
 from datetime import datetime
 from time import time
-from typing import Callable, List, Optional
+from typing import Callable, Dict, List, Optional, Tuple, Union
 
 from request import Client
 from utils import *
@@ -40,59 +40,56 @@ class Step:
         self.prompter: Callable[
             [Optional[str]], Union[str, List[Dict[str, str]]]
         ] = prompter  # unified for both prompt and chat models
+
         self.eos: List[str] = eos or []
-        # (prompt, completion, old code) =composer=> new code
+
+        # (prompt, completion, old code) = composer => new code
         self.composer: Callable[[str, str, str], Union[str, bool]] = composer
-        self.validator: Callable[[str], None] = validator  # validate the code
+        self.validator: Callable[
+            [str], Tuple[bool, Optional[str], Optional[str]]
+        ] = validator  # validate the code
+
         # add augmentation prompting
         self.aug_prompt = ""
         self.error_generation = ""  # List to store error generation
         self.counter_example = ""  # List to store counter examples
-        self.given_code = ""  # provided code
 
-    def set_augmentation_prompt(
-        self, aug_prompt: str, error_generation: str, counter_example: str
-    ):
-        self.aug_prompt = aug_prompt
-        self.error_generation = error_generation
-        self.counter_example = counter_example
+    def save_failure(self, error_generation: str, ce: str):
+        self.error_generation = self.error_generation + "\n" + error_generation + "\n"
+        self.counter_example = self.counter_example + "\n" + ce + "\n"
 
-    def prompter_with_augmentation(self, old_prmpt: str) -> str:
-        """Generates the prompt with augmentation, error generation and counter examples."""
-        augmented_prompt = old_prmpt
-        if self.aug_prompt:
-            last_api_index = augmented_prompt.rfind("API: ")
-            error_index = augmented_prompt.find("Error Generation:", last_api_index)
-            if error_index != -1:
-                augmented_prompt = (
-                    augmented_prompt[:error_index]
-                    + "- "
-                    + self.aug_prompt
-                    + "\n"
-                    + augmented_prompt[error_index:]
-                )
+    def prompter_with_augmentation(
+        self, old_prmpt: Union[str, List[Dict[str, str]]]
+    ) -> Union[str, List[Dict[str, str]]]:
+        """
+        Augments the original prompt with:
+        - The previously generated (invalid) code
+        - The counterexample from the validator
+        Supports both chat-format and plain-text prompts.
+        """
+        if not self.counter_example and not self.error_generation:
+            return old_prmpt  # Nothing to add
 
-            last_api_index = augmented_prompt.rfind("API: ")
-            generation_index = augmented_prompt.find("Counter Example:", last_api_index)
-            if generation_index != -1:
-                augmented_prompt = (
-                    augmented_prompt[:generation_index]
-                    + self.error_generation
-                    + "\n"
-                    + augmented_prompt[generation_index:]
-                )
+        ce_note = (
+            f"\n\n# Previously generated (invalid) code:\n{self.error_generation}\n\n"
+            f"# Counter Example respectively:\n{self.counter_example}\n"
+            f"# Learn from the failed generation above and revise your output accordingly. Output the DSL only."
+        )
 
-            last_api_index = augmented_prompt.rfind("API: ")
-            ce_index = augmented_prompt.rfind("Generation:", last_api_index)
-            if ce_index != -1:
-                augmented_prompt = (
-                    augmented_prompt[:ce_index]
-                    + self.counter_example
-                    + "\n"
-                    + augmented_prompt[ce_index:]
-                )
+        self.counter_example = ""  # clear after augmentation
+        self.error_generation = ""
 
-        return augmented_prompt
+        if isinstance(old_prmpt, list):  # Chat format
+            for msg in reversed(old_prmpt):
+                if msg.get("role") == "user":
+                    msg["content"] += ce_note
+                    break
+            return old_prmpt
+
+        elif isinstance(old_prmpt, str):  # Text prompt format
+            return old_prmpt + ce_note
+
+        return old_prmpt
 
 
 def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
@@ -114,8 +111,9 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
 
             code = ""
             messages_or_prompt = step.prompter(code)
+            messages_or_prompt = step.prompter_with_augmentation(messages_or_prompt)
 
-            # prompt = step.prompter_with_augmentation(prompt) # need to unify them
+            print(f"[STEP {index}] Messages_or_prompt: \n {messages_or_prompt}\n")
 
             completions = [
                 client.chat(messages=messages_or_prompt)
@@ -124,38 +122,44 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                 for _ in range(3)
             ]  # multiple(3) samples
 
+            # at most will save 3 wrong generations
             for sample_id, completion in enumerate(completions, start=1):
                 if "Model Generation Error" in completion:
                     logging.warning(
                         f"[STEP {index}] Sample {sample_id}: Model Generation Error"
                     )
                     continue
-                prompt = ""
-                code = step.composer(prompt, completion, code)
-                print(f"[STEP {index}] Sample {sample_id}: Completion:\n{completion}")
-                print(f"[STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}")
+                code = step.composer("", completion, code)
+
+                print(f"[STEP {index}] Sample {sample_id}: Completion:\n{completion}\n")
+                print(f"[STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}\n")
 
                 if step.validator:
                     try:
-                        result, ce = step.validator(code)
+                        result, ce, code = step.validator(code)
                     except Exception as e:
-                        # logging.warning(f"[STEP {index}] Sample {sample_id}: Validator exception: {e}. Code: \n {code}\n")
                         logging.warning(
                             f"[STEP {index}] Sample {sample_id}: Validator exception. Full traceback:\n{traceback.format_exc()}\nCode:\n{code}\n"
                         )
 
-                        result, ce = False, None
+                        result, ce = False, ""
 
                     if result:
                         success = True
                         logging.info(
                             f"[STEP {index}] Sample {sample_id}: Validation passed."
                         )
-                        break
-                    else:  # TODO: augment the prompt with ce
-                        logging.info(
-                            f"[STEP {index}] Sample {sample_id}: Validation failed."
-                        )
+                        return True, code, ""
+                    else:  # TODO: augment the prompt with ce. Done.
+                        if ce:
+                            step.save_failure(code, ce)
+                            logging.info(
+                                f"[STEP {index}] Sample {sample_id}: Validation failed. Get counter example: \n {ce}.\n"
+                            )
+                        else:
+                            logging.info(
+                                f"[STEP {index}] Sample {sample_id}: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist."
+                            )
                 else:
                     success = True
                     break
@@ -166,8 +170,13 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                     f"[STEP {index}] All {len(completions)} samples failed validation. Retrying {retry_count}/{MAX_RETRIES}..."
                 )
 
+            else:
+                break
+
         if not success:
             return False, code, f"[STEP {index}] Failed after {MAX_RETRIES} retries."
+        else:
+            break
 
     return True, code, ""
 

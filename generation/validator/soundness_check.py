@@ -3,8 +3,8 @@ import subprocess
 import sys
 import tempfile
 
-from repair import *
 from tabulate import tabulate
+from validator.repair import check
 
 from constraintflow.experiments.experiments_correct import run_verifier_from_str
 from generation.request import Client, TGIClient
@@ -120,7 +120,8 @@ def make_constraintflow_validator(certifier: str, client: Client, is_chat: bool)
             return False, ""  # invalid, no counterexample
 
         full_dsl = DSL1[certifier] + repaired_dsl + DSL2[certifier]
-        return run_verifier_from_str(full_dsl)  # return (T/F, ce: str/None)
+        result, ce = run_verifier_from_str(full_dsl)  # return (T/F, ce: str/"")
+        return result, ce, repaired_dsl
 
     return validator
 
@@ -130,17 +131,14 @@ if __name__ == "__main__":
 
     dsl = """
 transformer deeppoly{
-    HardSigmoid ->
-        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
-        (((prev[l]) >= 3) ? (1, 1, 1, 1) :
-        ( ((prev[l]) >= -3) & ((prev[u]) <= 3) ?
-            (0.1666666667 * prev[l] + 0.5, 0.1666666667 * prev[u] + 0.5, 0.1666666667 * prev + 0.5, 0.1666666667 * prev + 0.5 ) :
-            ( (prev[l] < -3) & (prev[u] > 3) ?
-                (0, 1, (prev - prev[l]) * (1 - 0) / (prev[u] - prev[l]) + 0, (prev - prev[l]) * (1 - 0) / (prev[u] - prev[l]) + 0)
-                :
-                (max(0, 0.1666666667 * prev[l] + 0.5), min(1, 0.1666666667 * prev[u] + 0.5), max(0, 0.1666666667 * prev + 0.5), min(1, 0.1666666667 * prev + 0.5))
-            )
-        ));
+    HardTanh ->
+      ((prev[u]) <= -1) ? (-1, -1, -1, -1) :
+      ((prev[l]) >= 1) ? (1, 1, 1, 1) :
+      (((prev[l]) >= -1) & ((prev[u]) <= 1)) ? (prev[l], prev[u], prev[L], prev[U]) :
+      (((prev[l]) < -1) & ((prev[u]) <= 1)) ? (-1, prev[u], -1, prev[U]) :
+      (((prev[l]) >= -1) & ((prev[u]) > 1)) ? (prev[l], 1, prev[L], 1) :
+      ((prev[l]) < -1 & (prev[u]) > 1) ? (-1, 1, -1, 1) :
+      (prev[l], prev[u], prev[L], prev[U]);
 }
     """
 

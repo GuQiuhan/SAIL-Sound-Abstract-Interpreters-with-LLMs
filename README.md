@@ -13,10 +13,17 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 │   ├── prompt
 │   │   ├── prompts           # (Few-shot) prompt examples and templates
 │   │   └── doc_collector.py  # Collects operator documentation to support grounding
+│   ├── validator
+│   │   ├── miniDSL           # ANTLR grammar files and parser modules for the DSL
+│   │   │   └── ...
+│   │   ├── repair            # LLM-driven repair logic for incorrect DSL generations
+│   │   ├── syntax_check      # Rule-based syntax checker and fixer for malformed DSL code
+│   │   └── semantics_check   # Type-based semantic checker for DSL AST
 │   ├── run_all.py            # One-click launcher: starts model server, runs generation, shuts down
 │   ├── models.py             # Unified model interface for Llama, Gpt, DeepSeek, etc.
 │   ├── request.py            # Prompt formatting and model communication
-│   └── gen.py                # Constraint generation workflow
+│   ├── gen.py                # Constraint generation workflow
+│   └── reasoning_gen.py      # Constraint generation workflow augmented with reasoning steps
 │   └── utils.py              # Shared utilities and constants (e.g., model-port mapping, helper functions)
 ├── results/                  # Outputs of models' generation
 │   ├── date1/
@@ -102,17 +109,36 @@ python generation/gen.py
 ```
 This script guides the model to generate DSLs for neural operators using multi-stage reasoning and validation.
 
+#### 🛠️ DSL Validation and Repair Pipeline
+This project integrates a three-stage validation and repair framework for dDSL generation.
 
+* Syntax Checker (`generation/validator/syntax_check.py`)
+Performs static structural validation of DSL code and automatically repairs common syntax issues.
+```bash
+python -m generation.validator.syntac_check
+```
+
+* Semantic Checker (`generation/validator/semantics_check.py`)
+Performs type-based semantic analysis over parsed DSL AST.
+```bash
+python -m generation.validator.semantics_check
+```
+* 3. LLM-Guided Repair (`generation/validator/repair.py`)
+When the previous two parts detect the erros and fail to fix, the generation and errors are injected into the next LLM prompt.
+```bash
+python -m generation.validator.repair
+```
 
 # TODO:
 
 * [x] read code of constraintflow and print out the counterexamples to prompt model
 * [x] package constraitflow
-* [ ] formal proofs of the soundness, completeness, (efficiency) of proposed algorithms
 * [ ] reasoning for `join` and `meet` operators
-* [ ] llm repair
-* [ ] the controller/orchestrator
+* [x] llm repair
+* [x] the controller/orchestrator
+* [ ] improve dsl validation module
 * [ ] formalize the generation, verification, repair phases into algorithms
+* [ ] formal proofs of the soundness, completeness, (efficiency) of proposed algorithms
 * [ ] evaluations: compare with other transformer generation/synthesis baselines
 * [ ] Analysis: - Can it generate more complicated transformers?
 * [ ] Fix constraintflow, including negative floats/ProveSound

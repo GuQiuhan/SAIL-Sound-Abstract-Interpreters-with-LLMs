@@ -5,9 +5,9 @@ from antlr4 import *
 from antlr4 import CommonTokenStream, InputStream
 from antlr4.error.ErrorListener import ConsoleErrorListener, ErrorListener
 from antlr4.error.ErrorStrategy import BailErrorStrategy
-from miniDSL.miniastBuilder import ASTBuilder
-from miniDSL.miniDSLLexer import miniDSLLexer
-from miniDSL.miniDSLParser import miniDSLParser
+from validator.miniDSL.miniastBuilder import ASTBuilder
+from validator.miniDSL.miniDSLLexer import miniDSLLexer
+from validator.miniDSL.miniDSLParser import miniDSLParser
 
 
 class SilentErrorListener(ErrorListener):
@@ -40,8 +40,9 @@ class SyntaxChecker:
     """
 
     def __init__(self):
-        self.token_map = parse_tokens_file(TOKENS_FILE)
+        # self.token_map = parse_tokens_file(TOKENS_FILE)
         self.MAX_RETRIES = 5
+        self.metadata = ["WEIGHT", "BIAS", "EQUATIONS", "LAYER"]
 
     def check(self, dsl: str) -> tuple[bool, str, Optional[str]]:
         last_attempt = None  # 记录最后一次尝试的修复类型
@@ -73,11 +74,6 @@ class SyntaxChecker:
                     dsl = self.fix_brackets(code=dsl)
                     last_attempt = "Issue Type: Unbalanced brackets."
 
-                elif self.has_negative_floats(dsl):
-                    print("❗ Detected negative floats. Attempting to fix.")  # TODO
-                    dsl = self.fix_negative_floats(code=dsl, token_map=self.token_map)
-                    last_attempt = "Issue Type: Negative float constant."
-
                 elif "&&" in dsl or "||" in dsl or "&" in dsl:
                     print("❗ Detected illegal operators. Attempting to fix.")
                     dsl = self.check_and_fix_illegal_operators(dsl)
@@ -85,9 +81,30 @@ class SyntaxChecker:
                         "Issue Type: Illegal logical operators like '&&', '||', '&'."
                     )
 
+                elif "DOT" in dsl or any(kw in dsl for kw in self.metadata):
+                    print(
+                        "❗ Detected DOT or uppercase metadata usage. Attempting to fix."
+                    )
+                    dsl = self.fix_dot_and_metadata(dsl)
+                    last_attempt = "Issue Type: DOT or uppercase metadata usage."
+
+                elif re.search(r'\[\s*"(?i)(layer|weight|bias|equations)"\s*\]', dsl):
+                    print("❗ Detected metadata in string form. Attempting to fix.")
+                    dsl = self.fix_metadata_quotes(dsl)
+                    last_attempt = (
+                        'Issue Type: Metadata used as quoted string (e.g., "layer").'
+                    )
+
                 else:
                     print("❗ Syntax error but unknown cause.")
                     last_attempt = "Unknown syntax error."
+
+                """
+                elif self.has_negative_floats(dsl):
+                    print("❗ Detected negative floats. Attempting to fix.")  # TODO
+                    dsl = self.fix_negative_floats(code=dsl, token_map=self.token_map)
+                    last_attempt = "Issue Type: Negative float constant."
+                """
 
         return False, dsl, last_attempt
 
@@ -249,23 +266,41 @@ class SyntaxChecker:
         fixed = code.replace("&&", "and").replace("||", "or").replace("&", "and")
         return fixed
 
+    def fix_dot_and_metadata(self, code: str) -> str:
+        """
+        Fix `DOT` to `.` and convert all metadata tokens (like WEIGHT, BIAS) to lowercase.
+        """
+
+        # Replace DOT with .
+        code = re.sub(r"\bDOT\b", ".", code)
+
+        # Replace uppercase metadata with lowercase
+        for keyword in self.metadata:
+            code = re.sub(rf"\b{keyword}\b", keyword.lower(), code)
+
+        return code
+
+    def fix_metadata_quotes(self, code: str) -> str:
+        """
+        Fixes incorrect metadata usage like curr["layer"] -> curr[layer]
+        """
+        pattern = re.compile(r'\[\s*"(layer|weight|bias|equations)"\s*\]')
+
+        def replace(match):
+            metadata = match.group(1)
+            print(f"⚠️ [Fixed] Rewriting '\"{metadata}\"' → {metadata}")
+            return f"[{metadata}]"
+
+        return pattern.sub(replace, code)
+
 
 if __name__ == "__main__":
     dsl = """
-transformer deeppoly{
-    HardTanh ->
-        (prev[l] >= 1) ? (1, 1, 1, 1)
-        : (prev[u] <= -1) ? (-1, -1, -1, -1)
-        : (prev[l] >= -1 && prev[u] <= 1) ? (prev[l], prev[u], prev, prev)
-        : (prev[l] < -1 && prev[u] > 1) ? (-1, 1, prev, prev)
-        : (prev[l] < -1) ?
-            (-1, min(prev[u], 1),
-             prev*(min(prev[u], 1)-(-1))/(prev[u] - prev[l]) - ((2*min(prev[u], 1)*(-1))/(prev[u]-prev[l])),
-             prev*(min(prev[u], 1)-(-1))/(prev[u] - prev[l]) - ((2*min(prev[u], 1)*(-1))/(prev[u]-prev[l])))
-        : (max(prev[l], -1), 1,
-           prev*(1-max(prev[l], -1))/(prev[u]-prev[l]) - ((2*1*max(prev[l], -1))/(prev[u]-prev[l])),
-           prev*(1-max(prev[l], -1))/(prev[u]-prev[l]) - ((2*1*max(prev[l], -1))/(prev[u]-prev[l])))
-        ;
+transformer deeppoly {
+    Avgpool -> (
+        (curr["layer"]),
+       0,0,0
+    );
 }
     """
 

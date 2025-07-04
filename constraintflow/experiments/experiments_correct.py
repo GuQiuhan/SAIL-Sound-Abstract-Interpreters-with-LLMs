@@ -64,6 +64,7 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
 
     except Exception as e:
         # Any parsing/type-check/verifier error
+        print(e)
         return False, ""
 
 
@@ -99,9 +100,15 @@ func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 
 transformer deeppoly{
-    Maxpool -> (0,0,0,0);
+    HardTanh ->
+      ((prev[u]) <= -1) ? (-1, -1, -1, -1) :
+      ((prev[l]) >= 1) ? (1, 1, 1, 1) :
+      (((prev[l]) >= -1) and ((prev[u]) <= 1)) ? (prev[l], prev[u], prev[L], prev[U]) :
+      (((prev[l]) < -1) and ((prev[u]) <= 1)) ? (-1, prev[u], -1, prev[U]) :
+      (((prev[l]) >= -1) and ((prev[u]) > 1)) ? (prev[l], 1, prev[L], 1) :
+      ((prev[l]) < -1 and (prev[u]) > 1) ? (-1, 1, -1, 1) :
+      (prev[l], prev[u], prev[L], prev[U]);
 }
-
 
 flow(forward, priority, true, deeppoly);
     """
