@@ -123,7 +123,7 @@ Performs type-based semantic analysis over parsed DSL AST.
 ```bash
 python -m generation.validator.semantics_check
 ```
-* 3. LLM-Guided Repair (`generation/validator/repair.py`)
+* LLM-Guided Repair (`generation/validator/repair.py`)
 When the previous two parts detect the erros and fail to fix, the generation and errors are injected into the next LLM prompt.
 ```bash
 python -m generation.validator.repair
