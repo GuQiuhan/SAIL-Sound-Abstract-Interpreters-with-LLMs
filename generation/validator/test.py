@@ -127,15 +127,18 @@ if __name__ == "__main__":
 
     dsl = """
 transformer deeppoly{
-    Abs ->
-        (prev[l] >= 0) ?
-            (prev[l], prev[u], prev, prev)
-        : ((prev[u] <= 0) ?
-            (-(prev[u]), -(prev[l]), -(prev), -(prev))
-        : (0, max_op(prev[u], -prev[l]), prev,
-            prev * ((prev[u] + prev[l]) / (prev[u] - prev[l])) - ((2 * prev[u] * prev[l]) / (prev[u] - prev[l]))
-          )
-        );
+    HardSwish ->
+        (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+        : (prev[u] <= -3)
+            ? (0, 0, 0, 0)
+        :
+            (
+                min(0, prev[l], prev[u], prev[l] * max(0, min(6, prev[l] + 3)) / 6, prev[u] * max(0, min(6, prev[u] + 3)) / 6),
+                max(0, prev[l], prev[u], prev[l] * max(0, min(6, prev[l] + 3)) / 6, prev[u] * max(0, min(6, prev[u] + 3)) / 6),
+                ((prev - prev[l]) * ((prev[u] * max(0, min(6, prev[u] + 3)) / 6) - (prev[l] * max(0, min(6, prev[l] + 3)) / 6)) / ((prev[u]) - (prev[l]))) + (prev[l] * max(0, min(6, prev[l] + 3)) / 6),
+                ((prev - prev[l]) * ((prev[u] * max(0, min(6, prev[u] + 3)) / 6) - (prev[l] * max(0, min(6, prev[l] + 3)) / 6)) / ((prev[u]) - (prev[l]))) + (prev[l] * max(0, min(6, prev[l] + 3)) / 6)
+            );
 }
     """
 

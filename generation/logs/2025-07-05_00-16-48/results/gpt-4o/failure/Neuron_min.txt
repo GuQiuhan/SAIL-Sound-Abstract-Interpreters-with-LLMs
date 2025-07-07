@@ -1,0 +1,11 @@
+transformer deeppoly{
+    Neuron_min ->
+        (prev_0[u] <= prev_1[l]) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (prev_1[u] <= prev_0[l]) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+        (
+            min(prev_0[l], prev_1[l]),
+            min(prev_0[u], prev_1[u]),
+            (prev_0[L] + prev_1[L]) * 0.5,
+            (prev_0[U] + prev_1[U] - (prev_0[U] - prev_1[U] >= 0 ? (prev_0[U] - prev_1[U]) : (prev_1[U] - prev_0[U]))) * 0.5
+        );
+}

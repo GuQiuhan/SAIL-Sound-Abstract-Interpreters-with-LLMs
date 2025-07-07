@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}

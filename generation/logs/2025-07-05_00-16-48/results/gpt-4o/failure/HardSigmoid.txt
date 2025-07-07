@@ -1,0 +1,12 @@
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (prev[l] >= 3) ? (1, 1, 1, 1)
+        : (prev[l] >= -3) and (prev[u] <= 3)
+            ? ((0.16666667 * prev[l] + 0.5), (0.16666667 * prev[u] + 0.5), (0.16666667 * prev + 0.5), (0.16666667 * prev + 0.5))
+        : (prev[l] < -3) and (prev[u] <= 3)
+            ? (0, (0.16666667 * prev[u] + 0.5), 0, (0.16666667 * prev + 0.5))
+        : (prev[l] >= -3) and (prev[u] > 3)
+            ? ((0.16666667 * prev[l] + 0.5), 1, (0.16666667 * prev + 0.5), (0.16666667 * prev + 0.5) + (1 - (0.16666667 * prev[u] + 0.5)) * (prev - prev[u]) / (prev[u] - prev[l]))
+        : (0, 1, 0, (0.16666667 * prev + 0.5) + (1 - (0.16666667 * prev[u] + 0.5)) * (prev - prev[u]) / (prev[u] - prev[l]));
+}

@@ -64,7 +64,6 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
 
     except Exception as e:
         # Any parsing/type-check/verifier error
-        print(e)
         return False, ""
 
 

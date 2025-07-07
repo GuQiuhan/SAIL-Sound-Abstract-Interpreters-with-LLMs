@@ -1,0 +1,9 @@
+transformer deeppoly{
+    Neuron_max ->
+        (
+            max(prev_0[l], prev_1[l]),
+            max(prev_0[u], prev_1[u]),
+            prev_0[L],  // or use an appropriate operator for PolyExp if defined in your DSL
+            prev_0[U]   // or use an appropriate operator for PolyExp if defined in your DSL
+        );
+}

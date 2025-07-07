@@ -1,0 +1,34 @@
+transformer deeppoly {
+    Neuron_mult ->
+        ((prev_0[l] >= 0) ?
+            ((prev_1[l] >= 0) ?
+                (simplify_lower(prev_0, prev_1[l]), simplify_upper(prev_0, prev_1[u]), prev_0[L] * prev_1[L], prev_0[U] * prev_1[U])
+                :
+                ((prev_1[u] <= 0) ?
+                    (simplify_lower(prev_0, prev_1[u]), simplify_upper(prev_0, prev_1[l]), prev_0[L] * prev_1[U], prev_0[U] * prev_1[L])
+                    :
+                    (min(simplify_lower(prev_0, prev_1[l]), simplify_lower(prev_0, prev_1[u]), simplify_lower(prev_0, prev_1[L]), simplify_lower(prev_0, prev_1[U])),
+                     max(simplify_upper(prev_0, prev_1[l]), simplify_upper(prev_0, prev_1[u]), simplify_upper(prev_0, prev_1[L]), simplify_upper(prev_0, prev_1[U])),
+                     prev_0[L] * prev_1[L], prev_0[U] * prev_1[U])
+                )
+            )
+        )
+        :
+        ((prev_0[u] <= 0) ?
+            ((prev_1[l] >= 0) ?
+                (simplify_lower(prev_0, prev_1[u]), simplify_upper(prev_0, prev_1[l]), prev_0[U] * prev_1[L], prev_0[L] * prev_1[U])
+                :
+                ((prev_1[u] <= 0) ?
+                    (simplify_lower(prev_0, prev_1[l]), simplify_upper(prev_0, prev_1[u]), prev_0[U] * prev_1[U], prev_0[L] * prev_1[L])
+                    :
+                    (min(simplify_lower(prev_0, prev_1[l]), simplify_lower(prev_0, prev_1[u]), simplify_lower(prev_0, prev_1[L]), simplify_lower(prev_0, prev_1[U])),
+                     max(simplify_upper(prev_0, prev_1[l]), simplify_upper(prev_0, prev_1[u]), simplify_upper(prev_0, prev_1[L]), simplify_upper(prev_0, prev_1[U])),
+                     prev_0[L] * prev_1[L], prev_0[U] * prev_1[U])
+                )
+            )
+            :
+            (min(simplify_lower(prev_0, prev_1[l]), simplify_lower(prev_0, prev_1[u]), simplify_lower(prev_0, prev_1[L]), simplify_lower(prev_0, prev_1[U])),
+             max(simplify_upper(prev_0, prev_1[l]), simplify_upper(prev_0, prev_1[u]), simplify_upper(prev_0, prev_1[L]), simplify_upper(prev_0, prev_1[U])),
+             prev_0[L] * prev_1[L], prev_0[U] * prev_1[U])
+        )
+}
