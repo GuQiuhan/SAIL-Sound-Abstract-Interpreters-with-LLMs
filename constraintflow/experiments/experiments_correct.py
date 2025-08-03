@@ -2,6 +2,7 @@ import sys
 
 import antlr4 as antlr
 from tabulate import tabulate
+from z3 import *
 
 from constraintflow.core import astBuilder, astTC, dslLexer, dslParser
 from constraintflow.provesound.src import verify
@@ -48,23 +49,25 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
 
         # Collect counterexamples
         ce = []
+        model = None
 
+        # print(ret_dict)
         for op_name, result in ret_dict.items():
             if len(result) == 3:
-                _, v_, counterex = result
-                if v_ < 1.0 and counterex:
-                    ce.append("Counterexample:")
-                    for var, val in counterex.items():
-                        ce.append(f"  {var} = {val}")
+                _n, v_, model = result
+                if v_ < 1.0 and isinstance(model, z3.ModelRef):
+                    ce.append(f"Counterexample unsound for {op_name}:")
+                    for d in model.decls():
+                        ce.append(f"  {d.name()} = {model[d]}")
 
         if ce:
             return False, "\n".join(ce)
         else:
-            return True, ""
+            return True, None
 
     except Exception as e:
         # Any parsing/type-check/verifier error
-        return False, ""
+        return False, None
 
 
 if __name__ == "__main__":
@@ -99,14 +102,7 @@ func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 
 transformer deeppoly{
-    HardTanh ->
-      ((prev[u]) <= -1) ? (-1, -1, -1, -1) :
-      ((prev[l]) >= 1) ? (1, 1, 1, 1) :
-      (((prev[l]) >= -1) and ((prev[u]) <= 1)) ? (prev[l], prev[u], prev[L], prev[U]) :
-      (((prev[l]) < -1) and ((prev[u]) <= 1)) ? (-1, prev[u], -1, prev[U]) :
-      (((prev[l]) >= -1) and ((prev[u]) > 1)) ? (prev[l], 1, prev[L], 1) :
-      ((prev[l]) < -1 and (prev[u]) > 1) ? (-1, 1, -1, 1) :
-      (prev[l], prev[u], prev[L], prev[U]);
+     Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]),0,0,0);
 }
 
 flow(forward, priority, true, deeppoly);

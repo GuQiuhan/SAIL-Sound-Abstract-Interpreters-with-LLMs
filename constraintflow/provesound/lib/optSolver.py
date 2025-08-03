@@ -20,6 +20,9 @@ class OptSolver:
         # @qiuhan:
         self.last_model = None  # to get the counterexample
 
+        self.models = []  # to get more counterexample
+        self.max_models = 5  # sampling
+
     def clear(self):
         self.solved = []
         self.counter = -1
@@ -224,7 +227,24 @@ class OptSolver:
                 # @qiuhan: Unsound->try to get counterexample
                 solver = Solver()
                 solver.add(Not(Implies(i[0], i[1])))
-                if solver.check() == sat:
-                    self.last_model = solver.model()
+                count = 0
+                while solver.check() == sat and count < self.max_models:
+                    m = solver.model()
+                    self.models.append(m)
+                    if count == 0:
+                        self.last_model = m  # for the verifier
+
+                    block = []
+                    for d in m.decls():
+                        var = d()
+                        val = m[var]
+                        if is_int_value(val) or is_rational_value(val):
+                            block.append(var != val)
+                    if block:
+                        solver.add(Or(block))
+                    else:
+                        break
+                    count += 1
+
                 return False
         return True

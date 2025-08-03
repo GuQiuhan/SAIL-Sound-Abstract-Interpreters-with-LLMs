@@ -654,15 +654,15 @@ class Verify(astVisitor.ASTVisitor):
                 print(f"Transformer unsound for {op_}")
                 if len(e.args) > 1:
                     z3_model = e.args[1]
-                    if isinstance(z3_model, z3.ModelRef):
-                        counterex = {}
-                        for d in z3_model.decls():
-                            counterex[d.name()] = z3_model[d]
+                    # if isinstance(z3_model, z3.ModelRef):
+                    #    counterex = {}
+                    #    for d in z3_model.decls():
+                    #        counterex[d.name()] = z3_model[d]
 
             ret_dict[node.oplist.olist[op_i].op.op_name] = (
                 get_verification_time(),
                 get_generation_time(),
-                counterex,  # @qiuhan: save the counterexample
+                z3_model,  # @qiuhan: save the counterexample
             )
 
             reset_time()
@@ -728,6 +728,7 @@ class Verify(astVisitor.ASTVisitor):
                         and self.solver.last_model is not None
                     ):
                         model = self.solver.last_model
+
                     raise Exception(f"Constraint Unsound", model)
 
                 s.ss.tempC = []

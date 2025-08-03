@@ -19,7 +19,7 @@ raw_data = [
     ["Relu6", 10, 5, 21, 407.79, False],
 ]
 
-# Extract data
+
 operators = [item[0] for item in raw_data]
 gen_rounds = [item[1] for item in raw_data]
 repair_rounds = [item[2] for item in raw_data]
@@ -32,7 +32,7 @@ bar_width = 0.2
 
 fig, ax1 = plt.subplots(figsize=(14, 6))
 
-# ========== 第一Y轴: 数量 ==========
+
 bars1 = ax1.bar(
     x - bar_width, gen_rounds, width=bar_width, label="LLM Gen Rounds", color="#f7b7a3"
 )
