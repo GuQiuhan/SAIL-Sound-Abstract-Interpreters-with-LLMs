@@ -1,4 +1,4 @@
-# LLM-based DSL Generation for Neuron Specification
+# LLM-based DSL Generation for Abstract Transformer
 
 ![workflow](https://github.com/GuQiuhan/ConstraintFlow_patch1/blob/main/tables/pics/workflow.png)
 
@@ -21,21 +21,31 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 │   │   ├── repair            # LLM-driven repair logic for incorrect DSL generations
 │   │   ├── syntax_check      # Rule-based syntax checker and fixer for malformed DSL code
 │   │   └── semantics_check   # Type-based semantic checker for DSL AST
+│   ├── evaluator
+│   │   ├── eval              # Compute the cost function for each candidate
 │   ├── run_all.py            # One-click launcher: starts model server, runs generation, shuts down
 │   ├── models.py             # Unified model interface for Llama, Gpt, DeepSeek, etc.
 │   ├── request.py            # Prompt formatting and model communication
-│   ├── gen.py                # Constraint generation workflow
+│   ├── gen.py                # Constraint generation workflow, allow multiple models and multiple certifiers
 │   └── reasoning_gen.py      # Constraint generation workflow augmented with reasoning steps
 │   └── utils.py              # Shared utilities and constants (e.g., model-port mapping, helper functions)
-├── results/                  # Outputs of models' generation
+├── results/                  # Outputs of models' generation, including generation results, generation log, statistic analysis
 │   ├── date1/
 │   │   ├──deepseek/
-│   │   │   ├── success/
-│   │   │   └── failure/
+│   │   │   ├── certifier/
+│   │   │   │   └── failure/
+│   │   │   │   └── success/
+│   │   │   │   └── statistics/
+│   │   │   │   │   └── statistics.json
+│   │   │   │   │   └── statistics.png
+│   │   │   │   └── generation.log
 │   ├── date2/
 │   │   ├──llama/
-│   │   │   ├── success/
-│   │   │   └── failure/
+│   │   │   ├── certifier/
+│   │   │   │   └── failure/
+│   │   │   │   └── success/
+│   │   │   │   └── statistics/
+│   │   │   │   └── generation.log
 │   └── ...
 └── requirements.txt     # Python dependencies
 └── setup.py             # Pack the project
