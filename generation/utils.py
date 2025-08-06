@@ -510,7 +510,7 @@ flow(forward, priority, true, deeppoly);
 
 
 op_list_test = [
-    "Neuron_min",
+    "Abs",
 ]
 
 

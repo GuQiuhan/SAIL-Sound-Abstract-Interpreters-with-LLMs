@@ -106,21 +106,13 @@ func slopeL(Float l, Float u) = (1 - l) / (2*(u - l));
 func slopeU(Float l, Float u) = (u + 1) / (2*(u - l));
 
 transformer deeppoly{
-    HardTanh ->
-        (prev[u] <= -1) ?
-            (-1, -1, -1, -1) :
-        (prev[l] >= 1) ?
-            (1, 1, 1, 1) :
-        ((prev[l] >= -1) and (prev[u] <= 1)) ?
-            (prev[l], prev[u], prev, prev) :
-        ((prev[l] < -1) and (prev[u] <= 1)) ?
-            (max(-1, prev[l]), prev[u], max(-1, prev[l]), prev[u]) :
-        ((prev[l] >= -1) and (prev[u] > 1)) ?
-            (prev[l], min(1, prev[u]), prev[l], min(1, prev[u])) :
-        (-1, 1, max(-1, prev[l]), min(1, prev[u]))
-    ;
+    Relu6 ->
+        (prev[u] <= 0) ? (0, 0, 0, 0)
+        : (prev[l] >= 6) ? (6, 6, 6, 6)
+        : (prev[l] >= 0) ? (prev[l], min(prev[u], 6), prev[l], min(prev[u], 6))
+        : (prev[u] <= 6) ? (0, prev[u], 0, prev[u])
+        : (0, 6, 0, ((prev[u] / (prev[u] - prev[l])) * prev[l]) - ((prev[u] * prev[l]) / (prev[u] - prev[l])));
 }
-
 flow(forward, priority, true, deeppoly);
     """
 

@@ -77,7 +77,7 @@ def launch_model_server(model_config, port, max_tokens=256):
             )
 
     elif any(
-        keyword in model_id
+        keyword in model_id.lower()
         for keyword in {
             "llama-3.3",
             "llama-4",
@@ -197,7 +197,12 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    requested_models = [m.lower() for m in args.model]
+
+    if isinstance(args.model, str):
+        requested_models = [args.model.lower()]
+    else:
+        requested_models = [m.lower() for m in args.model]
+    # requested_models = [m.lower() for m in args.model]
 
     selected_configs = []
     for config in MODEL_PORT_PAIRS:
@@ -223,4 +228,4 @@ if __name__ == "__main__":
 
 
 # READEME:
-# use `python models.py -m [gpt-4o]/[]..` to run this file in a seperate terminal
+# use `python models.py -m [gpt-4o]/[]..` to run this file in a seperate terminal --> multiple model in multiple terminals

@@ -51,21 +51,20 @@ if __name__ == "__main__":
     dsl = """
 transformer deeppoly{
     HardTanh ->
-        (
-            (prev[l] >= 1)
-                ? (1, 1, 1, 1)
-                : (
-                    (prev[u] <= -1)
-                        ? (-1, -1, -1, -1)
-                        : (
-                            max(-1, prev[l]),
-                            min(1, prev[u]),
-                            ((prev - prev[l]) * (min(1, prev[u]) - max(-1, prev[l])) / (prev[u] - prev[l])) + max(-1, prev[l]) - ((prev - prev[l]) * (max(-1, prev[l])) / (prev[u] - prev[l])),
-                            ((prev - prev[l]) * (min(1, prev[u]) - max(-1, prev[l])) / (prev[u] - prev[l])) + max(-1, prev[l])
-                        )
-                )
-        );
+        (prev[u] <= -1) ?
+            (-1, -1, -1, -1) :
+        (prev[l] >= 1) ?
+            (1, 1, 1, 1) :
+        ((prev[l] >= -1) and (prev[u] <= 1)) ?
+            (prev[l], prev[u], prev, prev) :
+        ((prev[l] < -1) and (prev[u] <= 1)) ?
+            (max(-1, prev[l]), prev[u], max(-1, prev[l]), prev[u]) :
+        ((prev[l] >= -1) and (prev[u] > 1)) ?
+            (prev[l], min(1, prev[u]), prev[l], min(1, prev[u])) :
+        (-1, 1, max(-1, prev[l]), min(1, prev[u]))
+    ;
 }
+
     """
 
     validator = make_constraintflow_validator("deeppoly", client, True)

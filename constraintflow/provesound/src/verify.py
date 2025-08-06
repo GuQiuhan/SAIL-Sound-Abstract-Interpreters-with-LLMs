@@ -653,7 +653,7 @@ class Verify(astVisitor.ASTVisitor):
                 self.applyTrans(leftC, vallist, s, curr_prime, computation)
                 print(f"Proved {op_}")
             except Exception as e:
-                print(f"Transformer unsound for {op_}")
+                # print(f"Transformer unsound for {op_}")
                 if len(e.args) > 1:
                     z3_model = e.args[1]
                     # if isinstance(z3_model, z3.ModelRef):

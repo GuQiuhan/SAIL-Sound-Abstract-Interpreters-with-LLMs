@@ -1,8 +1,0 @@
-transformer deeppoly{
-    Avgpool ->
-        (1.0 / curr[size]) * sum_i(simplify_lower(prev_i, 1.0)),
-        (1.0 / curr[size]) * sum_i(simplify_upper(prev_i, 1.0)),
-        (1.0 / curr[size]) * sum_i(prev_i),
-        (1.0 / curr[size]) * sum_i(prev_i)
-    ;
-}

@@ -147,4 +147,4 @@ if __name__ == "__main__":
         ["Affine", 1, 0, 0, 28.318931579589844, True],
         [48.386308908462524],
     ]
-    rounds(r2, "pics/rounds.png", "gpt-4o")
+    rounds(raw_data, "pics/rounds_wo.png", "gpt-4o")

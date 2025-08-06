@@ -1,0 +1,8 @@
+transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 0) ? (f2(prev[l]), f2(prev[u]), prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + f2(prev[l]) - prev[l] * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])), prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + f2(prev[l]) - prev[l] * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l]))) :
+        (prev[u] <= 0) ? (f2(prev[u]), f2(prev[l]), prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + f2(prev[l]) - prev[l] * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])), prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + f2(prev[l]) - prev[l] * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l]))) :
+        (0, f3(prev), 0, prev * slope(prev[u], prev[l]) + intercept(prev[u], prev[l]));
+}

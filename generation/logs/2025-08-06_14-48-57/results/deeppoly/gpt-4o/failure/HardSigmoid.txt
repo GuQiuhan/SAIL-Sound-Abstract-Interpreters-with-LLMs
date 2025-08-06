@@ -1,0 +1,11 @@
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            max(0, min(1, f2(prev[l]))),
+            max(0, min(1, f2(prev[u]))),
+            max(0, min(1, prev[l] * slope(prev[l], prev[u]) + intercept(prev[l], prev[u]))),
+            max(0, min(1, prev[u] * slope(prev[u], prev[l]) + intercept(prev[u], prev[l])))
+        );
+}

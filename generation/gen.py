@@ -150,6 +150,7 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                 print(f"[STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}\n")
 
                 if step.validator:
+                    result = False
                     try:
                         result, ce, code = step.validator(code)
                     except Exception as e:
@@ -163,7 +164,7 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                         success = True
                         best_code = code
                         logging.info(
-                            f"[STEP {index}] Sample {sample_id}: Validation passed."
+                            f"[STEP {index}] Sample {sample_id}: Validation passed for code: \n{best_code}."
                         )
                         return True, best_code, ""
                     else:  # TODO: augment the prompt with ce. Done.
@@ -254,7 +255,9 @@ if __name__ == "__main__":
         "-m",
         type=str,
         required=False,
-        default="gpt-4o",
+        nargs="+",  # multiple models
+        choices=["llama-3.3", "llama-4", "deepseek", "gpt-4o", "gpt-4.1", "o4-mini"],
+        default=["gpt-4o"],
         help="Model keyword to select from model-port map. E.g., deepseek, llama-4, gpt-4.1, gpt-4o",
     )
 
@@ -263,8 +266,9 @@ if __name__ == "__main__":
         "-c",
         type=str,
         required=False,
+        nargs="+",  # multiple certifiers
         choices=["deeppoly", "ibp", "deepz"],
-        default="deeppoly",
+        default=["deeppoly"],
         help="Certifier type: deeppoly, ibp, deepz",
     )
     args = parser.parse_args()
@@ -273,241 +277,259 @@ if __name__ == "__main__":
 
     run_timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     run_dir = os.path.join("logs", run_timestamp)
-    result_dir = os.path.join(run_dir, "results")
-    log_path = os.path.join(run_dir, "generation.log")
-    statistic_dir = os.path.join(run_dir, "statistics")
-    os.makedirs(statistic_dir, exist_ok=True)
-    statistic_path = os.path.join(statistic_dir, "statistic.json")
+    results_dir = os.path.join(run_dir, "results")
 
-    model_keyword = args.model.lower()
-    certifier = args.certifier
-
-    if model_keyword not in PORT_MAP:
-        raise ValueError(f"Model '{args.model}' not found in PORT_MAP.")
-
-    MODEL_ENDPOINTS = {model_keyword: PORT_MAP[model_keyword]}
-
-    # @qiuhan: TODO: allow multiple models
-
-    for model_name in MODEL_ENDPOINTS:
-        model_out_dir = os.path.join(result_dir, model_name)
-        if os.path.exists(model_out_dir):
-            shutil.rmtree(model_out_dir)
-        os.makedirs(os.path.join(model_out_dir, "success"), exist_ok=True)
-        os.makedirs(os.path.join(model_out_dir, "failure"), exist_ok=True)
-
-    if certifier == "deeppoly":
-        CONSTRAINTFLOW_SYSTEM_PROMPT = DEEPPOLY_CONSTRAINTFLOW
-        prmpt_relu = prmpt_relu_deeppoly
-        prmpt_abs = prmpt_abs_deeppoly
-        prmpt_affine = prmpt_affine_deeppoly
-    elif certifier == "ibp":
-        CONSTRAINTFLOW_SYSTEM_PROMPT = IBP_CONSTRAINTFLOW
-        prmpt_relu = prmpt_relu_ibp
-        prmpt_abs = prmpt_abs_ibp
-        prmpt_affine = prmpt_affine_ibp
-    elif certifier == "deepz":
-        CONSTRAINTFLOW_SYSTEM_PROMPT = DEEPZ_CONSTRAINTFLOW
-        prmpt_relu = prmpt_relu_deepz
-        prmpt_abs = prmpt_abs_deepz
-        prmpt_affine = prmpt_affine_deepz
+    if isinstance(args.model, str):
+        model_keywords = [args.model.lower()]
     else:
-        raise ValueError(f"Unknown certifier: {certifier}")
+        model_keywords = [m.lower() for m in args.model]
 
-    logging.basicConfig(
-        filename=log_path,
-        level=logging.INFO,
-        format="%(asctime)s - %(levelname)s - %(message)s",
-        filemode="a",
-    )
+    if isinstance(args.certifier, str):
+        certifiers = [args.certifier.lower()]
+    else:
+        certifiers = [c.lower() for c in args.certifier]
 
-    progress_bar = Progress(
-        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-        BarColumn(),
-        MofNCompleteColumn(),
-        TextColumn("•"),
-        TimeElapsedColumn(),
-        TextColumn("•"),
-        TimeRemainingColumn(),
-    )
+    for certifier in certifiers:
+        result_dir = os.path.join(results_dir, certifier)
 
-    prefix = os.path.join(os.path.dirname(__file__), "prompt/prompts")
+        for model_keyword in model_keywords:
 
-    with progress_bar as p:
-        overall_start_time = time.time()
+            if model_keyword not in PORT_MAP:
+                raise ValueError(f"Model {model_keyword} not found in PORT_MAP.")
 
-        for model_name, url in MODEL_ENDPOINTS.items():
+        MODEL_ENDPOINTS = {model: PORT_MAP[model] for model in model_keywords}
+
+        # @qiuhan: TODO: allow multiple models
+
+        for model_name in MODEL_ENDPOINTS:
             model_out_dir = os.path.join(result_dir, model_name)
-            success_dir = os.path.join(model_out_dir, "success")
-            failure_dir = os.path.join(model_out_dir, "failure")
+            if os.path.exists(model_out_dir):
+                shutil.rmtree(model_out_dir)
+            os.makedirs(os.path.join(model_out_dir, "success"), exist_ok=True)
+            os.makedirs(os.path.join(model_out_dir, "failure"), exist_ok=True)
 
-            client = TGIClient(model=url, max_new_tokens=2048)
+        if certifier == "deeppoly":
+            CONSTRAINTFLOW_SYSTEM_PROMPT = DEEPPOLY_CONSTRAINTFLOW
+            prmpt_relu = prmpt_relu_deeppoly
+            prmpt_abs = prmpt_abs_deeppoly
+            prmpt_affine = prmpt_affine_deeppoly
+        elif certifier == "ibp":
+            CONSTRAINTFLOW_SYSTEM_PROMPT = IBP_CONSTRAINTFLOW
+            prmpt_relu = prmpt_relu_ibp
+            prmpt_abs = prmpt_abs_ibp
+            prmpt_affine = prmpt_affine_ibp
+        elif certifier == "deepz":
+            CONSTRAINTFLOW_SYSTEM_PROMPT = DEEPZ_CONSTRAINTFLOW
+            prmpt_relu = prmpt_relu_deepz
+            prmpt_abs = prmpt_abs_deepz
+            prmpt_affine = prmpt_affine_deepz
+        else:
+            raise ValueError(f"Unknown certifier: {certifier}")
 
-            if model_name not in statistic:
-                statistic[model_name] = []
-
-            for op_name in p.track(sorted(op_list)):  # TODO: change the opt list
-                op_start_time = time.time()
-                doc = {"api": op_name}
-
-                logging.info(f"{datetime.now()} - Extracting {doc['api']}")
-                api_name = doc["api"]
-
-                GlobalState.gen_rounds_now = 0
-                GlobalState.repair_rounds_now = 0
-                GlobalState.ce_number_now = 0
-
-                logging.info(f"\nAPI: {api_name} -> Model: {model_name} @ {url}")
-
-                def generate_dsl(api, model, dsl=None, debug=False) -> str:
-                    steps = []
-                    model_type = "prompt" if "deepseek" in model.lower() else "chat"
-                    is_chat = model_type == "chat"
-
-                    def make_block_extractor(certifier: str):
-                        keyword = certifier.lower()  # "deeppoly", "ibp", "deepz"
-
-                        def extract_constraintflow_block(prmpt, cmpl, code) -> str:
-                            """
-                            Extract everything starting from the correct transformer keyword (deeppoly, ibp, deepz)
-                            until the closing brace '}' that balances the opening one.
-                            """
-                            match = re.search(rf"({re.escape(keyword)}\s*\{{)", cmpl)
-                            if not match:
-                                return ""
-
-                            start_idx = match.start()
-                            brace_count = 0
-                            for i in range(start_idx, len(cmpl)):
-                                if cmpl[i] == "{":
-                                    brace_count += 1
-                                elif cmpl[i] == "}":
-                                    brace_count -= 1
-                                    if brace_count == 0:
-                                        return (
-                                            "transformer "
-                                            + cmpl[start_idx : i + 1].strip()
-                                        )
-
-                            return "transformer " + cmpl[start_idx:].strip()
-
-                        return extract_constraintflow_block
-
-                    extractor = make_block_extractor(certifier)
-                    validation = make_constraintflow_validator(
-                        certifier, client, is_chat
-                    )
-                    evaluator = make_constraintflow_evaluator(certifier)
-
-                    if is_chat:
-
-                        def chat_prompter(code: Optional[str]) -> List[dict]:
-                            return [
-                                {
-                                    "role": "system",
-                                    "content": f"{CONSTRAINTFLOW_SYSTEM_PROMPT}",
-                                },
-                                {
-                                    "role": "user",
-                                    "content": "Generate the transformer for `relu` operator ",
-                                },
-                                {"role": "assistant", "content": prmpt_relu},
-                                {
-                                    "role": "user",
-                                    "content": "Generate the transformer for `abs` operator ",
-                                },
-                                {"role": "assistant", "content": prmpt_abs},
-                                {
-                                    "role": "user",
-                                    "content": "Generate the transformer for `affine` operator ",
-                                },
-                                {"role": "assistant", "content": prmpt_affine},
-                                {
-                                    "role": "user",
-                                    "content": f"Generate the transformer for `{api}` operator ",
-                                },
-                            ]
-
-                        prompter = chat_prompter
-                    else:
-
-                        def prompt_prompter(code: Optional[str]) -> str:
-                            return f"""
-{CONSTRAINTFLOW_SYSTEM_PROMPT}
-
-### Example: ReLU operator
-Input: Generate the transformer for `relu` operator
-Reasoning: {PRMPT_RELU_REASONING}
-Output:
-{prmpt_relu}
-
-### Example: Abs operator
-Input: Generate the transformer for `abs` operator
-Output:
-{prmpt_abs}
-
-### Example: Affine operator
-Input: Generate the transformer for `affine` operator
-Output:
-{prmpt_affine}
-
-### Now generate the transformer for `{api}` operator
-Input: Generate the transformer for `{api}` operator
-Output:
-"""
-
-                        prompter = prompt_prompter
-
-                    steps.append(
-                        Step(
-                            prompter=prompter,
-                            composer=extractor,
-                            eos=["\n# END"],
-                            validator=validation,
-                            evaluator=evaluator,
-                        )
-                    )
-
-                    return step_by_step_gen(client, steps, is_chat)
-
-                result, code, error = generate_dsl(doc["api"], model_name)
-                op_end_time = time.time()
-                op_time = op_end_time - op_start_time
-                logging.info(f"[{op_name}] Runtime: {op_time:.2f} seconds")
-
-                if not result:
-                    target_path = os.path.join(failure_dir, f"{doc['api']}.txt")
-                    with open(target_path, "w") as f:
-                        f.write(code)
-                    logging.error(
-                        f"Failed with Error:{error}\n during generating code:\n{code}\n"
-                    )
-                else:
-                    target_path = os.path.join(success_dir, f"{doc['api']}.txt")
-                    with open(target_path, "w") as f:
-                        f.write(code)
-                    logging.info(f"Succeed. Saved to {target_path}\n")
-
-                statistic[model_name].append(
-                    [
-                        op_name,
-                        GlobalState.gen_rounds_now,
-                        GlobalState.repair_rounds_now,
-                        GlobalState.ce_number_now,
-                        op_time,
-                        bool(result),
-                    ]
-                )
-        overall_end_time = time.time()
-        total_runtime = overall_end_time - overall_start_time
-        statistic[model_name].append(
-            [total_runtime]
-        )  # the last list just have one element
-        logging.info(
-            f"✅ Total runtime for all operators with the model {model_name}: {total_runtime:.2f} seconds"
+        progress_bar = Progress(
+            TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+            BarColumn(),
+            MofNCompleteColumn(),
+            TextColumn("•"),
+            TimeElapsedColumn(),
+            TextColumn("•"),
+            TimeRemainingColumn(),
         )
 
-    with open(statistic_path, "w") as f:
-        json.dump(statistic, f, indent=2)
+        prefix = os.path.join(os.path.dirname(__file__), "prompt/prompts")
 
-    draw_all(statistic, statistic_dir)
+        with progress_bar as p:
+            for model_name, url in MODEL_ENDPOINTS.items():
+                statistic = {}
+                overall_start_time = time.time()
+
+                model_out_dir = os.path.join(result_dir, model_name)
+                success_dir = os.path.join(model_out_dir, "success")
+                failure_dir = os.path.join(model_out_dir, "failure")
+
+                statistic_dir = os.path.join(model_out_dir, "statistics")
+                os.makedirs(statistic_dir, exist_ok=True)
+                statistic_path = os.path.join(statistic_dir, "statistic.json")
+
+                log_path = os.path.join(model_out_dir, "generation.log")
+                for handler in logging.root.handlers[:]:
+                    logging.root.removeHandler(handler)
+                logging.basicConfig(
+                    filename=log_path,
+                    level=logging.INFO,
+                    format="%(asctime)s - %(levelname)s - %(message)s",
+                    filemode="a",
+                )
+
+                client = TGIClient(model=url, max_new_tokens=2048)
+
+                if model_name not in statistic:
+                    statistic[model_name] = []
+
+                for op_name in p.track(sorted(op_list)):  # TODO: change the opt list
+                    op_start_time = time.time()
+                    doc = {"api": op_name}
+
+                    logging.info(f"{datetime.now()} - Extracting {doc['api']}")
+                    api_name = doc["api"]
+
+                    GlobalState.gen_rounds_now = 0
+                    GlobalState.repair_rounds_now = 0
+                    GlobalState.ce_number_now = 0
+
+                    logging.info(f"\nAPI: {api_name} -> Model: {model_name} @ {url}")
+
+                    def generate_dsl(api, model, dsl=None, debug=False) -> str:
+                        steps = []
+                        model_type = "prompt" if "deepseek" in model.lower() else "chat"
+                        is_chat = model_type == "chat"
+
+                        def make_block_extractor(certifier: str):
+                            keyword = certifier.lower()  # "deeppoly", "ibp", "deepz"
+
+                            def extract_constraintflow_block(prmpt, cmpl, code) -> str:
+                                """
+                                Extract everything starting from the correct transformer keyword (deeppoly, ibp, deepz)
+                                until the closing brace '}' that balances the opening one.
+                                """
+                                match = re.search(
+                                    rf"({re.escape(keyword)}\s*\{{)", cmpl
+                                )
+                                if not match:
+                                    return ""
+
+                                start_idx = match.start()
+                                brace_count = 0
+                                for i in range(start_idx, len(cmpl)):
+                                    if cmpl[i] == "{":
+                                        brace_count += 1
+                                    elif cmpl[i] == "}":
+                                        brace_count -= 1
+                                        if brace_count == 0:
+                                            return (
+                                                "transformer "
+                                                + cmpl[start_idx : i + 1].strip()
+                                            )
+
+                                return "transformer " + cmpl[start_idx:].strip()
+
+                            return extract_constraintflow_block
+
+                        extractor = make_block_extractor(certifier)
+                        validation = make_constraintflow_validator(
+                            certifier, client, is_chat
+                        )
+                        evaluator = make_constraintflow_evaluator(certifier)
+
+                        if is_chat:
+
+                            def chat_prompter(code: Optional[str]) -> List[dict]:
+                                return [
+                                    {
+                                        "role": "system",
+                                        "content": f"{CONSTRAINTFLOW_SYSTEM_PROMPT}",
+                                    },
+                                    {
+                                        "role": "user",
+                                        "content": "Generate the transformer for `relu` operator ",
+                                    },
+                                    {"role": "assistant", "content": prmpt_relu},
+                                    {
+                                        "role": "user",
+                                        "content": "Generate the transformer for `abs` operator ",
+                                    },
+                                    {"role": "assistant", "content": prmpt_abs},
+                                    {
+                                        "role": "user",
+                                        "content": "Generate the transformer for `affine` operator ",
+                                    },
+                                    {"role": "assistant", "content": prmpt_affine},
+                                    {
+                                        "role": "user",
+                                        "content": f"Generate the transformer for `{api}` operator ",
+                                    },
+                                ]
+
+                            prompter = chat_prompter
+                        else:
+
+                            def prompt_prompter(code: Optional[str]) -> str:
+                                return f"""
+    {CONSTRAINTFLOW_SYSTEM_PROMPT}
+
+    ### Example: ReLU operator
+    Input: Generate the transformer for `relu` operator
+    Reasoning: {PRMPT_RELU_REASONING}
+    Output:
+    {prmpt_relu}
+
+    ### Example: Abs operator
+    Input: Generate the transformer for `abs` operator
+    Output:
+    {prmpt_abs}
+
+    ### Example: Affine operator
+    Input: Generate the transformer for `affine` operator
+    Output:
+    {prmpt_affine}
+
+    ### Now generate the transformer for `{api}` operator
+    Input: Generate the transformer for `{api}` operator
+    Output:
+    """
+
+                            prompter = prompt_prompter
+
+                        steps.append(
+                            Step(
+                                prompter=prompter,
+                                composer=extractor,
+                                eos=["\n# END"],
+                                validator=validation,
+                                evaluator=evaluator,
+                            )
+                        )
+
+                        return step_by_step_gen(client, steps, is_chat)
+
+                    result, code, error = generate_dsl(doc["api"], model_name)
+                    op_end_time = time.time()
+                    op_time = op_end_time - op_start_time
+                    logging.info(f"[{op_name}] Runtime: {op_time:.2f} seconds")
+
+                    if not result:
+                        target_path = os.path.join(failure_dir, f"{doc['api']}.txt")
+                        with open(target_path, "w") as f:
+                            f.write(code)
+                        logging.error(
+                            f"Failed with Error:{error}\n during generating code:\n{code}\n"
+                        )
+                    else:
+                        target_path = os.path.join(success_dir, f"{doc['api']}.txt")
+                        with open(target_path, "w") as f:
+                            f.write(code)
+                        logging.info(f"Succeed. Saved to {target_path}\n")
+
+                    statistic[model_name].append(
+                        [
+                            op_name,
+                            GlobalState.gen_rounds_now,
+                            GlobalState.repair_rounds_now,
+                            GlobalState.ce_number_now,
+                            op_time,
+                            bool(result),
+                        ]
+                    )
+                overall_end_time = time.time()
+                total_runtime = overall_end_time - overall_start_time
+                statistic[model_name].append(
+                    [total_runtime]
+                )  # the last list just have one element
+                logging.info(
+                    f"✅ Total runtime for all operators with the model {model_name}: {total_runtime:.2f} seconds"
+                )
+
+                with open(statistic_path, "w") as f:
+                    json.dump(statistic, f, indent=2)
+
+                draw_all(statistic, statistic_dir)
