@@ -1,0 +1,1780 @@
+2025-08-06 00:59:51,164 - INFO - 2025-08-06 00:59:51.164474 - Extracting HardSwish
+2025-08-06 00:59:51,164 - INFO -
+API: HardSwish -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
+2025-08-06 00:59:51,164 - INFO - [STEP 1] Starting step 1/1
+2025-08-06 01:00:00,210 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:00:00,421 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:00:00,421 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:00:00,442 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[l] >= 3)) ?
+            (prev[l], prev[u], prev, prev)
+        : ((prev[u] <= -3)) ?
+            (0, 0, 0, 0)
+        : (
+            f2(prev[l]), f1(prev[u]),
+            (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])),
+            max(f3(prev), f2(prev[l]))
+        );
+}
+2025-08-06 01:00:01,402 - INFO - [STEP 1] Sample 1: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_l_5 = -4
+  Curr_U_4 = 0
+  Curr_L_3 = 0
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr_u_2 = 0
+  Curr_l_1 = 0
+  Prev0_U_8 = 0
+  Prev0_L_7 = 0
+  curr_prime0 = 0
+  Curr = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:00:02,046 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l] >= 3)) ?
+            (prev[l], prev[u], prev, prev)
+        : ((prev[u] <= -3)) ?
+            (0, 0, 0, 0)
+        : (
+            f2(prev[l]), f1(prev[u]),
+            (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])),
+            max(f3(prev), f2(prev[l]))
+        );
+}
+flow(forward, priority, true, deeppoly);
+ to 1.5333333333333334.
+
+2025-08-06 01:00:02,046 - INFO - best_score : score = inf : 1.5333333333333334
+2025-08-06 01:00:02,046 - INFO - [STEP 1] Sample 1: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l] >= 3)) ?
+            (prev[l], prev[u], prev, prev)
+        : ((prev[u] <= -3)) ?
+            (0, 0, 0, 0)
+        : (
+            f2(prev[l]), f1(prev[u]),
+            (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])),
+            max(f3(prev), f2(prev[l]))
+        );
+}
+ with the score 1.5333333333333334. Use it to guide the regeneration.
+2025-08-06 01:00:02,051 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:00:02,103 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:00:02,103 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:00:02,119 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev)
+        : (prev[u] <= -3) ?
+            (0, 0, 0, 0)
+        :
+            (f1(prev[l]), f3(prev), f2(prev), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]));
+}
+2025-08-06 01:00:02,385 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:00:02,390 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:00:02,531 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:00:02,531 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:00:02,557 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) :
+        (
+            f3(prev),
+            max(f1(prev[l]), f1(prev[u])),
+            f2(prev),
+            ( ((prev[u]) - (prev[l])) == 0 ) ? f1(prev[u]) : (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+        );
+}
+2025-08-06 01:00:02,899 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:00:02,899 - INFO - [STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-08-06 01:00:53,824 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:00:54,144 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:00:54,144 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:00:54,187 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+        : (prev[u] <= -3)
+            ? (0, 0, 0, 0)
+        : (
+            min([0, f2(prev[l]), f2(prev[u]), f1(prev[l]), f1(prev[u])]),
+            max([0, f2(prev[l]), f2(prev[u]), f1(prev[l]), f1(prev[u])]),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+2025-08-06 01:00:54,625 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:00:54,630 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:00:54,715 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:00:54,715 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:00:54,768 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev)
+        : (prev[u] <= -3) ?
+            (0, 0, 0, 0)
+        : (
+            min([f2(prev[l]), f2(prev[u]), f1(prev[l]), f1(prev[u]), 0]),
+            max([f2(prev[l]), f2(prev[u]), f1(prev[l]), f1(prev[u]), 0]),
+            (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])),
+            max(f3(prev), f2(prev[l]))
+        );
+}
+2025-08-06 01:00:55,161 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:00:55,166 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:00:55,233 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:00:55,233 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:00:55,269 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev)
+        : (prev[u] <= -3) ?
+            (0, 0, 0, 0)
+        : (
+            min([0, f2(prev[l]), f2(prev[u])]),
+            max([0, f1(prev[l]), f1(prev[u])]),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]),
+            max([f1(prev[l]), f1(prev[u]), f2(prev[l]), f2(prev[u])])
+        );
+}
+2025-08-06 01:00:55,553 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:00:55,553 - INFO - [STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-08-06 01:01:05,069 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:01:05,165 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:01:05,165 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:01:05,179 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ?
+        ((prev[l]), (prev[u]), (prev), (prev)) :
+    (((prev[u]) <= -3) ?
+        (0, 0, 0, 0) :
+    (
+        (f3(prev), f1(prev[u]), 0.5 * (prev), (slope(prev[l], prev[u])) * (prev) + (intercept(prev[l], prev[u])))
+    ));
+}
+2025-08-06 01:01:05,770 - INFO - [STEP 1] Sample 1: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_l_5 = -3
+  Curr_u_2 = -1/3
+  Prev0 = -2
+  Prev0_u_6 = -1
+  Curr_l_1 = -1/3
+  Prev0_U_8 = -2
+  Prev0_L_7 = -2
+  Curr_U_4 = -1/3
+  Curr_L_3 = -1/3
+  curr_prime0 = -1/3
+  Curr = -1/3.
+ Start to evaluate the deviation.
+2025-08-06 01:01:06,296 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ?
+        ((prev[l]), (prev[u]), (prev), (prev)) :
+    (((prev[u]) <= -3) ?
+        (0, 0, 0, 0) :
+    (
+        (f3(prev), f1(prev[u]), 0.5 * (prev), (slope(prev[l], prev[u])) * (prev) + (intercept(prev[l], prev[u])))
+    ));
+}
+flow(forward, priority, true, deeppoly);
+ to 0.6403935185185186.
+
+2025-08-06 01:01:06,297 - INFO - best_score : score = 1.5333333333333334 : 0.6403935185185186
+2025-08-06 01:01:06,297 - INFO - [STEP 1] Sample 1: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ?
+        ((prev[l]), (prev[u]), (prev), (prev)) :
+    (((prev[u]) <= -3) ?
+        (0, 0, 0, 0) :
+    (
+        (f3(prev), f1(prev[u]), 0.5 * (prev), (slope(prev[l], prev[u])) * (prev) + (intercept(prev[l], prev[u])))
+    ));
+}
+ with the score 0.6403935185185186. Use it to guide the regeneration.
+2025-08-06 01:01:06,302 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:01:06,343 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:01:06,343 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:01:06,360 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev))
+        : (((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (
+            (f2(prev[l]), f1(prev[u]), (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])), f3(prev))
+        ));
+}
+2025-08-06 01:01:06,934 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_l_5 = -4
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr_u_2 = 0
+  Curr_l_1 = 0
+  Prev0_U_8 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  Curr_L_3 = 0
+  curr_prime0 = 0
+  Curr = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:01:07,480 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev))
+        : (((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (
+            (f2(prev[l]), f1(prev[u]), (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])), f3(prev))
+        ));
+}
+flow(forward, priority, true, deeppoly);
+ to 1.4145833333333333.
+
+2025-08-06 01:01:07,481 - INFO - [STEP 1] Sample 2: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev))
+        : (((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (
+            (f2(prev[l]), f1(prev[u]), (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])), f3(prev))
+        ));
+}
+ with the score 1.4145833333333333. Use it to guide the regeneration.
+2025-08-06 01:01:07,485 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:01:07,506 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:01:07,506 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:01:07,522 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (
+            f1(prev[l]),
+            f3(prev),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+2025-08-06 01:01:08,085 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_U_8 = 0
+  Prev0_l_5 = -4
+  Prev0_L_7 = 0
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr_U_4 = 0
+  Curr_L_3 = 0
+  Curr_u_2 = 0
+  Curr_l_1 = 0
+  curr_prime0 = 0
+  Curr = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:01:08,751 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (
+            f1(prev[l]),
+            f3(prev),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+flow(forward, priority, true, deeppoly);
+ to 1.3796351084812624.
+
+2025-08-06 01:01:08,751 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (
+            f1(prev[l]),
+            f3(prev),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+ with the score 1.3796351084812624. Use it to guide the regeneration.
+2025-08-06 01:01:08,751 - INFO - [STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-08-06 01:01:19,439 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:01:19,519 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:01:19,519 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:01:19,537 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        ((prev[u]) <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            f3(prev),
+            (prev[u] >= 3) ? prev[u] : ((prev[u] <= -3) ? 0 : f1(prev[u])),
+            f2(prev),
+            (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+        );
+}
+2025-08-06 01:01:19,828 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:01:19,833 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:01:19,894 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:01:19,894 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:01:19,914 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            (f3(prev), max(f1(prev[u]), -f1(prev[l])), 0.5 * prev, (slope(prev[l], prev[u])) * prev + intercept(prev[l], prev[u]))
+        );
+}
+2025-08-06 01:01:20,466 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_l_5 = -3
+  Curr_L_3 = -1/3
+  Prev0 = -2
+  Prev0_u_6 = -1
+  Curr_u_2 = -1/3
+  Curr_l_1 = -1/3
+  Prev0_U_8 = -2
+  Prev0_L_7 = -2
+  Curr_U_4 = -1/3
+  curr_prime0 = -1/3
+  Curr = -1/3.
+ Start to evaluate the deviation.
+2025-08-06 01:01:21,001 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            (f3(prev), max(f1(prev[u]), -f1(prev[l])), 0.5 * prev, (slope(prev[l], prev[u])) * prev + intercept(prev[l], prev[u]))
+        );
+}
+flow(forward, priority, true, deeppoly);
+ to 0.7191599151234569.
+
+2025-08-06 01:01:21,001 - INFO - [STEP 1] Sample 2: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            (f3(prev), max(f1(prev[u]), -f1(prev[l])), 0.5 * prev, (slope(prev[l], prev[u])) * prev + intercept(prev[l], prev[u]))
+        );
+}
+ with the score 0.7191599151234569. Use it to guide the regeneration.
+2025-08-06 01:01:21,005 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:01:21,032 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:01:21,032 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:01:21,046 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        ((prev[u]) <= -3) ?
+            (0, 0, 0, 0) :
+            (f3(prev), max(f1(prev[u]), 0), 0.5 * prev, (slope(prev[l], prev[u])) * prev + (intercept(prev[l], prev[u])));
+}
+2025-08-06 01:01:21,555 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_l_5 = -3
+  Curr_u_2 = -1/3
+  Prev0 = -2
+  Prev0_u_6 = -1
+  Curr_l_1 = -1/3
+  Prev0_U_8 = -2
+  Prev0_L_7 = -2
+  Curr_U_4 = -1/3
+  Curr_L_3 = -1/3
+  curr_prime0 = -1/3
+  Curr = -1/3.
+ Start to evaluate the deviation.
+2025-08-06 01:01:22,077 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        ((prev[u]) <= -3) ?
+            (0, 0, 0, 0) :
+            (f3(prev), max(f1(prev[u]), 0), 0.5 * prev, (slope(prev[l], prev[u])) * prev + (intercept(prev[l], prev[u])));
+}
+flow(forward, priority, true, deeppoly);
+ to 1.0333333333333334.
+
+2025-08-06 01:01:22,077 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        ((prev[u]) <= -3) ?
+            (0, 0, 0, 0) :
+            (f3(prev), max(f1(prev[u]), 0), 0.5 * prev, (slope(prev[l], prev[u])) * prev + (intercept(prev[l], prev[u])));
+}
+ with the score 1.0333333333333334. Use it to guide the regeneration.
+2025-08-06 01:01:22,077 - INFO - [STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-08-06 01:01:33,157 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:01:33,196 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:01:33,196 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:01:33,214 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3)
+            ? ((prev[l]), (prev[u]), (prev), (prev))
+        : ((prev[u]) <= -3)
+            ? (0, 0, 0, 0)
+        :
+            (f2(prev[l]), f3(prev), f2(prev), ((slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])));
+}
+2025-08-06 01:01:33,467 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:01:33,472 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:01:33,524 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:01:33,524 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:01:33,541 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ? (
+            prev[l], prev[u], prev, prev
+        ) : (
+            ((prev[u]) <= -3) ? (
+                0, 0, 0, 0
+            ) : (
+                f2(prev[l]), f3(prev), f2(prev), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+            )
+        );
+}
+2025-08-06 01:01:33,920 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:01:33,927 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:01:34,203 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-06 01:01:34,203 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-06 01:01:45,609 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSwish ->
+        (prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] <= -3 && prev[u] >= 3) ? (0, prev[u], 0, prev[u]) :
+        (prev[l] < -3) ?
+            (0, f3(prev), 0, ((prev - prev[l]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + (f2(prev[l]) - ((prev[l] - prev[u]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])))) :
+        (prev[u] > 3) ?
+            (f1(prev[l]), prev[u], f1(prev), prev[u]) :
+        (slope(prev[l], prev[u]) > 1) ?
+            (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) :
+        (
+            f2(prev[l]), f3(prev), f2(prev), prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u])
+        )
+}
+```
+2025-08-06 01:01:45,619 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish ->
+        (prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] <= -3 && prev[u] >= 3) ? (0, prev[u], 0, prev[u]) :
+        (prev[l] < -3) ?
+            (0, f3(prev), 0, ((prev - prev[l]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + (f2(prev[l]) - ((prev[l] - prev[u]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])))) :
+        (prev[u] > 3) ?
+            (f1(prev[l]), prev[u], f1(prev), prev[u]) :
+        (slope(prev[l], prev[u]) > 1) ?
+            (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) :
+        (
+            f2(prev[l]), f3(prev), f2(prev), prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u])
+        )
+}
+2025-08-06 01:01:45,619 - INFO - [Syntax Phase] Attempt 2
+2025-08-06 01:01:45,884 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-06 01:01:45,884 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-06 01:01:55,161 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSwish ->
+        if prev[l] >= 3 then (prev[l], prev[u], prev, prev)
+        else if prev[u] <= -3 then (0, 0, 0, 0)
+        else if prev[l] <= -3 and prev[u] >= 3 then (0, prev[u], 0, prev[u])
+        else if prev[l] < -3 then (0, f3(prev), 0, ((prev - prev[l]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + (f2(prev[l]) - ((prev[l] - prev[u]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l]))))
+        else if prev[u] > 3 then (f1(prev[l]), prev[u], f1(prev), prev[u])
+        else if slope(prev[l], prev[u]) > 1 then (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev))
+        else (f2(prev[l]), f3(prev), f2(prev), prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u]))
+}
+```
+2025-08-06 01:01:55,172 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish ->
+        if prev[l] >= 3 then (prev[l], prev[u], prev, prev)
+        else if prev[u] <= -3 then (0, 0, 0, 0)
+        else if prev[l] <= -3 and prev[u] >= 3 then (0, prev[u], 0, prev[u])
+        else if prev[l] < -3 then (0, f3(prev), 0, ((prev - prev[l]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + (f2(prev[l]) - ((prev[l] - prev[u]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l]))))
+        else if prev[u] > 3 then (f1(prev[l]), prev[u], f1(prev), prev[u])
+        else if slope(prev[l], prev[u]) > 1 then (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev))
+        else (f2(prev[l]), f3(prev), f2(prev), prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u]))
+}
+2025-08-06 01:01:55,172 - INFO - [Syntax Phase] Attempt 3
+2025-08-06 01:01:55,229 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-06 01:01:55,229 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-06 01:02:05,271 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSwish ->
+        if prev[l] >= 3 then (prev[l], prev[u], prev[l], prev[u])
+        else if prev[u] <= -3 then (0, 0, 0, 0)
+        else if prev[l] <= -3 and prev[u] >= 3 then (0, prev[u], 0, prev[u])
+        else if prev[l] < -3 then (0, f3(prev[u]), 0, ((prev[u] - prev[l]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + (f2(prev[l]) - ((prev[l] - prev[u]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l]))))
+        else if prev[u] > 3 then (f1(prev[l]), prev[u], f1(prev[l]), prev[u])
+        else if slope(prev[l], prev[u]) > 1 then (f2(prev[l]), f2(prev[u]), f2(prev[l]), f2(prev[u]))
+        else (f2(prev[l]), f3(prev[u]), f2(prev[l]), prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u]))
+}
+```
+
+2025-08-06 01:02:05,281 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish ->
+        if prev[l] >= 3 then (prev[l], prev[u], prev[l], prev[u])
+        else if prev[u] <= -3 then (0, 0, 0, 0)
+        else if prev[l] <= -3 and prev[u] >= 3 then (0, prev[u], 0, prev[u])
+        else if prev[l] < -3 then (0, f3(prev[u]), 0, ((prev[u] - prev[l]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + (f2(prev[l]) - ((prev[l] - prev[u]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l]))))
+        else if prev[u] > 3 then (f1(prev[l]), prev[u], f1(prev[l]), prev[u])
+        else if slope(prev[l], prev[u]) > 1 then (f2(prev[l]), f2(prev[u]), f2(prev[l]), f2(prev[u]))
+        else (f2(prev[l]), f3(prev[u]), f2(prev[l]), prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u]))
+}
+2025-08-06 01:02:05,281 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    HardSwish ->
+        if prev[l] >= 3 then (prev[l], prev[u], prev[l], prev[u])
+        else if prev[u] <= -3 then (0, 0, 0, 0)
+        else if prev[l] <= -3 and prev[u] >= 3 then (0, prev[u], 0, prev[u])
+        else if prev[l] < -3 then (0, f3(prev[u]), 0, ((prev[u] - prev[l]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) + (f2(prev[l]) - ((prev[l] - prev[u]) * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l]))))
+        else if prev[u] > 3 then (f1(prev[l]), prev[u], f1(prev[l]), prev[u])
+        else if slope(prev[l], prev[u]) > 1 then (f2(prev[l]), f2(prev[u]), f2(prev[l]), f2(prev[u]))
+        else (f2(prev[l]), f3(prev[u]), f2(prev[l]), prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u]))
+}
+2025-08-06 01:02:05,281 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:02:05,281 - INFO - [STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-08-06 01:02:13,232 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:02:13,251 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:02:13,251 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:02:13,272 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) :
+                  ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+                  (f2(prev[l]), f3(prev), f2(prev), (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])));
+}
+2025-08-06 01:02:13,510 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:02:13,516 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:02:13,556 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-06 01:02:13,556 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-06 01:02:25,584 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSwish =>
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            f2(prev[l]),
+            f3(prev),
+            0.5 * (prev + 3).map_list(x -> x / 3).dot(prev),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+```
+2025-08-06 01:02:25,595 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish =>
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            f2(prev[l]),
+            f3(prev),
+            0.5 * (prev + 3).map_list(x -> x / 3).dot(prev),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+2025-08-06 01:02:25,595 - INFO - [Syntax Phase] Attempt 2
+2025-08-06 01:02:25,625 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-06 01:02:25,625 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-06 01:02:32,430 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    HardSwish =>
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            f2(prev[l]),
+            f3(prev[u]),
+            0.5 * (prev + 3).map_list(x -> x / 3).dot(prev),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+2025-08-06 01:02:32,441 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish =>
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            f2(prev[l]),
+            f3(prev[u]),
+            0.5 * (prev + 3).map_list(x -> x / 3).dot(prev),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+2025-08-06 01:02:32,441 - INFO - [Syntax Phase] Attempt 3
+2025-08-06 01:02:32,471 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-06 01:02:32,471 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-06 01:02:37,942 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSwish =>
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            f2(prev[l]),
+            f3(prev[u]),
+            0.5 * (prev + 3).map_list(x -> x / 3).dot(prev),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+```
+2025-08-06 01:02:37,953 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish =>
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            f2(prev[l]),
+            f3(prev[u]),
+            0.5 * (prev + 3).map_list(x -> x / 3).dot(prev),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+2025-08-06 01:02:37,953 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    HardSwish =>
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+        (
+            f2(prev[l]),
+            f3(prev[u]),
+            0.5 * (prev + 3).map_list(x -> x / 3).dot(prev),
+            slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+        );
+}
+2025-08-06 01:02:37,953 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:02:37,959 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:02:37,974 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:02:37,974 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:02:37,989 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev))
+        : ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (f2(prev[l]), f3(prev), prev,
+           slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]));
+}
+2025-08-06 01:02:38,552 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_l_5 = -4
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr_u_2 = 0
+  Curr_l_1 = 0
+  Prev0_U_8 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  Curr_L_3 = 0
+  curr_prime0 = 0
+  Curr = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:02:39,100 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev))
+        : ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (f2(prev[l]), f3(prev), prev,
+           slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]));
+}
+flow(forward, priority, true, deeppoly);
+ to 2.6.
+
+2025-08-06 01:02:39,100 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev))
+        : ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (f2(prev[l]), f3(prev), prev,
+           slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]));
+}
+ with the score 2.6. Use it to guide the regeneration.
+2025-08-06 01:02:39,100 - INFO - [STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-08-06 01:02:53,636 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:02:53,654 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:02:53,654 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:02:53,670 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+        : (prev[u] <= -3)
+            ? (0, 0, 0, 0)
+        : (
+                f2(prev[l]),
+                f3(prev),
+                prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u]),
+                prev * slope(prev[u], prev[l]) + intercept(prev[u], prev[l])
+        );
+}
+2025-08-06 01:02:54,355 - INFO - [STEP 1] Sample 1: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_U_8 = 0
+  Prev0_l_5 = -4
+  Prev0_L_7 = 0
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr_U_4 = 0
+  Curr_L_3 = 0
+  Curr_u_2 = 0
+  Curr_l_1 = 0
+  curr_prime0 = 0
+  Curr = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:02:54,919 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+        : (prev[u] <= -3)
+            ? (0, 0, 0, 0)
+        : (
+                f2(prev[l]),
+                f3(prev),
+                prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u]),
+                prev * slope(prev[u], prev[l]) + intercept(prev[u], prev[l])
+        );
+}
+flow(forward, priority, true, deeppoly);
+ to 1.3339849108367627.
+
+2025-08-06 01:02:54,920 - INFO - [STEP 1] Sample 1: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+        : (prev[u] <= -3)
+            ? (0, 0, 0, 0)
+        : (
+                f2(prev[l]),
+                f3(prev),
+                prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u]),
+                prev * slope(prev[u], prev[l]) + intercept(prev[u], prev[l])
+        );
+}
+ with the score 1.3339849108367627. Use it to guide the regeneration.
+2025-08-06 01:02:54,925 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:02:55,092 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-06 01:02:55,092 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-06 01:03:03,830 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSwish ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3)  ? (prev[l], prev[u], prev, prev) :
+        ((prev[l] >= -3) && (prev[u] <= 3)) ? (f2(prev[l]), f3(prev), f2(prev), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) :
+        ((prev[l] < -3) && (prev[u] > 3)) ? (0, prev[u], 0, slope(-3, 3) * prev + intercept(-3, 3)) :
+        ((prev[l] < -3) && (prev[u] <= 3)) ? (0, f3(prev), 0, slope(-3, prev[u]) * prev + intercept(-3, prev[u])) :
+        ((prev[l] >= -3) && (prev[u] > 3)) ? (f2(prev[l]), prev[u], f2(prev), slope(prev[l], 3) * prev + intercept(prev[l], 3))
+        ;
+}
+```
+2025-08-06 01:03:03,841 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3)  ? (prev[l], prev[u], prev, prev) :
+        ((prev[l] >= -3) && (prev[u] <= 3)) ? (f2(prev[l]), f3(prev), f2(prev), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) :
+        ((prev[l] < -3) && (prev[u] > 3)) ? (0, prev[u], 0, slope(-3, 3) * prev + intercept(-3, 3)) :
+        ((prev[l] < -3) && (prev[u] <= 3)) ? (0, f3(prev), 0, slope(-3, prev[u]) * prev + intercept(-3, prev[u])) :
+        ((prev[l] >= -3) && (prev[u] > 3)) ? (f2(prev[l]), prev[u], f2(prev), slope(prev[l], 3) * prev + intercept(prev[l], 3))
+        ;
+}
+2025-08-06 01:03:03,842 - INFO - [Syntax Phase] Attempt 2
+2025-08-06 01:03:03,946 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-06 01:03:03,947 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-06 01:03:13,269 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSwish ->
+        (prev.u <= -3) ? (0, 0, 0, 0) :
+        (prev.l >= 3)  ? (prev.l, prev.u, prev, prev) :
+        ((prev.l >= -3) && (prev.u <= 3)) ? (f2(prev.l), f3(prev), f2(prev), slope(prev.l, prev.u) * prev + intercept(prev.l, prev.u)) :
+        ((prev.l < -3) && (prev.u > 3)) ? (0, prev.u, 0, slope(-3, 3) * prev + intercept(-3, 3)) :
+        ((prev.l < -3) && (prev.u <= 3)) ? (0, f3(prev), 0, slope(-3, prev.u) * prev + intercept(-3, prev.u)) :
+        ((prev.l >= -3) && (prev.u > 3)) ? (f2(prev.l), prev.u, f2(prev), slope(prev.l, 3) * prev + intercept(prev.l, 3))
+        ;
+}
+```
+2025-08-06 01:03:13,276 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish ->
+        (prev.u <= -3) ? (0, 0, 0, 0) :
+        (prev.l >= 3)  ? (prev.l, prev.u, prev, prev) :
+        ((prev.l >= -3) && (prev.u <= 3)) ? (f2(prev.l), f3(prev), f2(prev), slope(prev.l, prev.u) * prev + intercept(prev.l, prev.u)) :
+        ((prev.l < -3) && (prev.u > 3)) ? (0, prev.u, 0, slope(-3, 3) * prev + intercept(-3, 3)) :
+        ((prev.l < -3) && (prev.u <= 3)) ? (0, f3(prev), 0, slope(-3, prev.u) * prev + intercept(-3, prev.u)) :
+        ((prev.l >= -3) && (prev.u > 3)) ? (f2(prev.l), prev.u, f2(prev), slope(prev.l, 3) * prev + intercept(prev.l, 3))
+        ;
+}
+2025-08-06 01:03:13,276 - INFO - [Syntax Phase] Attempt 3
+2025-08-06 01:03:13,391 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-06 01:03:13,391 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-06 01:03:22,973 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSwish ->
+        (prev.u <= -3) ? (0, 0, 0, 0) :
+        (prev.l >= 3)  ? (prev.l, prev.u, prev.l, prev.u) :
+        ((prev.l >= -3) and (prev.u <= 3)) ? (f2(prev.l), f3(prev.u), f2(prev.l), slope(prev.l, prev.u) * prev + intercept(prev.l, prev.u)) :
+        ((prev.l < -3) and (prev.u > 3)) ? (0, prev.u, 0, slope(-3, 3) * prev + intercept(-3, 3)) :
+        ((prev.l < -3) and (prev.u <= 3)) ? (0, f3(prev.u), 0, slope(-3, prev.u) * prev + intercept(-3, prev.u)) :
+        ((prev.l >= -3) and (prev.u > 3)) ? (f2(prev.l), prev.u, f2(prev.l), slope(prev.l, 3) * prev + intercept(prev.l, 3))
+        ;
+}
+```
+
+2025-08-06 01:03:22,982 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish ->
+        (prev.u <= -3) ? (0, 0, 0, 0) :
+        (prev.l >= 3)  ? (prev.l, prev.u, prev.l, prev.u) :
+        ((prev.l >= -3) and (prev.u <= 3)) ? (f2(prev.l), f3(prev.u), f2(prev.l), slope(prev.l, prev.u) * prev + intercept(prev.l, prev.u)) :
+        ((prev.l < -3) and (prev.u > 3)) ? (0, prev.u, 0, slope(-3, 3) * prev + intercept(-3, 3)) :
+        ((prev.l < -3) and (prev.u <= 3)) ? (0, f3(prev.u), 0, slope(-3, prev.u) * prev + intercept(-3, prev.u)) :
+        ((prev.l >= -3) and (prev.u > 3)) ? (f2(prev.l), prev.u, f2(prev.l), slope(prev.l, 3) * prev + intercept(prev.l, 3))
+        ;
+}
+2025-08-06 01:03:22,983 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    HardSwish ->
+        (prev.u <= -3) ? (0, 0, 0, 0) :
+        (prev.l >= 3)  ? (prev.l, prev.u, prev.l, prev.u) :
+        ((prev.l >= -3) and (prev.u <= 3)) ? (f2(prev.l), f3(prev.u), f2(prev.l), slope(prev.l, prev.u) * prev + intercept(prev.l, prev.u)) :
+        ((prev.l < -3) and (prev.u > 3)) ? (0, prev.u, 0, slope(-3, 3) * prev + intercept(-3, 3)) :
+        ((prev.l < -3) and (prev.u <= 3)) ? (0, f3(prev.u), 0, slope(-3, prev.u) * prev + intercept(-3, prev.u)) :
+        ((prev.l >= -3) and (prev.u > 3)) ? (f2(prev.l), prev.u, f2(prev.l), slope(prev.l, 3) * prev + intercept(prev.l, 3))
+        ;
+}
+2025-08-06 01:03:22,983 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:03:22,991 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:03:23,064 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:03:23,064 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:03:23,079 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        // Case 1: prev[l] >= 3
+        ((prev[l] >= 3) ? (
+            prev[l],
+            prev[u],
+            prev,
+            prev
+        ) :
+        // Case 2: prev[u] <= -3
+        (prev[u] <= -3) ? (
+            0,
+            0,
+            0,
+            0
+        ) :
+        // Case 3: otherwise, in the straddling/hybrid region
+        (
+            f2(prev[l]),
+            f3(prev),
+            prev * ((prev[u] + 3) / 6),
+            prev * ((prev[u] + 3) / 6)
+        )
+        );
+}
+2025-08-06 01:03:23,670 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_l_5 = -4
+  Curr_U_4 = 0
+  Curr_L_3 = 0
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr_u_2 = 0
+  Curr_l_1 = 0
+  Prev0_U_8 = 0
+  Prev0_L_7 = 0
+  curr_prime0 = 0
+  Curr = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:03:24,203 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish ->
+        // Case 1: prev[l] >= 3
+        ((prev[l] >= 3) ? (
+            prev[l],
+            prev[u],
+            prev,
+            prev
+        ) :
+        // Case 2: prev[u] <= -3
+        (prev[u] <= -3) ? (
+            0,
+            0,
+            0,
+            0
+        ) :
+        // Case 3: otherwise, in the straddling/hybrid region
+        (
+            f2(prev[l]),
+            f3(prev),
+            prev * ((prev[u] + 3) / 6),
+            prev * ((prev[u] + 3) / 6)
+        )
+        );
+}
+flow(forward, priority, true, deeppoly);
+ to 1.137078465836456.
+
+2025-08-06 01:03:24,203 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish ->
+        // Case 1: prev[l] >= 3
+        ((prev[l] >= 3) ? (
+            prev[l],
+            prev[u],
+            prev,
+            prev
+        ) :
+        // Case 2: prev[u] <= -3
+        (prev[u] <= -3) ? (
+            0,
+            0,
+            0,
+            0
+        ) :
+        // Case 3: otherwise, in the straddling/hybrid region
+        (
+            f2(prev[l]),
+            f3(prev),
+            prev * ((prev[u] + 3) / 6),
+            prev * ((prev[u] + 3) / 6)
+        )
+        );
+}
+ with the score 1.137078465836456. Use it to guide the regeneration.
+2025-08-06 01:03:24,203 - INFO - [STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-08-06 01:03:35,899 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:03:35,927 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:03:35,927 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:03:35,945 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3) ?
+            ((prev[l]), (prev[u]), (prev), (prev))
+        : (((prev[u]) <= -3) ?
+            (0, 0, 0, 0)
+        :
+            (
+                f1(prev[l]),
+                f3(prev),
+                f2(prev),
+                (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+            )
+        );
+}
+2025-08-06 01:03:36,186 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:03:36,191 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:03:36,374 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:03:36,377 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:03:36,428 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+            (
+                f3(prev),
+                f1(prev[u]),
+                prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) - (prev[l] * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])),
+                prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u])
+            );
+}
+2025-08-06 01:03:37,090 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_l_5 = -3
+  Curr_u_2 = -1/3
+  Prev0 = -2
+  Prev0_u_6 = -1
+  Curr_l_1 = -1/3
+  Prev0_U_8 = -2
+  Prev0_L_7 = -2
+  Curr_U_4 = -1/3
+  Curr_L_3 = -1/3
+  curr_prime0 = -1/3
+  Curr = -1/3.
+ Start to evaluate the deviation.
+2025-08-06 01:03:37,787 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+            (
+                f3(prev),
+                f1(prev[u]),
+                prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) - (prev[l] * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])),
+                prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u])
+            );
+}
+flow(forward, priority, true, deeppoly);
+ to 0.7239004629629631.
+
+2025-08-06 01:03:37,787 - INFO - [STEP 1] Sample 2: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ?
+            (0, 0, 0, 0) :
+            (
+                f3(prev),
+                f1(prev[u]),
+                prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) - (prev[l] * (f2(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])),
+                prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u])
+            );
+}
+ with the score 0.7239004629629631. Use it to guide the regeneration.
+2025-08-06 01:03:37,792 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:03:37,831 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:03:37,831 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:03:37,841 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid function call: compute_l
+[Line 6] Invalid function call: compute_u
+2025-08-06 01:03:37,841 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid function call: compute_l
+[Line 6] Invalid function call: compute_u
+2025-08-06 01:03:43,358 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
+                 (((prev[u]) <= -3) ? (0, 0, 0, 0) :
+                 (
+                    compute_l(prev[l], prev[u]),
+                    compute_u(prev[l], prev[u]),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                 ));
+}
+```
+2025-08-06 01:03:43,367 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
+                 (((prev[u]) <= -3) ? (0, 0, 0, 0) :
+                 (
+                    compute_l(prev[l], prev[u]),
+                    compute_u(prev[l], prev[u]),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                 ));
+}
+2025-08-06 01:03:43,367 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:03:43,386 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid function call: compute_l
+[Line 6] Invalid function call: compute_u
+2025-08-06 01:03:43,386 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid function call: compute_l
+[Line 6] Invalid function call: compute_u
+2025-08-06 01:03:54,946 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
+                 (((prev[u]) <= -3) ? (0, 0, 0, 0) :
+                 (
+                    l(prev[l], prev[u]),
+                    u(prev[l], prev[u]),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                 ));
+}
+```
+2025-08-06 01:03:54,956 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
+                 (((prev[u]) <= -3) ? (0, 0, 0, 0) :
+                 (
+                    l(prev[l], prev[u]),
+                    u(prev[l], prev[u]),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                 ));
+}
+2025-08-06 01:03:54,956 - INFO - [Semantic Phase] Attempt 3
+2025-08-06 01:03:54,970 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid function call: l
+[Line 6] Invalid function call: u
+2025-08-06 01:03:54,970 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid function call: l
+[Line 6] Invalid function call: u
+2025-08-06 01:04:03,879 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
+                 (((prev[u]) <= -3) ? (0, 0, 0, 0) :
+                 (
+                    l(prev),
+                    u(prev),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                 ));
+}
+```
+2025-08-06 01:04:03,889 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) :
+                 (((prev[u]) <= -3) ? (0, 0, 0, 0) :
+                 (
+                    l(prev),
+                    u(prev),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]),
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                 ));
+}
+2025-08-06 01:04:03,913 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:04:03,913 - INFO - [STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-08-06 01:04:16,074 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:04:16,173 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:04:16,173 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:04:16,194 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+        : ((prev[u] <= -3)
+            ? (0, 0, 0, 0)
+            : (
+                (min(f2(prev[l]), f2(prev[u])), f3(prev), f2(prev), (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+              )
+          );
+}
+2025-08-06 01:04:16,517 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:04:16,523 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:04:16,636 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:04:16,636 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:04:16,677 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+        : (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (prev[l] >= -3 and prev[u] <= 3) ?
+            (f2(prev[l]), f3(prev), f2(prev), slope(prev[u], prev[l]) * prev + intercept(prev[u], prev[l]))
+        : (prev[l] < -3 and prev[u] > -3 and prev[u] <= 3) ?
+            (0, f3(prev), 0, slope(prev[u], -3) * prev + intercept(prev[u], -3))
+        : (prev[u] > 3 and prev[l] >= -3 and prev[l] < 3) ?
+            (f2(prev[l]), prev[u], f2(prev), slope(3, prev[l]) * prev + intercept(3, prev[l]))
+        : (0, prev[u], 0, slope(3, -3) * prev + intercept(3, -3));
+}
+2025-08-06 01:04:17,085 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:04:17,091 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:04:17,104 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:04:17,104 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:04:17,118 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev)
+    : (prev[u] <= -3) ?
+            (0, 0, 0, 0)
+    : (
+            f2(prev[l]),
+            f3(prev),
+            prev,
+            (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+      );
+}
+2025-08-06 01:04:17,682 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_l_5 = -4
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr_u_2 = 0
+  Curr_l_1 = 0
+  Prev0_U_8 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  Curr_L_3 = 0
+  curr_prime0 = 0
+  Curr = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:04:18,234 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev)
+    : (prev[u] <= -3) ?
+            (0, 0, 0, 0)
+    : (
+            f2(prev[l]),
+            f3(prev),
+            prev,
+            (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+      );
+}
+flow(forward, priority, true, deeppoly);
+ to 1.368014705882353.
+
+2025-08-06 01:04:18,235 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev)
+    : (prev[u] <= -3) ?
+            (0, 0, 0, 0)
+    : (
+            f2(prev[l]),
+            f3(prev),
+            prev,
+            (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+      );
+}
+ with the score 1.368014705882353. Use it to guide the regeneration.
+2025-08-06 01:04:18,235 - INFO - [STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-08-06 01:04:29,430 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:04:29,571 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:04:29,571 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:04:29,598 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            (prev[l] <= -3) and (prev[u] >= 3) ? (0, prev[u], 0, prev) :
+            (
+                slope(prev[l], prev[u]) >= 0 ?
+                    (f3(prev), f1(prev[u]), f2(prev), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+                :
+                    (0, f1(prev[u]), 0, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+            )
+        );
+}
+2025-08-06 01:04:30,108 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:04:30,114 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:04:30,199 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:04:30,199 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:04:30,223 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3)
+            ? ((prev[l]), (prev[u]), (prev), (prev))
+        : (((prev[u]) <= -3)
+            ? (0, 0, 0, 0)
+            : (
+                (f3(prev)), // lower bound, minimum of HardSwish at interval endpoints
+                (max(f1(prev[l]), f1(prev[u]))), // upper bound, maximum of HardSwish at interval endpoints
+                (
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                ),
+                (
+                    (prev[u] / (prev[u] - prev[l])) * prev
+                    - ((prev[u] * prev[l]) / (prev[u] - prev[l]))
+                )
+            )
+        );
+}
+2025-08-06 01:04:30,819 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for HardSwish:
+  Prev0_l_5 = -3
+  Curr_U_4 = -1/3
+  Prev0_L_7 = -2
+  Prev0 = -2
+  Prev0_u_6 = -1
+  Curr_L_3 = -1/3
+  Curr_u_2 = -1/3
+  Curr_l_1 = -1/3
+  Prev0_U_8 = -2
+  curr_prime0 = -1/3
+  Curr = -1/3.
+ Start to evaluate the deviation.
+2025-08-06 01:04:31,363 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3)
+            ? ((prev[l]), (prev[u]), (prev), (prev))
+        : (((prev[u]) <= -3)
+            ? (0, 0, 0, 0)
+            : (
+                (f3(prev)), // lower bound, minimum of HardSwish at interval endpoints
+                (max(f1(prev[l]), f1(prev[u]))), // upper bound, maximum of HardSwish at interval endpoints
+                (
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                ),
+                (
+                    (prev[u] / (prev[u] - prev[l])) * prev
+                    - ((prev[u] * prev[l]) / (prev[u] - prev[l]))
+                )
+            )
+        );
+}
+flow(forward, priority, true, deeppoly);
+ to 1.6675789568227843.
+
+2025-08-06 01:04:31,363 - INFO - [STEP 1] Sample 2: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l]) >= 3)
+            ? ((prev[l]), (prev[u]), (prev), (prev))
+        : (((prev[u]) <= -3)
+            ? (0, 0, 0, 0)
+            : (
+                (f3(prev)), // lower bound, minimum of HardSwish at interval endpoints
+                (max(f1(prev[l]), f1(prev[u]))), // upper bound, maximum of HardSwish at interval endpoints
+                (
+                    (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                ),
+                (
+                    (prev[u] / (prev[u] - prev[l])) * prev
+                    - ((prev[u] * prev[l]) / (prev[u] - prev[l]))
+                )
+            )
+        );
+}
+ with the score 1.6675789568227843. Use it to guide the regeneration.
+2025-08-06 01:04:31,369 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:04:31,557 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:04:31,557 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:04:31,594 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev, prev)
+        : ((prev[u] <= -3) ?
+            (0, 0, 0, 0)
+        : (prev[l] >= -3 and prev[u] <= 3) ?
+            (f2(prev[l]), f3(prev), ((prev + 3)/6)*prev, slope(prev[l], prev[u])*prev + intercept(prev[l], prev[u]))
+        : (prev[l] < -3 and prev[u] > 3) ?
+            (0, prev[u], 0, prev)
+        : (prev[l] < -3 and prev[u] <= 3) ?
+            (0, f3(prev), 0, slope(-3, prev[u])*prev + intercept(-3, prev[u]))
+        : (prev[l] >= -3 and prev[u] > 3) ?
+            (f2(prev[l]), prev[u], ((prev + 3)/6)*prev, prev)
+        : (0, prev[u], 0, prev))
+;
+}
+2025-08-06 01:04:31,974 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:04:31,974 - INFO - [STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-08-06 01:04:31,974 - INFO - [HardSwish] Runtime: 280.81 seconds
+2025-08-06 01:04:31,974 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ?
+        ((prev[l]), (prev[u]), (prev), (prev)) :
+    (((prev[u]) <= -3) ?
+        (0, 0, 0, 0) :
+    (
+        (f3(prev), f1(prev[u]), 0.5 * (prev), (slope(prev[l], prev[u])) * (prev) + (intercept(prev[l], prev[u])))
+    ));
+}
+
+2025-08-06 01:04:31,978 - INFO - ✅ Total runtime for all operators with the model gpt-4o: 280.82 seconds

@@ -1,8 +1,0 @@
-transformer deeppoly{
-    Minpool -> (
-        min(prev_0[l], prev_1[l]),                                  // l: lower bound is min of lowers
-        min(prev_0[u], prev_1[u]),                                  // u: upper bound is min of uppers
-        (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L],           // L: lower poly bound of min
-        (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U]            // U: upper poly bound of min
-    );
-}

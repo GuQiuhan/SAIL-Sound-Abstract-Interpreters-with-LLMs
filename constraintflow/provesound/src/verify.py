@@ -1,4 +1,5 @@
 import time
+import traceback
 
 from z3 import *
 
@@ -402,9 +403,9 @@ class Verify(astVisitor.ASTVisitor):
 
                 exptemp = s.ss.convertToZ3(exptemp)
                 exptemp = If(
-                    If((exptemp + 1) / 2 > 1, 1, (exptemp + 1) / 2) < 0,
+                    If((exptemp + 3) / 6 > 1, 1, (exptemp + 3) / 6) < 0,
                     0,
-                    If((exptemp + 1) / 2 > 1, 1, (exptemp + 1) / 2),
+                    If((exptemp + 3) / 6 > 1, 1, (exptemp + 3) / 6),
                 )
 
                 s.currop = curr.name == exptemp
@@ -647,6 +648,7 @@ class Verify(astVisitor.ASTVisitor):
 
             # @qiuhan
             counterex = None
+            z3_model = None
             try:
                 self.applyTrans(leftC, vallist, s, curr_prime, computation)
                 print(f"Proved {op_}")
@@ -728,8 +730,12 @@ class Verify(astVisitor.ASTVisitor):
                         and self.solver.last_model is not None
                     ):
                         model = self.solver.last_model
+                    # traceback.print_exc()
 
-                    raise Exception(f"Constraint Unsound", model)
+                    raise Exception(
+                        f"Constraint Unsound. Proved in {end_time - gen_time : .5f}s",
+                        model,
+                    )
 
                 s.ss.tempC = []
 

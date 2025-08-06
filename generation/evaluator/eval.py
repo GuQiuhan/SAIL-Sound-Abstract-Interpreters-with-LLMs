@@ -1,8 +1,10 @@
+import logging
 import time
 import traceback
 from fractions import Fraction
 
 import antlr4 as antlr
+import numpy as np
 from z3 import *
 
 from constraintflow.core import astBuilder
@@ -13,6 +15,7 @@ from constraintflow.provesound.lib.optSolver import OptSolver
 from constraintflow.provesound.lib.utils import *
 from constraintflow.provesound.src.symbolicDNN import SymbolicDNN, populate_vars
 from constraintflow.provesound.src.value import *
+from generation.utils import *
 
 exptemp = None
 op_ = None
@@ -383,10 +386,11 @@ class Evaluate(astVisitor.ASTVisitor):
                     exptemp = ADD(exptemp, prev[i])
 
                 exptemp = s.ss.convertToZ3(exptemp)
+                # TODO: Is this correct?
                 exptemp = If(
-                    If((exptemp + 1) / 2 > 1, 1, (exptemp + 1) / 2) < 0,
+                    If((exptemp + 3) / 6 > 1, 1, (exptemp + 3) / 6) < 0,
                     0,
-                    If((exptemp + 1) / 2 > 1, 1, (exptemp + 1) / 2),
+                    If((exptemp + 3) / 6 > 1, 1, (exptemp + 3) / 6),
                 )
 
                 s.currop = curr.name == exptemp
@@ -624,10 +628,11 @@ class Evaluate(astVisitor.ASTVisitor):
                 )
                 print(f"Unsound Transformer Evaluation Result for {op_}:", results)
                 return (op_, results)
-            except:
+            except Exception as e:
                 print(f"Evaluation failed for {op_}.")
-                traceback.print_exc()
-                continue
+                # traceback.print_exc()
+                # continue
+                raise Exception(f"Evaluation failed for {op_}.")
 
             reset_time()
 
@@ -812,9 +817,25 @@ class Evaluate(astVisitor.ASTVisitor):
                                     return simplify(substitute(z3expr, *subs))
 
                             try:
+                                # unsound ounds
                                 result = evaluate_expr(vallist)
+                                # output of op, f(x)
                                 precise = evaluate_expr(exptemp)
+                                print(result)
+                                print(precise)
 
+                                """
+                                # get a list of inputs of op
+                                prev_vals = []
+                                prev_items = self.store.get("prev", [])
+                                if isinstance(prev_items, tuple):
+                                    prev_items = [prev_items]
+                                for var_name, _ in prev_items:
+                                    val_z3 = evaluate_expr((Real(var_name), "Float"))
+                                    prev_vals.append(val_z3)
+
+                                results.append([result, precise, prev_vals])
+                                """
                                 results.append([result, precise])
 
                             except Exception as e:
@@ -823,6 +844,9 @@ class Evaluate(astVisitor.ASTVisitor):
                                     str(e),
                                 )
                                 traceback.print_exc()
+                                raise Exception(
+                                    f"Evaluation failed on counterexample: {str(e)}"
+                                )
                             # --- End: Evaluate bounds using model ---
 
                         return results
@@ -833,149 +857,237 @@ class Evaluate(astVisitor.ASTVisitor):
             condz3 = s.ss.convertToZ3(vallist.cond)
             preC = leftC + s.ss.tempC
             s.ss.tempC = []
-            results = self.evaluate(
+            resultl = self.evaluate(
                 preC + [condz3], vallist.left, s, curr_prime, computation, exptemp
             )
-            results = self.evaluate(
+            if len(resultl) != 0:
+                results.extend(resultl)
+            resultr = self.evaluate(
                 preC + [Not(condz3)], vallist.right, s, curr_prime, computation, exptemp
             )
+            if len(resultr) != 0:
+                results.extend(resultr)
 
         return results
 
 
-def eval(code: str, nprev=1, nsymb=1):
-    lexer = dslLexer.dslLexer(antlr.InputStream(code))
-    tokens = antlr.CommonTokenStream(lexer)
-    parser = dslParser.dslParser(tokens)
-    tree = parser.prog()
-    ast = astBuilder.ASTBuilder().visit(tree)
-    astTC.ASTTC().visit(ast)
-    e = Evaluate()
-    # e.Nprev = nprev
-    # e.Nsym = nsymb
-    op, results = e.visit(ast)
-    return op, results  # need to sum up teh
-
-
-def weight(op: str):
+class Evaluator:
     """
-    function-specific weight function
-    """
-    if op == "Abs":
-        pass
-    elif op == "Neuron_add":
-        pass
-    elif op == "Affine":
-        pass
-    elif op == "Avgpool":
-        pass
-    elif op == "HardSigmoid":
-        pass
-    elif op == "HardSwish":
-        pass
-    elif op == "HardTanh":
-        pass
-    elif op == "Neuron_max":
-        pass
-    elif op == "Maxpool":
-        pass
-    elif op == "Neuron_min":
-        pass
-    elif op == "Minpool":
-        pass
-    elif op == "Neuron_mult":
-        pass
-    elif op == "Relu":
-        pass
-    elif op == "Relu6":
-        pass
-    return 1
+    Used to evaluate the unsoundness of abstract transformers.
+    Only ONE abstract transformer per invocation.
 
-
-def ds(code: str, certifier: str):
-    """
-    D_s = Sum (w(x)*d(x))
-
-    Args:
-        code (str): dsl
-
-    Return: float
+    - Evaluator().Ds(dsl, certifier):
+        - Computes a weighted deviation score D_s for unsound transformers.
+        - eval(code): Parses and executes DSL code, returning operator name and [[l,u,L,U], f(x)].
+        - phi(op, x): Defines an importance score function for input x under operator op.
     """
 
-    op, results = eval(code)
+    def eval(self, code: str, nprev=1, nsymb=1):
+        try:
+            lexer = dslLexer.dslLexer(antlr.InputStream(code))
+            tokens = antlr.CommonTokenStream(lexer)
+            parser = dslParser.dslParser(tokens)
+            tree = parser.prog()
+            ast = astBuilder.ASTBuilder().visit(tree)
+            astTC.ASTTC().visit(ast)
+            e = Evaluate()
+            # e.Nprev = nprev
+            # e.Nsym = nsymb
+            op, results = e.visit(ast)
+            return op, results  # need to sum up
+        except Exception as e:
+            raise Exception(f"{str(e)}")
 
-    sum = 0
+    def phi(self, op: str, x: list) -> float:
+        """
+        function-specific
+        - op: operator name
+        - x: list of inputs
+        Returns a float indicating the importance of input [x] for operator op.
+        """
+        return 1.0
 
-    if certifier == "deeppoly":
-        for r in results:
+    """
+        try:
+            xi = None
+            if len(x) == 1:
+                xi = x[0]
 
-            l = z3_val_to_float(r[0][0])
-            u = z3_val_to_float(r[0][1])
-            L = z3_val_to_float(r[0][2])
-            U = z3_val_to_float(r[0][3])
-            fx = z3_val_to_float(r[1])
-            w = weight(op)
-            sum += (
-                max(0, l - fx) + max(0, fx - u) + max(0, L - fx) + max(0, fx - U)
-            ) * w
-    else:
-        pass
+            if op == "Abs":
+                # peaks near 0
+                return np.exp(-abs(xi))
 
-    return sum
+            elif op == "Relu":
+                # Discontinuity at 0
+                return np.exp(-abs(x_i))
+
+            elif op == "Relu6":
+                # Discontinuities at 0 and 6
+                return np.exp(-abs(x_i)) + np.exp(-abs(x_i - 6))
+
+            elif op == "HardTanh":
+                # Saturation at [-1, 1]
+                return np.exp(-abs(x_i - 1)) + np.exp(-abs(x_i + 1))
+
+            elif op == "HardSigmoid":
+                # Clipping range [-3, 3]
+                return np.exp(-abs(xi + 3)) + np.exp(-abs(xi - 3))
+
+            elif op == "HardSwish":
+                # Piecewise behavior around [0, 3]
+                return np.exp(-abs(xi)) + np.exp(-abs(xi - 3))
+
+            elif op == "Tanh":
+                # Gradient is maximal at x = 0
+                return 1 - np.tanh(xi) ** 2
+
+            elif op == "Neuron_add":
+                # linear
+                #return abs(x_i)
+                return 1.0
+
+            elif op == "Neuron_mult":
+                return 1.0
+
+            elif op == "Neuron_max":
+                # More variation, more important the maximum
+                return np.exp(-abs(max(x) - min(x)))
+
+            elif op == "Neuron_min":
+                return np.exp(-abs(max(x) - min(x)))
+
+            elif op == "Maxpool":
+                # Emphasize when variance is high (pooling is sensitive)
+                return np.var(x)
+
+            elif op == "Minpool":
+                return np.var(x)
+
+            elif op == "Avgpool":
+                # Emphasize when mean is small (could flip sign)
+                return 1 / (1 + abs(np.mean(x)))
+
+            elif op == "Affine":
+                # linear
+                #return abs(x_i)
+                return 1.0
+
+            else:
+                # default
+                return 1.0
+
+        except:
+            return 1.0
+    """
+
+    def Ds(self, code: str, certifier: str):
+        """
+        When the code is unsound, measure the deviation
+        D_s = Sum (w(x)*d(x))
+
+        Args:
+            code (str): dsl
+
+        Return: float
+        """
+        try:
+            op, results = self.eval(code)
+
+            sum = 0
+
+            if certifier == "deeppoly":
+                weights = 0
+
+                for r in results:
+                    x = None
+                    weights += self.phi(op, x)
+
+                for r in results:
+
+                    l = self.z3_val_to_float(r[0][0])
+                    u = self.z3_val_to_float(r[0][1])
+                    L = self.z3_val_to_float(r[0][2])
+                    U = self.z3_val_to_float(r[0][3])
+                    fx = self.z3_val_to_float(r[1])
+                    x = None
+                    w = self.phi(op, x) / weights
+                    # print("w:", w)
+                    sum += (
+                        max(0, l - fx)
+                        + max(0, fx - u)
+                        + max(0, L - fx)
+                        + max(0, fx - U)
+                    ) * w
+
+            else:
+                pass
+
+            logging.info(
+                f"\n [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code: {code} to {sum}.\n"
+            )
+
+            return sum
+        except Exception as e:
+            logging.info(
+                f"\n⚠️ [Unsound Transformer Evaluation] Evaluation failed: {str(e)}.\n Set the evaluation to 10000000.\n"
+            )
+
+            return float("inf")  # something wrong happened, set it with a big value
+
+    def z3_val_to_float(self, val):
+        if isinstance(val, z3.RatNumRef):
+            numerator = val.numerator_as_long()
+            denominator = val.denominator_as_long()
+            float_val = float(Fraction(numerator, denominator))
+            return float_val
 
 
-def z3_val_to_float(val):
-    if isinstance(val, z3.RatNumRef):
-        numerator = val.numerator_as_long()
-        denominator = val.denominator_as_long()
-        float_val = float(Fraction(numerator, denominator))
-        return float_val
+def make_constraintflow_evaluator(certifier: str):
+    DSL1 = {
+        "ibp": DSL1_IBP,
+        "deepz": DSL1_DEEPZ,
+        "deeppoly": DSL1_DEEPPOLY,
+    }
+
+    DSL2 = {
+        "ibp": DSL2_IBP,
+        "deepz": DSL2_DEEPZ,
+        "deeppoly": DSL2_DEEPPOLY,
+    }
+
+    if certifier not in DSL1 or certifier not in DSL2:
+        raise ValueError(f"Unknown certifier: {certifier}")
+
+    def evaluator(dsl: str) -> float:
+        full_dsl = DSL1[certifier] + dsl + DSL2[certifier]
+        return Evaluator().Ds(full_dsl, certifier=certifier)
+
+    return evaluator
 
 
 if __name__ == "__main__":
 
     dsl = """
-def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
-
-func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
-func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
-
-func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
-func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
-
-func priority(Neuron n) = n[layer];
-func priority2(Neuron n) = -n[layer];
-
-func stop(Int x, Neuron n, Float coeff) = true;
-
-func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
-func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
-
-func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
-
-func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
-func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
-
-func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
-func f2(Float x) = x * ((x + 3) / 6);
-func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
-
-func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
-func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
-
 transformer deeppoly{
-   Maxpool -> len(argmax(prev, f)) > 0 ? (max(prev[l]), max(prev[u]),  avg(argmax(prev, f)), avg(argmax(prev, f))) : (max(prev[l]), max(prev[u]), max(prev[l]), 0);
-
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[l] >= -3) and (prev[u] <= 3) ?
+            ((prev[l] + 3) / 6, (prev[u] + 3) / 6, (prev + 3) / 6, (prev + 3) / 6) :
+        (prev[l] < -3) and (prev[u] <= 3) ?
+            (0, (prev[u] + 3) / 6, 0, (prev + 3) / 6) :
+        (prev[l] >= -3) and (prev[u] > 3) ?
+            ((prev[l] + 3) / 6, 1, (prev + 3) / 6, 1) :
+        (0, 1, 0, (prev + 3) / 6);
 }
 
-flow(forward, priority, true, deeppoly);
     """
     # ce_string1 = "Prev0_l_5 = 1\nPrev0_U_8 = 1\nPrev0 = 1\nCurr_u_2 = 0\nPrev0_u_6 = 1\nPrev0_L_7 = 1\nCurr_U_4 = 0\nCurr = 0\ncurr_prime0 = 0\nCurr_l_1 = 0\nCurr_L_3 = 0"
     # ce_string2 = "Prev0_l_5 = -5\nPrev0_U_8 = 1\nPrev0 = 1\nCurr_u_2 = 0\nPrev0_u_6 = -5\nPrev0_L_7 = 1\nCurr_U_4 = 0\nCurr = 0\ncurr_prime0 = 0\nCurr_l_1 = 0\nCurr_L_3 = 0"
     # ce_string3 = "V13_l_14 = 0\n  Curr_u_2 = 1\n  Prev0_u_6 = 0\n  V13_u_15 = 0\n  Curr_L_3 = 1\n  Prev0_L_7 = 0\n  curr_prime0 = 1\n  V13_L_16 = 0\n  Curr_U_4 = 1\n  out_trav_X19 = 1\n  Prev0_U_8 = 0\n  Curr_l_1 = 1\n  V13_U_17 = 0\n  Prev0_l_5 = 0\n  out_trav_X23 = 1\n  V13 = 0\n  out_trav_c24 = 0\n  out_trav_c20 = 0\n  Prev0 = 0\n  prevLength = 1\n  weight_curr0_9 = 0\n  bias_curr10 = 1\n  Curr = 1"
 
-    certifier = "deeppoly"
-    print(ds(dsl, certifier))
+    evaluator = make_constraintflow_evaluator("deeppoly")
+    print(evaluator(dsl))
 
 
 """

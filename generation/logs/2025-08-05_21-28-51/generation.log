@@ -1,0 +1,2513 @@
+2025-08-05 21:28:51,089 - INFO - 2025-08-05 21:28:51.089885 - Extracting HardSigmoid
+2025-08-05 21:28:51,090 - INFO -
+API: HardSigmoid -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
+2025-08-05 21:28:51,090 - INFO - [STEP 1] Starting step 1/1
+2025-08-05 21:29:03,404 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:29:03,546 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-05 21:29:03,546 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-05 21:29:12,605 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid -> (
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        ((prev[u] <= -3) ? (0, 0, 0, 0) :
+            ((prev[l] >= -3 && prev[u] <= 3) ?
+                (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) :
+                (
+                    // lower bound
+                    0,
+                    // upper bound
+                    max(1, f2(prev[u]), 0, f2(prev[l])),
+                    // poly lower
+                    0,
+                    // poly upper
+                    (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+                )
+            )
+        )
+    );
+}
+```
+
+2025-08-05 21:29:12,615 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid -> (
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        ((prev[u] <= -3) ? (0, 0, 0, 0) :
+            ((prev[l] >= -3 && prev[u] <= 3) ?
+                (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) :
+                (
+                    // lower bound
+                    0,
+                    // upper bound
+                    max(1, f2(prev[u]), 0, f2(prev[l])),
+                    // poly lower
+                    0,
+                    // poly upper
+                    (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+                )
+            )
+        )
+    );
+}
+2025-08-05 21:29:12,616 - INFO - [Syntax Phase] Attempt 2
+2025-08-05 21:29:12,665 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-05 21:29:12,665 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-05 21:29:20,838 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid -> (
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        ( (prev[l] >= -3 && prev[u] <= 3) ?
+            (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) :
+            (
+                // lower bound
+                0,
+                // upper bound
+                max(1, f2(prev[u]), 0, f2(prev[l])),
+                // poly lower
+                0,
+                // poly upper
+                (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+            )
+        )
+    );
+}
+```
+2025-08-05 21:29:20,849 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid -> (
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        ( (prev[l] >= -3 && prev[u] <= 3) ?
+            (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) :
+            (
+                // lower bound
+                0,
+                // upper bound
+                max(1, f2(prev[u]), 0, f2(prev[l])),
+                // poly lower
+                0,
+                // poly upper
+                (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+            )
+        )
+    );
+}
+2025-08-05 21:29:20,849 - INFO - [Syntax Phase] Attempt 3
+2025-08-05 21:29:20,954 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-05 21:29:20,954 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-05 21:29:31,803 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid -> (
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            (prev[l] >= -3 && prev[u] <= 3) ?
+                (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) :
+                (
+                    // lower bound
+                    0,
+                    // upper bound
+                    max(1, f2(prev[u]), 0, f2(prev[l])),
+                    // poly lower
+                    0,
+                    // poly upper
+                    (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+                )
+        )
+    );
+}
+```
+2025-08-05 21:29:31,813 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid -> (
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            (prev[l] >= -3 && prev[u] <= 3) ?
+                (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) :
+                (
+                    // lower bound
+                    0,
+                    // upper bound
+                    max(1, f2(prev[u]), 0, f2(prev[l])),
+                    // poly lower
+                    0,
+                    // poly upper
+                    (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+                )
+        )
+    );
+}
+2025-08-05 21:29:31,814 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    HardSigmoid -> (
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            (prev[l] >= -3 && prev[u] <= 3) ?
+                (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) :
+                (
+                    // lower bound
+                    0,
+                    // upper bound
+                    max(1, f2(prev[u]), 0, f2(prev[l])),
+                    // poly lower
+                    0,
+                    // poly upper
+                    (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))
+                )
+        )
+    );
+}
+2025-08-05 21:29:31,814 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:29:31,820 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:29:31,975 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:29:31,975 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:29:31,987 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        (prev[l] >= 1) ? (1, 1, 1, 1)
+        : (prev[u] <= -1) ? (0, 0, 0, 0)
+        : (prev[l] <= -1 and prev[u] >= 1) ? (0, 1, prev, prev)
+        : ( (max(0, min(1, 0.5 * prev[l] + 0.5)), max(0, min(1, 0.5 * prev[u] + 0.5)),
+            0.5 * prev + 0.5, 0.5 * prev + 0.5) );
+}
+2025-08-05 21:29:32,659 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:29:32,664 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:29:32,757 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:29:32,757 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:29:32,770 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 4] Invalid function call: f2
+[Line 4] Invalid function call: f1
+[Line 4] Invalid function call: slope
+[Line 4] Invalid function call: intercept
+2025-08-05 21:29:32,770 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 4] Invalid function call: f2
+[Line 4] Invalid function call: f1
+[Line 4] Invalid function call: slope
+[Line 4] Invalid function call: intercept
+2025-08-05 21:29:40,328 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid -> ((prev[u] <= -3) ? (0, 0, 0, 0) :
+        ((prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l], prev[u], prev, ((prev[u] - prev[l]) * prev + (prev[u] + prev[l])))
+        )
+    );
+}
+```
+2025-08-05 21:29:40,337 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid -> ((prev[u] <= -3) ? (0, 0, 0, 0) :
+        ((prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l], prev[u], prev, ((prev[u] - prev[l]) * prev + (prev[u] + prev[l])))
+        )
+    );
+}
+2025-08-05 21:29:40,337 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:29:40,365 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[u] <= -3) ? (0, 0, 0, 0) :
+        ((prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l], prev[u], prev, ((prev[u] - prev[l]) * prev + (prev[u] + prev[l])))
+        )
+    );
+}
+2025-08-05 21:29:40,937 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Curr_L_3 = 0
+  Prev0_l_5 = 5/4
+  Prev0_U_8 = 9/2
+  curr_prime0 = 1
+  Prev0 = 9/2
+  Prev0_u_6 = 9/2
+  Curr_u_2 = 1
+  Prev0_L_7 = 0
+  Curr_l_1 = 0
+  Curr = 1
+  Curr_U_4 = 1.
+ Start to evaluate the deviation.
+2025-08-05 21:29:41,496 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSigmoid -> ((prev[u] <= -3) ? (0, 0, 0, 0) :
+        ((prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l], prev[u], prev, ((prev[u] - prev[l]) * prev + (prev[u] + prev[l])))
+        )
+    );
+}
+flow(forward, priority, true, deeppoly);
+ to 0.18106060606060606.
+
+2025-08-05 21:29:41,496 - INFO - best_score : score = inf : 0.18106060606060606
+2025-08-05 21:29:41,496 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid -> ((prev[u] <= -3) ? (0, 0, 0, 0) :
+        ((prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l], prev[u], prev, ((prev[u] - prev[l]) * prev + (prev[u] + prev[l])))
+        )
+    );
+}
+ with the score 0.18106060606060606. Use it to guide the regeneration.
+2025-08-05 21:29:41,496 - INFO - [STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-08-05 21:29:51,112 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:29:51,202 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:29:51,202 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:29:51,296 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid function call: slope
+[Line 5] Invalid function call: intercept
+[Line 6] Invalid function call: f1
+[Line 7] Invalid function call: slope
+[Line 7] Invalid function call: intercept
+[Line 8] Invalid function call: f1
+2025-08-05 21:29:51,297 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid function call: slope
+[Line 5] Invalid function call: intercept
+[Line 6] Invalid function call: f1
+[Line 7] Invalid function call: slope
+[Line 7] Invalid function call: intercept
+[Line 8] Invalid function call: f1
+2025-08-05 21:29:58,603 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            (1.0/6.0) * prev[l] + 0.5,
+            (1.0/6.0) * prev[u] + 0.5,
+            (1.0/6.0) * prev + 0.5,
+            (1.0/6.0) * prev + 0.5
+        );
+}
+```
+2025-08-05 21:29:58,615 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            (1.0/6.0) * prev[l] + 0.5,
+            (1.0/6.0) * prev[u] + 0.5,
+            (1.0/6.0) * prev + 0.5,
+            (1.0/6.0) * prev + 0.5
+        );
+}
+2025-08-05 21:29:58,615 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:29:58,648 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            (1.0/6.0) * prev[l] + 0.5,
+            (1.0/6.0) * prev[u] + 0.5,
+            (1.0/6.0) * prev + 0.5,
+            (1.0/6.0) * prev + 0.5
+        );
+}
+2025-08-05 21:29:59,173 - INFO - [STEP 1] Sample 1: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Curr_L_3 = 0
+  Prev0_l_5 = -150000000000000000/49999999999999999
+  Prev0_U_8 = -150000000000000000/49999999999999999
+  Prev0 = -150000000000000000/49999999999999999
+  Prev0_u_6 = -299999999999999993/99999999999999998
+  Curr_u_2 = 0
+  Curr_l_1 = 0
+  Prev0_L_7 = -150000000000000000/49999999999999999
+  Curr = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-05 21:29:59,732 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            (1.0/6.0) * prev[l] + 0.5,
+            (1.0/6.0) * prev[u] + 0.5,
+            (1.0/6.0) * prev + 0.5,
+            (1.0/6.0) * prev + 0.5
+        );
+}
+flow(forward, priority, true, deeppoly);
+ to 0.0.
+
+2025-08-05 21:29:59,732 - INFO - best_score : score = inf : 0.0
+2025-08-05 21:29:59,732 - INFO - [STEP 1] Sample 1: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            (1.0/6.0) * prev[l] + 0.5,
+            (1.0/6.0) * prev[u] + 0.5,
+            (1.0/6.0) * prev + 0.5,
+            (1.0/6.0) * prev + 0.5
+        );
+}
+ with the score 0.0. Use it to guide the regeneration.
+2025-08-05 21:29:59,737 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:29:59,840 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:29:59,840 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:29:59,857 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 6] Invalid function call: f2
+[Line 7] Invalid function call: f1
+[Line 8] Invalid function call: f2
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:29:59,857 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 6] Invalid function call: f2
+[Line 7] Invalid function call: f1
+[Line 8] Invalid function call: f2
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:30:13,941 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            max(0, min(1, 0.16667 * prev + 0.5)),
+            max(0, min(1, ((1 - 0) / (prev[u] - prev[l])) * (prev - prev[l]) + 0))
+        );
+}
+```
+2025-08-05 21:30:13,952 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            max(0, min(1, 0.16667 * prev + 0.5)),
+            max(0, min(1, ((1 - 0) / (prev[u] - prev[l])) * (prev - prev[l]) + 0))
+        );
+}
+2025-08-05 21:30:13,952 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:30:13,989 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 8] Invalid use of Neuron in min: 0.16667*prev+0.5
+2025-08-05 21:30:13,989 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 8] Invalid use of Neuron in min: 0.16667*prev+0.5
+2025-08-05 21:30:26,300 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            max(0, min(1, 0.16667 * prev[m] + 0.5)),
+            max(0, min(1, ((1 - 0) / (prev[u] - prev[l])) * (prev[m] - prev[l]) + 0))
+        );
+}
+```
+2025-08-05 21:30:26,309 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            max(0, min(1, 0.16667 * prev[m] + 0.5)),
+            max(0, min(1, ((1 - 0) / (prev[u] - prev[l])) * (prev[m] - prev[l]) + 0))
+        );
+}
+2025-08-05 21:30:26,310 - INFO - [Semantic Phase] Attempt 3
+2025-08-05 21:30:26,343 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 8] Invalid metadata access: prev[m]
+[Line 9] Invalid metadata access: prev[m]
+2025-08-05 21:30:26,344 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 8] Invalid metadata access: prev[m]
+[Line 9] Invalid metadata access: prev[m]
+2025-08-05 21:30:35,721 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            NaN,
+            NaN
+        );
+}
+```
+2025-08-05 21:30:35,732 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            NaN,
+            NaN
+        );
+}
+2025-08-05 21:30:35,750 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:30:35,755 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:30:35,984 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:30:35,984 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:30:36,023 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 6] Invalid function call: f2
+[Line 6] Invalid function call: f1
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 10] Invalid function call: f1
+[Line 10] Invalid function call: slope
+[Line 10] Invalid function call: intercept
+[Line 12] Invalid function call: f2
+[Line 12] Invalid function call: slope
+[Line 12] Invalid function call: intercept
+2025-08-05 21:30:36,023 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 6] Invalid function call: f2
+[Line 6] Invalid function call: f1
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 10] Invalid function call: f1
+[Line 10] Invalid function call: slope
+[Line 10] Invalid function call: intercept
+[Line 12] Invalid function call: f2
+[Line 12] Invalid function call: slope
+[Line 12] Invalid function call: intercept
+2025-08-05 21:30:46,683 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[l] >= -3) and (prev[u] <= 3) ?
+            ((prev[l] + 3) / 6, (prev[u] + 3) / 6, prev * ((prev[u] + 3) / 6), prev * ((prev[u] + 3) / 6)) :
+        (prev[l] < -3) and (prev[u] > 3) ?
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6) :
+        (prev[l] < -3) ?
+            (0, (prev[u] + 3) / 6, prev * ((prev[u] + 3) / 6), (prev + 3) / 6) :
+        (prev[u] > 3) ?
+            ((prev[l] + 3) / 6, 1, (prev + 3) / 6, prev * ((prev[l] + 3) / 6)) :
+        (0, 1, prev, prev);
+}
+```
+2025-08-05 21:30:46,694 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[l] >= -3) and (prev[u] <= 3) ?
+            ((prev[l] + 3) / 6, (prev[u] + 3) / 6, prev * ((prev[u] + 3) / 6), prev * ((prev[u] + 3) / 6)) :
+        (prev[l] < -3) and (prev[u] > 3) ?
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6) :
+        (prev[l] < -3) ?
+            (0, (prev[u] + 3) / 6, prev * ((prev[u] + 3) / 6), (prev + 3) / 6) :
+        (prev[u] > 3) ?
+            ((prev[l] + 3) / 6, 1, (prev + 3) / 6, prev * ((prev[l] + 3) / 6)) :
+        (0, 1, prev, prev);
+}
+2025-08-05 21:30:46,694 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:30:46,852 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[l] >= -3) and (prev[u] <= 3) ?
+            ((prev[l] + 3) / 6, (prev[u] + 3) / 6, prev * ((prev[u] + 3) / 6), prev * ((prev[u] + 3) / 6)) :
+        (prev[l] < -3) and (prev[u] > 3) ?
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6) :
+        (prev[l] < -3) ?
+            (0, (prev[u] + 3) / 6, prev * ((prev[u] + 3) / 6), (prev + 3) / 6) :
+        (prev[u] > 3) ?
+            ((prev[l] + 3) / 6, 1, (prev + 3) / 6, prev * ((prev[l] + 3) / 6)) :
+        (0, 1, prev, prev);
+}
+2025-08-05 21:30:47,570 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Prev0_l_5 = 0
+  Curr_L_3 = 5/6
+  Prev0 = 2
+  Prev0_u_6 = 5/2
+  Curr_u_2 = 5/6
+  Curr_l_1 = 5/6
+  Prev0_U_8 = 2
+  Prev0_L_7 = 2
+  Curr_U_4 = 5/6
+  curr_prime0 = 5/6
+  Curr = 5/6.
+ Start to evaluate the deviation.
+2025-08-05 21:30:49,069 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[l] >= -3) and (prev[u] <= 3) ?
+            ((prev[l] + 3) / 6, (prev[u] + 3) / 6, prev * ((prev[u] + 3) / 6), prev * ((prev[u] + 3) / 6)) :
+        (prev[l] < -3) and (prev[u] > 3) ?
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6) :
+        (prev[l] < -3) ?
+            (0, (prev[u] + 3) / 6, prev * ((prev[u] + 3) / 6), (prev + 3) / 6) :
+        (prev[u] > 3) ?
+            ((prev[l] + 3) / 6, 1, (prev + 3) / 6, prev * ((prev[l] + 3) / 6)) :
+        (0, 1, prev, prev);
+}
+flow(forward, priority, true, deeppoly);
+ to 0.6706469145275299.
+
+2025-08-05 21:30:49,070 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[l] >= -3) and (prev[u] <= 3) ?
+            ((prev[l] + 3) / 6, (prev[u] + 3) / 6, prev * ((prev[u] + 3) / 6), prev * ((prev[u] + 3) / 6)) :
+        (prev[l] < -3) and (prev[u] > 3) ?
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6) :
+        (prev[l] < -3) ?
+            (0, (prev[u] + 3) / 6, prev * ((prev[u] + 3) / 6), (prev + 3) / 6) :
+        (prev[u] > 3) ?
+            ((prev[l] + 3) / 6, 1, (prev + 3) / 6, prev * ((prev[l] + 3) / 6)) :
+        (0, 1, prev, prev);
+}
+ with the score 0.6706469145275299. Use it to guide the regeneration.
+2025-08-05 21:30:49,070 - INFO - [STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-08-05 21:31:06,994 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:31:07,064 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:31:07,065 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:31:07,085 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            max((1.0/6.0)*prev[l] + 0.5, 0),
+            min((1.0/6.0)*prev[u] + 0.5, 1),
+            ((prev - prev[l]) / (prev[u] - prev[l])) * ((1.0/6.0)*prev[u] + 0.5) + ((prev[u] - prev) / (prev[u] - prev[l])) * ((1.0/6.0)*prev[l] + 0.5),
+            (((1.0/6.0)*prev) + 0.5)
+        );
+}
+2025-08-05 21:31:07,613 - INFO - [STEP 1] Sample 1: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Prev0_l_5 = -175000000000000000/58333333333333333
+  Prev0_U_8 = 0
+  Prev0 = -175000000000000000/58333333333333333
+  Prev0_u_6 = 0
+  Curr_L_3 = 0
+  Curr_u_2 = 0
+  Curr_l_1 = 0
+  Prev0_L_7 = -175000000000000000/58333333333333333
+  Curr = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-05 21:31:08,155 - INFO -
+⚠️ [Unsound Transformer Evaluation] Evaluation failed: unsupported operand type(s) for -: 'NoneType' and 'float'.
+ Set the evaluation to 10000000.
+
+2025-08-05 21:31:08,155 - INFO - [STEP 1] Sample 1: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            max((1.0/6.0)*prev[l] + 0.5, 0),
+            min((1.0/6.0)*prev[u] + 0.5, 1),
+            ((prev - prev[l]) / (prev[u] - prev[l])) * ((1.0/6.0)*prev[u] + 0.5) + ((prev[u] - prev) / (prev[u] - prev[l])) * ((1.0/6.0)*prev[l] + 0.5),
+            (((1.0/6.0)*prev) + 0.5)
+        );
+}
+ with the score inf. Use it to guide the regeneration.
+2025-08-05 21:31:08,160 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:31:08,179 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:31:08,179 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:31:08,191 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 6] Invalid function call: f2
+[Line 7] Invalid function call: f3
+2025-08-05 21:31:08,191 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 6] Invalid function call: f2
+[Line 7] Invalid function call: f3
+2025-08-05 21:31:16,672 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            prev*(1/6) + 0.5,
+            prev*(1/6) + 0.5,
+            prev*(1/6) + 0.5,
+            prev*(1/6) + 0.5
+        );
+}
+```
+2025-08-05 21:31:16,681 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            prev*(1/6) + 0.5,
+            prev*(1/6) + 0.5,
+            prev*(1/6) + 0.5,
+            prev*(1/6) + 0.5
+        );
+}
+2025-08-05 21:31:16,681 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:31:16,700 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            prev*(1/6) + 0.5,
+            prev*(1/6) + 0.5,
+            prev*(1/6) + 0.5,
+            prev*(1/6) + 0.5
+        );
+}
+2025-08-05 21:31:16,934 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:31:16,939 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:31:17,008 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-05 21:31:17,008 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-05 21:31:24,121 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5),
+            ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5),
+            (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])),
+            (slope(prev[u], prev[l]) * prev + intercept(prev[u], prev[l]))
+        );
+}
+```
+2025-08-05 21:31:24,135 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5),
+            ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5),
+            (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])),
+            (slope(prev[u], prev[l]) * prev + intercept(prev[u], prev[l]))
+        );
+}
+2025-08-05 21:31:24,135 - INFO - [Syntax Phase] Attempt 2
+2025-08-05 21:31:24,358 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:31:24,358 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:31:24,374 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:31:24,374 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:31:34,537 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5),
+            ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[l]) + ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5))
+                : 0),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[u]) + ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5))
+                : 0)
+        );
+}
+```
+2025-08-05 21:31:34,544 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5),
+            ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[l]) + ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5))
+                : 0),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[u]) + ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5))
+                : 0)
+        );
+}
+2025-08-05 21:31:34,544 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:31:34,564 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 8:46 no viable alternative at input 'HardSigmoid->(prev[u]<=-3)?(0,0,0,0):(prev[l]>=3)?(1,1,1,1):(((prev[l]<-3)?0:(1.0/6.0)*prev[l]+0.5),((prev[u]>3)?1:(1.0/6.0)*prev[u]+0.5),(((1.0/6.0)*(prev[u]-prev[l])!='
+2025-08-05 21:31:34,567 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 8:46 no viable alternative at input 'HardSigmoid->(prev[u]<=-3)?(0,0,0,0):(prev[l]>=3)?(1,1,1,1):(((prev[l]<-3)?0:(1.0/6.0)*prev[l]+0.5),((prev[u]>3)?1:(1.0/6.0)*prev[u]+0.5),(((1.0/6.0)*(prev[u]-prev[l])!='
+2025-08-05 21:31:56,846 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5),
+            ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[l]) + ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5))
+                : 0),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[u]) + ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5))
+                : 0)
+        );
+}
+```
+**Note:** The error is likely due to the use of `prev` (instead of `prev[x]` where `x` should be an index like `u` or `l`) in the expressions inside the 3rd and 4th tuple elements. Assuming you want `prev[u]` in both places, the fix is as follows:
+
+```dsl
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5),
+            ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev[u] - prev[l]) + ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5))
+                : 0),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev[u] - prev[u]) + ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5))
+                : 0)
+        );
+}
+```
+
+This replaces `prev` with `prev[u]` in the relevant positions. If you meant to use a different variable, adjust accordingly.
+2025-08-05 21:31:56,858 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5),
+            ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[l]) + ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5))
+                : 0),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[u]) + ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5))
+                : 0)
+        );
+}
+2025-08-05 21:31:56,858 - INFO - [Semantic Phase] Attempt 3
+2025-08-05 21:31:56,866 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 8:46 no viable alternative at input 'HardSigmoid->(prev[u]<=-3)?(0,0,0,0):(prev[l]>=3)?(1,1,1,1):(((prev[l]<-3)?0:(1.0/6.0)*prev[l]+0.5),((prev[u]>3)?1:(1.0/6.0)*prev[u]+0.5),(((1.0/6.0)*(prev[u]-prev[l])!='
+2025-08-05 21:31:56,866 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 8:46 no viable alternative at input 'HardSigmoid->(prev[u]<=-3)?(0,0,0,0):(prev[l]>=3)?(1,1,1,1):(((prev[l]<-3)?0:(1.0/6.0)*prev[l]+0.5),((prev[u]>3)?1:(1.0/6.0)*prev[u]+0.5),(((1.0/6.0)*(prev[u]-prev[l])!='
+2025-08-05 21:32:08,162 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5),
+            ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[l]) / ((1.0/6.0) * (prev[u] - prev[l])) + ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5))
+                : 0),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[u]) / ((1.0/6.0) * (prev[u] - prev[l])) + ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5))
+                : 0)
+        );
+}
+```
+
+2025-08-05 21:32:08,169 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (
+            ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5),
+            ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[l]) / ((1.0/6.0) * (prev[u] - prev[l])) + ((prev[l] < -3) ? 0 : (1.0/6.0) * prev[l] + 0.5))
+                : 0),
+            (((1.0/6.0) * (prev[u] - prev[l]) != 0)
+                ? ((1.0/6.0) * (prev - prev[u]) / ((1.0/6.0) * (prev[u] - prev[l])) + ((prev[u] > 3) ? 1 : (1.0/6.0) * prev[u] + 0.5))
+                : 0)
+        );
+}
+2025-08-05 21:32:08,194 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:32:08,194 - INFO - [STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-08-05 21:32:25,944 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:32:26,166 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:32:26,169 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:32:26,210 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f1
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f1
+[Line 14] Invalid function call: f1
+[Line 17] Invalid function call: f2
+2025-08-05 21:32:26,210 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f1
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f1
+[Line 14] Invalid function call: f1
+[Line 17] Invalid function call: f2
+2025-08-05 21:32:37,693 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (
+            ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+            (
+                (0 <= prev[l] and prev[u] <= 3) ?
+                    ((prev * (1 / 6) + 0.5), (prev[u] * (1 / 6) + 0.5), (prev * (1 / 6) + 0.5), (prev[u] * (1 / 6) + 0.5)) :
+                (
+                    (prev[l] < -3 and prev[u] > 3) ?
+                        (0, 1, prev, prev) :
+                    (
+                        (prev[l] < -3) ?
+                            (0, (prev[u] * (1 / 6) + 0.5), 0, prev * (1 / (prev[u] + 3)) - (prev[l] / (prev[u] + 3))) :
+                        (
+                            (prev[u] > 3) ?
+                                ((prev * (1 / 6) + 0.5), 1, prev * (1 / (3 - prev[l])) - (prev[u] / (3 - prev[l])), 1) :
+                            (
+                                0, 1, prev, prev
+                            )
+                        )
+                    )
+                )
+            )
+        );
+}
+```
+
+2025-08-05 21:32:37,704 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (
+            ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+            (
+                (0 <= prev[l] and prev[u] <= 3) ?
+                    ((prev * (1 / 6) + 0.5), (prev[u] * (1 / 6) + 0.5), (prev * (1 / 6) + 0.5), (prev[u] * (1 / 6) + 0.5)) :
+                (
+                    (prev[l] < -3 and prev[u] > 3) ?
+                        (0, 1, prev, prev) :
+                    (
+                        (prev[l] < -3) ?
+                            (0, (prev[u] * (1 / 6) + 0.5), 0, prev * (1 / (prev[u] + 3)) - (prev[l] / (prev[u] + 3))) :
+                        (
+                            (prev[u] > 3) ?
+                                ((prev * (1 / 6) + 0.5), 1, prev * (1 / (3 - prev[l])) - (prev[u] / (3 - prev[l])), 1) :
+                            (
+                                0, 1, prev, prev
+                            )
+                        )
+                    )
+                )
+            )
+        );
+}
+2025-08-05 21:32:37,704 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:32:37,788 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (
+            ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+            (
+                (0 <= prev[l] and prev[u] <= 3) ?
+                    ((prev * (1 / 6) + 0.5), (prev[u] * (1 / 6) + 0.5), (prev * (1 / 6) + 0.5), (prev[u] * (1 / 6) + 0.5)) :
+                (
+                    (prev[l] < -3 and prev[u] > 3) ?
+                        (0, 1, prev, prev) :
+                    (
+                        (prev[l] < -3) ?
+                            (0, (prev[u] * (1 / 6) + 0.5), 0, prev * (1 / (prev[u] + 3)) - (prev[l] / (prev[u] + 3))) :
+                        (
+                            (prev[u] > 3) ?
+                                ((prev * (1 / 6) + 0.5), 1, prev * (1 / (3 - prev[l])) - (prev[u] / (3 - prev[l])), 1) :
+                            (
+                                0, 1, prev, prev
+                            )
+                        )
+                    )
+                )
+            )
+        );
+}
+2025-08-05 21:32:38,210 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:32:38,216 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:32:38,490 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-05 21:32:38,490 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-05 21:32:51,795 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid ->
+        (
+            (prev[u] <= -3) ? (0, 0, 0, 0) :
+            (prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l] >= -3 && prev[u] <= 3) ?
+                (f2(prev[l]), f2(prev[u]), (prev + 3) / 6, (prev + 3) / 6) :
+            (prev[l] < -3 && prev[u] > 3) ?
+                (0, 1, (prev + 3) / 6, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) :
+            (prev[l] < -3) ?
+                (0, f1(prev[u]), (prev + 3) / 6, slope(-3, prev[u]) * prev + intercept(-3, prev[u])) :
+            (prev[u] > 3) ?
+                (f2(prev[l]), 1, (prev + 3) / 6, slope(prev[l], 3) * prev + intercept(prev[l], 3)) :
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6)
+        );
+}
+```
+2025-08-05 21:32:51,806 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid ->
+        (
+            (prev[u] <= -3) ? (0, 0, 0, 0) :
+            (prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l] >= -3 && prev[u] <= 3) ?
+                (f2(prev[l]), f2(prev[u]), (prev + 3) / 6, (prev + 3) / 6) :
+            (prev[l] < -3 && prev[u] > 3) ?
+                (0, 1, (prev + 3) / 6, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) :
+            (prev[l] < -3) ?
+                (0, f1(prev[u]), (prev + 3) / 6, slope(-3, prev[u]) * prev + intercept(-3, prev[u])) :
+            (prev[u] > 3) ?
+                (f2(prev[l]), 1, (prev + 3) / 6, slope(prev[l], 3) * prev + intercept(prev[l], 3)) :
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6)
+        );
+}
+2025-08-05 21:32:51,806 - INFO - [Syntax Phase] Attempt 2
+2025-08-05 21:32:52,009 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:32:52,010 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:32:52,047 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 7] Invalid function call: f2
+[Line 7] Invalid function call: f2
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+[Line 11] Invalid function call: f1
+[Line 11] Invalid function call: slope
+[Line 11] Invalid function call: intercept
+[Line 13] Invalid function call: f2
+[Line 13] Invalid function call: slope
+[Line 13] Invalid function call: intercept
+2025-08-05 21:32:52,047 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 7] Invalid function call: f2
+[Line 7] Invalid function call: f2
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+[Line 11] Invalid function call: f1
+[Line 11] Invalid function call: slope
+[Line 11] Invalid function call: intercept
+[Line 13] Invalid function call: f2
+[Line 13] Invalid function call: slope
+[Line 13] Invalid function call: intercept
+2025-08-05 21:33:06,750 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    // Define the helper functions inline
+    f1(x) = (x + 3) / 6;
+    f2(x) = (x + 3) / 6;
+    slope(a, b) = (f2(b) - f2(a)) / (b - a);
+    intercept(a, b) = f2(a) - slope(a, b) * a;
+
+    HardSigmoid ->
+        (
+            (prev[u] <= -3) ? (0, 0, 0, 0) :
+            (prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l] >= -3 and prev[u] <= 3) ?
+                (f2(prev[l]), f2(prev[u]), (prev + 3) / 6, (prev + 3) / 6) :
+            (prev[l] < -3 and prev[u] > 3) ?
+                (0, 1, (prev + 3) / 6, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) :
+            (prev[l] < -3) ?
+                (0, f1(prev[u]), (prev + 3) / 6, slope(-3, prev[u]) * prev + intercept(-3, prev[u])) :
+            (prev[u] > 3) ?
+                (f2(prev[l]), 1, (prev + 3) / 6, slope(prev[l], 3) * prev + intercept(prev[l], 3)) :
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6)
+        );
+}
+```
+2025-08-05 21:33:06,756 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    // Define the helper functions inline
+    f1(x) = (x + 3) / 6;
+    f2(x) = (x + 3) / 6;
+    slope(a, b) = (f2(b) - f2(a)) / (b - a);
+    intercept(a, b) = f2(a) - slope(a, b) * a;
+
+    HardSigmoid ->
+        (
+            (prev[u] <= -3) ? (0, 0, 0, 0) :
+            (prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l] >= -3 and prev[u] <= 3) ?
+                (f2(prev[l]), f2(prev[u]), (prev + 3) / 6, (prev + 3) / 6) :
+            (prev[l] < -3 and prev[u] > 3) ?
+                (0, 1, (prev + 3) / 6, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) :
+            (prev[l] < -3) ?
+                (0, f1(prev[u]), (prev + 3) / 6, slope(-3, prev[u]) * prev + intercept(-3, prev[u])) :
+            (prev[u] > 3) ?
+                (f2(prev[l]), 1, (prev + 3) / 6, slope(prev[l], 3) * prev + intercept(prev[l], 3)) :
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6)
+        );
+}
+2025-08-05 21:33:06,756 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:33:06,767 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 3:4 mismatched input 'f1' expecting {'Affine', 'Relu', 'Relu6', 'Abs', 'HardTanh', 'HardSigmoid', 'HardSwish', 'Maxpool', 'Minpool', 'Avgpool', 'rev_Affine', 'Neuron_mult', 'Neuron_add', 'Neuron_max', 'Neuron_min', 'Neuron_list_mult', 'rev_Relu', 'rev_Relu6', 'rev_Abs', 'rev_HardSigmoid', 'rev_HardTanh', 'rev_HardSwish', 'rev_Maxpool', 'rev_Neuron_mult', 'rev_Neuron_add', 'rev_Neuron_max', 'rev_Neuron_min'}
+2025-08-05 21:33:06,767 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 3:4 mismatched input 'f1' expecting {'Affine', 'Relu', 'Relu6', 'Abs', 'HardTanh', 'HardSigmoid', 'HardSwish', 'Maxpool', 'Minpool', 'Avgpool', 'rev_Affine', 'Neuron_mult', 'Neuron_add', 'Neuron_max', 'Neuron_min', 'Neuron_list_mult', 'rev_Relu', 'rev_Relu6', 'rev_Abs', 'rev_HardSigmoid', 'rev_HardTanh', 'rev_HardSwish', 'rev_Maxpool', 'rev_Neuron_mult', 'rev_Neuron_add', 'rev_Neuron_max', 'rev_Neuron_min'}
+2025-08-05 21:33:33,802 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid ->
+        (
+            (prev[u] <= -3) ? (0, 0, 0, 0) :
+            (prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l] >= -3 and prev[u] <= 3) ?
+                ((prev[l] + 3) / 6, (prev[u] + 3) / 6, (prev + 3) / 6, (prev + 3) / 6) :
+            (prev[l] < -3 and prev[u] > 3) ?
+                (0, 1, (prev + 3) / 6, ((1 - 0) / (prev[u] - prev[l])) * (prev - prev[l]) + ((prev[l] + 3) / 6)) :
+            (prev[l] < -3) ?
+                (0, (prev[u] + 3) / 6, (prev + 3) / 6, (( ( (prev[u] + 3) / 6 ) - 0 ) / (prev[u] + 3)) * (prev + 3) / 6 ) :
+            (prev[u] > 3) ?
+                ((prev[l] + 3) / 6, 1, (prev + 3) / 6, ((1 - ((prev[l] + 3) / 6)) / (3 - prev[l])) * (prev - prev[l]) + ((prev[l] + 3) / 6)) :
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6)
+        );
+}
+```
+2025-08-05 21:33:33,816 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid ->
+        (
+            (prev[u] <= -3) ? (0, 0, 0, 0) :
+            (prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l] >= -3 and prev[u] <= 3) ?
+                ((prev[l] + 3) / 6, (prev[u] + 3) / 6, (prev + 3) / 6, (prev + 3) / 6) :
+            (prev[l] < -3 and prev[u] > 3) ?
+                (0, 1, (prev + 3) / 6, ((1 - 0) / (prev[u] - prev[l])) * (prev - prev[l]) + ((prev[l] + 3) / 6)) :
+            (prev[l] < -3) ?
+                (0, (prev[u] + 3) / 6, (prev + 3) / 6, (( ( (prev[u] + 3) / 6 ) - 0 ) / (prev[u] + 3)) * (prev + 3) / 6 ) :
+            (prev[u] > 3) ?
+                ((prev[l] + 3) / 6, 1, (prev + 3) / 6, ((1 - ((prev[l] + 3) / 6)) / (3 - prev[l])) * (prev - prev[l]) + ((prev[l] + 3) / 6)) :
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6)
+        );
+}
+2025-08-05 21:33:33,816 - INFO - [Semantic Phase] Attempt 3
+2025-08-05 21:33:33,921 - INFO - ✅ All check passed for code:
+ transformer deeppoly {
+    HardSigmoid ->
+        (
+            (prev[u] <= -3) ? (0, 0, 0, 0) :
+            (prev[l] >= 3) ? (1, 1, 1, 1) :
+            (prev[l] >= -3 and prev[u] <= 3) ?
+                ((prev[l] + 3) / 6, (prev[u] + 3) / 6, (prev + 3) / 6, (prev + 3) / 6) :
+            (prev[l] < -3 and prev[u] > 3) ?
+                (0, 1, (prev + 3) / 6, ((1 - 0) / (prev[u] - prev[l])) * (prev - prev[l]) + ((prev[l] + 3) / 6)) :
+            (prev[l] < -3) ?
+                (0, (prev[u] + 3) / 6, (prev + 3) / 6, (( ( (prev[u] + 3) / 6 ) - 0 ) / (prev[u] + 3)) * (prev + 3) / 6 ) :
+            (prev[u] > 3) ?
+                ((prev[l] + 3) / 6, 1, (prev + 3) / 6, ((1 - ((prev[l] + 3) / 6)) / (3 - prev[l])) * (prev - prev[l]) + ((prev[l] + 3) / 6)) :
+            (0, 1, (prev + 3) / 6, (prev + 3) / 6)
+        );
+}
+2025-08-05 21:33:34,340 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:33:34,349 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:33:34,475 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:33:34,475 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:33:34,502 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid function call: f2
+[Line 5] Invalid function call: f2
+[Line 5] Invalid function call: f2
+[Line 5] Invalid function call: f2
+[Line 7] Invalid function call: f3
+[Line 7] Invalid function call: slope
+[Line 7] Invalid function call: intercept
+2025-08-05 21:33:34,502 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid function call: f2
+[Line 5] Invalid function call: f2
+[Line 5] Invalid function call: f2
+[Line 5] Invalid function call: f2
+[Line 7] Invalid function call: f3
+[Line 7] Invalid function call: slope
+[Line 7] Invalid function call: intercept
+2025-08-05 21:33:49,965 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        (((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        ((prev[l]) >= -3 and (prev[u]) <= 3) ? (0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5, 0.2 * prev + 0.5, 0.2 * prev + 0.5) :
+        ((prev[l]) < -3 and (prev[u]) > 3) ? (0, 1, 0, 1) :
+        (0, 0.2 * prev + 0.5, 0, 0.2 * (prev[u] - prev[l]) / (prev[u] - prev[l]) * prev + (prev[u] * prev[l] - prev[u] * prev[l]) / (prev[u] - prev[l]))));
+}
+```
+2025-08-05 21:33:49,976 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        (((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        ((prev[l]) >= -3 and (prev[u]) <= 3) ? (0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5, 0.2 * prev + 0.5, 0.2 * prev + 0.5) :
+        ((prev[l]) < -3 and (prev[u]) > 3) ? (0, 1, 0, 1) :
+        (0, 0.2 * prev + 0.5, 0, 0.2 * (prev[u] - prev[l]) / (prev[u] - prev[l]) * prev + (prev[u] * prev[l] - prev[u] * prev[l]) / (prev[u] - prev[l]))));
+}
+2025-08-05 21:33:49,976 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:33:50,003 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 7:153 no viable alternative at input 'HardSigmoid->((prev[l])>=3)?(1,1,1,1):(((prev[u])<=-3)?(0,0,0,0):((prev[l])>=-3and(prev[u])<=3)?(0.2*prev[l]+0.5,0.2*prev[u]+0.5,0.2*prev+0.5,0.2*prev+0.5):((prev[l])<-3and(prev[u])>3)?(0,1,0,1):(0,0.2*prev+0.5,0,0.2*(prev[u]-prev[l])/(prev[u]-prev[l])*prev+(prev[u]*prev[l]-prev[u]*prev[l])/(prev[u]-prev[l]))))'
+2025-08-05 21:33:50,003 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 7:153 no viable alternative at input 'HardSigmoid->((prev[l])>=3)?(1,1,1,1):(((prev[u])<=-3)?(0,0,0,0):((prev[l])>=-3and(prev[u])<=3)?(0.2*prev[l]+0.5,0.2*prev[u]+0.5,0.2*prev+0.5,0.2*prev+0.5):((prev[l])<-3and(prev[u])>3)?(0,1,0,1):(0,0.2*prev+0.5,0,0.2*(prev[u]-prev[l])/(prev[u]-prev[l])*prev+(prev[u]*prev[l]-prev[u]*prev[l])/(prev[u]-prev[l]))))'
+2025-08-05 21:34:00,344 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (((prev[l]) >= -3) and ((prev[u]) <= 3)) ? (0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5, 0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5) :
+        (((prev[l]) < -3) and ((prev[u]) > 3)) ? (0, 1, 0, 1) :
+        (0, 0.2 * prev[l] + 0.5, 0, 0.2 * ((prev[u] - prev[l]) / (prev[u] - prev[l])) * prev[l] + ((prev[u] * prev[l] - prev[u] * prev[l]) / (prev[u] - prev[l])));
+}
+```
+2025-08-05 21:34:00,354 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (((prev[l]) >= -3) and ((prev[u]) <= 3)) ? (0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5, 0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5) :
+        (((prev[l]) < -3) and ((prev[u]) > 3)) ? (0, 1, 0, 1) :
+        (0, 0.2 * prev[l] + 0.5, 0, 0.2 * ((prev[u] - prev[l]) / (prev[u] - prev[l])) * prev[l] + ((prev[u] * prev[l] - prev[u] * prev[l]) / (prev[u] - prev[l])));
+}
+2025-08-05 21:34:00,354 - INFO - [Semantic Phase] Attempt 3
+2025-08-05 21:34:00,432 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (((prev[l]) >= -3) and ((prev[u]) <= 3)) ? (0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5, 0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5) :
+        (((prev[l]) < -3) and ((prev[u]) > 3)) ? (0, 1, 0, 1) :
+        (0, 0.2 * prev[l] + 0.5, 0, 0.2 * ((prev[u] - prev[l]) / (prev[u] - prev[l])) * prev[l] + ((prev[u] * prev[l] - prev[u] * prev[l]) / (prev[u] - prev[l])));
+}
+2025-08-05 21:34:01,134 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Prev0_l_5 = 5/2
+  Prev0_U_8 = 5/2
+  Prev0 = 5/2
+  Prev0_u_6 = 5/2
+  Curr_u_2 = 11/12
+  Curr_L_3 = 0
+  Curr_l_1 = 0
+  Prev0_L_7 = 0
+  Curr = 11/12
+  Curr_U_4 = 11/12
+  curr_prime0 = 11/12.
+ Start to evaluate the deviation.
+2025-08-05 21:34:02,009 - INFO -
+⚠️ [Unsound Transformer Evaluation] Evaluation failed: unsupported operand type(s) for -: 'float' and 'NoneType'.
+ Set the evaluation to 10000000.
+
+2025-08-05 21:34:02,009 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        (((prev[l]) >= -3) and ((prev[u]) <= 3)) ? (0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5, 0.2 * prev[l] + 0.5, 0.2 * prev[u] + 0.5) :
+        (((prev[l]) < -3) and ((prev[u]) > 3)) ? (0, 1, 0, 1) :
+        (0, 0.2 * prev[l] + 0.5, 0, 0.2 * ((prev[u] - prev[l]) / (prev[u] - prev[l])) * prev[l] + ((prev[u] * prev[l] - prev[u] * prev[l]) / (prev[u] - prev[l])));
+}
+ with the score inf. Use it to guide the regeneration.
+2025-08-05 21:34:02,009 - INFO - [STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-08-05 21:34:13,880 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:34:13,930 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-05 21:34:13,931 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-05 21:34:22,620 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid ->
+        ((prev[l] >= 3)) ? (1, 1, 1, 1) :
+        ((prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            max(0, min(1, (prev[l]+3)/6)),
+            max(0, min(1, (prev[u]+3)/6)),
+            prev * ((f1(prev[u]) - f1(prev[l])) / (prev[u]-prev[l])) + ((f1(prev[u]) * prev[l] - f1(prev[l]) * prev[u]) / (prev[u] - prev[l])),
+            prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u]-prev[l])) + ((f2(prev[u]) * prev[l] - f2(prev[l]) * prev[u]) / (prev[u] - prev[l]))
+        ));
+}
+```
+2025-08-05 21:34:22,631 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid ->
+        ((prev[l] >= 3)) ? (1, 1, 1, 1) :
+        ((prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            max(0, min(1, (prev[l]+3)/6)),
+            max(0, min(1, (prev[u]+3)/6)),
+            prev * ((f1(prev[u]) - f1(prev[l])) / (prev[u]-prev[l])) + ((f1(prev[u]) * prev[l] - f1(prev[l]) * prev[u]) / (prev[u] - prev[l])),
+            prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u]-prev[l])) + ((f2(prev[u]) * prev[l] - f2(prev[l]) * prev[u]) / (prev[u] - prev[l]))
+        ));
+}
+2025-08-05 21:34:22,632 - INFO - [Syntax Phase] Attempt 2
+2025-08-05 21:34:22,687 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-05 21:34:22,687 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-05 21:34:29,721 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    HardSigmoid ->
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            max(0, min(1, (prev[l]+3)/6)),
+            max(0, min(1, (prev[u]+3)/6)),
+            prev * ((f1(prev[u]) - f1(prev[l])) / (prev[u]-prev[l])) + ((f1(prev[u]) * prev[l] - f1(prev[l]) * prev[u]) / (prev[u] - prev[l])),
+            prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u]-prev[l])) + ((f2(prev[u]) * prev[l] - f2(prev[l]) * prev[u]) / (prev[u] - prev[l]))
+        );
+}
+2025-08-05 21:34:29,731 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            max(0, min(1, (prev[l]+3)/6)),
+            max(0, min(1, (prev[u]+3)/6)),
+            prev * ((f1(prev[u]) - f1(prev[l])) / (prev[u]-prev[l])) + ((f1(prev[u]) * prev[l] - f1(prev[l]) * prev[u]) / (prev[u] - prev[l])),
+            prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u]-prev[l])) + ((f2(prev[u]) * prev[l] - f2(prev[l]) * prev[u]) / (prev[u] - prev[l]))
+        );
+}
+2025-08-05 21:34:29,731 - INFO - [Syntax Phase] Attempt 3
+2025-08-05 21:34:29,777 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-05 21:34:29,777 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-05 21:34:36,813 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            max(0, min(1, (prev[l]+3)/6)),
+            max(0, min(1, (prev[u]+3)/6)),
+            prev * ((f1(prev[u]) - f1(prev[l])) / (prev[u]-prev[l])) + ((f1(prev[u]) * prev[l] - f1(prev[l]) * prev[u]) / (prev[u] - prev[l])),
+            prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u]-prev[l])) + ((f2(prev[u]) * prev[l] - f2(prev[l]) * prev[u]) / (prev[u] - prev[l]))
+        )
+}
+```
+*Change: Removed the semicolon after the last parenthesis in the block. In this DSL, ending the block (}) directly is correct syntax.*
+2025-08-05 21:34:36,825 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSigmoid ->
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            max(0, min(1, (prev[l]+3)/6)),
+            max(0, min(1, (prev[u]+3)/6)),
+            prev * ((f1(prev[u]) - f1(prev[l])) / (prev[u]-prev[l])) + ((f1(prev[u]) * prev[l] - f1(prev[l]) * prev[u]) / (prev[u] - prev[l])),
+            prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u]-prev[l])) + ((f2(prev[u]) * prev[l] - f2(prev[l]) * prev[u]) / (prev[u] - prev[l]))
+        )
+}
+2025-08-05 21:34:36,825 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    HardSigmoid ->
+        (prev[l] >= 3) ? (1, 1, 1, 1) :
+        (prev[u] <= -3) ? (0, 0, 0, 0) :
+        (
+            max(0, min(1, (prev[l]+3)/6)),
+            max(0, min(1, (prev[u]+3)/6)),
+            prev * ((f1(prev[u]) - f1(prev[l])) / (prev[u]-prev[l])) + ((f1(prev[u]) * prev[l] - f1(prev[l]) * prev[u]) / (prev[u] - prev[l])),
+            prev * ((f2(prev[u]) - f2(prev[l])) / (prev[u]-prev[l])) + ((f2(prev[u]) * prev[l] - f2(prev[l]) * prev[u]) / (prev[u] - prev[l]))
+        )
+}
+2025-08-05 21:34:36,825 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:34:36,832 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:34:36,922 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:34:36,922 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:34:36,937 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 6] Invalid function call: slope
+[Line 6] Invalid function call: intercept
+[Line 7] Invalid function call: slope
+[Line 7] Invalid function call: intercept
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:34:36,937 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 6] Invalid function call: slope
+[Line 6] Invalid function call: intercept
+[Line 7] Invalid function call: slope
+[Line 7] Invalid function call: intercept
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:34:45,378 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (0.1667 * prev[l] + 0.5),
+            (0.1667 * prev[u] + 0.5),
+            (0.1667 * prev + 0.5),
+            (0.1667 * prev + 0.5)
+        ));
+}
+```
+2025-08-05 21:34:45,389 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (0.1667 * prev[l] + 0.5),
+            (0.1667 * prev[u] + 0.5),
+            (0.1667 * prev + 0.5),
+            (0.1667 * prev + 0.5)
+        ));
+}
+2025-08-05 21:34:45,389 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:34:45,404 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (0.1667 * prev[l] + 0.5),
+            (0.1667 * prev[u] + 0.5),
+            (0.1667 * prev + 0.5),
+            (0.1667 * prev + 0.5)
+        ));
+}
+2025-08-05 21:34:45,916 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Prev0_l_5 = 35000/11667
+  Prev0_U_8 = 11669/3889
+  Curr_L_3 = 0
+  Prev0 = 11669/3889
+  Prev0_u_6 = 11669/3889
+  Curr_u_2 = 1
+  Curr_l_1 = 0
+  Prev0_L_7 = 0
+  Curr = 1
+  Curr_U_4 = 1
+  curr_prime0 = 1.
+ Start to evaluate the deviation.
+2025-08-05 21:34:46,465 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (0.1667 * prev[l] + 0.5),
+            (0.1667 * prev[u] + 0.5),
+            (0.1667 * prev + 0.5),
+            (0.1667 * prev + 0.5)
+        ));
+}
+flow(forward, priority, true, deeppoly);
+ to 0.00013999200039993553.
+
+2025-08-05 21:34:46,465 - INFO - best_score : score = inf : 0.00013999200039993553
+2025-08-05 21:34:46,465 - INFO - [STEP 1] Sample 2: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (0.1667 * prev[l] + 0.5),
+            (0.1667 * prev[u] + 0.5),
+            (0.1667 * prev + 0.5),
+            (0.1667 * prev + 0.5)
+        ));
+}
+ with the score 0.00013999200039993553. Use it to guide the regeneration.
+2025-08-05 21:34:46,470 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:34:46,624 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:34:46,625 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:34:46,677 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 6] Invalid function call: f1
+[Line 6] Invalid function call: f1
+[Line 6] Invalid function call: f1
+[Line 6] Invalid function call: f1
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f2
+[Line 9] Invalid function call: f3
+[Line 9] Invalid function call: f1
+[Line 9] Invalid function call: f2
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+[Line 9] Invalid function call: f1
+[Line 9] Invalid function call: f2
+2025-08-05 21:34:46,677 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 6] Invalid function call: f1
+[Line 6] Invalid function call: f1
+[Line 6] Invalid function call: f1
+[Line 6] Invalid function call: f1
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f2
+[Line 9] Invalid function call: f3
+[Line 9] Invalid function call: f1
+[Line 9] Invalid function call: f2
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+[Line 9] Invalid function call: f1
+[Line 9] Invalid function call: f2
+2025-08-05 21:35:04,493 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= (-3)) ? (0, 0, 0, 0) : (
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) : (
+        (0 <= (prev[l])) ?
+            (prev[l], prev[u], prev, prev) :
+            ((prev[u] <= 0) ?
+                (prev[u], prev[l], prev, prev) :
+                (prev, max(prev[u], prev[l]), slope(prev[u], prev[l]) * prev - intercept(prev[u], prev[l]), max(prev[u], prev[l]))
+            )
+        )
+    );
+}
+```
+2025-08-05 21:35:04,503 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= (-3)) ? (0, 0, 0, 0) : (
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) : (
+        (0 <= (prev[l])) ?
+            (prev[l], prev[u], prev, prev) :
+            ((prev[u] <= 0) ?
+                (prev[u], prev[l], prev, prev) :
+                (prev, max(prev[u], prev[l]), slope(prev[u], prev[l]) * prev - intercept(prev[u], prev[l]), max(prev[u], prev[l]))
+            )
+        )
+    );
+}
+2025-08-05 21:35:04,503 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:35:04,534 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:35:04,534 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:35:12,878 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= (-3)) ? (0, 0, 0, 0) : (
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) : (
+        (0 <= (prev[l])) ?
+            (prev[l], prev[u], prev, prev) :
+            ((prev[u] <= 0) ?
+                (prev[u], prev[l], prev, prev) :
+                (prev, max(prev[u], prev[l]), ((1/6) * prev - (1/2)), max(prev[u], prev[l]))
+            )
+        )
+    );
+}
+```
+2025-08-05 21:35:12,888 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= (-3)) ? (0, 0, 0, 0) : (
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) : (
+        (0 <= (prev[l])) ?
+            (prev[l], prev[u], prev, prev) :
+            ((prev[u] <= 0) ?
+                (prev[u], prev[l], prev, prev) :
+                (prev, max(prev[u], prev[l]), ((1/6) * prev - (1/2)), max(prev[u], prev[l]))
+            )
+        )
+    );
+}
+2025-08-05 21:35:12,889 - INFO - [Semantic Phase] Attempt 3
+2025-08-05 21:35:12,910 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= (-3)) ? (0, 0, 0, 0) : (
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) : (
+        (0 <= (prev[l])) ?
+            (prev[l], prev[u], prev, prev) :
+            ((prev[u] <= 0) ?
+                (prev[u], prev[l], prev, prev) :
+                (prev, max(prev[u], prev[l]), ((1/6) * prev - (1/2)), max(prev[u], prev[l]))
+            )
+        )
+    );
+}
+2025-08-05 21:35:13,177 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:35:13,177 - INFO - [STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-08-05 21:35:29,504 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:35:29,608 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:35:29,608 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:35:29,627 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (max(0, min(1, ((prev[l]) + 3) / 6))),
+            (max(0, min(1, ((prev[u]) + 3) / 6))),
+            (prev[l] < -3) ? (prev * (1/6)) + 0.5 : (prev[u] > 3) ? (prev * (1/6)) + 0.5 : prev * ((1/6)) + 0.5,
+            (prev[u] < -3) ? 0 : (prev[l] > 3) ? 1 : (prev * ((1/6)) + 0.5)
+        ));
+}
+2025-08-05 21:35:29,951 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:35:29,961 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:35:30,121 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:35:30,121 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:35:30,327 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (prev[l] >= 3) ? (1, 1, 1, 1)
+        : (prev[l] >= -3 and prev[u] <= 3) ? (
+                0.1666666667 * prev[l] + 0.5,
+                0.1666666667 * prev[u] + 0.5,
+                0.1666666667 * prev + 0.5,
+                0.1666666667 * prev + 0.5
+          )
+        : (prev[l] < -3 and prev[u] > -3 and prev[u] <= 3) ? (
+                0,
+                0.1666666667 * prev[u] + 0.5,
+                ((prev[u] + 3) / (prev[u] - prev[l])) * (0.1666666667 * prev + 0.5) - ((prev[u] + 3) * (-3 * 0.1666666667 + 0.5)) / (prev[u] - prev[l]),
+                0.1666666667 * prev + 0.5
+          )
+        : (prev[l] >= -3 and prev[l] < 3 and prev[u] > 3) ? (
+                0.1666666667 * prev[l] + 0.5,
+                1,
+                0.1666666667 * prev + 0.5,
+                ((3 - prev[l]) / (prev[u] - prev[l])) * (0.1666666667 * prev + 0.5) + ((prev[u] - 3) * 1) / (prev[u] - prev[l])
+          )
+        : (
+                0,
+                1,
+                ((prev[u] + 3) / (prev[u] - prev[l])) * (0.1666666667 * prev + 0.5) - ((prev[u] + 3) * (-3 * 0.1666666667 + 0.5)) / (prev[u] - prev[l]),
+                ((3 - prev[l]) / (prev[u] - prev[l])) * (0.1666666667 * prev + 0.5) + ((prev[u] - 3) * 1) / (prev[u] - prev[l])
+          );
+}
+2025-08-05 21:35:30,674 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-05 21:35:30,679 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:35:30,771 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:35:30,771 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:35:30,791 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (max(0, min(1, (prev[l] * (1.0/6.0) + 0.5)))),
+            (max(0, min(1, (prev[u] * (1.0/6.0) + 0.5)))),
+            (prev * (1.0/6.0) + 0.5),
+            ((prev * ((1.0/6.0) * ((prev[u]) - (prev[l]))) + (0.5 * ((prev[u]) - (prev[l])) + (1.0 * (prev[l] * (1.0/6.0) + 0.5 - prev[l] * (1.0/6.0) - 0.5))) / ((prev[u]) - (prev[l])))
+        )
+    )
+);}
+2025-08-05 21:35:31,413 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Prev0_U_8 = 0
+  Prev0 = -175000000000000000/58333333333333333
+  Prev0_u_6 = 0
+  Curr = 0
+  Curr_L_3 = 0
+  Curr_l_1 = 0
+  curr_prime0 = 0
+  Prev0_l_5 = -175000000000000000/58333333333333333
+  Curr_U_4 = 0
+  Curr_u_2 = 0
+  Prev0_L_7 = -175000000000000000/58333333333333333.
+ Start to evaluate the deviation.
+2025-08-05 21:35:32,042 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (max(0, min(1, (prev[l] * (1.0/6.0) + 0.5)))),
+            (max(0, min(1, (prev[u] * (1.0/6.0) + 0.5)))),
+            (prev * (1.0/6.0) + 0.5),
+            ((prev * ((1.0/6.0) * ((prev[u]) - (prev[l]))) + (0.5 * ((prev[u]) - (prev[l])) + (1.0 * (prev[l] * (1.0/6.0) + 0.5 - prev[l] * (1.0/6.0) - 0.5))) / ((prev[u]) - (prev[l])))
+        )
+    )
+);}
+flow(forward, priority, true, deeppoly);
+ to 0.1388888888888889.
+
+2025-08-05 21:35:32,042 - INFO - best_score : score = inf : 0.1388888888888889
+2025-08-05 21:35:32,042 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (max(0, min(1, (prev[l] * (1.0/6.0) + 0.5)))),
+            (max(0, min(1, (prev[u] * (1.0/6.0) + 0.5)))),
+            (prev * (1.0/6.0) + 0.5),
+            ((prev * ((1.0/6.0) * ((prev[u]) - (prev[l]))) + (0.5 * ((prev[u]) - (prev[l])) + (1.0 * (prev[l] * (1.0/6.0) + 0.5 - prev[l] * (1.0/6.0) - 0.5))) / ((prev[u]) - (prev[l])))
+        )
+    )
+);}
+ with the score 0.1388888888888889. Use it to guide the regeneration.
+2025-08-05 21:35:32,042 - INFO - [STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-08-05 21:35:39,948 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:35:39,979 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:35:39,979 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:35:39,989 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (
+            ((prev[l]) >= 3) ? (1, 1, 1, 1)
+            : (
+                (max(0, min(1, prev[l] * (1/6) + 0.5))),
+                (max(0, min(1, prev[u] * (1/6) + 0.5))),
+                (prev * (1/6) + 0.5),
+                (prev * (1/6) + 0.5)
+            )
+        );
+}
+2025-08-05 21:35:40,555 - INFO - [STEP 1] Sample 1: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Prev0_U_8 = 0
+  Prev0 = -175000000000000000/58333333333333333
+  Prev0_u_6 = 0
+  Curr_L_3 = 0
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = -175000000000000000/58333333333333333
+  curr_prime0 = 0
+  Curr_u_2 = 0
+  Prev0_L_7 = -175000000000000000/58333333333333333
+  Curr_U_4 = 0.
+ Start to evaluate the deviation.
+2025-08-05 21:35:41,169 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (
+            ((prev[l]) >= 3) ? (1, 1, 1, 1)
+            : (
+                (max(0, min(1, prev[l] * (1/6) + 0.5))),
+                (max(0, min(1, prev[u] * (1/6) + 0.5))),
+                (prev * (1/6) + 0.5),
+                (prev * (1/6) + 0.5)
+            )
+        );
+}
+flow(forward, priority, true, deeppoly);
+ to 3.025e-17.
+
+2025-08-05 21:35:41,169 - INFO - best_score : score = inf : 3.025e-17
+2025-08-05 21:35:41,169 - INFO - [STEP 1] Sample 1: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (
+            ((prev[l]) >= 3) ? (1, 1, 1, 1)
+            : (
+                (max(0, min(1, prev[l] * (1/6) + 0.5))),
+                (max(0, min(1, prev[u] * (1/6) + 0.5))),
+                (prev * (1/6) + 0.5),
+                (prev * (1/6) + 0.5)
+            )
+        );
+}
+ with the score 3.025e-17. Use it to guide the regeneration.
+2025-08-05 21:35:41,174 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:35:41,278 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:35:41,279 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:35:41,300 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (max(0, min(1, (prev[l] * (1/6) + 0.5)))),
+            (max(0, min(1, (prev[u] * (1/6) + 0.5)))),
+            (prev * (1/6) + 0.5),
+            ((
+                ((1/6) * prev) +
+                (
+                    (
+                        ((max(0, min(1, (prev[u] * (1/6) + 0.5)))) - (max(0, min(1, (prev[l] * (1/6) + 0.5)))))
+                        / ((prev[u]) - (prev[l]))
+                    ) * (prev - prev[l])
+                ) +
+                (max(0, min(1, (prev[l] * (1/6) + 0.5))))
+            ))
+        )
+    );
+}
+2025-08-05 21:35:41,942 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Prev0_U_8 = 0
+  Prev0 = -175000000000000000/58333333333333333
+  Prev0_u_6 = 0
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = -175000000000000000/58333333333333333
+  Curr_L_3 = 0
+  Curr_u_2 = 0
+  curr_prime0 = 0
+  Prev0_L_7 = -175000000000000000/58333333333333333
+  Curr_U_4 = 0.
+ Start to evaluate the deviation.
+2025-08-05 21:35:42,595 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (max(0, min(1, (prev[l] * (1/6) + 0.5)))),
+            (max(0, min(1, (prev[u] * (1/6) + 0.5)))),
+            (prev * (1/6) + 0.5),
+            ((
+                ((1/6) * prev) +
+                (
+                    (
+                        ((max(0, min(1, (prev[u] * (1/6) + 0.5)))) - (max(0, min(1, (prev[l] * (1/6) + 0.5)))))
+                        / ((prev[u]) - (prev[l]))
+                    ) * (prev - prev[l])
+                ) +
+                (max(0, min(1, (prev[l] * (1/6) + 0.5))))
+            ))
+        )
+    );
+}
+flow(forward, priority, true, deeppoly);
+ to 0.44999999999999996.
+
+2025-08-05 21:35:42,595 - INFO - [STEP 1] Sample 2: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            (max(0, min(1, (prev[l] * (1/6) + 0.5)))),
+            (max(0, min(1, (prev[u] * (1/6) + 0.5)))),
+            (prev * (1/6) + 0.5),
+            ((
+                ((1/6) * prev) +
+                (
+                    (
+                        ((max(0, min(1, (prev[u] * (1/6) + 0.5)))) - (max(0, min(1, (prev[l] * (1/6) + 0.5)))))
+                        / ((prev[u]) - (prev[l]))
+                    ) * (prev - prev[l])
+                ) +
+                (max(0, min(1, (prev[l] * (1/6) + 0.5))))
+            ))
+        )
+    );
+}
+ with the score 0.44999999999999996. Use it to guide the regeneration.
+2025-08-05 21:35:42,604 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:35:42,634 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:35:42,634 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:35:42,644 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            max(0, min(1, (prev[l] * (1/6) + 0.5))),
+            max(0, min(1, (prev[u] * (1/6) + 0.5))),
+            (prev * (1/6) + 0.5),
+            (prev * (1/6) + 0.5)
+        )
+    );
+}
+2025-08-05 21:35:43,224 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Prev0_U_8 = 0
+  Prev0 = -175000000000000000/58333333333333333
+  Prev0_u_6 = 0
+  Curr_L_3 = 0
+  Curr = 0
+  Curr_l_1 = 0
+  curr_prime0 = 0
+  Prev0_l_5 = -175000000000000000/58333333333333333
+  Curr_u_2 = 0
+  Prev0_L_7 = -175000000000000000/58333333333333333
+  Curr_U_4 = 0.
+ Start to evaluate the deviation.
+2025-08-05 21:35:43,837 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            max(0, min(1, (prev[l] * (1/6) + 0.5))),
+            max(0, min(1, (prev[u] * (1/6) + 0.5))),
+            (prev * (1/6) + 0.5),
+            (prev * (1/6) + 0.5)
+        )
+    );
+}
+flow(forward, priority, true, deeppoly);
+ to 0.0.
+
+2025-08-05 21:35:43,837 - INFO - best_score : score = 3.025e-17 : 0.0
+2025-08-05 21:35:43,837 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            max(0, min(1, (prev[l] * (1/6) + 0.5))),
+            max(0, min(1, (prev[u] * (1/6) + 0.5))),
+            (prev * (1/6) + 0.5),
+            (prev * (1/6) + 0.5)
+        )
+    );
+}
+ with the score 0.0. Use it to guide the regeneration.
+2025-08-05 21:35:43,837 - INFO - [STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-08-05 21:36:29,310 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:36:29,668 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:36:29,668 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:36:29,698 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 6] Invalid function call: f2
+[Line 7] Invalid function call: f1
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f1
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 9] Invalid function call: f3
+[Line 9] Invalid function call: f1
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:36:29,698 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 6] Invalid function call: f2
+[Line 7] Invalid function call: f1
+[Line 8] Invalid function call: f2
+[Line 8] Invalid function call: f1
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 9] Invalid function call: f3
+[Line 9] Invalid function call: f1
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:37:36,413 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            (prev[u] <= 0) ? (0.16667 * prev + 0.5) : ((prev[l] >= 0) ? (0.16667 * prev + 0.5) : (((0.16667 * prev[u] + 0.5) - (0.16667 * prev[l] + 0.5)) / (prev[u] - prev[l]) * (prev - prev[l]) + (0.16667 * prev[l] + 0.5))),
+            (prev[u] <= 0) ? 0 : ((prev[l] >= 0) ? (0.16667 * prev + 0.5) : (((0.16667 * prev[u] + 0.5) - (0.16667 * prev[l] + 0.5)) / (prev[u] - prev[l]) * (prev - prev[l]) + (0.16667 * prev[l] + 0.5)))
+        );
+}
+```
+2025-08-05 21:37:36,423 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            (prev[u] <= 0) ? (0.16667 * prev + 0.5) : ((prev[l] >= 0) ? (0.16667 * prev + 0.5) : (((0.16667 * prev[u] + 0.5) - (0.16667 * prev[l] + 0.5)) / (prev[u] - prev[l]) * (prev - prev[l]) + (0.16667 * prev[l] + 0.5))),
+            (prev[u] <= 0) ? 0 : ((prev[l] >= 0) ? (0.16667 * prev + 0.5) : (((0.16667 * prev[u] + 0.5) - (0.16667 * prev[l] + 0.5)) / (prev[u] - prev[l]) * (prev - prev[l]) + (0.16667 * prev[l] + 0.5)))
+        );
+}
+2025-08-05 21:37:36,423 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:37:36,532 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            (prev[u] <= 0) ? (0.16667 * prev + 0.5) : ((prev[l] >= 0) ? (0.16667 * prev + 0.5) : (((0.16667 * prev[u] + 0.5) - (0.16667 * prev[l] + 0.5)) / (prev[u] - prev[l]) * (prev - prev[l]) + (0.16667 * prev[l] + 0.5))),
+            (prev[u] <= 0) ? 0 : ((prev[l] >= 0) ? (0.16667 * prev + 0.5) : (((0.16667 * prev[u] + 0.5) - (0.16667 * prev[l] + 0.5)) / (prev[u] - prev[l]) * (prev - prev[l]) + (0.16667 * prev[l] + 0.5)))
+        );
+}
+2025-08-05 21:37:37,208 - INFO - [STEP 1] Sample 1: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Prev0_U_8 = 600003/200002
+  Prev0 = 600003/200002
+  Prev0_u_6 = 600003/200002
+  Curr_L_3 = 0
+  Curr = 400003/400004
+  curr_prime0 = 400003/400004
+  Curr_l_1 = 0
+  Prev0_l_5 = 5000075000/1666716667
+  Curr_u_2 = 400003/400004
+  Curr_U_4 = 400003/400004
+  Prev0_L_7 = 0.
+ Start to evaluate the deviation.
+2025-08-05 21:37:37,849 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            (prev[u] <= 0) ? (0.16667 * prev + 0.5) : ((prev[l] >= 0) ? (0.16667 * prev + 0.5) : (((0.16667 * prev[u] + 0.5) - (0.16667 * prev[l] + 0.5)) / (prev[u] - prev[l]) * (prev - prev[l]) + (0.16667 * prev[l] + 0.5))),
+            (prev[u] <= 0) ? 0 : ((prev[l] >= 0) ? (0.16667 * prev + 0.5) : (((0.16667 * prev[u] + 0.5) - (0.16667 * prev[l] + 0.5)) / (prev[u] - prev[l]) * (prev - prev[l]) + (0.16667 * prev[l] + 0.5)))
+        );
+}
+flow(forward, priority, true, deeppoly);
+ to 1.1499618344190664e-05.
+
+2025-08-05 21:37:37,849 - INFO - best_score : score = inf : 1.1499618344190664e-05
+2025-08-05 21:37:37,849 - INFO - [STEP 1] Sample 1: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0) :
+        ((prev[l]) >= 3) ? (1, 1, 1, 1) :
+        (
+            max(0, min(1, 0.16667 * prev[l] + 0.5)),
+            max(0, min(1, 0.16667 * prev[u] + 0.5)),
+            (prev[u] <= 0) ? (0.16667 * prev + 0.5) : ((prev[l] >= 0) ? (0.16667 * prev + 0.5) : (((0.16667 * prev[u] + 0.5) - (0.16667 * prev[l] + 0.5)) / (prev[u] - prev[l]) * (prev - prev[l]) + (0.16667 * prev[l] + 0.5))),
+            (prev[u] <= 0) ? 0 : ((prev[l] >= 0) ? (0.16667 * prev + 0.5) : (((0.16667 * prev[u] + 0.5) - (0.16667 * prev[l] + 0.5)) / (prev[u] - prev[l]) * (prev - prev[l]) + (0.16667 * prev[l] + 0.5)))
+        );
+}
+ with the score 1.1499618344190664e-05. Use it to guide the regeneration.
+2025-08-05 21:37:37,854 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:37:37,928 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:37:37,928 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:37:37,948 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 6] Invalid function call: f1
+[Line 7] Invalid function call: f1
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:37:37,948 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 6] Invalid function call: f1
+[Line 7] Invalid function call: f1
+[Line 8] Invalid function call: slope
+[Line 8] Invalid function call: intercept
+[Line 9] Invalid function call: slope
+[Line 9] Invalid function call: intercept
+2025-08-05 21:37:47,956 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : ((prev[l] >= 3) ? (1, 1, 1, 1)
+        : (
+            prev[l] * 0.1667 + 0.5,
+            prev[u] * 0.1667 + 0.5,
+            prev * ((prev[u] < 3) ? 0.1667 : 0) + ((prev[u] < 3) ? 0.5 : 1),
+            prev * ((prev[l] > -3) ? 0.1667 : 0) + ((prev[l] > -3) ? 0.5 : 0)
+          )
+        );
+}
+```
+2025-08-05 21:37:47,974 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : ((prev[l] >= 3) ? (1, 1, 1, 1)
+        : (
+            prev[l] * 0.1667 + 0.5,
+            prev[u] * 0.1667 + 0.5,
+            prev * ((prev[u] < 3) ? 0.1667 : 0) + ((prev[u] < 3) ? 0.5 : 1),
+            prev * ((prev[l] > -3) ? 0.1667 : 0) + ((prev[l] > -3) ? 0.5 : 0)
+          )
+        );
+}
+2025-08-05 21:37:47,975 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:37:47,999 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : ((prev[l] >= 3) ? (1, 1, 1, 1)
+        : (
+            prev[l] * 0.1667 + 0.5,
+            prev[u] * 0.1667 + 0.5,
+            prev * ((prev[u] < 3) ? 0.1667 : 0) + ((prev[u] < 3) ? 0.5 : 1),
+            prev * ((prev[l] > -3) ? 0.1667 : 0) + ((prev[l] > -3) ? 0.5 : 0)
+          )
+        );
+}
+2025-08-05 21:37:48,513 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for HardSigmoid:
+  Prev0_l_5 = 35000/11667
+  Prev0_U_8 = 11669/3889
+  Curr_L_3 = 0
+  Prev0 = 11669/3889
+  Prev0_u_6 = 11669/3889
+  Curr_u_2 = 1
+  Curr_l_1 = 0
+  Prev0_L_7 = 0
+  Curr = 1
+  Curr_U_4 = 1
+  curr_prime0 = 1.
+ Start to evaluate the deviation.
+2025-08-05 21:37:49,060 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : ((prev[l] >= 3) ? (1, 1, 1, 1)
+        : (
+            prev[l] * 0.1667 + 0.5,
+            prev[u] * 0.1667 + 0.5,
+            prev * ((prev[u] < 3) ? 0.1667 : 0) + ((prev[u] < 3) ? 0.5 : 1),
+            prev * ((prev[l] > -3) ? 0.1667 : 0) + ((prev[l] > -3) ? 0.5 : 0)
+          )
+        );
+}
+flow(forward, priority, true, deeppoly);
+ to 0.00017997533771025865.
+
+2025-08-05 21:37:49,060 - INFO - [STEP 1] Sample 2: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    HardSigmoid ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : ((prev[l] >= 3) ? (1, 1, 1, 1)
+        : (
+            prev[l] * 0.1667 + 0.5,
+            prev[u] * 0.1667 + 0.5,
+            prev * ((prev[u] < 3) ? 0.1667 : 0) + ((prev[u] < 3) ? 0.5 : 1),
+            prev * ((prev[l] > -3) ? 0.1667 : 0) + ((prev[l] > -3) ? 0.5 : 0)
+          )
+        );
+}
+ with the score 0.00017997533771025865. Use it to guide the regeneration.
+2025-08-05 21:37:49,065 - INFO - [Syntax Phase] Attempt 1
+2025-08-05 21:37:49,202 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-05 21:37:49,202 - INFO - [Semantic Phase] Attempt 1
+2025-08-05 21:37:49,240 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 6] Invalid function call: f1
+[Line 6] Invalid function call: f1
+[Line 6] Invalid function call: f2
+[Line 6] Invalid function call: f2
+[Line 7] Invalid function call: f1
+[Line 7] Invalid function call: f2
+[Line 8] Invalid function call: f1
+[Line 8] Invalid function call: f2
+2025-08-05 21:37:49,240 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 6] Invalid function call: f1
+[Line 6] Invalid function call: f1
+[Line 6] Invalid function call: f2
+[Line 6] Invalid function call: f2
+[Line 7] Invalid function call: f1
+[Line 7] Invalid function call: f2
+[Line 8] Invalid function call: f1
+[Line 8] Invalid function call: f2
+2025-08-05 21:37:58,388 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            ((prev[l]) >= -3) ? ((prev[u]) <= 3 ? ((prev[l] + 3) / 6, (prev[u] + 3) / 6, prev[l] / 6 + 0.5, prev[u] / 6 + 0.5)
+                                  : ((prev[l] + 3) / 6, 1, prev[l] / 6 + 0.5, (prev[u] - 3) / 6 + 1))
+            : ((prev[u]) <= 3 ? (0, (prev[u] + 3) / 6, 0, prev[u] / 6 + 0.5)
+                              : (0, 1, 0, ((prev[u] - 3) / 6 + 1)))
+        ));
+}
+```
+
+2025-08-05 21:37:58,398 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            ((prev[l]) >= -3) ? ((prev[u]) <= 3 ? ((prev[l] + 3) / 6, (prev[u] + 3) / 6, prev[l] / 6 + 0.5, prev[u] / 6 + 0.5)
+                                  : ((prev[l] + 3) / 6, 1, prev[l] / 6 + 0.5, (prev[u] - 3) / 6 + 1))
+            : ((prev[u]) <= 3 ? (0, (prev[u] + 3) / 6, 0, prev[u] / 6 + 0.5)
+                              : (0, 1, 0, ((prev[u] - 3) / 6 + 1)))
+        ));
+}
+2025-08-05 21:37:58,398 - INFO - [Semantic Phase] Attempt 2
+2025-08-05 21:37:58,468 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid ->
+        ((prev[u]) <= -3) ? (0, 0, 0, 0)
+        : (((prev[l]) >= 3) ? (1, 1, 1, 1)
+        : (
+            ((prev[l]) >= -3) ? ((prev[u]) <= 3 ? ((prev[l] + 3) / 6, (prev[u] + 3) / 6, prev[l] / 6 + 0.5, prev[u] / 6 + 0.5)
+                                  : ((prev[l] + 3) / 6, 1, prev[l] / 6 + 0.5, (prev[u] - 3) / 6 + 1))
+            : ((prev[u]) <= 3 ? (0, (prev[u] + 3) / 6, 0, prev[u] / 6 + 0.5)
+                              : (0, 1, 0, ((prev[u] - 3) / 6 + 1)))
+        ));
+}
+2025-08-05 21:37:59,362 - INFO - [STEP 1] Sample 3: Validation passed.
+2025-08-05 21:37:59,362 - INFO - [HardSigmoid] Runtime: 548.27 seconds
+2025-08-05 21:37:59,362 - INFO - Succeed. Saved to logs/2025-08-05_21-28-51/results/gpt-4o/success/HardSigmoid.txt
+
+2025-08-05 21:37:59,367 - INFO - ✅ Total runtime for all operators with the model gpt-4o: 548.28 seconds

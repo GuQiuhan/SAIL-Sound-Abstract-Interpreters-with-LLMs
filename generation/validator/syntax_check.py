@@ -5,9 +5,10 @@ from antlr4 import *
 from antlr4 import CommonTokenStream, InputStream
 from antlr4.error.ErrorListener import ConsoleErrorListener, ErrorListener
 from antlr4.error.ErrorStrategy import BailErrorStrategy
-from validator.miniDSL.miniastBuilder import ASTBuilder
-from validator.miniDSL.miniDSLLexer import miniDSLLexer
-from validator.miniDSL.miniDSLParser import miniDSLParser
+
+from generation.validator.miniDSL.miniastBuilder import ASTBuilder
+from generation.validator.miniDSL.miniDSLLexer import miniDSLLexer
+from generation.validator.miniDSL.miniDSLParser import miniDSLParser
 
 
 class SilentErrorListener(ErrorListener):
@@ -45,7 +46,7 @@ class SyntaxChecker:
         self.metadata = ["WEIGHT", "BIAS", "EQUATIONS", "LAYER"]
 
     def check(self, dsl: str) -> tuple[bool, str, Optional[str]]:
-        last_attempt = None  # 记录最后一次尝试的修复类型
+        last_attempt = None
 
         for attempt in range(self.MAX_RETRIES):
             try:

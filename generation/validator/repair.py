@@ -2,10 +2,13 @@ import logging
 import re
 from typing import Optional, Tuple
 
-from validator.semantics_check import check_semantic
-from validator.syntax_check import SyntaxChecker
-
 from generation.request import Client, TGIClient
+from generation.utils import *
+from generation.validator.semantics_check import check_semantic
+from generation.validator.syntax_check import SyntaxChecker
+
+# from generation import gen
+
 
 MAX_RETRIES = 3
 
@@ -83,6 +86,8 @@ def check(
     # ---- Syntax Repair Phase ----
     syntax_attempt = 0
     syntax_checker = SyntaxChecker()
+    syn_result = False
+    syn_err = None
     while syntax_attempt < MAX_RETRIES:
         logging.info(f"[Syntax Phase] Attempt {syntax_attempt + 1}")
         syn_result, fixed_code, syn_err = syntax_checker.check(fixed_code)
@@ -112,6 +117,7 @@ def check(
         sem_err = "\n".join(sem_errs)
         logging.info(f"[Semantic Phase] ❌ Semantic error:\n{sem_err}")
         fixed_code = model_repair(client, is_chat, fixed_code, sem_err)
+        GlobalState.repair_rounds_now += 1
         fixed_code = make_block_extractor(certifier, fixed_code)
         logging.info(f"[Semantic Phase] 🔧 Model-provided fix:\n{fixed_code}")
         semantic_attempt += 1

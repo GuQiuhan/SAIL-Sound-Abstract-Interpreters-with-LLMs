@@ -1,8 +1,9 @@
 from antlr4 import *
 from antlr4.error.ErrorListener import ErrorListener
-from validator.miniDSL.miniDSLLexer import miniDSLLexer
-from validator.miniDSL.miniDSLParser import miniDSLParser
-from validator.miniDSL.miniDSLVisitor import miniDSLVisitor
+
+from generation.validator.miniDSL.miniDSLLexer import miniDSLLexer
+from generation.validator.miniDSL.miniDSLParser import miniDSLParser
+from generation.validator.miniDSL.miniDSLVisitor import miniDSLVisitor
 
 """
 Check semantic errors with several manipulated testing. Won't fix automatically.
@@ -43,6 +44,12 @@ class SemanticChecker(miniDSLVisitor):
             "replace_upper",
             "simplify_lower",
             "simplify_lower",
+            "f",
+            "f1",
+            "f2",
+            "f3",
+            "slope",
+            "intercept",
         }
 
         self.invalid_type_pairs = {
@@ -288,11 +295,11 @@ def check_semantic(dsl):
 if __name__ == "__main__":
     dsl = """
  transformer deeppoly{
-    Affine -> (
-        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
-        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
-        prev . dot(curr[weight]) + curr[bias],
-        prev . dot(curr[weight]) + curr[bias]
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        min([prev_0[L], prev_1[L]]),
+        min([prev_0[U], prev_1[U]])
     );
 }
     """

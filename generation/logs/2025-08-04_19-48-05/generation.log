@@ -1,0 +1,1203 @@
+2025-08-04 19:48:05,863 - INFO - 2025-08-04 19:48:05.863589 - Extracting Abs
+2025-08-04 19:48:05,863 - INFO -
+API: Abs -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
+2025-08-04 19:48:05,863 - INFO - [STEP 1] Starting step 1/1
+2025-08-04 19:48:22,630 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:48:22,800 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:48:22,800 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:48:22,816 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs ->
+        (prev[l] >= 0) ?
+            (prev[l], prev[u], prev, prev)
+        : ((prev[u] <= 0) ?
+            (-(prev[u]), -(prev[l]), -(prev), -(prev))
+          : (
+              0,
+              max(prev[u], -prev[l]),
+              prev,
+              prev * ((prev[u] + prev[l]) / (prev[u] - prev[l])) - ((2 * prev[u] * prev[l]) / (prev[u] - prev[l]))
+          )
+        );
+}
+2025-08-04 19:48:23,688 - INFO - [STEP 1] Sample 1: Validation passed.
+2025-08-04 19:48:23,688 - INFO - [Abs] Runtime: 17.82 seconds
+2025-08-04 19:48:23,688 - INFO - Succeed. Saved to logs/2025-08-04_19-48-05/results/gpt-4o/success/Abs.txt
+
+2025-08-04 19:48:23,688 - INFO - 2025-08-04 19:48:23.688715 - Extracting Affine
+2025-08-04 19:48:23,688 - INFO -
+API: Affine -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
+2025-08-04 19:48:23,688 - INFO - [STEP 1] Starting step 1/1
+2025-08-04 19:48:31,728 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:48:31,762 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:48:31,762 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:48:36,963 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:48:36,972 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:48:36,973 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:48:37,162 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:48:37,162 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:48:37,171 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:48:37,486 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:48:37,490 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:48:37,511 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:48:37,511 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:48:46,413 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:48:46,422 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:48:46,423 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:48:46,435 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:48:46,435 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:48:46,446 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:48:46,675 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:48:46,680 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:48:46,702 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:48:46,702 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:48:53,821 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:48:53,832 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:48:53,833 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:48:53,844 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:48:53,844 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:48:53,852 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:48:54,076 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:48:54,076 - INFO - [STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-08-04 19:49:01,957 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:49:01,981 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:49:01,981 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:49:06,445 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . curr[weight] + curr[bias], curr),
+        backsubs_upper(prev . curr[weight] + curr[bias], curr),
+        prev . curr[weight] + curr[bias],
+        prev . curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:49:06,457 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . curr[weight] + curr[bias], curr),
+        backsubs_upper(prev . curr[weight] + curr[bias], curr),
+        prev . curr[weight] + curr[bias],
+        prev . curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:49:06,457 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:49:06,481 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:49:06,481 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:49:10,881 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev, curr["weight"], curr["bias"], curr),
+        backsubs_upper(prev, curr["weight"], curr["bias"], curr),
+        prev * curr["weight"] + curr["bias"],
+        prev * curr["weight"] + curr["bias"]
+    );
+}
+2025-08-04 19:49:10,893 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev, curr["weight"], curr["bias"], curr),
+        backsubs_upper(prev, curr["weight"], curr["bias"], curr),
+        prev * curr["weight"] + curr["bias"],
+        prev * curr["weight"] + curr["bias"]
+    );
+}
+2025-08-04 19:49:10,893 - INFO - [Syntax Phase] Attempt 3
+2025-08-04 19:49:10,947 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:49:10,947 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:49:10,972 - INFO - ✅ All check passed for code:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev, curr["weight"], curr["bias"], curr),
+        backsubs_upper(prev, curr["weight"], curr["bias"], curr),
+        prev * curr["weight"] + curr["bias"],
+        prev * curr["weight"] + curr["bias"]
+    );
+}
+2025-08-04 19:49:11,256 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:49:11,261 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:49:11,300 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:49:11,300 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:49:25,011 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine => (
+        prev.dot(curr[weight]).add(curr[bias]).map_list(simplify_lower),
+        prev.dot(curr[weight]).add(curr[bias]).map_list(simplify_upper),
+        prev.dot(curr[weight]).add(curr[bias]),
+        prev.dot(curr[weight]).add(curr[bias])
+    );
+}
+2025-08-04 19:49:25,022 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine => (
+        prev.dot(curr[weight]).add(curr[bias]).map_list(simplify_lower),
+        prev.dot(curr[weight]).add(curr[bias]).map_list(simplify_upper),
+        prev.dot(curr[weight]).add(curr[bias]),
+        prev.dot(curr[weight]).add(curr[bias])
+    );
+}
+2025-08-04 19:49:25,022 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:49:25,046 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:49:25,046 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:49:30,473 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine => (
+        prev.dot(curr.weight).add(curr.bias).map_list(simplify_lower),
+        prev.dot(curr.weight).add(curr.bias).map_list(simplify_upper),
+        prev.dot(curr.weight).add(curr.bias),
+        prev.dot(curr.weight).add(curr.bias)
+    );
+}
+2025-08-04 19:49:30,483 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine => (
+        prev.dot(curr.weight).add(curr.bias).map_list(simplify_lower),
+        prev.dot(curr.weight).add(curr.bias).map_list(simplify_upper),
+        prev.dot(curr.weight).add(curr.bias),
+        prev.dot(curr.weight).add(curr.bias)
+    );
+}
+2025-08-04 19:49:30,483 - INFO - [Syntax Phase] Attempt 3
+2025-08-04 19:49:30,506 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:49:30,506 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:49:36,834 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine => (
+        prev.dot(curr.weight).add(curr.bias).map_list(simplify_lower),
+        prev.dot(curr.weight).add(curr.bias).map_list(simplify_upper),
+        prev.dot(curr.weight).add(curr.bias),
+        prev.dot(curr.weight).add(curr.bias)
+    )
+}
+2025-08-04 19:49:36,844 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine => (
+        prev.dot(curr.weight).add(curr.bias).map_list(simplify_lower),
+        prev.dot(curr.weight).add(curr.bias).map_list(simplify_upper),
+        prev.dot(curr.weight).add(curr.bias),
+        prev.dot(curr.weight).add(curr.bias)
+    )
+}
+2025-08-04 19:49:36,844 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    Affine => (
+        prev.dot(curr.weight).add(curr.bias).map_list(simplify_lower),
+        prev.dot(curr.weight).add(curr.bias).map_list(simplify_upper),
+        prev.dot(curr.weight).add(curr.bias),
+        prev.dot(curr.weight).add(curr.bias)
+    )
+}
+2025-08-04 19:49:36,844 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:49:36,852 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:49:36,874 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:49:36,874 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:49:45,471 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:49:45,481 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:49:45,482 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:49:45,495 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:49:45,495 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:49:45,504 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:49:45,738 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:49:45,738 - INFO - [STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-08-04 19:49:54,046 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:49:54,072 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:49:54,072 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:49:58,019 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:49:58,030 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:49:58,030 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:49:58,042 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:49:58,042 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:49:58,050 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:49:58,278 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:49:58,283 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:49:58,307 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:49:58,307 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:50:03,263 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower((prev . curr[weight]) + curr[bias], curr),
+        backsubs_upper((prev . curr[weight]) + curr[bias], curr),
+        (prev . curr[weight]) + curr[bias],
+        (prev . curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:50:03,267 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        backsubs_lower((prev . curr[weight]) + curr[bias], curr),
+        backsubs_upper((prev . curr[weight]) + curr[bias], curr),
+        (prev . curr[weight]) + curr[bias],
+        (prev . curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:50:03,267 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:50:03,407 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:50:03,407 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:50:08,194 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower((prev . curr[weight]) + curr[bias], curr),
+        backsubs_upper((prev . curr[weight]) + curr[bias], curr),
+        (prev . curr[weight]) + curr[bias],
+        (prev . curr[weight]) + curr[bias]
+    )
+}
+2025-08-04 19:50:08,204 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower((prev . curr[weight]) + curr[bias], curr),
+        backsubs_upper((prev . curr[weight]) + curr[bias], curr),
+        (prev . curr[weight]) + curr[bias],
+        (prev . curr[weight]) + curr[bias]
+    )
+}
+2025-08-04 19:50:08,205 - INFO - [Syntax Phase] Attempt 3
+2025-08-04 19:50:08,229 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:50:08,229 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:50:16,394 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine => (
+        backsubs_lower((prev . curr[weight]) + curr[bias], curr),
+        backsubs_upper((prev . curr[weight]) + curr[bias], curr),
+        (prev . curr[weight]) + curr[bias],
+        (prev . curr[weight]) + curr[bias]
+    )
+}
+2025-08-04 19:50:16,404 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine => (
+        backsubs_lower((prev . curr[weight]) + curr[bias], curr),
+        backsubs_upper((prev . curr[weight]) + curr[bias], curr),
+        (prev . curr[weight]) + curr[bias],
+        (prev . curr[weight]) + curr[bias]
+    )
+}
+2025-08-04 19:50:16,404 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    Affine => (
+        backsubs_lower((prev . curr[weight]) + curr[bias], curr),
+        backsubs_upper((prev . curr[weight]) + curr[bias], curr),
+        (prev . curr[weight]) + curr[bias],
+        (prev . curr[weight]) + curr[bias]
+    )
+}
+2025-08-04 19:50:16,404 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:50:16,410 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:50:16,434 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:50:16,434 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:50:47,624 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:50:47,636 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:50:47,636 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:50:47,649 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:50:47,649 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:50:47,658 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:50:47,882 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:50:47,882 - INFO - [STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-08-04 19:51:15,363 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:51:15,397 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:51:15,397 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:51:15,406 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 3] Invalid metadata access: curr[WEIGHT]
+[Line 3] Invalid metadata access: curr[BIAS]
+[Line 3] Undefined variable: simplify_lower
+[Line 4] Invalid metadata access: curr[WEIGHT]
+[Line 4] Invalid metadata access: curr[BIAS]
+[Line 4] Undefined variable: simplify_upper
+[Line 5] Invalid metadata access: curr[WEIGHT]
+[Line 5] Invalid metadata access: curr[BIAS]
+[Line 6] Invalid metadata access: curr[WEIGHT]
+[Line 6] Invalid metadata access: curr[BIAS]
+2025-08-04 19:51:15,406 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 3] Invalid metadata access: curr[WEIGHT]
+[Line 3] Invalid metadata access: curr[BIAS]
+[Line 3] Undefined variable: simplify_lower
+[Line 4] Invalid metadata access: curr[WEIGHT]
+[Line 4] Invalid metadata access: curr[BIAS]
+[Line 4] Undefined variable: simplify_upper
+[Line 5] Invalid metadata access: curr[WEIGHT]
+[Line 5] Invalid metadata access: curr[BIAS]
+[Line 6] Invalid metadata access: curr[WEIGHT]
+[Line 6] Invalid metadata access: curr[BIAS]
+2025-08-04 19:51:22,463 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Affine -> (
+        prev.dot(curr.weight) + curr.bias .map_list(simplify_lower()),
+        prev.dot(curr.weight) + curr.bias .map_list(simplify_upper()),
+        prev.dot(curr.weight) + curr.bias,
+        prev.dot(curr.weight) + curr.bias
+    );
+}
+```
+2025-08-04 19:51:22,471 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        prev.dot(curr.weight) + curr.bias .map_list(simplify_lower()),
+        prev.dot(curr.weight) + curr.bias .map_list(simplify_upper()),
+        prev.dot(curr.weight) + curr.bias,
+        prev.dot(curr.weight) + curr.bias
+    );
+}
+2025-08-04 19:51:22,471 - INFO - [Semantic Phase] Attempt 2
+2025-08-04 19:51:22,475 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 3:22 no viable alternative at input 'Affine->(prev.dot(curr.weight'
+2025-08-04 19:51:22,475 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 3:22 no viable alternative at input 'Affine->(prev.dot(curr.weight'
+2025-08-04 19:51:28,755 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        (prev.dot(curr.weight) + curr.bias).map_list(simplify_lower()),
+        (prev.dot(curr.weight) + curr.bias).map_list(simplify_upper()),
+        prev.dot(curr.weight) + curr.bias,
+        prev.dot(curr.weight) + curr.bias
+    );
+}
+2025-08-04 19:51:28,767 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        (prev.dot(curr.weight) + curr.bias).map_list(simplify_lower()),
+        (prev.dot(curr.weight) + curr.bias).map_list(simplify_upper()),
+        prev.dot(curr.weight) + curr.bias,
+        prev.dot(curr.weight) + curr.bias
+    );
+}
+2025-08-04 19:51:28,767 - INFO - [Semantic Phase] Attempt 3
+2025-08-04 19:51:28,776 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 3:23 no viable alternative at input 'Affine->((prev.dot(curr.weight'
+2025-08-04 19:51:28,776 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 3:23 no viable alternative at input 'Affine->((prev.dot(curr.weight'
+2025-08-04 19:51:33,497 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        (prev.dot(curr.weight) + curr.bias).map_list(simplify_lower),
+        (prev.dot(curr.weight) + curr.bias).map_list(simplify_upper),
+        prev.dot(curr.weight) + curr.bias,
+        prev.dot(curr.weight) + curr.bias
+    );
+}
+2025-08-04 19:51:33,507 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        (prev.dot(curr.weight) + curr.bias).map_list(simplify_lower),
+        (prev.dot(curr.weight) + curr.bias).map_list(simplify_upper),
+        prev.dot(curr.weight) + curr.bias,
+        prev.dot(curr.weight) + curr.bias
+    );
+}
+2025-08-04 19:51:33,528 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:51:33,534 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:51:33,559 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:51:33,559 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:51:40,183 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr),
+        prev.dot(curr[weight]) + curr[bias],
+        prev.dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:51:40,193 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr),
+        prev.dot(curr[weight]) + curr[bias],
+        prev.dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:51:40,193 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:51:40,206 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:51:40,206 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:51:40,214 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr),
+        prev.dot(curr[weight]) + curr[bias],
+        prev.dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:51:40,439 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:51:40,444 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:51:40,467 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: Invalid attribute call like '.sum'.
+2025-08-04 19:51:40,467 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: Invalid attribute call like '.sum'.
+2025-08-04 19:52:01,617 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Affine -> (
+        (curr[weight].maplist(lambda w, i. simplify_lower(prev.getElement(i), w)).reduce(+, 0) + curr[bias]),
+        (curr[weight].maplist(lambda w, i. simplify_upper(prev.getElement(i), w)).reduce(+, 0) + curr[bias]),
+        (curr[weight].maplist(lambda w, i. replace_lower(prev.getElement(i), w)).reduce(+, 0) + curr[bias]),
+        (curr[weight].maplist(lambda w, i. replace_upper(prev.getElement(i), w)).reduce(+, 0) + curr[bias])
+    );
+}
+```
+2025-08-04 19:52:01,630 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        (curr[weight].maplist(lambda w, i. simplify_lower(prev.getElement(i), w)).reduce(+, 0) + curr[bias]),
+        (curr[weight].maplist(lambda w, i. simplify_upper(prev.getElement(i), w)).reduce(+, 0) + curr[bias]),
+        (curr[weight].maplist(lambda w, i. replace_lower(prev.getElement(i), w)).reduce(+, 0) + curr[bias]),
+        (curr[weight].maplist(lambda w, i. replace_upper(prev.getElement(i), w)).reduce(+, 0) + curr[bias])
+    );
+}
+2025-08-04 19:52:01,630 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:52:01,667 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:52:01,670 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:52:15,861 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        curr[weight].maplist((w, i) => simplify_lower(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr[bias],
+        curr[weight].maplist((w, i) => simplify_upper(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr[bias],
+        curr[weight].maplist((w, i) => replace_lower(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr[bias],
+        curr[weight].maplist((w, i) => replace_upper(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr[bias]
+    );
+}
+2025-08-04 19:52:15,867 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        curr[weight].maplist((w, i) => simplify_lower(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr[bias],
+        curr[weight].maplist((w, i) => simplify_upper(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr[bias],
+        curr[weight].maplist((w, i) => replace_lower(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr[bias],
+        curr[weight].maplist((w, i) => replace_upper(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr[bias]
+    );
+}
+2025-08-04 19:52:15,867 - INFO - [Syntax Phase] Attempt 3
+2025-08-04 19:52:15,939 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:52:15,939 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:52:23,747 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine = (
+        curr.weight.maplist((w, i) => simplify_lower(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias,
+        curr.weight.maplist((w, i) => simplify_upper(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias,
+        curr.weight.maplist((w, i) => replace_lower(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias,
+        curr.weight.maplist((w, i) => replace_upper(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias
+    );
+}
+2025-08-04 19:52:23,761 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine = (
+        curr.weight.maplist((w, i) => simplify_lower(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias,
+        curr.weight.maplist((w, i) => simplify_upper(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias,
+        curr.weight.maplist((w, i) => replace_lower(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias,
+        curr.weight.maplist((w, i) => replace_upper(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias
+    );
+}
+2025-08-04 19:52:23,761 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    Affine = (
+        curr.weight.maplist((w, i) => simplify_lower(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias,
+        curr.weight.maplist((w, i) => simplify_upper(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias,
+        curr.weight.maplist((w, i) => replace_lower(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias,
+        curr.weight.maplist((w, i) => replace_upper(prev.getElement(i), w)).reduce((a, b) => a + b, 0) + curr.bias
+    );
+}
+2025-08-04 19:52:23,761 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:52:23,761 - INFO - [STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-08-04 19:52:32,171 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:52:32,195 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:52:32,199 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:52:36,844 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:52:36,854 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:52:36,855 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:52:36,871 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:52:36,871 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:52:36,880 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:52:37,116 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:52:37,121 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:52:37,141 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:52:37,142 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:52:42,243 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev, curr["weight"], curr["bias"], curr),
+        backsubs_upper(prev, curr["weight"], curr["bias"], curr),
+        prev.matmul(curr["weight"]).add(curr["bias"]),
+        prev.matmul(curr["weight"]).add(curr["bias"])
+    );
+}
+2025-08-04 19:52:42,253 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev, curr["weight"], curr["bias"], curr),
+        backsubs_upper(prev, curr["weight"], curr["bias"], curr),
+        prev.matmul(curr["weight"]).add(curr["bias"]),
+        prev.matmul(curr["weight"]).add(curr["bias"])
+    );
+}
+2025-08-04 19:52:42,253 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:52:42,327 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:52:42,327 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:52:46,900 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev, curr.weight, curr.bias, curr),
+        backsubs_upper(prev, curr.weight, curr.bias, curr),
+        prev.matmul(curr.weight).add(curr.bias),
+        prev.matmul(curr.weight).add(curr.bias)
+    );
+}
+2025-08-04 19:52:46,910 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev, curr.weight, curr.bias, curr),
+        backsubs_upper(prev, curr.weight, curr.bias, curr),
+        prev.matmul(curr.weight).add(curr.bias),
+        prev.matmul(curr.weight).add(curr.bias)
+    );
+}
+2025-08-04 19:52:46,910 - INFO - [Syntax Phase] Attempt 3
+2025-08-04 19:52:46,933 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:52:46,933 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:52:54,204 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine => (
+        backsubs_lower(prev, curr.weight, curr.bias, curr),
+        backsubs_upper(prev, curr.weight, curr.bias, curr),
+        prev.matmul(curr.weight).add(curr.bias),
+        prev.matmul(curr.weight).add(curr.bias)
+    );
+}
+2025-08-04 19:52:54,214 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine => (
+        backsubs_lower(prev, curr.weight, curr.bias, curr),
+        backsubs_upper(prev, curr.weight, curr.bias, curr),
+        prev.matmul(curr.weight).add(curr.bias),
+        prev.matmul(curr.weight).add(curr.bias)
+    );
+}
+2025-08-04 19:52:54,215 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    Affine => (
+        backsubs_lower(prev, curr.weight, curr.bias, curr),
+        backsubs_upper(prev, curr.weight, curr.bias, curr),
+        prev.matmul(curr.weight).add(curr.bias),
+        prev.matmul(curr.weight).add(curr.bias)
+    );
+}
+2025-08-04 19:52:54,215 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:52:54,220 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:52:54,242 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:52:54,242 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:53:03,686 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . curr[weight] + curr[bias], curr), backsubs_upper(prev . curr[weight] + curr[bias], curr), prev . curr[weight] + curr[bias], prev . curr[weight] + curr[bias]);
+}
+2025-08-04 19:53:03,699 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev . curr[weight] + curr[bias], curr), backsubs_upper(prev . curr[weight] + curr[bias], curr), prev . curr[weight] + curr[bias], prev . curr[weight] + curr[bias]);
+}
+2025-08-04 19:53:03,700 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:53:03,722 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:53:03,722 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:53:12,016 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev . curr[weight] + curr[bias], curr),
+        backsubs_upper(prev . curr[weight] + curr[bias], curr),
+        prev . curr[weight] + curr[bias],
+        prev . curr[weight] + curr[bias]
+    )
+}
+2025-08-04 19:53:12,027 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev . curr[weight] + curr[bias], curr),
+        backsubs_upper(prev . curr[weight] + curr[bias], curr),
+        prev . curr[weight] + curr[bias],
+        prev . curr[weight] + curr[bias]
+    )
+}
+2025-08-04 19:53:12,027 - INFO - [Syntax Phase] Attempt 3
+2025-08-04 19:53:12,049 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:53:12,049 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:53:17,184 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev, curr[weight], curr[bias], curr),
+        backsubs_upper(prev, curr[weight], curr[bias], curr),
+        prev * curr[weight] + curr[bias],
+        prev * curr[weight] + curr[bias]
+    )
+}
+2025-08-04 19:53:17,195 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev, curr[weight], curr[bias], curr),
+        backsubs_upper(prev, curr[weight], curr[bias], curr),
+        prev * curr[weight] + curr[bias],
+        prev * curr[weight] + curr[bias]
+    )
+}
+2025-08-04 19:53:17,195 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev, curr[weight], curr[bias], curr),
+        backsubs_upper(prev, curr[weight], curr[bias], curr),
+        prev * curr[weight] + curr[bias],
+        prev * curr[weight] + curr[bias]
+    )
+}
+2025-08-04 19:53:17,195 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:53:17,195 - INFO - [STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-08-04 19:53:32,668 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:53:32,690 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:53:32,690 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:53:38,672 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:53:38,683 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:53:38,683 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:53:38,695 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:53:38,695 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:53:38,703 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:53:38,947 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:53:38,951 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:53:38,973 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:53:38,973 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:53:43,109 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:53:43,121 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:53:43,121 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:53:43,132 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:53:43,132 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:53:43,141 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:53:43,377 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:53:43,382 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:53:43,404 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:53:43,408 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:53:50,474 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:53:50,485 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:53:50,485 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:53:50,497 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:53:50,497 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:53:50,506 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:53:50,739 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:53:50,739 - INFO - [STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-08-04 19:54:06,154 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:54:06,178 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:54:06,178 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:54:15,451 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:54:15,461 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:54:15,461 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:54:15,474 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:54:15,475 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:54:15,483 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:54:15,714 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:54:15,719 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:54:15,741 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:54:15,741 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:54:20,585 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:54:20,596 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:54:20,597 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:54:20,608 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:54:20,609 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:54:20,617 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (
+        backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+        backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+        prev . dot(curr[weight]) + curr[bias],
+        prev . dot(curr[weight]) + curr[bias]
+    );
+}
+2025-08-04 19:54:20,850 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:54:20,855 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:54:20,876 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:54:20,876 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:54:24,416 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:54:24,430 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:54:24,430 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:54:24,442 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:54:24,442 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:54:24,450 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:54:24,681 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:54:24,681 - INFO - [STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-08-04 19:55:07,164 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:55:07,189 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:55:07,189 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:55:18,967 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine ->
+        (
+            backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+            backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+            prev . dot(curr[weight]) + curr[bias],
+            prev . dot(curr[weight]) + curr[bias]
+        );
+}
+2025-08-04 19:55:18,982 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine ->
+        (
+            backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+            backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+            prev . dot(curr[weight]) + curr[bias],
+            prev . dot(curr[weight]) + curr[bias]
+        );
+}
+2025-08-04 19:55:18,982 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:55:18,997 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:55:18,997 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:55:19,010 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine ->
+        (
+            backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr),
+            backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr),
+            prev . dot(curr[weight]) + curr[bias],
+            prev . dot(curr[weight]) + curr[bias]
+        );
+}
+2025-08-04 19:55:19,359 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:55:19,363 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:55:19,386 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:55:19,386 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:55:23,970 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . curr[weight] + curr[bias], curr),
+               backsubs_upper(prev . curr[weight] + curr[bias], curr),
+               prev . curr[weight] + curr[bias],
+               prev . curr[weight] + curr[bias]);
+}
+2025-08-04 19:55:23,980 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev . curr[weight] + curr[bias], curr),
+               backsubs_upper(prev . curr[weight] + curr[bias], curr),
+               prev . curr[weight] + curr[bias],
+               prev . curr[weight] + curr[bias]);
+}
+2025-08-04 19:55:23,981 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:55:24,003 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:55:24,003 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:55:28,861 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev . curr[weight] + curr[bias], curr),
+        backsubs_upper(prev . curr[weight] + curr[bias], curr),
+        prev . curr[weight] + curr[bias],
+        prev . curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:55:28,870 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev . curr[weight] + curr[bias], curr),
+        backsubs_upper(prev . curr[weight] + curr[bias], curr),
+        prev . curr[weight] + curr[bias],
+        prev . curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:55:28,870 - INFO - [Syntax Phase] Attempt 3
+2025-08-04 19:55:28,897 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:55:28,898 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:55:34,187 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev * curr[weight] + curr[bias], curr),
+        backsubs_upper(prev * curr[weight] + curr[bias], curr),
+        prev * curr[weight] + curr[bias],
+        prev * curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:55:34,197 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev * curr[weight] + curr[bias], curr),
+        backsubs_upper(prev * curr[weight] + curr[bias], curr),
+        prev * curr[weight] + curr[bias],
+        prev * curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:55:34,197 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev * curr[weight] + curr[bias], curr),
+        backsubs_upper(prev * curr[weight] + curr[bias], curr),
+        prev * curr[weight] + curr[bias],
+        prev * curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:55:34,197 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:55:34,204 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:55:34,226 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:55:34,226 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-08-04 19:55:42,728 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:55:42,736 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:55:42,737 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:55:42,749 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:55:42,749 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:55:42,757 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev . dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev . dot(curr[weight]) + curr[bias], curr), prev . dot(curr[weight]) + curr[bias], prev . dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:55:42,985 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:55:42,985 - INFO - [STEP 1] All 3 samples failed validation. Retrying 8/10...

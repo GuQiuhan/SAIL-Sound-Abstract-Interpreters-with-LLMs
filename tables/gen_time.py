@@ -4,26 +4,6 @@ import numpy as np
 # Define model names and operator labels
 models = ["DeepSeek-V2-Lite", "Llama-3.3-70B-Instruct", "GPT-4.1", "GPT-4o"]
 
-"""
-operators = [
-    "Abs",
-    "Affine",
-    "Avgpool",
-    "HardTanh",
-    "HardSwish",
-    "HardSigmoid",
-    "Maxpool",
-    "Relu",
-]
-
-
-# Runtime data (example values for  operators ×  models)
-timings = [
-    [10, 45, 38, 64, 34, 84, 61, 7],  # Model A
-    [69,0,0,0,0,0,0,0],  # Model B
-]
-"""
-
 operators = [
     "Abs",
     "Add",

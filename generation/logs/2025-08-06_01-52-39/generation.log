@@ -1,0 +1,1893 @@
+2025-08-06 01:52:39,984 - INFO - 2025-08-06 01:52:39.984561 - Extracting Neuron_min
+2025-08-06 01:52:39,984 - INFO -
+API: Neuron_min -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
+2025-08-06 01:52:39,984 - INFO - [STEP 1] Starting step 1/1
+2025-08-06 01:52:55,208 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:52:55,414 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:52:55,414 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:52:55,461 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> ( (prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l],
+                    (prev_0[u] <= prev_1[u]) ? prev_0[u] : prev_1[u],
+                    (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1,
+                    (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1 );
+}
+2025-08-06 01:52:56,041 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:52:56,047 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:52:56,198 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:52:56,198 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:52:56,220 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 8] Invalid function call: abs
+[Line 9] Invalid function call: abs
+2025-08-06 01:52:56,223 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 8] Invalid function call: abs
+[Line 9] Invalid function call: abs
+2025-08-06 01:53:02,436 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+        (f(prev_1, prev_0)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (
+            min(prev_0[l], prev_1[l]),
+            min(prev_0[u], prev_1[u]),
+            0.5 * (prev_0[L] + prev_1[L] - (prev_0[L] - prev_1[L] >= 0 ? (prev_0[L] - prev_1[L]) : -(prev_0[L] - prev_1[L]))),
+            0.5 * (prev_0[U] + prev_1[U] - (prev_0[U] - prev_1[U] >= 0 ? (prev_0[U] - prev_1[U]) : -(prev_0[U] - prev_1[U])))
+        );
+}
+```
+2025-08-06 01:53:02,448 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+        (f(prev_1, prev_0)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (
+            min(prev_0[l], prev_1[l]),
+            min(prev_0[u], prev_1[u]),
+            0.5 * (prev_0[L] + prev_1[L] - (prev_0[L] - prev_1[L] >= 0 ? (prev_0[L] - prev_1[L]) : -(prev_0[L] - prev_1[L]))),
+            0.5 * (prev_0[U] + prev_1[U] - (prev_0[U] - prev_1[U] >= 0 ? (prev_0[U] - prev_1[U]) : -(prev_0[U] - prev_1[U])))
+        );
+}
+2025-08-06 01:53:02,451 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:53:02,603 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+        (f(prev_1, prev_0)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+        (
+            min(prev_0[l], prev_1[l]),
+            min(prev_0[u], prev_1[u]),
+            0.5 * (prev_0[L] + prev_1[L] - (prev_0[L] - prev_1[L] >= 0 ? (prev_0[L] - prev_1[L]) : -(prev_0[L] - prev_1[L]))),
+            0.5 * (prev_0[U] + prev_1[U] - (prev_0[U] - prev_1[U] >= 0 ? (prev_0[U] - prev_1[U]) : -(prev_0[U] - prev_1[U])))
+        );
+}
+2025-08-06 01:53:02,979 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:53:02,984 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:53:03,028 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:53:03,028 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:53:03,035 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+2025-08-06 01:53:03,490 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 0
+  Prev0_U_8 = 1/2
+  Prev1_U_12 = 0
+  Prev0 = 1/2
+  Prev0_u_6 = 1/2
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = 0
+  Curr_L_3 = 0
+  Prev1 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:53:03,965 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+flow(forward, priority, true, deeppoly);
+ to 0.3625.
+
+2025-08-06 01:53:03,966 - INFO - best_score : score = inf : 0.3625
+2025-08-06 01:53:03,966 - INFO - [STEP 1] Sample 3: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+ with the score 0.3625. Use it to guide the regeneration.
+2025-08-06 01:53:03,966 - INFO - [STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-08-06 01:53:09,008 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:53:09,035 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:53:09,036 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:53:09,044 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid type combination: PolyExp <= PolyExp
+[Line 6] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:53:09,044 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid type combination: PolyExp <= PolyExp
+[Line 6] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:53:14,277 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        ((prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L]),
+        ((prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U])
+    );
+}
+```
+
+Assuming the type error is due to comparing PolyExp types directly using `<=`, you likely need to extract scalar values before comparison. Here is a corrected version if you have a `.value` or similar property/method to access the scalar:
+
+```dsl
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        ((prev_0[L].value <= prev_1[L].value) ? prev_0[L] : prev_1[L]),
+        ((prev_0[U].value <= prev_1[U].value) ? prev_0[U] : prev_1[U])
+    );
+}
+```
+
+If `.value` is not the correct accessor, use the appropriate method/property to convert/extract PolyExp to a comparable type.
+2025-08-06 01:53:14,289 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        ((prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L]),
+        ((prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U])
+    );
+}
+2025-08-06 01:53:14,290 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:53:14,301 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid type combination: PolyExp <= PolyExp
+[Line 6] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:53:14,301 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid type combination: PolyExp <= PolyExp
+[Line 6] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:53:24,483 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        ((prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L]),
+        ((prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U])
+    );
+}
+```
+
+If your DSL requires extracting scalar values from PolyExp types before comparison, you might need to use a method like `.value` or `.eval()` (adjust as per your DSL). Here is an example using `.value`:
+
+```dsl
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        ((prev_0[L].value <= prev_1[L].value) ? prev_0[L] : prev_1[L]),
+        ((prev_0[U].value <= prev_1[U].value) ? prev_0[U] : prev_1[U])
+    );
+}
+```
+
+Replace `.value` with the appropriate accessor if your DSL uses a different one.
+2025-08-06 01:53:24,494 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        ((prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L]),
+        ((prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U])
+    );
+}
+2025-08-06 01:53:24,495 - INFO - [Semantic Phase] Attempt 3
+2025-08-06 01:53:24,505 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid type combination: PolyExp <= PolyExp
+[Line 6] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:53:24,505 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid type combination: PolyExp <= PolyExp
+[Line 6] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:53:34,404 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        ((prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L]),
+        ((prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U])
+    );
+}
+```
+**Assuming** the issue is with `<=` applied to `PolyExp` types, and the DSL does NOT allow `<=` on them directly. Usually, in DeepPoly DSLs, to compare PolyExp objects, you need to extract their concrete bounds (e.g., evaluate to float or use a helper function). So, you likely need to change your comparison to be done on `concretize(prev_0[L]) <= concretize(prev_1[L])`, for example.
+
+Here is the likely fix (using `concretize` as a placeholder for evaluating PolyExp):
+
+```dsl
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        ((concretize(prev_0[L]) <= concretize(prev_1[L])) ? prev_0[L] : prev_1[L]),
+        ((concretize(prev_0[U]) <= concretize(prev_1[U])) ? prev_0[U] : prev_1[U])
+    );
+}
+```
+
+**If your DSL uses another function instead of `concretize`, replace it accordingly.**
+2025-08-06 01:53:34,415 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        ((prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L]),
+        ((prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U])
+    );
+}
+2025-08-06 01:53:34,437 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:53:34,442 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:53:34,469 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:53:34,469 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:53:34,479 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid function call: abs
+2025-08-06 01:53:34,479 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid function call: abs
+2025-08-06 01:53:40,191 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0 + prev_1 - (prev_0 - prev_1 >= 0 ? prev_0 - prev_1 : prev_1 - prev_0)) * 0.5,
+        (prev_0[u] < prev_1[u]) ? prev_0 : prev_1
+    );
+}
+2025-08-06 01:53:40,202 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0 + prev_1 - (prev_0 - prev_1 >= 0 ? prev_0 - prev_1 : prev_1 - prev_0)) * 0.5,
+        (prev_0[u] < prev_1[u]) ? prev_0 : prev_1
+    );
+}
+2025-08-06 01:53:40,202 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:53:40,234 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0 + prev_1 - (prev_0 - prev_1 >= 0 ? prev_0 - prev_1 : prev_1 - prev_0)) * 0.5,
+        (prev_0[u] < prev_1[u]) ? prev_0 : prev_1
+    );
+}
+2025-08-06 01:53:40,484 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:53:40,489 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:53:40,512 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:53:40,516 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:53:40,528 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid function call: abs
+[Line 6] Invalid function call: abs
+2025-08-06 01:53:40,529 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid function call: abs
+[Line 6] Invalid function call: abs
+2025-08-06 01:53:45,101 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0 + prev_1 - (prev_0 - prev_1)) / 2,
+        (prev_0 + prev_1 - (prev_0 - prev_1)) / 2
+    );
+}
+2025-08-06 01:53:45,111 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0 + prev_1 - (prev_0 - prev_1)) / 2,
+        (prev_0 + prev_1 - (prev_0 - prev_1)) / 2
+    );
+}
+2025-08-06 01:53:45,111 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:53:45,121 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0 + prev_1 - (prev_0 - prev_1)) / 2,
+        (prev_0 + prev_1 - (prev_0 - prev_1)) / 2
+    );
+}
+2025-08-06 01:53:45,537 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 1/2
+  Prev0_U_8 = 0
+  Prev1_U_12 = 1/2
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr_L_3 = 0
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = 0
+  Prev1 = 1/2
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:53:46,029 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0 + prev_1 - (prev_0 - prev_1)) / 2,
+        (prev_0 + prev_1 - (prev_0 - prev_1)) / 2
+    );
+}
+flow(forward, priority, true, deeppoly);
+ to 0.4375.
+
+2025-08-06 01:53:46,029 - INFO - [STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-08-06 01:53:54,060 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:53:54,069 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:53:54,070 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:53:54,076 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+2025-08-06 01:53:54,475 - INFO - [STEP 1] Sample 1: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 0
+  Prev0_U_8 = 1/2
+  Prev1_U_12 = 0
+  Prev0 = 1/2
+  Prev0_u_6 = 1/2
+  Curr = 0
+  Curr_L_3 = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = 0
+  Prev1 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:53:54,936 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+flow(forward, priority, true, deeppoly);
+ to 0.5.
+
+2025-08-06 01:53:54,940 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:53:55,180 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:53:55,180 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:53:55,255 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? prev_1[l] : (f(prev_1, prev_0) ? prev_0[l] : min(prev_0[l], prev_1[l])),
+                  f(prev_0, prev_1) ? prev_1[u] : (f(prev_1, prev_0) ? prev_0[u] : min(prev_0[u], prev_1[u])),
+                  f(prev_0, prev_1) ? prev_1[L] : (f(prev_1, prev_0) ? prev_0[L] : 0),
+                  f(prev_0, prev_1) ? prev_1[U] : (f(prev_1, prev_0) ? prev_0[U] : 0));
+}
+2025-08-06 01:53:55,800 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:53:55,805 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:53:55,886 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:53:55,886 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:53:55,901 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: abs
+[Line 2] Invalid function call: abs
+2025-08-06 01:53:55,901 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: abs
+[Line 2] Invalid function call: abs
+2025-08-06 01:54:03,213 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|))));
+}
+```
+2025-08-06 01:54:03,222 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|))));
+}
+2025-08-06 01:54:03,222 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:54:03,242 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|))));
+}
+2025-08-06 01:54:03,953 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 1/2
+  Prev0_U_8 = 0
+  Prev1_U_12 = 0
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr = -1/2
+  Curr_l_1 = -1/2
+  Curr_L_3 = -1/2
+  Prev0_l_5 = 0
+  Prev1_L_11 = -1/2
+  Curr_u_2 = 0
+  Prev1_l_9 = -1/2
+  Prev1 = -1/2
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = -1/2.
+ Start to evaluate the deviation.
+2025-08-06 01:54:04,699 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|))));
+}
+flow(forward, priority, true, deeppoly);
+ to 0.65625.
+
+2025-08-06 01:54:04,699 - INFO - [STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-08-06 01:54:13,606 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:54:13,651 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-06 01:54:13,651 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-06 01:54:33,099 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Neuron_min -> (
+        f(prev_0, prev_1) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+            (f(prev_1, prev_0) ?
+                (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+                (
+                    min(prev_0[l], prev_1[l]),
+                    min(prev_0[u], prev_1[u]),
+                    0.5 * (prev_0[L] + prev_1[L]) - 0.5 * abs(prev_0[L] - prev_1[L]),
+                    0.5 * (prev_0[U] + prev_1[U]) + 0.5 * abs(prev_0[U] - prev_1[U])
+                )
+            )
+    );
+}
+2025-08-06 01:54:33,109 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Neuron_min -> (
+        f(prev_0, prev_1) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+            (f(prev_1, prev_0) ?
+                (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+                (
+                    min(prev_0[l], prev_1[l]),
+                    min(prev_0[u], prev_1[u]),
+                    0.5 * (prev_0[L] + prev_1[L]) - 0.5 * abs(prev_0[L] - prev_1[L]),
+                    0.5 * (prev_0[U] + prev_1[U]) + 0.5 * abs(prev_0[U] - prev_1[U])
+                )
+            )
+    );
+}
+2025-08-06 01:54:33,109 - INFO - [Syntax Phase] Attempt 2
+2025-08-06 01:54:33,163 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:54:33,163 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:54:33,186 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 10] Invalid function call: abs
+[Line 11] Invalid function call: abs
+2025-08-06 01:54:33,186 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 10] Invalid function call: abs
+[Line 11] Invalid function call: abs
+2025-08-06 01:54:39,710 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly {
+    Neuron_min -> (
+        f(prev_0, prev_1) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+            (f(prev_1, prev_0) ?
+                (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+                (
+                    min(prev_0[l], prev_1[l]),
+                    min(prev_0[u], prev_1[u]),
+                    0.5 * (prev_0[L] + prev_1[L]) - 0.5 * (prev_0[L] - prev_1[L] >= 0 ? prev_0[L] - prev_1[L] : prev_1[L] - prev_0[L]),
+                    0.5 * (prev_0[U] + prev_1[U]) + 0.5 * (prev_0[U] - prev_1[U] >= 0 ? prev_0[U] - prev_1[U] : prev_1[U] - prev_0[U])
+                )
+            )
+    );
+}
+```
+2025-08-06 01:54:39,720 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Neuron_min -> (
+        f(prev_0, prev_1) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+            (f(prev_1, prev_0) ?
+                (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+                (
+                    min(prev_0[l], prev_1[l]),
+                    min(prev_0[u], prev_1[u]),
+                    0.5 * (prev_0[L] + prev_1[L]) - 0.5 * (prev_0[L] - prev_1[L] >= 0 ? prev_0[L] - prev_1[L] : prev_1[L] - prev_0[L]),
+                    0.5 * (prev_0[U] + prev_1[U]) + 0.5 * (prev_0[U] - prev_1[U] >= 0 ? prev_0[U] - prev_1[U] : prev_1[U] - prev_0[U])
+                )
+            )
+    );
+}
+2025-08-06 01:54:39,720 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:54:39,758 - INFO - ✅ All check passed for code:
+ transformer deeppoly {
+    Neuron_min -> (
+        f(prev_0, prev_1) ?
+            (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+            (f(prev_1, prev_0) ?
+                (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+                (
+                    min(prev_0[l], prev_1[l]),
+                    min(prev_0[u], prev_1[u]),
+                    0.5 * (prev_0[L] + prev_1[L]) - 0.5 * (prev_0[L] - prev_1[L] >= 0 ? prev_0[L] - prev_1[L] : prev_1[L] - prev_0[L]),
+                    0.5 * (prev_0[U] + prev_1[U]) + 0.5 * (prev_0[U] - prev_1[U] >= 0 ? prev_0[U] - prev_1[U] : prev_1[U] - prev_0[U])
+                )
+            )
+    );
+}
+2025-08-06 01:54:40,117 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:54:40,122 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:54:40,128 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:54:40,128 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:54:40,135 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+2025-08-06 01:54:40,527 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 0
+  Prev0_U_8 = 1/2
+  Prev1_U_12 = 0
+  Prev0 = 1/2
+  Prev0_u_6 = 1/2
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = 0
+  Prev1 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0
+  Curr_L_3 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:54:40,995 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+flow(forward, priority, true, deeppoly);
+ to 0.3833333333333334.
+
+2025-08-06 01:54:41,000 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:54:41,035 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:54:41,035 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:54:41,045 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1)) ? ((prev_1[l]), (prev_0[u]), (prev_1[L]), (prev_0[U]))
+        : (f(prev_1, prev_0)) ? ((prev_0[l]), (prev_1[u]), (prev_0[L]), (prev_1[U]))
+        : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 0.5 * (prev_0[L] + prev_1[L]), 0.5 * (prev_0[U] + prev_1[U]));
+}
+2025-08-06 01:54:41,625 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 1/2
+  Prev0_U_8 = 0
+  Prev1_U_12 = 1/2
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 1/2
+  Curr_u_2 = 0
+  Prev1_l_9 = -1/4
+  Prev1 = 1/2
+  Curr_L_3 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:54:42,254 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1)) ? ((prev_1[l]), (prev_0[u]), (prev_1[L]), (prev_0[U]))
+        : (f(prev_1, prev_0)) ? ((prev_0[l]), (prev_1[u]), (prev_0[L]), (prev_1[U]))
+        : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 0.5 * (prev_0[L] + prev_1[L]), 0.5 * (prev_0[U] + prev_1[U]));
+}
+flow(forward, priority, true, deeppoly);
+ to 0.55625.
+
+2025-08-06 01:54:42,255 - INFO - [STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-08-06 01:54:50,832 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:54:50,863 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:54:50,863 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:54:50,876 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:54:50,876 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid type combination: PolyExp <= PolyExp
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:54:56,713 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), min([prev_0[L], prev_1[L]]), min([prev_0[U], prev_1[U]])))
+);}
+```
+2025-08-06 01:54:56,717 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), min([prev_0[L], prev_1[L]]), min([prev_0[U], prev_1[U]])))
+);}
+2025-08-06 01:54:56,717 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:54:56,738 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), min([prev_0[L], prev_1[L]]), min([prev_0[U], prev_1[U]])))
+);}
+2025-08-06 01:54:56,975 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:54:56,981 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:54:57,022 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:54:57,022 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:54:57,037 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 11] Invalid function call: abs
+[Line 12] Invalid function call: abs
+2025-08-06 01:54:57,037 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 11] Invalid function call: abs
+[Line 12] Invalid function call: abs
+2025-08-06 01:55:03,252 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ?
+            (prev_1[l], prev_1[u], prev_1, prev_1)
+        : (f(prev_1, prev_0)) ?
+            (prev_0[l], prev_0[u], prev_0, prev_0)
+        :
+            (
+                min([prev_0[l], prev_1[l]]),
+                min([prev_0[u], prev_1[u]]),
+                (prev_0 + prev_1 - |prev_0 - prev_1|) / 2,
+                (prev_0 + prev_1 - |prev_0 - prev_1|) / 2
+            );
+}
+```
+2025-08-06 01:55:03,262 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ?
+            (prev_1[l], prev_1[u], prev_1, prev_1)
+        : (f(prev_1, prev_0)) ?
+            (prev_0[l], prev_0[u], prev_0, prev_0)
+        :
+            (
+                min([prev_0[l], prev_1[l]]),
+                min([prev_0[u], prev_1[u]]),
+                (prev_0 + prev_1 - |prev_0 - prev_1|) / 2,
+                (prev_0 + prev_1 - |prev_0 - prev_1|) / 2
+            );
+}
+2025-08-06 01:55:03,262 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:55:03,284 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ?
+            (prev_1[l], prev_1[u], prev_1, prev_1)
+        : (f(prev_1, prev_0)) ?
+            (prev_0[l], prev_0[u], prev_0, prev_0)
+        :
+            (
+                min([prev_0[l], prev_1[l]]),
+                min([prev_0[u], prev_1[u]]),
+                (prev_0 + prev_1 - |prev_0 - prev_1|) / 2,
+                (prev_0 + prev_1 - |prev_0 - prev_1|) / 2
+            );
+}
+2025-08-06 01:55:03,948 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 0
+  Prev0_U_8 = 0
+  Prev1_U_12 = 0
+  Prev0 = -1/2
+  Prev0_u_6 = 0
+  Curr = -1/2
+  Curr_l_1 = -1/2
+  Prev0_l_5 = -1/2
+  Curr_L_3 = -1/2
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = -1/2
+  Prev1 = 0
+  Prev0_L_7 = -1/2
+  Curr_U_4 = 0
+  curr_prime0 = -1/2.
+ Start to evaluate the deviation.
+2025-08-06 01:55:04,682 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ?
+            (prev_1[l], prev_1[u], prev_1, prev_1)
+        : (f(prev_1, prev_0)) ?
+            (prev_0[l], prev_0[u], prev_0, prev_0)
+        :
+            (
+                min([prev_0[l], prev_1[l]]),
+                min([prev_0[u], prev_1[u]]),
+                (prev_0 + prev_1 - |prev_0 - prev_1|) / 2,
+                (prev_0 + prev_1 - |prev_0 - prev_1|) / 2
+            );
+}
+flow(forward, priority, true, deeppoly);
+ to 0.66875.
+
+2025-08-06 01:55:04,686 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:55:04,702 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:55:04,702 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:55:04,718 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: abs
+[Line 2] Invalid function call: abs
+2025-08-06 01:55:04,718 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: abs
+[Line 2] Invalid function call: abs
+2025-08-06 01:55:12,506 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|))));
+}
+```
+2025-08-06 01:55:12,515 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|))));
+}
+2025-08-06 01:55:12,515 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:55:12,533 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|))));
+}
+2025-08-06 01:55:13,188 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 1/2
+  Prev0_U_8 = 0
+  Prev1_U_12 = 0
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr = -1/2
+  Curr_l_1 = -1/2
+  Prev0_l_5 = 0
+  Prev1_L_11 = -1/2
+  Curr_u_2 = 0
+  Prev1_l_9 = -1/2
+  Prev1 = -1/2
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  Curr_L_3 = -1/2
+  curr_prime0 = -1/2.
+ Start to evaluate the deviation.
+2025-08-06 01:55:14,044 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|), 0.5*(prev_0 + prev_1 - |prev_0 - prev_1|))));
+}
+flow(forward, priority, true, deeppoly);
+ to 0.48359375.
+
+2025-08-06 01:55:14,044 - INFO - [STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-08-06 01:55:22,665 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:55:22,700 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:55:22,700 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:55:22,731 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> ( (prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l],
+                    (prev_0[u] <= prev_1[u]) ? prev_0[u] : prev_1[u],
+                    (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1,
+                    (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1 );
+}
+2025-08-06 01:55:22,978 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:55:22,982 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:55:23,067 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:55:23,067 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:55:23,088 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 8] Invalid function call: abs
+[Line 9] Invalid function call: abs
+2025-08-06 01:55:23,088 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 8] Invalid function call: abs
+[Line 9] Invalid function call: abs
+2025-08-06 01:55:39,740 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+        ((f(prev_1, prev_0)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+            (
+                min([prev_0[l], prev_1[l]]),
+                min([prev_0[u], prev_1[u]]),
+                0.5 * (prev_0[L] + prev_1[L] - (prev_0[L] - prev_1[L]).magnitude()),
+                0.5 * (prev_0[U] + prev_1[U] - (prev_0[U] - prev_1[U]).magnitude())
+            )
+        );
+}
+```
+2025-08-06 01:55:39,750 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+        ((f(prev_1, prev_0)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+            (
+                min([prev_0[l], prev_1[l]]),
+                min([prev_0[u], prev_1[u]]),
+                0.5 * (prev_0[L] + prev_1[L] - (prev_0[L] - prev_1[L]).magnitude()),
+                0.5 * (prev_0[U] + prev_1[U] - (prev_0[U] - prev_1[U]).magnitude())
+            )
+        );
+}
+2025-08-06 01:55:39,750 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:55:39,761 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 8:71 no viable alternative at input 'Neuron_min->(f(prev_0,prev_1))?(prev_1[l],prev_1[u],prev_1[L],prev_1[U]):((f(prev_1,prev_0))?(prev_0[l],prev_0[u],prev_0[L],prev_0[U]):(min([prev_0[l],prev_1[l]]),min([prev_0[u],prev_1[u]]),0.5*(prev_0[L]+prev_1[L]-(prev_0[L]-prev_1[L]).magnitude'
+2025-08-06 01:55:39,761 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 8:71 no viable alternative at input 'Neuron_min->(f(prev_0,prev_1))?(prev_1[l],prev_1[u],prev_1[L],prev_1[U]):((f(prev_1,prev_0))?(prev_0[l],prev_0[u],prev_0[L],prev_0[U]):(min([prev_0[l],prev_1[l]]),min([prev_0[u],prev_1[u]]),0.5*(prev_0[L]+prev_1[L]-(prev_0[L]-prev_1[L]).magnitude'
+2025-08-06 01:55:49,432 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+        ((f(prev_1, prev_0)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+            (
+                min([prev_0[l], prev_1[l]]),
+                min([prev_0[u], prev_1[u]]),
+                0.5 * (prev_0[L] + prev_1[L] - magnitude(prev_0[L] - prev_1[L])),
+                0.5 * (prev_0[U] + prev_1[U] - magnitude(prev_0[U] - prev_1[U]))
+            )
+        );
+}
+2025-08-06 01:55:49,442 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+        ((f(prev_1, prev_0)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+            (
+                min([prev_0[l], prev_1[l]]),
+                min([prev_0[u], prev_1[u]]),
+                0.5 * (prev_0[L] + prev_1[L] - magnitude(prev_0[L] - prev_1[L])),
+                0.5 * (prev_0[U] + prev_1[U] - magnitude(prev_0[U] - prev_1[U]))
+            )
+        );
+}
+2025-08-06 01:55:49,443 - INFO - [Semantic Phase] Attempt 3
+2025-08-06 01:55:49,467 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 8] Invalid function call: magnitude
+[Line 9] Invalid function call: magnitude
+2025-08-06 01:55:49,468 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 8] Invalid function call: magnitude
+[Line 9] Invalid function call: magnitude
+2025-08-06 01:56:04,066 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+        ((f(prev_1, prev_0)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+            (
+                min([prev_0[l], prev_1[l]]),
+                min([prev_0[u], prev_1[u]]),
+                0.5 * (prev_0[L] + prev_1[L] - abs(prev_0[L] - prev_1[L])),
+                0.5 * (prev_0[U] + prev_1[U] - abs(prev_0[U] - prev_1[U]))
+            )
+        );
+}
+```
+2025-08-06 01:56:04,076 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min ->
+        (f(prev_0, prev_1)) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) :
+        ((f(prev_1, prev_0)) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) :
+            (
+                min([prev_0[l], prev_1[l]]),
+                min([prev_0[u], prev_1[u]]),
+                0.5 * (prev_0[L] + prev_1[L] - abs(prev_0[L] - prev_1[L])),
+                0.5 * (prev_0[U] + prev_1[U] - abs(prev_0[U] - prev_1[U]))
+            )
+        );
+}
+2025-08-06 01:56:04,094 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:56:04,098 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:56:04,105 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:56:04,105 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:56:04,112 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+2025-08-06 01:56:04,516 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 0
+  Prev0_U_8 = 1/2
+  Prev1_U_12 = 0
+  Prev0 = 1/2
+  Prev0_u_6 = 1/2
+  Curr_L_3 = 0
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = 0
+  Prev1 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:56:04,980 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+flow(forward, priority, true, deeppoly);
+ to 0.4.
+
+2025-08-06 01:56:04,980 - INFO - [STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-08-06 01:56:12,207 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:56:12,216 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:56:12,216 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:56:12,223 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+2025-08-06 01:56:12,616 - INFO - [STEP 1] Sample 1: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 0
+  Curr_L_3 = 0
+  Prev0_U_8 = 1/2
+  Prev1_U_12 = 0
+  Prev0 = 1/2
+  Prev0_u_6 = 1/2
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = 0
+  Prev1 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:56:13,084 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+flow(forward, priority, true, deeppoly);
+ to 0.146875.
+
+2025-08-06 01:56:13,084 - INFO - best_score : score = 0.3625 : 0.146875
+2025-08-06 01:56:13,084 - INFO - [STEP 1] Sample 1: Get a 'better' unsound abstract transformer:
+transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+ with the score 0.146875. Use it to guide the regeneration.
+2025-08-06 01:56:13,089 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:56:13,138 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:56:13,138 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:56:13,149 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (
+        (prev_0[l] <= prev_1[l]) ? (prev_0[l], min(prev_0[u], prev_1[u]), prev_0, prev_0) :
+        (prev_1[l] <= prev_0[l]) ? (prev_1[l], min(prev_0[u], prev_1[u]), prev_1, prev_1) :
+        (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), ((prev_0 + prev_1) / 2), ((prev_0 + prev_1) / 2))
+    );
+}
+2025-08-06 01:56:13,562 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 0
+  Curr_L_3 = 0
+  Prev0_U_8 = 1/2
+  Prev1_U_12 = 0
+  Prev0 = 1/2
+  Prev0_u_6 = 1/2
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = 0
+  Prev1 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:56:14,331 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (
+        (prev_0[l] <= prev_1[l]) ? (prev_0[l], min(prev_0[u], prev_1[u]), prev_0, prev_0) :
+        (prev_1[l] <= prev_0[l]) ? (prev_1[l], min(prev_0[u], prev_1[u]), prev_1, prev_1) :
+        (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), ((prev_0 + prev_1) / 2), ((prev_0 + prev_1) / 2))
+    );
+}
+flow(forward, priority, true, deeppoly);
+ to 0.16614583333333335.
+
+2025-08-06 01:56:14,336 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:56:14,343 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:56:14,343 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:56:14,349 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+2025-08-06 01:56:14,748 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 0
+  Prev0_U_8 = 1/2
+  Prev1_U_12 = 0
+  Prev0 = 1/2
+  Prev0_u_6 = 1/2
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = 0
+  Prev1 = 0
+  Prev0_L_7 = 0
+  Curr_L_3 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:56:15,210 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+flow(forward, priority, true, deeppoly);
+ to 0.6125.
+
+2025-08-06 01:56:15,210 - INFO - [STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-08-06 01:56:22,627 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:56:22,822 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:56:22,822 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:56:22,837 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 6] Invalid function call: abs
+2025-08-06 01:56:22,837 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 6] Invalid function call: abs
+2025-08-06 01:56:30,131 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0 <= prev_1) ? prev_0 : prev_1,
+        (prev_0[u] <= prev_1[u]) ? prev_0[U] : ((prev_1[u] <= prev_0[u]) ? prev_1[U] : (0.5 * (prev_0[U] + prev_1[U] + ((prev_0[U] - prev_1[U]) >= 0 ? (prev_0[U] - prev_1[U]) : -(prev_0[U] - prev_1[U])))))
+    );
+}
+```
+2025-08-06 01:56:30,144 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0 <= prev_1) ? prev_0 : prev_1,
+        (prev_0[u] <= prev_1[u]) ? prev_0[U] : ((prev_1[u] <= prev_0[u]) ? prev_1[U] : (0.5 * (prev_0[U] + prev_1[U] + ((prev_0[U] - prev_1[U]) >= 0 ? (prev_0[U] - prev_1[U]) : -(prev_0[U] - prev_1[U])))))
+    );
+}
+2025-08-06 01:56:30,145 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:56:30,200 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0 <= prev_1) ? prev_0 : prev_1,
+        (prev_0[u] <= prev_1[u]) ? prev_0[U] : ((prev_1[u] <= prev_0[u]) ? prev_1[U] : (0.5 * (prev_0[U] + prev_1[U] + ((prev_0[U] - prev_1[U]) >= 0 ? (prev_0[U] - prev_1[U]) : -(prev_0[U] - prev_1[U])))))
+    );
+}
+2025-08-06 01:56:30,506 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:56:30,511 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:56:30,519 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:56:30,519 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:56:30,527 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min ->
+        (min([prev_0[l], prev_1[l]]),
+         min([prev_0[u], prev_1[u]]),
+         ((prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L]),
+         ((prev_0[u] <= prev_1[u]) ? prev_0[U] : prev_1[U]));
+}
+2025-08-06 01:56:30,941 - INFO - [STEP 1] Sample 2: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 0
+  Prev0_U_8 = 1/2
+  Prev1_U_12 = 0
+  Prev0 = 1/2
+  Prev0_u_6 = 1/2
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Curr_L_3 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = 0
+  Prev1 = 0
+  Prev0_L_7 = 1/2
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:56:31,398 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min ->
+        (min([prev_0[l], prev_1[l]]),
+         min([prev_0[u], prev_1[u]]),
+         ((prev_0[l] <= prev_1[l]) ? prev_0[L] : prev_1[L]),
+         ((prev_0[u] <= prev_1[u]) ? prev_0[U] : prev_1[U]));
+}
+flow(forward, priority, true, deeppoly);
+ to 0.3328125.
+
+2025-08-06 01:56:31,402 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:56:31,412 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:56:31,413 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:56:31,421 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid type combination: PolyExp <= PolyExp
+[Line 6] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:56:31,421 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid type combination: PolyExp <= PolyExp
+[Line 6] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:56:43,643 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0[L] <= prev_1[L] ? prev_0[L] : prev_1[L]),
+        (prev_0[U] <= prev_1[U] ? prev_0[U] : prev_1[U])
+    );
+}
+2025-08-06 01:56:43,653 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        (prev_0[L] <= prev_1[L] ? prev_0[L] : prev_1[L]),
+        (prev_0[U] <= prev_1[U] ? prev_0[U] : prev_1[U])
+    );
+}
+2025-08-06 01:56:43,656 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:56:43,667 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 5] Invalid type combination: PolyExp <= PolyExp
+[Line 6] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:56:43,667 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 5] Invalid type combination: PolyExp <= PolyExp
+[Line 6] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:56:48,553 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        min([prev_0[L], prev_1[L]]),
+        min([prev_0[U], prev_1[U]])
+    );
+}
+```
+2025-08-06 01:56:48,563 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        min([prev_0[L], prev_1[L]]),
+        min([prev_0[U], prev_1[U]])
+    );
+}
+2025-08-06 01:56:48,564 - INFO - [Semantic Phase] Attempt 3
+2025-08-06 01:56:48,582 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (
+        min([prev_0[l], prev_1[l]]),
+        min([prev_0[u], prev_1[u]]),
+        min([prev_0[L], prev_1[L]]),
+        min([prev_0[U], prev_1[U]])
+    );
+}
+2025-08-06 01:56:48,814 - INFO - [STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:56:48,814 - INFO - [STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-08-06 01:56:55,633 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:56:55,671 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:56:55,671 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:56:55,703 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (
+        (prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l],
+        (prev_0[u] <= prev_1[u]) ? prev_0[u] : prev_1[u],
+        (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1,
+        (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1
+    );
+}
+2025-08-06 01:56:55,951 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:56:55,955 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:56:56,015 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:56:56,015 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:56:56,036 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: abs
+[Line 2] Invalid function call: abs
+2025-08-06 01:56:56,036 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: abs
+[Line 2] Invalid function call: abs
+2025-08-06 01:57:03,660 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0[L]+prev_1[L]-((prev_0[L]-prev_1[L]) >= 0 ? (prev_0[L]-prev_1[L]) : -(prev_0[L]-prev_1[L]))), 0.5*(prev_0[U]+prev_1[U]-((prev_0[U]-prev_1[U]) >= 0 ? (prev_0[U]-prev_1[U]) : -(prev_0[U]-prev_1[U])))))
+);}
+```
+2025-08-06 01:57:03,670 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0[L]+prev_1[L]-((prev_0[L]-prev_1[L]) >= 0 ? (prev_0[L]-prev_1[L]) : -(prev_0[L]-prev_1[L]))), 0.5*(prev_0[U]+prev_1[U]-((prev_0[U]-prev_1[U]) >= 0 ? (prev_0[U]-prev_1[U]) : -(prev_0[U]-prev_1[U])))))
+);}
+2025-08-06 01:57:03,671 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:57:03,718 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1[L], prev_1[U]) : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0[L], prev_0[U]) : (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), 0.5*(prev_0[L]+prev_1[L]-((prev_0[L]-prev_1[L]) >= 0 ? (prev_0[L]-prev_1[L]) : -(prev_0[L]-prev_1[L]))), 0.5*(prev_0[U]+prev_1[U]-((prev_0[U]-prev_1[U]) >= 0 ? (prev_0[U]-prev_1[U]) : -(prev_0[U]-prev_1[U])))))
+);}
+2025-08-06 01:57:03,991 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:57:03,995 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:57:04,002 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:57:04,002 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:57:04,008 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+2025-08-06 01:57:04,403 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 0
+  Prev0_U_8 = 1/2
+  Prev1_U_12 = 0
+  Prev0 = 1/2
+  Prev0_u_6 = 1/2
+  Curr = 0
+  Curr_L_3 = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = 0
+  Prev1 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:57:04,996 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+flow(forward, priority, true, deeppoly);
+ to 0.45.
+
+2025-08-06 01:57:04,996 - INFO - [STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-08-06 01:57:11,771 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:57:11,810 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:57:11,810 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:57:11,842 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> ( (prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l],
+                    (prev_0[u] <= prev_1[u]) ? prev_0[u] : prev_1[u],
+                    (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1,
+                    (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1 );
+}
+2025-08-06 01:57:12,092 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:57:12,097 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:57:12,132 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:57:12,133 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:57:12,167 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:57:12,167 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid type combination: PolyExp <= PolyExp
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:57:22,667 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> ( (prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l], (prev_0[u] <= prev_1[u]) ? prev_0[u] : prev_1[u], (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U] );
+}
+```
+
+If the DSL does not support `<=` directly on `PolyExp` types, replace `<=` comparisons with an explicit `.evaluate()` or `.value` conversion. For example, if `polyExp.value` gives the appropriate numeric value:
+
+```dsl
+transformer deeppoly{
+    Neuron_min -> ( (prev_0[l].value <= prev_1[l].value) ? prev_0[l] : prev_1[l], (prev_0[u].value <= prev_1[u].value) ? prev_0[u] : prev_1[u], (prev_0[L].value <= prev_1[L].value) ? prev_0[L] : prev_1[L], (prev_0[U].value <= prev_1[U].value) ? prev_0[U] : prev_1[U] );
+}
+```
+
+Adjust `.value` to the correct accessor for your DSL.
+2025-08-06 01:57:22,679 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> ( (prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l], (prev_0[u] <= prev_1[u]) ? prev_0[u] : prev_1[u], (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U] );
+}
+2025-08-06 01:57:22,679 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:57:22,716 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:57:22,716 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid type combination: PolyExp <= PolyExp
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:57:33,572 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> ( (prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l], (prev_0[u] <= prev_1[u]) ? prev_0[u] : prev_1[u], (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U] );
+}
+```
+
+**However:**
+Since the error says "Invalid type combination: PolyExp <= PolyExp", it suggests that direct comparison (`<=`) is not allowed between objects of type `PolyExp`. You likely need an explicit method or function to compare them, such as `leq(prev_0[l], prev_1[l])` if your DSL provides it.
+
+Assuming you have a function `leq(a, b)` for this purpose, use:
+
+```dsl
+transformer deeppoly{
+    Neuron_min -> ( leq(prev_0[l], prev_1[l]) ? prev_0[l] : prev_1[l], leq(prev_0[u], prev_1[u]) ? prev_0[u] : prev_1[u], leq(prev_0[L], prev_1[L]) ? prev_0[L] : prev_1[L], leq(prev_0[U], prev_1[U]) ? prev_0[U] : prev_1[U] );
+}
+```
+
+If your DSL uses another comparison function (e.g., `compare`, `lessThanOrEqual`, etc.), replace `leq` with that function.
+2025-08-06 01:57:33,584 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> ( (prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l], (prev_0[u] <= prev_1[u]) ? prev_0[u] : prev_1[u], (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U] );
+}
+2025-08-06 01:57:33,584 - INFO - [Semantic Phase] Attempt 3
+2025-08-06 01:57:33,622 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:57:33,622 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid type combination: PolyExp <= PolyExp
+[Line 2] Invalid type combination: PolyExp <= PolyExp
+2025-08-06 01:57:42,776 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> ( (prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l], (prev_0[u] <= prev_1[u]) ? prev_0[u] : prev_1[u], (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U] );
+}
+```
+
+If your DSL does not allow direct comparison (`<=`) between `PolyExp` types, you should use a function like `leq(prev_0[l], prev_1[l])` (or similar), if available:
+
+```dsl
+transformer deeppoly{
+    Neuron_min -> ( leq(prev_0[l], prev_1[l]) ? prev_0[l] : prev_1[l], leq(prev_0[u], prev_1[u]) ? prev_0[u] : prev_1[u], leq(prev_0[L], prev_1[L]) ? prev_0[L] : prev_1[L], leq(prev_0[U], prev_1[U]) ? prev_0[U] : prev_1[U] );
+}
+```
+
+Or use a min function if it exists:
+
+```dsl
+transformer deeppoly{
+    Neuron_min -> ( min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), min(prev_0[L], prev_1[L]), min(prev_0[U], prev_1[U]) );
+}
+```
+
+**Replace `leq` or `min` with the correct function for your DSL.**
+2025-08-06 01:57:42,790 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> ( (prev_0[l] <= prev_1[l]) ? prev_0[l] : prev_1[l], (prev_0[u] <= prev_1[u]) ? prev_0[u] : prev_1[u], (prev_0[L] <= prev_1[L]) ? prev_0[L] : prev_1[L], (prev_0[U] <= prev_1[U]) ? prev_0[U] : prev_1[U] );
+}
+2025-08-06 01:57:42,809 - INFO - [STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-06 01:57:42,814 - INFO - [Syntax Phase] Attempt 1
+2025-08-06 01:57:42,829 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-06 01:57:42,829 - INFO - [Semantic Phase] Attempt 1
+2025-08-06 01:57:42,844 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 4] Invalid function call: abs
+[Line 4] Invalid function call: abs
+2025-08-06 01:57:42,844 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 4] Invalid function call: abs
+[Line 4] Invalid function call: abs
+2025-08-06 01:57:55,234 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ ```dsl
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1)
+                         : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0)
+                         : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 0.5 * (prev_0 + prev_1 - (prev_0 - prev_1)), 0.5 * (prev_0 + prev_1 - (prev_0 - prev_1)))));
+}
+```
+
+2025-08-06 01:57:55,245 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1)
+                         : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0)
+                         : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 0.5 * (prev_0 + prev_1 - (prev_0 - prev_1)), 0.5 * (prev_0 + prev_1 - (prev_0 - prev_1)))));
+}
+2025-08-06 01:57:55,245 - INFO - [Semantic Phase] Attempt 2
+2025-08-06 01:57:55,258 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1)
+                         : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0)
+                         : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 0.5 * (prev_0 + prev_1 - (prev_0 - prev_1)), 0.5 * (prev_0 + prev_1 - (prev_0 - prev_1)))));
+}
+2025-08-06 01:57:55,908 - INFO - [STEP 1] Sample 3: Validation failed. Get counter example:
+ Counterexample unsound for Neuron_min:
+  Prev1_u_10 = 1/4
+  Prev0_U_8 = 0
+  Prev1_U_12 = 1/4
+  Prev0 = 0
+  Prev0_u_6 = 0
+  Curr = 0
+  Curr_l_1 = 0
+  Prev0_l_5 = 0
+  Prev1_L_11 = 0
+  Curr_u_2 = 0
+  Prev1_l_9 = -1/4
+  Prev1 = 1/4
+  Curr_L_3 = 0
+  Prev0_L_7 = 0
+  Curr_U_4 = 0
+  curr_prime0 = 0.
+ Start to evaluate the deviation.
+2025-08-06 01:57:56,641 - INFO -
+ [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code:
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
+
+func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
+
+func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
+
+func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+transformer deeppoly{
+    Neuron_min -> (f(prev_0, prev_1) ? (prev_1[l], prev_1[u], prev_1, prev_1)
+                         : (f(prev_1, prev_0) ? (prev_0[l], prev_0[u], prev_0, prev_0)
+                         : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), 0.5 * (prev_0 + prev_1 - (prev_0 - prev_1)), 0.5 * (prev_0 + prev_1 - (prev_0 - prev_1)))));
+}
+flow(forward, priority, true, deeppoly);
+ to 0.30000000000000004.
+
+2025-08-06 01:57:56,641 - INFO - [STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-08-06 01:57:56,641 - INFO - [Neuron_min] Runtime: 316.66 seconds
+2025-08-06 01:57:56,641 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+transformer deeppoly{
+    Neuron_min -> (min([prev_0[l], prev_1[l]]), min([prev_0[u], prev_1[u]]), (prev_0[l] <= prev_1[l]) ? prev_0 : prev_1, (prev_0[u] <= prev_1[u]) ? prev_0 : prev_1);
+}
+
+2025-08-06 01:57:56,643 - INFO - ✅ Total runtime for all operators with the model gpt-4o: 316.66 seconds

@@ -21,22 +21,28 @@ Output:
 """
 
 
+import json
 import logging
 import re
 import shutil
 import traceback
+import typing
 from abc import ABC, abstractmethod
 from datetime import datetime
+from statistics.rounds import *
 from time import time
 from typing import Callable, Dict, List, Optional, Tuple, Union
 
+from evaluator.eval import *
 from request import Client
 from utils import *
 from validator.soundness_check import *
 
 
 class Step:
-    def __init__(self, prompter, composer=None, eos=None, validator=None):
+    def __init__(
+        self, prompter, composer=None, eos=None, validator=None, evaluator=None
+    ):
         self.prompter: Callable[
             [Optional[str]], Union[str, List[Dict[str, str]]]
         ] = prompter  # unified for both prompt and chat models
@@ -48,6 +54,7 @@ class Step:
         self.validator: Callable[
             [str], Tuple[bool, Optional[str], Optional[str]]
         ] = validator  # validate the code
+        self.evaluator: Callable[[str], float] = evaluator  # New: code -> score
 
         # add augmentation prompting
         self.aug_prompt = ""
@@ -55,12 +62,15 @@ class Step:
         self.counter_example = ""  # List to store counter examples
 
     def save_failure(self, error_generation: str, ce: str):
+        # just save one each time
+        self.error_generation = ""
+        self.counter_example = ""
         self.error_generation = self.error_generation + "\n" + error_generation + "\n"
         self.counter_example = self.counter_example + "\n" + ce + "\n"
 
     def prompter_with_augmentation(
-        self, old_prmpt: Union[str, List[Dict[str, str]]]
-    ) -> Union[str, List[Dict[str, str]]]:
+        self, old_prmpt: typing.Union[str, typing.List[typing.Dict[str, str]]]
+    ) -> typing.Union[str, typing.List[typing.Dict[str, str]]]:
         """
         Augments the original prompt with:
         - The previously generated (invalid) code
@@ -107,7 +117,11 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
         success = False
 
         code = ""
+        best_score = float("inf")  # start to search
+        best_code = ""  # sound or unsound
+
         while retry_count < MAX_RETRIES and not success:
+            GlobalState.gen_rounds_now += 1
 
             code = ""
             messages_or_prompt = step.prompter(code)
@@ -122,7 +136,8 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                 for _ in range(3)
             ]  # multiple(3) samples
 
-            # at most will save 3 wrong generations
+            # at most will save 1 wrong generations -> better than current best_code
+
             for sample_id, completion in enumerate(completions, start=1):
                 if "Model Generation Error" in completion:
                     logging.warning(
@@ -146,22 +161,41 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
 
                     if result:
                         success = True
+                        best_code = code
                         logging.info(
                             f"[STEP {index}] Sample {sample_id}: Validation passed."
                         )
-                        return True, code, ""
+                        return True, best_code, ""
                     else:  # TODO: augment the prompt with ce. Done.
                         if ce:
-                            step.save_failure(code, ce)
+                            # if have a ce, get the score first
                             logging.info(
-                                f"[STEP {index}] Sample {sample_id}: Validation failed. Get counter example: \n {ce}.\n"
+                                f"[STEP {index}] Sample {sample_id}: Validation failed. Get counter example: \n {ce}.\n Start to evaluate the deviation."
                             )
+
+                            score = step.evaluator(code)
+                            if score < best_score:
+                                logging.info(
+                                    f"best_score : score = {best_score} : {score}",
+                                )
+
+                                best_score = score  # update
+                                best_code = code
+
+                                step.save_failure(code, ce)
+                                GlobalState.ce_number_now += 1
+
+                                logging.info(
+                                    f"[STEP {index}] Sample {sample_id}: Get a 'better' unsound abstract transformer: \n{code}\n with the score {score}. Use it to guide the regeneration."
+                                )
+
                         else:
                             logging.info(
                                 f"[STEP {index}] Sample {sample_id}: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist."
                             )
                 else:
                     success = True
+                    best_code = code
                     break
 
             if not success:
@@ -174,14 +208,22 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                 break
 
         if not success:
-            return False, code, f"[STEP {index}] Failed after {MAX_RETRIES} retries."
+            return (
+                False,
+                best_code,
+                f"[STEP {index}] Failed after {MAX_RETRIES} retries.",
+            )
         else:
             break
 
-    return True, code, ""
+    return True, best_code, ""
 
 
 if __name__ == "__main__":
+    # global gen_rounds_now
+    # global repair_rounds_now
+    # global ce_number_now
+
     import argparse
     import os
 
@@ -212,8 +254,8 @@ if __name__ == "__main__":
         "-m",
         type=str,
         required=False,
-        default="deepseek",
-        help="Model keyword to select from model-port map. E.g., deepseek, llama-4, gpt-4.1",
+        default="gpt-4o",
+        help="Model keyword to select from model-port map. E.g., deepseek, llama-4, gpt-4.1, gpt-4o",
     )
 
     parser.add_argument(
@@ -227,10 +269,15 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    statistic = {}
+
     run_timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     run_dir = os.path.join("logs", run_timestamp)
     result_dir = os.path.join(run_dir, "results")
     log_path = os.path.join(run_dir, "generation.log")
+    statistic_dir = os.path.join(run_dir, "statistics")
+    os.makedirs(statistic_dir, exist_ok=True)
+    statistic_path = os.path.join(statistic_dir, "statistic.json")
 
     model_keyword = args.model.lower()
     certifier = args.certifier
@@ -287,28 +334,34 @@ if __name__ == "__main__":
     prefix = os.path.join(os.path.dirname(__file__), "prompt/prompts")
 
     with progress_bar as p:
-        overall_start_time = time()
+        overall_start_time = time.time()
 
-        for op_name in p.track(sorted(opt_list)):
-            op_start_time = time()
-            doc = {"api": op_name}
+        for model_name, url in MODEL_ENDPOINTS.items():
+            model_out_dir = os.path.join(result_dir, model_name)
+            success_dir = os.path.join(model_out_dir, "success")
+            failure_dir = os.path.join(model_out_dir, "failure")
 
-            logging.info(f"{datetime.now()} - Extracting {doc['api']}")
+            client = TGIClient(model=url, max_new_tokens=2048)
 
-            for model_name, url in MODEL_ENDPOINTS.items():
-                model_out_dir = os.path.join(result_dir, model_name)
-                success_dir = os.path.join(model_out_dir, "success")
-                failure_dir = os.path.join(model_out_dir, "failure")
+            if model_name not in statistic:
+                statistic[model_name] = []
+
+            for op_name in p.track(sorted(op_list)):  # TODO: change the opt list
+                op_start_time = time.time()
+                doc = {"api": op_name}
+
+                logging.info(f"{datetime.now()} - Extracting {doc['api']}")
                 api_name = doc["api"]
 
-                logging.info(f"\nAPI: {api_name} -> Model: {model_name} @ {url}")
-                client = TGIClient(model=url, max_new_tokens=2048)
+                GlobalState.gen_rounds_now = 0
+                GlobalState.repair_rounds_now = 0
+                GlobalState.ce_number_now = 0
 
-                def generate_dsl(api, dsl=None, debug=False) -> str:
+                logging.info(f"\nAPI: {api_name} -> Model: {model_name} @ {url}")
+
+                def generate_dsl(api, model, dsl=None, debug=False) -> str:
                     steps = []
-                    model_type = (
-                        "prompt" if "deepseek" in args.model.lower() else "chat"
-                    )
+                    model_type = "prompt" if "deepseek" in model.lower() else "chat"
                     is_chat = model_type == "chat"
 
                     def make_block_extractor(certifier: str):
@@ -344,6 +397,7 @@ if __name__ == "__main__":
                     validation = make_constraintflow_validator(
                         certifier, client, is_chat
                     )
+                    evaluator = make_constraintflow_evaluator(certifier)
 
                     if is_chat:
 
@@ -410,13 +464,14 @@ Output:
                             composer=extractor,
                             eos=["\n# END"],
                             validator=validation,
+                            evaluator=evaluator,
                         )
                     )
 
                     return step_by_step_gen(client, steps, is_chat)
 
-                result, code, error = generate_dsl(doc["api"])
-                op_end_time = time()
+                result, code, error = generate_dsl(doc["api"], model_name)
+                op_end_time = time.time()
                 op_time = op_end_time - op_start_time
                 logging.info(f"[{op_name}] Runtime: {op_time:.2f} seconds")
 
@@ -433,6 +488,26 @@ Output:
                         f.write(code)
                     logging.info(f"Succeed. Saved to {target_path}\n")
 
-        overall_end_time = time()
+                statistic[model_name].append(
+                    [
+                        op_name,
+                        GlobalState.gen_rounds_now,
+                        GlobalState.repair_rounds_now,
+                        GlobalState.ce_number_now,
+                        op_time,
+                        bool(result),
+                    ]
+                )
+        overall_end_time = time.time()
         total_runtime = overall_end_time - overall_start_time
-        logging.info(f"✅ Total runtime for all operators: {total_runtime:.2f} seconds")
+        statistic[model_name].append(
+            [total_runtime]
+        )  # the last list just have one element
+        logging.info(
+            f"✅ Total runtime for all operators with the model {model_name}: {total_runtime:.2f} seconds"
+        )
+
+    with open(statistic_path, "w") as f:
+        json.dump(statistic, f, indent=2)
+
+    draw_all(statistic, statistic_dir)

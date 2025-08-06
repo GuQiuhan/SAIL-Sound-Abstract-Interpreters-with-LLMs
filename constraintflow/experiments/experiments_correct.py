@@ -67,6 +67,8 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
 
     except Exception as e:
         # Any parsing/type-check/verifier error
+        print(str(e))
+
         return False, None
 
 
@@ -100,9 +102,23 @@ func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
 
 func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+func slopeL(Float l, Float u) = (1 - l) / (2*(u - l));
+func slopeU(Float l, Float u) = (u + 1) / (2*(u - l));
 
 transformer deeppoly{
-     Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]),0,0,0);
+    HardTanh ->
+        (prev[u] <= -1) ?
+            (-1, -1, -1, -1) :
+        (prev[l] >= 1) ?
+            (1, 1, 1, 1) :
+        ((prev[l] >= -1) and (prev[u] <= 1)) ?
+            (prev[l], prev[u], prev, prev) :
+        ((prev[l] < -1) and (prev[u] <= 1)) ?
+            (max(-1, prev[l]), prev[u], max(-1, prev[l]), prev[u]) :
+        ((prev[l] >= -1) and (prev[u] > 1)) ?
+            (prev[l], min(1, prev[u]), prev[l], min(1, prev[u])) :
+        (-1, 1, max(-1, prev[l]), min(1, prev[u]))
+    ;
 }
 
 flow(forward, priority, true, deeppoly);

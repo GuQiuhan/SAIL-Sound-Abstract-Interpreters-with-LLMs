@@ -223,4 +223,4 @@ if __name__ == "__main__":
 
 
 # READEME:
-# use `CUDA_VISIBLE_DEVICES=3 python models.py` to run this file in a seperate terminal
+# use `python models.py -m [gpt-4o]/[]..` to run this file in a seperate terminal

@@ -1,0 +1,116 @@
+2025-08-04 19:57:13,823 - INFO - 2025-08-04 19:57:13.823402 - Extracting Abs
+2025-08-04 19:57:13,823 - INFO -
+API: Abs -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
+2025-08-04 19:57:13,823 - INFO - [STEP 1] Starting step 1/1
+2025-08-04 19:57:21,360 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:57:21,553 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:57:21,553 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:57:21,571 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? ((0 - prev[u]), (0 - prev[l]), (0 - prev), (0 - prev)) : (0, max(prev[u], (0 - prev[l])), prev, ((prev[u]) / (prev[u] - prev[l])) * prev - ((2 * prev[u] * prev[l]) / (prev[u] - prev[l])) ));
+}
+2025-08-04 19:57:22,535 - INFO - [STEP 1] Sample 1: Validation passed.
+2025-08-04 19:57:22,535 - INFO - [Abs] Runtime: 8.71 seconds
+2025-08-04 19:57:22,535 - INFO - Succeed. Saved to logs/2025-08-04_19-57-13/results/gpt-4o/success/Abs.txt
+
+2025-08-04 19:57:22,535 - INFO - 2025-08-04 19:57:22.535479 - Extracting Affine
+2025-08-04 19:57:22,535 - INFO -
+API: Affine -> Model: gpt-4o @ http://ggnds-serv-01.cs.illinois.edu:8084
+2025-08-04 19:57:22,535 - INFO - [STEP 1] Starting step 1/1
+2025-08-04 19:57:32,594 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:57:32,725 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:57:32,726 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:57:36,951 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev..curr[weight] + curr[bias], curr, curr[layer]),
+        backsubs_upper(prev..curr[weight] + curr[bias], curr, curr[layer]),
+        prev..curr[weight] + curr[bias],
+        prev..curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:57:36,961 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev..curr[weight] + curr[bias], curr, curr[layer]),
+        backsubs_upper(prev..curr[weight] + curr[bias], curr, curr[layer]),
+        prev..curr[weight] + curr[bias],
+        prev..curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:57:36,961 - INFO - [Syntax Phase] Attempt 2
+2025-08-04 19:57:36,985 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:57:36,985 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:57:45,871 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev.curr[weight] + curr[bias], curr, curr[layer]),
+        backsubs_upper(prev.curr[weight] + curr[bias], curr, curr[layer]),
+        prev.curr[weight] + curr[bias],
+        prev.curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:57:45,882 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev.curr[weight] + curr[bias], curr, curr[layer]),
+        backsubs_upper(prev.curr[weight] + curr[bias], curr, curr[layer]),
+        prev.curr[weight] + curr[bias],
+        prev.curr[weight] + curr[bias]
+    );
+}
+2025-08-04 19:57:45,882 - INFO - [Syntax Phase] Attempt 3
+2025-08-04 19:57:45,905 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-08-04 19:57:45,905 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-08-04 19:57:56,326 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev.curr.weight + curr.bias, curr, curr.layer),
+        backsubs_upper(prev.curr.weight + curr.bias, curr, curr.layer),
+        prev.curr.weight + curr.bias,
+        prev.curr.weight + curr.bias
+    );
+}
+2025-08-04 19:57:56,336 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev.curr.weight + curr.bias, curr, curr.layer),
+        backsubs_upper(prev.curr.weight + curr.bias, curr, curr.layer),
+        prev.curr.weight + curr.bias,
+        prev.curr.weight + curr.bias
+    );
+}
+2025-08-04 19:57:56,340 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    Affine -> (
+        backsubs_lower(prev.curr.weight + curr.bias, curr, curr.layer),
+        backsubs_upper(prev.curr.weight + curr.bias, curr, curr.layer),
+        prev.curr.weight + curr.bias,
+        prev.curr.weight + curr.bias
+    );
+}
+2025-08-04 19:57:56,340 - INFO - [STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-08-04 19:57:56,346 - INFO - [Syntax Phase] Attempt 1
+2025-08-04 19:57:56,429 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-08-04 19:57:56,429 - INFO - [Semantic Phase] Attempt 1
+2025-08-04 19:57:56,438 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-08-04 19:57:56,952 - INFO - [STEP 1] Sample 2: Validation passed.
+2025-08-04 19:57:56,952 - INFO - [Affine] Runtime: 34.42 seconds
+2025-08-04 19:57:56,952 - INFO - Succeed. Saved to logs/2025-08-04_19-57-13/results/gpt-4o/success/Affine.txt
+
+2025-08-04 19:57:56,957 - INFO - ✅ Total runtime for all operators with the model gpt-4o: 43.14 seconds
