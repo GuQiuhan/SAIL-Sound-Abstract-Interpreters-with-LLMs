@@ -51,19 +51,20 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
         ce = []
         model = None
 
+        re = False
         # print(ret_dict)
         for op_name, result in ret_dict.items():
-            if len(result) == 3:
-                _n, v_, model = result
+            if len(result) == 4:
+                _n, v_, model, re = result
                 if v_ < 1.0 and isinstance(model, z3.ModelRef):
                     ce.append(f"Counterexample unsound for {op_name}:")
                     for d in model.decls():
                         ce.append(f"  {d.name()} = {model[d]}")
 
         if ce:
-            return False, "\n".join(ce)
+            return re, "\n".join(ce)
         else:
-            return True, None
+            return re, None
 
     except Exception as e:
         # Any parsing/type-check/verifier error
@@ -106,40 +107,25 @@ func slopeL(Float l, Float u) = (1 - l) / (2*(u - l));
 func slopeU(Float l, Float u) = (u + 1) / (2*(u - l));
 
 transformer deeppoly{
-    Relu6 ->
-        (prev[u] <= 0) ? (0, 0, 0, 0)
-        : (prev[l] >= 6) ? (6, 6, 6, 6)
-        : (prev[l] >= 0) ? (prev[l], min(prev[u], 6), prev[l], min(prev[u], 6))
-        : (prev[u] <= 6) ? (0, prev[u], 0, prev[u])
-        : (0, 6, 0, ((prev[u] / (prev[u] - prev[l])) * prev[l]) - ((prev[u] * prev[l]) / (prev[u] - prev[l])));
+    HardTanh ->
+        ((prev[l] >= 1)) ?
+            (1, 1, 1, 1)
+        : ((prev[u] <= -1)) ?
+            (-1, -1, -1, -1)
+        : ((prev[l] >= -1) and (prev[u] <= 1)) ?
+            (prev[l], prev[u], prev, prev)
+        : ((prev[l] < -1) and (prev[u] > 1)) ?
+            (-1, 1, ((prev - prev[l]) * (1 - (-1)) / (prev[u] - prev[l]) + (-1)), ((prev - prev[l]) * (1 - (-1)) / (prev[u] - prev[l]) + (-1)))
+        : ((prev[l] < -1) and (prev[u] <= 1)) ?
+            (-1, prev[u], -1, ((prev - prev[l]) * (1 - (-1)) / (prev[u] - prev[l]) + (-1)))
+        : ((prev[l] >= -1) and (prev[u] > 1)) ?
+            (prev[l], 1, prev, (1 - prev[u])/(prev[u] - prev[l]) * (prev - prev[l]) + 1)
+        :
+            (-1, 1, ((prev - prev[l]) * (1 - (-1)) / (prev[u] - prev[l]) + (-1)), ((prev - prev[l]) * (1 - (-1)) / (prev[u] - prev[l]) + (-1)));
 }
+
+
 flow(forward, priority, true, deeppoly);
     """
 
     print(run_verifier_from_str(dsl))
-"""
-    certifier = sys.argv[1]
-    nprev = int(sys.argv[2])
-    nsym = int(sys.argv[3])
-    ret_dict_correct = run_verifier(certifier, nprev, nsym)
-    basicops = list(ret_dict_correct.keys())
-
-    table = []
-    row1 = []
-    for b in basicops:
-        row1.append(b)
-        row1.append("")
-    table.append(["Certifier"]+row1)
-    heading = ['G', 'V']*len(basicops)
-    table.append([" "]+heading)
-    for c in [certifier]:
-        row = [c]
-        for b in basicops:
-            row += [round(ret_dict_correct[b][1], 3), round(ret_dict_correct[b][0], 3)]
-        table.append(row)
-    print()
-    print()
-    print(tabulate(table))
-
-
-"""

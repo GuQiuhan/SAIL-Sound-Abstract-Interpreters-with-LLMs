@@ -1,0 +1,3 @@
+transformer deeppoly{
+    HardTanh -> ((prev[u]) <= -1) ? (-1, -1, -1, -1) : (((prev[l]) >= 1) ? (1, 1, 1, 1) : (max(prev[l], -1), min(prev[u], 1), max(prev[l], -1), min(prev[u], 1)));
+}

@@ -1,4 +1,5 @@
 import logging
+import math
 import time
 import traceback
 from fractions import Fraction
@@ -817,26 +818,40 @@ class Evaluate(astVisitor.ASTVisitor):
                                     return simplify(substitute(z3expr, *subs))
 
                             try:
-                                # unsound ounds
+                                # unsound bounds
                                 result = evaluate_expr(vallist)
-                                # output of op, f(x)
-                                precise = evaluate_expr(exptemp)
-                                print(result)
-                                print(precise)
 
-                                """
+                                # output of op, f(x)
+                                fx = evaluate_expr(exptemp)
+                                print(result)
+                                print(fx)
+
                                 # get a list of inputs of op
                                 prev_vals = []
                                 prev_items = self.store.get("prev", [])
                                 if isinstance(prev_items, tuple):
                                     prev_items = [prev_items]
                                 for var_name, _ in prev_items:
-                                    val_z3 = evaluate_expr((Real(var_name), "Float"))
-                                    prev_vals.append(val_z3)
+                                    try:
+                                        if not isinstance(var_name, str):
+                                            var_name = str(var_name)
 
-                                results.append([result, precise, prev_vals])
-                                """
-                                results.append([result, precise])
+                                        val_z3 = evaluate_expr(
+                                            (Real(var_name), "Float")
+                                        )
+                                        prev_vals.append(val_z3)
+                                        print(
+                                            f"[evaluate] prev input {var_name} = {val_z3}"
+                                        )
+                                    except Exception as e:
+                                        print(
+                                            f"[warn] Failed to evaluate prev input {var_name}: {e}"
+                                        )
+                                        traceback.print_exc()
+                                        prev_vals = []
+                                        break
+
+                                results.append([result, fx, prev_vals])
 
                             except Exception as e:
                                 print(
@@ -850,6 +865,8 @@ class Evaluate(astVisitor.ASTVisitor):
                             # --- End: Evaluate bounds using model ---
 
                         return results
+
+                    return None
 
                 s.ss.tempC = []
 
@@ -900,85 +917,61 @@ class Evaluator:
 
     def phi(self, op: str, x: list) -> float:
         """
-        function-specific
+        Gradient-based importance function φ(op, x)
         - op: operator name
-        - x: list of inputs
-        Returns a float indicating the importance of input [x] for operator op.
+        - x: list of inputs (floats)
+        Returns a float importance score.
         """
-        return 1.0
 
-    """
-        try:
-            xi = None
-            if len(x) == 1:
-                xi = x[0]
-
-            if op == "Abs":
-                # peaks near 0
-                return np.exp(-abs(xi))
-
-            elif op == "Relu":
-                # Discontinuity at 0
-                return np.exp(-abs(x_i))
-
-            elif op == "Relu6":
-                # Discontinuities at 0 and 6
-                return np.exp(-abs(x_i)) + np.exp(-abs(x_i - 6))
-
-            elif op == "HardTanh":
-                # Saturation at [-1, 1]
-                return np.exp(-abs(x_i - 1)) + np.exp(-abs(x_i + 1))
-
-            elif op == "HardSigmoid":
-                # Clipping range [-3, 3]
-                return np.exp(-abs(xi + 3)) + np.exp(-abs(xi - 3))
-
-            elif op == "HardSwish":
-                # Piecewise behavior around [0, 3]
-                return np.exp(-abs(xi)) + np.exp(-abs(xi - 3))
-
-            elif op == "Tanh":
-                # Gradient is maximal at x = 0
-                return 1 - np.tanh(xi) ** 2
-
-            elif op == "Neuron_add":
-                # linear
-                #return abs(x_i)
-                return 1.0
-
-            elif op == "Neuron_mult":
-                return 1.0
-
-            elif op == "Neuron_max":
-                # More variation, more important the maximum
-                return np.exp(-abs(max(x) - min(x)))
-
-            elif op == "Neuron_min":
-                return np.exp(-abs(max(x) - min(x)))
-
-            elif op == "Maxpool":
-                # Emphasize when variance is high (pooling is sensitive)
-                return np.var(x)
-
-            elif op == "Minpool":
-                return np.var(x)
-
-            elif op == "Avgpool":
-                # Emphasize when mean is small (could flip sign)
-                return 1 / (1 + abs(np.mean(x)))
-
-            elif op == "Affine":
-                # linear
-                #return abs(x_i)
-                return 1.0
-
-            else:
-                # default
-                return 1.0
-
-        except:
+        if x is None or len(x) == 0:
             return 1.0
-    """
+
+        eps = 1e-3  # finite difference step
+        grad_norm = 0.0
+
+        def op_fn(op, x):
+            if op == "Abs":
+                return abs(x[0])
+            elif op == "Relu":
+                return max(0.0, x[0])
+            elif op == "Relu6":
+                return max(0.0, min(x[0], 6.0))
+            elif op == "HardTanh":
+                return max(-1.0, min(x[0], 1.0))
+            elif op == "HardSigmoid":
+                return max(0.0, min((x[0] + 3) / 6, 1.0))
+            elif op == "HardSwish":
+                return x[0] * max(0.0, min((x[0] + 3) / 6, 1.0))
+            elif op == "Tanh":
+                return np.tanh(x[0])
+            elif op == "Neuron_add":
+                return sum(x)
+            elif op == "Neuron_mult":
+                return np.prod(x)
+            elif op == "Neuron_max":
+                return max(x)
+            elif op == "Neuron_min":
+                return min(x)
+            elif op == "Maxpool" or op == "Minpool":
+                return np.max(x) if op == "Maxpool" else np.min(x)
+            elif op == "Avgpool":
+                return np.mean(x)
+            elif op == "Affine":
+                return sum(x)  # Simplified linear form
+            else:
+                return sum(x)  # Fallback
+
+        # Compute gradient estimate for each input x_i
+        for i, x_i in enumerate(x):
+            x_pos = x.copy()
+            x_neg = x.copy()
+            x_pos[i] += eps
+            x_neg[i] -= eps
+            grad_i = (op_fn(op, x_pos) - op_fn(op, x_neg)) / (2 * eps)
+            grad_norm += abs(grad_i)
+
+        # print(np.log1p(np.exp(grad_norm)))
+        return np.log1p(np.exp(grad_norm))  # softplus, avoid get 0
 
     def Ds(self, code: str, certifier: str):
         """
@@ -999,7 +992,11 @@ class Evaluator:
                 weights = 0
 
                 for r in results:
-                    x = None
+                    if r[2] is None:
+                        x = None
+                    else:
+                        x = [self.z3_val_to_float(v) for v in r[2]]
+
                     weights += self.phi(op, x)
 
                 for r in results:
@@ -1009,9 +1006,14 @@ class Evaluator:
                     L = self.z3_val_to_float(r[0][2])
                     U = self.z3_val_to_float(r[0][3])
                     fx = self.z3_val_to_float(r[1])
-                    x = None
+
+                    if r[2] is None:
+                        x = None
+                    else:
+                        x = [self.z3_val_to_float(v) for v in r[2]]
+
                     w = self.phi(op, x) / weights
-                    # print("w:", w)
+
                     sum += (
                         max(0, l - fx)
                         + max(0, fx - u)
@@ -1031,6 +1033,7 @@ class Evaluator:
             logging.info(
                 f"\n⚠️ [Unsound Transformer Evaluation] Evaluation failed: {str(e)}.\n Set the evaluation to 10000000.\n"
             )
+            traceback.print_exc()
 
             return float("inf")  # something wrong happened, set it with a big value
 
@@ -1075,11 +1078,7 @@ transformer deeppoly{
         : (prev[u] <= -3) ?
             (0, 0, 0, 0)
         :
-            (
-                f1(prev[l]),
-                f3(prev),
-                slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]),
-                f3(prev)
+            (1,1,1,1
             );
 }
 

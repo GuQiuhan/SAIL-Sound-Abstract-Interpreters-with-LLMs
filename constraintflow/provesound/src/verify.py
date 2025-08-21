@@ -649,11 +649,15 @@ class Verify(astVisitor.ASTVisitor):
             # @qiuhan
             counterex = None
             z3_model = None
+            result = False
             try:
                 self.applyTrans(leftC, vallist, s, curr_prime, computation)
+                result = True
                 print(f"Proved {op_}")
             except Exception as e:
-                # print(f"Transformer unsound for {op_}")
+                print(f"Transformer unsound for {op_}")
+                result = False
+                # traceback.print_exc()
                 if len(e.args) > 1:
                     z3_model = e.args[1]
                     # if isinstance(z3_model, z3.ModelRef):
@@ -665,6 +669,7 @@ class Verify(astVisitor.ASTVisitor):
                 get_verification_time(),
                 get_generation_time(),
                 z3_model,  # @qiuhan: save the counterexample
+                result,
             )
 
             reset_time()

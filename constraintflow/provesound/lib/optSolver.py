@@ -225,26 +225,29 @@ class OptSolver:
             if not ret:
                 # return False
                 # @qiuhan: Unsound->try to get counterexample
-                solver = Solver()
-                solver.add(Not(Implies(i[0], i[1])))
-                count = 0
-                while solver.check() == sat and count < self.max_models:
-                    m = solver.model()
-                    self.models.append(m)
-                    if count == 0:
-                        self.last_model = m  # for the verifier
+                try:
+                    solver = Solver()
+                    solver.add(Not(Implies(i[0], i[1])))
+                    count = 0
+                    while solver.check() == sat and count < self.max_models:
+                        m = solver.model()
+                        self.models.append(m)
+                        if count == 0:
+                            self.last_model = m  # for the verifier
 
-                    block = []
-                    for d in m.decls():
-                        var = d()
-                        val = m[var]
-                        if is_int_value(val) or is_rational_value(val):
-                            block.append(var != val)
-                    if block:
-                        solver.add(Or(block))
-                    else:
-                        break
-                    count += 1
-
+                        block = []
+                        for d in m.decls():
+                            if d.arity() == 0:
+                                var = d()
+                                val = m[var]
+                                if is_int_value(val) or is_rational_value(val):
+                                    block.append(var != val)
+                        if block:
+                            solver.add(Or(block))
+                        else:
+                            break
+                        count += 1
+                except Exception as e:
+                    print(f"[error] Failed to extract counterexamples from Z3: {e}")
                 return False
         return True

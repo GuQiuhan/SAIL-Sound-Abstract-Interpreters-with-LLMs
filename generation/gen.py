@@ -141,13 +141,23 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
             for sample_id, completion in enumerate(completions, start=1):
                 if "Model Generation Error" in completion:
                     logging.warning(
-                        f"[STEP {index}] Sample {sample_id}: Model Generation Error"
+                        f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Model Generation Error"
                     )
                     continue
                 code = step.composer("", completion, code)
 
-                print(f"[STEP {index}] Sample {sample_id}: Completion:\n{completion}\n")
-                print(f"[STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}\n")
+                print(
+                    f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Completion:\n{completion}\n"
+                )
+                print(
+                    f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}\n"
+                )
+
+                if code == "":
+                    logging.warning(
+                        f"[STEP {index}] Sample {sample_id}: No valid generation: \n{completion}\n"
+                    )
+                    continue
 
                 if step.validator:
                     result = False
@@ -155,7 +165,7 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                         result, ce, code = step.validator(code)
                     except Exception as e:
                         logging.warning(
-                            f"[STEP {index}] Sample {sample_id}: Validator exception. Full traceback:\n{traceback.format_exc()}\nCode:\n{code}\n"
+                            f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validator exception. Full traceback:\n{traceback.format_exc()}\nCode:\n{code}\n"
                         )
 
                         result, ce = False, ""
@@ -164,14 +174,14 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                         success = True
                         best_code = code
                         logging.info(
-                            f"[STEP {index}] Sample {sample_id}: Validation passed for code: \n{best_code}."
+                            f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation passed for code: \n{best_code}."
                         )
                         return True, best_code, ""
                     else:  # TODO: augment the prompt with ce. Done.
                         if ce:
                             # if have a ce, get the score first
                             logging.info(
-                                f"[STEP {index}] Sample {sample_id}: Validation failed. Get counter example: \n {ce}.\n Start to evaluate the deviation."
+                                f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation failed. Get counter example: \n {ce}.\n Start to evaluate the deviation."
                             )
 
                             score = step.evaluator(code)
@@ -187,12 +197,12 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                                 GlobalState.ce_number_now += 1
 
                                 logging.info(
-                                    f"[STEP {index}] Sample {sample_id}: Get a 'better' unsound abstract transformer: \n{code}\n with the score {score}. Use it to guide the regeneration."
+                                    f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Get a 'better' unsound abstract transformer: \n{code}\n with the score {score}. Use it to guide the regeneration."
                                 )
 
                         else:
                             logging.info(
-                                f"[STEP {index}] Sample {sample_id}: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist."
+                                f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist."
                             )
                 else:
                     success = True
@@ -202,7 +212,7 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
             if not success:
                 retry_count += 1
                 logging.info(
-                    f"[STEP {index}] All {len(completions)} samples failed validation. Retrying {retry_count}/{MAX_RETRIES}..."
+                    f"[RETRY {retry_count} STEP {index}] All {len(completions)} samples failed validation. Retrying {retry_count}/{MAX_RETRIES}..."
                 )
 
             else:
@@ -256,7 +266,22 @@ if __name__ == "__main__":
         type=str,
         required=False,
         nargs="+",  # multiple models
-        choices=["llama-3.3", "llama-4", "deepseek", "gpt-4o", "gpt-4.1", "o4-mini"],
+        choices=[
+            "llama",
+            "llama-3.3",
+            "llama-4",
+            "deepseek",
+            "gpt-4o",
+            "gpt-4.1",
+            "o4-mini",
+            "gpt-5",
+            "gpt-oss",
+            "jamba",
+            "titan",
+            "nova",
+            "claude",
+            "mistral",
+        ],
         default=["gpt-4o"],
         help="Model keyword to select from model-port map. E.g., deepseek, llama-4, gpt-4.1, gpt-4o",
     )
@@ -292,14 +317,16 @@ if __name__ == "__main__":
     for certifier in certifiers:
         result_dir = os.path.join(results_dir, certifier)
 
+        # @qiuhan: TODO: allow multiple models. Done.
+        MODEL_ENDPOINTS = {}
         for model_keyword in model_keywords:
-
-            if model_keyword not in PORT_MAP:
-                raise ValueError(f"Model {model_keyword} not found in PORT_MAP.")
-
-        MODEL_ENDPOINTS = {model: PORT_MAP[model] for model in model_keywords}
-
-        # @qiuhan: TODO: allow multiple models
+            matched = False
+            for model_name, endpoint in PORT_MAP.items():
+                if model_keyword in model_name.lower():
+                    MODEL_ENDPOINTS[model_name] = endpoint
+                    matched = True
+            if not matched:
+                raise ValueError(f"No models matched keywords: {model_keyword}. ")
 
         for model_name in MODEL_ENDPOINTS:
             model_out_dir = os.path.join(result_dir, model_name)
@@ -339,7 +366,10 @@ if __name__ == "__main__":
         prefix = os.path.join(os.path.dirname(__file__), "prompt/prompts")
 
         with progress_bar as p:
-            for model_name, url in MODEL_ENDPOINTS.items():
+            for model_name, endpoint_info in MODEL_ENDPOINTS.items():
+                url = endpoint_info["url"]
+                model_type = endpoint_info["mode"]
+
                 statistic = {}
                 overall_start_time = time.time()
 
@@ -381,41 +411,73 @@ if __name__ == "__main__":
 
                     def generate_dsl(api, model, dsl=None, debug=False) -> str:
                         steps = []
-                        model_type = "prompt" if "deepseek" in model.lower() else "chat"
+
                         is_chat = model_type == "chat"
 
-                        def make_block_extractor(certifier: str):
+                        def make_block_extractor(certifier: str, api: str):
+                            """
+                            Search for patterns of the form:
+                                transformer <keyword> { ... <api> ... }
+                            - <keyword> is provided by the certifier
+                            - Whitespace/newlines may vary
+                            - <api> must be matched as a whole word
+                            - Curly braces {} must be balanced; otherwise, return an empty string
+                            - If no block contains the <api>, return an empty string
+                            - If multiple blocks match, return the LAST matching block
+                            """
                             keyword = certifier.lower()  # "deeppoly", "ibp", "deepz"
 
-                            def extract_constraintflow_block(prmpt, cmpl, code) -> str:
-                                """
-                                Extract everything starting from the correct transformer keyword (deeppoly, ibp, deepz)
-                                until the closing brace '}' that balances the opening one.
-                                """
-                                match = re.search(
-                                    rf"({re.escape(keyword)}\s*\{{)", cmpl
-                                )
-                                if not match:
-                                    return ""
+                            start_re = re.compile(
+                                rf"transformer\s+{re.escape(keyword)}\s*\{{",
+                                re.IGNORECASE | re.DOTALL,
+                            )
 
-                                start_idx = match.start()
-                                brace_count = 0
-                                for i in range(start_idx, len(cmpl)):
-                                    if cmpl[i] == "{":
-                                        brace_count += 1
-                                    elif cmpl[i] == "}":
-                                        brace_count -= 1
-                                        if brace_count == 0:
-                                            return (
-                                                "transformer "
-                                                + cmpl[start_idx : i + 1].strip()
-                                            )
+                            api_pat = re.compile(
+                                rf"\b{re.escape(api)}\b", re.IGNORECASE
+                            )
 
-                                return "transformer " + cmpl[start_idx:].strip()
+                            def extract_constraintflow_block(
+                                prmpt, cmpl: str, code
+                            ) -> str:
+                                pos = 0
+                                n = len(cmpl)
+                                last_match_block = ""
+
+                                while True:
+                                    m = start_re.search(cmpl, pos)
+                                    if not m:
+                                        return last_match_block
+
+                                    start_idx = m.start()  # 'transformer'
+                                    brace_start = m.end() - 1  # '{'
+
+                                    brace_count = 0
+                                    i = brace_start
+                                    block_end = None
+                                    while i < n:
+                                        ch = cmpl[i]
+                                        if ch == "{":
+                                            brace_count += 1
+                                        elif ch == "}":
+                                            brace_count -= 1
+                                            if brace_count == 0:
+                                                block_end = i + 1
+                                                break
+                                        i += 1
+
+                                    if block_end is None:
+                                        return ""
+
+                                    block_text = cmpl[start_idx:block_end].strip()
+
+                                    if api_pat.search(block_text):
+                                        last_match_block = block_text
+
+                                    pos = block_end
 
                             return extract_constraintflow_block
 
-                        extractor = make_block_extractor(certifier)
+                        extractor = make_block_extractor(certifier, api)
                         validation = make_constraintflow_validator(
                             certifier, client, is_chat
                         )

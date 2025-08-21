@@ -45,7 +45,7 @@ class TGIClient(Client):
         try:
             response = requests.post(url, headers=headers, json=data)
             response.raise_for_status()
-            return response.json().get("generated_texts", [])[0].strip("[]")
+            return response.json().get("generated_texts", [[]])
             # return response.json().get("generated_texts", [])[-1]["content"].strip("[]")
         except Exception as e:
             return f"Model Generation Error: {type(e).__name__}"
@@ -96,7 +96,7 @@ class TGIClient(Client):
 
 
 if __name__ == "__main__":
-    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8084")
+    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:6053")
 
     CONSTRAINTFLOW = """
 DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).
@@ -143,7 +143,28 @@ Don't add comments to DSL.
         {"role": "assistant", "content": prmpt_abs},
         {"role": "user", "content": "Generate the transformer for `relu6` operator "},
     ]
+
+    prompt = f"""
+    {CONSTRAINTFLOW}
+
+    ### Example: ReLU operator
+    Input: Generate the transformer for `relu` operator
+    Output:
+    {prmpt_relu}
+
+    ### Example: Abs operator
+    Input: Generate the transformer for `abs` operator
+    Output:
+    {prmpt_abs}
+
+
+    ### Now generate the transformer for `relu6` operator
+    Input: Generate the transformer for `relu6` operator
+    Output:
+    """
+
     output = client.chat(messages=message)
+    # output = client.textgen(prompt = prompt)
 
     print(output)
 

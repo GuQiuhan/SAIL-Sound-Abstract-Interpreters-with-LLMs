@@ -2,29 +2,212 @@
 Please change the configuration accordingly before using this tool.
 """
 
-
+# for models.py
 # set models to use
 MODEL_PORT_PAIRS = [
-    {"model": "meta-llama/Llama-3.3-70B-Instruct", "port": 8081, "type": "hf"},
-    {"model": "meta-llama/Llama-4-Scout-17B-16E-Instruct", "port": 8080, "type": "hf"},
+    # {"model": "meta-llama/Llama-3.3-70B-Instruct", "port": 8081, "type": "hf", "mode": "text"},
+    # {"model": "meta-llama/Llama-4-Scout-17B-16E-Instruct", "port": 8080, "type": "hf", "mode": "text"},
+    # {
+    #    "model": "/share/.cache/.../DeepSeek-Coder-V2-Lite-Instruct/…",
+    #    "port": 8082,
+    #    "type": "vllm",
+    #    "mode": "text",
+    # },
+    {"model": "gpt-4.1", "port": 8083, "type": "openai", "mode": "chat"},
+    {"model": "gpt-4o", "port": 8084, "type": "openai", "mode": "chat"},
+    {"model": "o4-mini", "port": 8085, "type": "openai", "mode": "chat"},
+    {"model": "gpt-5", "port": 8086, "type": "openai", "mode": "chat"},
+    # — AWS Bedrock models
+    # AI21 (prompt only)
+    {"model": "ai21.jamba-1-5-mini-v1:0", "type": "aws", "port": 6000, "mode": "text"},
+    {"model": "ai21.jamba-1-5-large-v1:0", "type": "aws", "port": 6001, "mode": "text"},
+    # Amazon Titan Text (prompt only)
     {
-        "model": "/share/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-Coder-V2-Lite-Instruct/snapshots/e434a23f91ba5b4923cf6c9d9a238eb4a08e3a11",
-        "port": 8082,
-        "type": "vllm",
+        "model": "amazon.titan-text-premier-v1:0",
+        "type": "aws",
+        "port": 6002,
+        "mode": "text",
     },
-    {"model": "gpt-4.1", "port": 8083, "type": "hf"},
-    {"model": "gpt-4o", "port": 8084, "type": "hf"},
-    {"model": "o4-mini", "port": 8085, "type": "hf"},
+    {"model": "amazon.titan-text-lite-v1", "type": "aws", "port": 6004, "mode": "text"},
+    {
+        "model": "amazon.titan-text-express-v1",
+        "type": "aws",
+        "port": 6005,
+        "mode": "text",
+    },
+    # nova supports chat mode, here we use text gen
+    {"model": "amazon.nova-pro-v1:0", "type": "aws", "port": 6010, "mode": "text"},
+    {"model": "amazon.nova-lite-v1:0", "type": "aws", "port": 6011, "mode": "text"},
+    {"model": "amazon.nova-micro-v1:0", "type": "aws", "port": 6012, "mode": "text"},
+    {
+        "model": "us.amazon.nova-premier-v1:0",
+        "type": "aws",
+        "port": 6013,
+        "mode": "text",
+    },
+    # Anthropic Claude (chat)
+    # {"model": "anthropic.claude-instant-v1", "type": "aws", "port": 6017, "mode": "chat"},
+    # {"model": "anthropic.claude-v2:1", "type": "aws", "port": 6019, "mode": "chat"},
+    # {"model": "anthropic.claude-3-sonnet-20240229-v1:0", "type": "aws", "port": 6020, "mode": "chat"},
+    # {"model": "anthropic.claude-3-haiku-20240307-v1:0",  "type": "aws", "port": 6021, "mode": "chat"},
+    # {"model": "anthropic.claude-3-5-sonnet-20240620-v1:0","type": "aws", "port": 6022, "mode": "chat"},
+    # {"model": "anthropic.claude-3-7-sonnet-20250219-v1:0", "type": "aws", "port": 6025, "mode": "chat"},
+    {
+        "model": "us.anthropic.claude-sonnet-4-20250514-v1:0",
+        "type": "aws",
+        "port": 6026,
+        "mode": "chat",
+    },
+    {
+        "model": "us.anthropic.claude-opus-4-1-20250805-v1:0",
+        "type": "aws",
+        "port": 6027,
+        "mode": "chat",
+    },
+    {
+        "model": "us.anthropic.claude-opus-4-20250514-v1:0",
+        "type": "aws",
+        "port": 6028,
+        "mode": "chat",
+    },
+    # DeepSeek
+    # mostly reansoing
+    {"model": "deepseek.deepseek-r1-v1:0", "type": "aws", "port": 6035, "mode": "text"},
+    # Meta Llama Instruct (prompt only)
+    # {"model": "meta.llama3-8b-instruct-v1:0", "type": "aws", "port": 6036, "mode": "text"},
+    # {"model": "meta.llama3-70b-instruct-v1:0", "type": "aws", "port": 6037, "mode": "text"},
+    # {"model": "meta.llama3-1-8b-instruct-v1:0", "type": "aws", "port": 6038, "mode": "text"},
+    # {"model": "meta.llama3-1-70b-instruct-v1:0", "type": "aws", "port": 6039, "mode": "text"},
+    # {"model": "meta.llama3-2-1b-instruct-v1:0", "type": "aws", "port": 6040, "mode": "text"},
+    # {"model": "meta.llama3-2-3b-instruct-v1:0", "type": "aws", "port": 6041, "mode": "text"},
+    # {"model": "meta.llama3-2-11b-vision-instruct-v1:0", "type": "aws", "port": 6042, "mode": "text"},
+    # {"model": "meta.llama3-2-90b-vision-instruct-v1:0", "type": "aws", "port": 6043, "mode": "text"},
+    {
+        "model": "us.meta.llama3-3-70b-instruct-v1:0",
+        "type": "aws",
+        "port": 6044,
+        "mode": "text",
+    },
+    {
+        "model": "us.meta.llama4-scout-17b-instruct-v1:0",
+        "type": "aws",
+        "port": 6045,
+        "mode": "text",
+    },
+    {
+        "model": "us.meta.llama4-maverick-17b-instruct-v1:0",
+        "type": "aws",
+        "port": 6046,
+        "mode": "text",
+    },
+    # Mistral Instruct (prompt only)
+    # {"model": "mistral.mistral-7b-instruct-v0:2", "type": "aws", "port": 6047, "mode": "text"},
+    {
+        "model": "mistral.mixtral-8x7b-instruct-v0:1",
+        "type": "aws",
+        "port": 6048,
+        "mode": "text",
+    },
+    {
+        "model": "mistral.mistral-large-2402-v1:0",
+        "type": "aws",
+        "port": 6049,
+        "mode": "chat",
+    },
+    # {"model": "mistral.mistral-small-2402-v1:0", "type": "aws", "port": 6050, "mode": "text"},
+    # {"model": "us.mistral.pixtral-large-2502-v1:0", "type": "aws", "port": 6051, "mode": "text"},
+    # OpenAI
+    # mostly reansoing
+    {"model": "openai.gpt-oss-20b-1:0", "type": "aws", "port": 6052, "mode": "chat"},
+    {"model": "openai.gpt-oss-120b-1:0", "type": "aws", "port": 6053, "mode": "chat"},
 ]
 
 # for gen.py
 PORT_MAP = {
-    "deepseek": "http://ggnds-serv-01.cs.illinois.edu:8082",
-    "llama-3.3": "http://ggnds-serv-01.cs.illinois.edu:8081",
-    "llama-4": "http://ggnds-serv-01.cs.illinois.edu:8080",
-    "gpt-4.1": "http://ggnds-serv-01.cs.illinois.edu:8083",
-    "gpt-4o": "http://ggnds-serv-01.cs.illinois.edu:8084",
-    "o4-mini": "http://ggnds-serv-01.cs.illinois.edu:8085",
+    "gpt-4.1": {"url": "http://ggnds-serv-01.cs.illinois.edu:8083", "mode": "chat"},
+    "gpt-4o": {"url": "http://ggnds-serv-01.cs.illinois.edu:8084", "mode": "chat"},
+    "o4-mini": {"url": "http://ggnds-serv-01.cs.illinois.edu:8085", "mode": "chat"},
+    "gpt-5": {"url": "http://ggnds-serv-01.cs.illinois.edu:8086", "mode": "chat"},
+    "ai21.jamba-1-5-mini-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6000",
+        "mode": "text",
+    },
+    "ai21.jamba-1-5-large-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6001",
+        "mode": "text",
+    },
+    "amazon.titan-text-premier-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6002",
+        "mode": "text",
+    },
+    "amazon.titan-text-lite-v1": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6004",
+        "mode": "text",
+    },
+    "amazon.titan-text-express-v1": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6005",
+        "mode": "text",
+    },
+    "amazon.nova-pro-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6010",
+        "mode": "text",
+    },
+    "amazon.nova-lite-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6011",
+        "mode": "text",
+    },
+    "amazon.nova-micro-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6012",
+        "mode": "text",
+    },
+    "us.amazon.nova-premier-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6013",
+        "mode": "text",
+    },
+    "us.anthropic.claude-sonnet-4-20250514-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6026",
+        "mode": "chat",
+    },
+    "us.anthropic.claude-opus-4-1-20250805-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6027",
+        "mode": "chat",
+    },
+    "us.anthropic.claude-opus-4-20250514-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6028",
+        "mode": "chat",
+    },
+    "deepseek.deepseek-r1-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6035",
+        "mode": "text",
+    },
+    "us.meta.llama3-3-70b-instruct-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6044",
+        "mode": "text",
+    },
+    "us.meta.llama4-scout-17b-instruct-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6045",
+        "mode": "text",
+    },
+    "us.meta.llama4-maverick-17b-instruct-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6046",
+        "mode": "text",
+    },
+    "mistral.mixtral-8x7b-instruct-v0:1": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6048",
+        "mode": "text",
+    },
+    "mistral.mistral-large-2402-v1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6049",
+        "mode": "chat",
+    },
+    "openai.gpt-oss-20b-1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6052",
+        "mode": "chat",
+    },
+    "openai.gpt-oss-120b-1:0": {
+        "url": "http://ggnds-serv-01.cs.illinois.edu:6053",
+        "mode": "chat",
+    },
 }
 
 # set max retry time every turn

@@ -6,3 +6,4 @@ list_structure.py
 *.egg-info/
 *tmp*
 *key.py*
+test.py
