@@ -1021,6 +1021,59 @@ class Evaluator:
                         + max(0, fx - U)
                     ) * w
 
+            elif certifier == "deepz":
+                weights = 0
+
+                for r in results:
+                    if r[2] is None:
+                        x = None
+                    else:
+                        x = [self.z3_val_to_float(v) for v in r[2]]
+
+                    weights += self.phi(op, x)
+
+                for r in results:
+
+                    l = self.z3_val_to_float(r[0][0])
+                    u = self.z3_val_to_float(r[0][1])
+                    z = self.z3_val_to_float(r[0][2])
+                    fx = self.z3_val_to_float(r[1])
+
+                    if r[2] is None:
+                        x = None
+                    else:
+                        x = [self.z3_val_to_float(v) for v in r[2]]
+
+                    w = self.phi(op, x) / weights
+
+                    sum += (max(0, l - fx) + max(0, fx - u) + max(0, fx - z)) * w
+
+            elif certifier == "ibp":
+                weights = 0
+
+                for r in results:
+                    if r[2] is None:
+                        x = None
+                    else:
+                        x = [self.z3_val_to_float(v) for v in r[2]]
+
+                    weights += self.phi(op, x)
+
+                for r in results:
+
+                    l = self.z3_val_to_float(r[0][0])
+                    u = self.z3_val_to_float(r[0][1])
+                    fx = self.z3_val_to_float(r[1])
+
+                    if r[2] is None:
+                        x = None
+                    else:
+                        x = [self.z3_val_to_float(v) for v in r[2]]
+
+                    w = self.phi(op, x) / weights
+
+                    sum += (max(0, l - fx) + max(0, fx - u)) * w
+
             else:
                 pass
 
@@ -1029,6 +1082,7 @@ class Evaluator:
             )
 
             return sum
+
         except Exception as e:
             logging.info(
                 f"\n⚠️ [Unsound Transformer Evaluation] Evaluation failed: {str(e)}.\n Set the evaluation to 10000000.\n"
@@ -1071,15 +1125,8 @@ def make_constraintflow_evaluator(certifier: str):
 if __name__ == "__main__":
 
     dsl = """
-transformer deeppoly{
-    HardSwish ->
-        (prev[l] >= 3) ?
-            (prev[l], prev[u], prev, prev)
-        : (prev[u] <= -3) ?
-            (0, 0, 0, 0)
-        :
-            (1,1,1,1
-            );
+transformer ibp{
+    Abs -> (((prev[l]) >= 0) ? ((prev[l]), (prev[u])) : (((prev[u]) <= 0) ? (-prev[u], -prev[l]) : (1, max(-prev[l], prev[u]))));
 }
 
     """
@@ -1087,7 +1134,7 @@ transformer deeppoly{
     # ce_string2 = "Prev0_l_5 = -5\nPrev0_U_8 = 1\nPrev0 = 1\nCurr_u_2 = 0\nPrev0_u_6 = -5\nPrev0_L_7 = 1\nCurr_U_4 = 0\nCurr = 0\ncurr_prime0 = 0\nCurr_l_1 = 0\nCurr_L_3 = 0"
     # ce_string3 = "V13_l_14 = 0\n  Curr_u_2 = 1\n  Prev0_u_6 = 0\n  V13_u_15 = 0\n  Curr_L_3 = 1\n  Prev0_L_7 = 0\n  curr_prime0 = 1\n  V13_L_16 = 0\n  Curr_U_4 = 1\n  out_trav_X19 = 1\n  Prev0_U_8 = 0\n  Curr_l_1 = 1\n  V13_U_17 = 0\n  Prev0_l_5 = 0\n  out_trav_X23 = 1\n  V13 = 0\n  out_trav_c24 = 0\n  out_trav_c20 = 0\n  Prev0 = 0\n  prevLength = 1\n  weight_curr0_9 = 0\n  bias_curr10 = 1\n  Curr = 1"
 
-    evaluator = make_constraintflow_evaluator("deeppoly")
+    evaluator = make_constraintflow_evaluator("ibp")
     print(evaluator(dsl))
 
 

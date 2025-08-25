@@ -297,6 +297,9 @@ Function you can use:
 - func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
 - func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 - func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
+- func avg(List<Float> xs) = sum(xs) / len(xs);
+- func argmax(List<Neuron> ns, (Neuron, Neuron -> Bool) cmp) = [ n | n in ns, forall m in ns. cmp(n, m) ];
+- func argmin(List<Neuron> ns, (Neuron, Neuron -> Bool) cmp) = [ n | n in ns, forall m in ns. cmp(n, m) ];
 
 Don't add comments to DSL.
 """
@@ -693,7 +696,8 @@ flow(forward, priority, true, deeppoly);
 
 
 op_list_test = [
-    "Abs",
+    "Avgpool",
+    "HardSwish",
 ]
 
 

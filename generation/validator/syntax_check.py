@@ -46,6 +46,16 @@ class SyntaxChecker:
         self.metadata = ["WEIGHT", "BIAS", "EQUATIONS", "LAYER"]
 
     def check(self, dsl: str) -> tuple[bool, str, Optional[str]]:
+        def replace_epsilon(code: str) -> str:
+            """
+            Replace EPSILON with eps
+            """
+            import re
+
+            return re.sub(r"\bEPSILON\b", "eps", code)
+
+        dsl = replace_epsilon(dsl)
+
         last_attempt = None
 
         for attempt in range(self.MAX_RETRIES):
@@ -95,6 +105,12 @@ class SyntaxChecker:
                     last_attempt = (
                         'Issue Type: Metadata used as quoted string (e.g., "layer").'
                     )
+
+                elif "EPSILON" in dsl:
+                    print("here")
+                    print("❗ Detected EPSILON keyword. Attempting to fix.")
+                    dsl = self.fix_epsilon(dsl)
+                    last_attempt = "Issue Type: EPSILON keyword replaced with eps."
 
                 else:
                     print("❗ Syntax error but unknown cause.")
@@ -246,6 +262,18 @@ class SyntaxChecker:
 
         return "".join(new_code_parts)
 
+    def fix_epsilon(self, code: str) -> str:
+        """
+        Fixes EPSILON to eps
+        """
+        pattern = re.compile(r"\bEPSILON\b")
+
+        def replace(match):
+            print(f"⚠️ [Fixed] Rewriting 'EPSILON' → 'eps'")
+            return "eps"
+
+        return pattern.sub(replace, code)
+
     def fix_invalid_attribute_calls(self, code: str) -> str:
         """
         Fixes `expr.sum`, `expr.avg`, `expr.len` → `sum(expr)` etc.
@@ -297,11 +325,12 @@ class SyntaxChecker:
 
 if __name__ == "__main__":
     dsl = """
-transformer deeppoly {
-    Avgpool -> (
-        (curr["layer"]),
-       0,0,0
-    );
+transformer deepz{
+    Abs -> ((prev[l]) >= 0) ?
+                ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) <= 0) ?
+                    (-(prev[u]), -(prev[l]), -(prev[z])) :
+                    (0, max(-(prev[l]), (prev[u])), ((max(-(prev[l]), (prev[u]))) / 2) + (((max(-(prev[l]), (prev[u]))) / 2) * EPSILON)));
 }
     """
 
@@ -311,3 +340,4 @@ transformer deeppoly {
     print(fixed_code)
 
     print(err)
+    # print("EPSILON" in dsl)

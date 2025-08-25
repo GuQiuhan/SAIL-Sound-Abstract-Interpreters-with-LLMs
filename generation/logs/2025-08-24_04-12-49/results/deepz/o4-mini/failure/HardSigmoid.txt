@@ -1,0 +1,20 @@
+transformer deepz {
+    HardSigmoid ->
+        prev[u] <= -3 ?
+            (0, 0, 0)
+        : prev[l] >= 3 ?
+            (1, 1, 1)
+        : prev[l] >= -3 ?
+            prev[u] <= 3 ?
+                ( simplify_lower(prev, 0.2) + 0.5,
+                  simplify_lower(prev, 0.2) + 0.5,
+                  (0.2 * prev[z]) + 0.5 )
+            :
+                ( 0,
+                  1,
+                  (0.2 * prev[z]) + 0.5 )
+        :
+            ( 0,
+              1,
+              (0.2 * prev[z]) + 0.5 );
+}

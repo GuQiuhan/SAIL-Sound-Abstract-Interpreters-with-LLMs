@@ -1,0 +1,7 @@
+transformer deepz{
+    Abs -> ((prev[l]) >= 0) ?
+                ((prev[l]), (prev[u]), (prev[z])) :
+            ((prev[u]) <= 0) ?
+                ((-prev[u]), (-prev[l]), (-prev[z])) :
+                ((0.0), max(prev[u], -prev[l]), (max(prev[u], -prev[l]) / 2.0) + ((max(prev[u], -prev[l]) / 2.0) * eps));
+}

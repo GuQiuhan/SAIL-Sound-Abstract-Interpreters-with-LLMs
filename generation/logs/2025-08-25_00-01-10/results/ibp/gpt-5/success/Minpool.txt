@@ -1,0 +1,3 @@
+transformer ibp{
+    Minpool -> (min(prev[l]), min(prev[u]));
+}

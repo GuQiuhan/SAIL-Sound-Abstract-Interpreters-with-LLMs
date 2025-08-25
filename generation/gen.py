@@ -61,8 +61,8 @@ class Step:
         self.error_generation = ""  # List to store error generation
         self.counter_example = ""  # List to store counter examples
 
-    def save_failure(self, error_generation: str, ce: str):
-        # just save one each time
+    def update_failure(self, error_generation: str, ce: str):
+        # just save a better one each time
         self.error_generation = ""
         self.counter_example = ""
         self.error_generation = self.error_generation + "\n" + error_generation + "\n"
@@ -86,8 +86,9 @@ class Step:
             f"# Learn from the failed generation above and revise your output accordingly. Output the DSL only."
         )
 
-        self.counter_example = ""  # clear after augmentation
-        self.error_generation = ""
+        # TODO: no need to clean after augmentation
+        # self.counter_example = ""  # clear after augmentation
+        # self.error_generation = ""
 
         if isinstance(old_prmpt, list):  # Chat format
             for msg in reversed(old_prmpt):
@@ -193,7 +194,7 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                                 best_score = score  # update
                                 best_code = code
 
-                                step.save_failure(code, ce)
+                                step.update_failure(code, ce)
                                 GlobalState.ce_number_now += 1
 
                                 logging.info(
@@ -204,6 +205,8 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                             logging.info(
                                 f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist."
                             )
+                            if step.error_generation is None:
+                                step.update_failure(code, "")
                 else:
                     success = True
                     best_code = code

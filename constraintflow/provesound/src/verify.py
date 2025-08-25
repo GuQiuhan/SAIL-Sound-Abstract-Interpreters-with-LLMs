@@ -621,6 +621,7 @@ class Verify(astVisitor.ASTVisitor):
                 s.visit(op.ret)
             except:
                 print(f"Induction failed for {op_}")
+                traceback.print_exc()
                 ret_dict[node.oplist.olist[op_i].op.op_name] = (
                     get_verification_time(),
                     get_generation_time(),

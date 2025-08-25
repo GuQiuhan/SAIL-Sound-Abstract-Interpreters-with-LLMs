@@ -1,0 +1,3 @@
+transformer deepz{
+    Avgpool -> (avg(prev[l]), avg(prev[u]), avg(prev[z]));
+}

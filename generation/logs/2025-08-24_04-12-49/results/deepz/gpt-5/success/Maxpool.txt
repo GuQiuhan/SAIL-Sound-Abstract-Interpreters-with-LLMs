@@ -1,0 +1,3 @@
+transformer deepz{
+    Maxpool -> (max(prev[l]), max(prev[u]), ((max(prev[l]) + max(prev[u])) / 2) + (((max(prev[u]) - max(prev[l])) / 2) * eps));
+}

@@ -1,0 +1,3 @@
+transformer deepz{
+    Minpool -> (min(prev[l]), min(prev[u]), ((min(prev[l]) + min(prev[u])) / 2) + (((min(prev[u]) - min(prev[l])) / 2) * eps));
+}

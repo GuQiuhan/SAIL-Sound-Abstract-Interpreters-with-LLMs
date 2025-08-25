@@ -50,6 +50,15 @@ class SemanticChecker(miniDSLVisitor):
             "f3",
             "slope",
             "intercept",
+            "priority",
+            "priority2",
+            "stop",
+            "s1",
+            "i1",
+            "max_lowe",
+            "min_lower",
+            "max_upper",
+            "min_upper",
         }
 
         self.invalid_type_pairs = {
@@ -94,6 +103,9 @@ class SemanticChecker(miniDSLVisitor):
             "u",
             "L",
             "U",
+            "z",
+            "simplify_lower",
+            "simplify_upper",
         }
 
     # Register transformer name
@@ -294,13 +306,12 @@ def check_semantic(dsl):
 
 if __name__ == "__main__":
     dsl = """
- transformer deeppoly{
-    Neuron_min -> (
-        min([prev_0[l], prev_1[l]]),
-        min([prev_0[u], prev_1[u]]),
-        min([prev_0[L], prev_1[L]]),
-        min([prev_0[U], prev_1[U]])
-    );
+transformer deepz{
+    Abs -> ((prev[l]) >= 0) ?
+                ((prev[l]), (prev[u]), (prev[z])) :
+                (((prev[u]) <= 0) ?
+                    (-(prev[u]), -(prev[l]), -(prev[z])) :
+                    (0, max(-(prev[l]), (prev[u])), ((max(-(prev[l]), (prev[u]))) / 2) + (((max(-(prev[l]), (prev[u]))) / 2) * EPSILON)));
 }
     """
     result, dsl, errs = check_semantic(dsl)

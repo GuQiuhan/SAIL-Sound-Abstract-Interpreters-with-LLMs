@@ -1,0 +1,22 @@
+transformer deepz{
+    HardSwish ->
+        prev[u] <= -3 ?
+            (0.0, 0.0, 0.0)
+        :
+        prev[l] >= 3 ?
+            (prev[l], prev[u], prev[z])
+        :
+            (
+                (s1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u]) >= 0 ?
+                    s1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u]) * (prev[l]<-3?-3:prev[l]) + i1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u])
+                :
+                    s1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u]) * (prev[u]>3?3:prev[u]) + i1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u])
+                ),
+                (s1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u]) >= 0 ?
+                    s1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u]) * (prev[u]>3?3:prev[u]) + i1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u])
+                :
+                    s1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u]) * (prev[l]<-3?-3:prev[l]) + i1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u])
+                ),
+                s1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u]) * prev[z] + i1(prev[l]<-3?-3:prev[l], prev[u]>3?3:prev[u])
+            );
+}

@@ -1,0 +1,13 @@
+transformer deepz {
+    HardSwish ->
+        (prev[l] >= 3) ?
+            (prev[l], prev[u], prev[z]) :
+            ((prev[u] <= -3) ?
+                (0, 0, 0) :
+                (
+                    max(0, i1(prev[l], prev[u])),
+                    f1(prev[u]),
+                    max(0, s1(prev[l], prev[u])) + f2(prev[u]) * eps
+                )
+            );
+}

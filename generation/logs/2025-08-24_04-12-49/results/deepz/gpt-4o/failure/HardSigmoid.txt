@@ -1,0 +1,9 @@
+transformer deepz{
+    HardSigmoid -> ((prev[u] <= -3) ?
+                        (0, 0, 0) :
+                        ((prev[l] >= 3) ?
+                            (1, 1, 1) :
+                            (max(0, (prev[l] + 3) / 6),
+                             min(1, (prev[u] + 3) / 6),
+                             ((s1(prev[l], prev[u]) * prev[z]) + i1(prev[l], prev[u])))
+));}

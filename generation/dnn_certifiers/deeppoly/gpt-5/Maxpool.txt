@@ -1,0 +1,3 @@
+transformer deeppoly{
+    Maxpool -> (max(prev[l]), max(prev[u]), max(prev[l]), max(prev[u]));
+}

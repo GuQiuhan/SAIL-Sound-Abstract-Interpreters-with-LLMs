@@ -106,25 +106,39 @@ func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l
 func slopeL(Float l, Float u) = (1 - l) / (2*(u - l));
 func slopeU(Float l, Float u) = (u + 1) / (2*(u - l));
 
-transformer deeppoly{
-    HardTanh ->
-        ((prev[l] >= 1)) ?
-            (1, 1, 1, 1)
-        : ((prev[u] <= -1)) ?
-            (-1, -1, -1, -1)
-        : ((prev[l] >= -1) and (prev[u] <= 1)) ?
-            (prev[l], prev[u], prev, prev)
-        : ((prev[l] < -1) and (prev[u] > 1)) ?
-            (-1, 1, ((prev - prev[l]) * (1 - (-1)) / (prev[u] - prev[l]) + (-1)), ((prev - prev[l]) * (1 - (-1)) / (prev[u] - prev[l]) + (-1)))
-        : ((prev[l] < -1) and (prev[u] <= 1)) ?
-            (-1, prev[u], -1, ((prev - prev[l]) * (1 - (-1)) / (prev[u] - prev[l]) + (-1)))
-        : ((prev[l] >= -1) and (prev[u] > 1)) ?
-            (prev[l], 1, prev, (1 - prev[u])/(prev[u] - prev[l]) * (prev - prev[l]) + 1)
-        :
-            (-1, 1, ((prev - prev[l]) * (1 - (-1)) / (prev[u] - prev[l]) + (-1)), ((prev - prev[l]) * (1 - (-1)) / (prev[u] - prev[l]) + (-1)));
+transformer deeppoly {
+    HardSwish ->
+        ((prev[u] <= -3) ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+            : (
+                (prev[l] >= -3) ?
+                    (
+                        (prev[u] <= 3) ?
+                            (
+                                ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                                f3(prev),
+                                ((((2 * prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2 * prev[l]) + 3) / 6) * prev[l])),
+                                f3(prev)
+                            )
+                        : (
+                            ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])), prev[u],
+                            ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])), prev[u]
+                          )
+                    )
+                : (
+                    (prev[u] <= 3) ?
+                        (
+                            ((prev[u] >= -1.5) ? -0.375 : f2(prev[u])),
+                            ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                            ((prev[u] >= -1.5) ? -0.375 : f2(prev[u])),
+                            ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0)
+                        )
+                    : (-0.375, prev[u], -0.375, prev[u])
+                  )
+            )
+        ));
 }
-
-
 flow(forward, priority, true, deeppoly);
     """
 

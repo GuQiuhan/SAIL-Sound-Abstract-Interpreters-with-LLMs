@@ -1,0 +1,25 @@
+transformer deepz{
+    Neuron_min ->
+        (prev_0[u] <= prev_1[l]) ?
+            (prev_0[l], prev_0[u], prev_0[z]) :
+        ((prev_1[u] <= prev_0[l]) ?
+            (prev_1[l], prev_1[u], prev_1[z]) :
+            (
+                (prev_0[l] < prev_1[l] ? prev_0[l] : prev_1[l]),
+                (prev_0[u] < prev_1[u] ? prev_0[u] : prev_1[u]),
+                (
+                    (
+                        (prev_0[l] < prev_1[l] ? prev_0[l] : prev_1[l])
+                        + (prev_0[u] < prev_1[u] ? prev_0[u] : prev_1[u])
+                    ) / 2
+                )
+                + (
+                    (
+                        (prev_0[u] < prev_1[u] ? prev_0[u] : prev_1[u])
+                        - (prev_0[l] < prev_1[l] ? prev_0[l] : prev_1[l])
+                    ) / 2
+                    * eps
+                )
+            )
+        );
+}

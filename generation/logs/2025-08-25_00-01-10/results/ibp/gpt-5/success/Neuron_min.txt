@@ -1,0 +1,3 @@
+transformer ibp{
+    Neuron_min -> (min_lower(prev_0, prev_1), min_upper(prev_0, prev_1));
+}
