@@ -1,0 +1,17 @@
+__pycache__/
+**/__pycache__/
+interpreter/common/__pycache__/*
+interpreter/specs/__pycache__/*
+verification/ast/*
+certifier/output/transformers.py
+certifier/output/main.py
+certifier/output/functions.py
+data/*
+output/*
+MNIST/*
+nets/
+__pycache__/
+*.pyc
+dist/
+build/
+constraintflow_dreal_dockerimage.tar
