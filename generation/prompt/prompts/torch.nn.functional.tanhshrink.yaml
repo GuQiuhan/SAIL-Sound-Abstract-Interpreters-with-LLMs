@@ -1,4 +1,0 @@
-api: torch.nn.functional.tanhshrink
-doc: "\n\ntorch.nn.functional.tanhshrink(input) \u2192 Tensor[source]\xB6\nApplies\
-  \ element-wise, Tanhshrink(x)=x\u2212Tanh(x)\\text{Tanhshrink}(x) = x - \\text{Tanh}(x)Tanhshrink(x)=x\u2212\
-  Tanh(x)\nSee Tanhshrink for more details.\n"

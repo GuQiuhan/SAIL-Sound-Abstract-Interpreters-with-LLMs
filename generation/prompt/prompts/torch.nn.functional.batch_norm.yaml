@@ -1,5 +1,0 @@
-api: torch.nn.functional.batch_norm
-doc: "\n\ntorch.nn.functional.batch_norm(input, running_mean, running_var, weight=None,\
-  \ bias=None, training=False, momentum=0.1, eps=1e-05)[source]\xB6\nApply Batch Normalization\
-  \ for each channel across a batch of data.\nSee BatchNorm1d, BatchNorm2d,\nBatchNorm3d\
-  \ for details.\n\nReturn type\nTensor\n\n\n"

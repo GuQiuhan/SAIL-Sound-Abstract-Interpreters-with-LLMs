@@ -1,6 +1,0 @@
-api: torch.nn.functional.tanh
-doc: "\n\ntorch.nn.functional.tanh(input) \u2192 Tensor[source]\xB6\nApplies element-wise,\n\
-  Tanh(x)=tanh\u2061(x)=exp\u2061(x)\u2212exp\u2061(\u2212x)exp\u2061(x)+exp\u2061\
-  (\u2212x)\\text{Tanh}(x) = \\tanh(x) = \\frac{\\exp(x) - \\exp(-x)}{\\exp(x) + \\\
-  exp(-x)}Tanh(x)=tanh(x)=exp(x)+exp(\u2212x)exp(x)\u2212exp(\u2212x)\u200B\nSee Tanh\
-  \ for more details.\n"

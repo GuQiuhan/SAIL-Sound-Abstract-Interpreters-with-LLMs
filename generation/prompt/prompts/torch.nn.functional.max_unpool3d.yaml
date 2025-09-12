@@ -1,4 +1,0 @@
-api: torch.nn.functional.max_unpool3d
-doc: "\n\ntorch.nn.functional.max_unpool3d(input, indices, kernel_size, stride=None,\
-  \ padding=0, output_size=None)[source]\xB6\nCompute a partial inverse of MaxPool3d.\n\
-  See MaxUnpool3d for details.\n\nReturn type\nTensor\n\n\n"

@@ -1,5 +1,0 @@
-api: torch.nn.functional.l1_loss
-doc: "\n\ntorch.nn.functional.l1_loss(input, target, size_average=None, reduce=None,\
-  \ reduction='mean') \u2192 Tensor[source]\xB6\nFunction that takes the mean element-wise\
-  \ absolute value difference.\nSee L1Loss for details.\n\nReturn type\nTensor\n\n\
-  \n"

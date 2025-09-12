@@ -1,4 +1,0 @@
-api: torch.nn.functional.mse_loss
-doc: "\n\ntorch.nn.functional.mse_loss(input, target, size_average=None, reduce=None,\
-  \ reduction='mean') \u2192 Tensor[source]\xB6\nMeasures the element-wise mean squared\
-  \ error.\nSee MSELoss for details.\n\nReturn type\nTensor\n\n\n"

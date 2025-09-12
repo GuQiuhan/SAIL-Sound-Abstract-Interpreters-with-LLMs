@@ -1,6 +1,0 @@
-api: torch.nn.functional.adaptive_max_pool2d
-doc: "\n\ntorch.nn.functional.adaptive_max_pool2d(input, output_size, return_indices=False)\xB6\
-  \nApplies a 2D adaptive max pooling over an input signal composed of\nseveral input\
-  \ planes.\nSee AdaptiveMaxPool2d for details and output shape.\n\nParameters\n\n\
-  output_size \u2013 the target output size (single integer or\ndouble-integer tuple)\n\
-  return_indices \u2013 whether to return pooling indices. Default: False\n\n\n\n"

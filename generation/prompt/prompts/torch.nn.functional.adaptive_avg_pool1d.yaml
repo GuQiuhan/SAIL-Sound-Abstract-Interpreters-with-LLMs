@@ -1,5 +1,0 @@
-api: torch.nn.functional.adaptive_avg_pool1d
-doc: "\n\ntorch.nn.functional.adaptive_avg_pool1d(input, output_size) \u2192 Tensor\xB6\
-  \nApplies a 1D adaptive average pooling over an input signal composed of\nseveral\
-  \ input planes.\nSee AdaptiveAvgPool1d for details and output shape.\n\nParameters\n\
-  output_size \u2013 the target output size (single integer)\n\n\n"

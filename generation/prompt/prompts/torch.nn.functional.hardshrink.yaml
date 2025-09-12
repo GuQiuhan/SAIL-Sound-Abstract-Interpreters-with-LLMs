@@ -1,3 +1,0 @@
-api: torch.nn.functional.hardshrink
-doc: "\n\ntorch.nn.functional.hardshrink(input, lambd=0.5) \u2192 Tensor\xB6\nApplies\
-  \ the hard shrinkage function element-wise\nSee Hardshrink for more details.\n"

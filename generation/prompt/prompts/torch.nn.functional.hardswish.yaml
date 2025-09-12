@@ -1,9 +1,0 @@
-api: torch.nn.functional.hardswish
-doc: "\n\ntorch.nn.functional.hardswish(input, inplace=False)[source]\xB6\nApply hardswish\
-  \ function, element-wise.\nFollows implementation as described in the paper:\nSearching\
-  \ for MobileNetV3.\n\nHardswish(x)={0if\_x\u2264\u22123,xif\_x\u2265+3,x\u22C5(x+3)/6otherwise\\\
-  text{Hardswish}(x) = \\begin{cases}\n    0 & \\text{if~} x \\le -3, \\\\\n    x\
-  \ & \\text{if~} x \\ge +3, \\\\\n    x \\cdot (x + 3) /6 & \\text{otherwise}\n\\\
-  end{cases}\n\nHardswish(x)=\u23A9\u23A8\u23A7\u200B0xx\u22C5(x+3)/6\u200Bif\_x\u2264\
-  \u22123,if\_x\u2265+3,otherwise\u200BSee Hardswish for more details.\n\nReturn type\n\
-  Tensor\n\n\n"

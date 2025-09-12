@@ -1,7 +1,0 @@
-api: torch.nn.functional.huber_loss
-doc: "\n\ntorch.nn.functional.huber_loss(input, target, reduction='mean', delta=1.0)[source]\xB6\
-  \nCompute the Huber loss.\nFunction uses a squared term if the absolute\nelement-wise\
-  \ error falls below delta and a delta-scaled L1 term otherwise.\nWhen delta equals\
-  \ 1, this loss is equivalent to SmoothL1Loss.\nIn general, Huber loss differs from\
-  \ SmoothL1Loss by a factor of delta (AKA beta in Smooth L1).\nSee HuberLoss for\
-  \ details.\n\nReturn type\nTensor\n\n\n"

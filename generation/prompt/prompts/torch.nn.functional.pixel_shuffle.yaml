@@ -1,9 +1,0 @@
-api: torch.nn.functional.pixel_shuffle
-doc: "\n\ntorch.nn.functional.pixel_shuffle(input, upscale_factor) \u2192 Tensor\xB6\
-  \nRearranges elements in a tensor of shape (\u2217,C\xD7r2,H,W)(*, C \\times r^2,\
-  \ H, W)(\u2217,C\xD7r2,H,W) to a\ntensor of shape (\u2217,C,H\xD7r,W\xD7r)(*, C,\
-  \ H \\times r, W \\times r)(\u2217,C,H\xD7r,W\xD7r), where r is the upscale_factor.\n\
-  See PixelShuffle for details.\n\nParameters\n\ninput (Tensor) \u2013 the input tensor\n\
-  upscale_factor (int) \u2013 factor to increase spatial resolution by\n\n\n\nExamples:\n\
-  >>> input = torch.randn(1, 9, 4, 4)\n>>> output = torch.nn.functional.pixel_shuffle(input,\
-  \ 3)\n>>> print(output.size())\ntorch.Size([1, 1, 12, 12])\n\n\n"

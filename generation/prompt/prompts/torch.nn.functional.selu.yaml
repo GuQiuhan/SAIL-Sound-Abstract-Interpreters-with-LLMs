@@ -1,8 +1,0 @@
-api: torch.nn.functional.selu
-doc: "\n\ntorch.nn.functional.selu(input, inplace=False) \u2192 Tensor[source]\xB6\
-  \nApplies element-wise,\nSELU(x)=scale\u2217(max\u2061(0,x)+min\u2061(0,\u03B1\u2217\
-  (exp\u2061(x)\u22121)))\\text{SELU}(x) = scale * (\\max(0,x) + \\min(0, \\alpha\
-  \ * (\\exp(x) - 1)))SELU(x)=scale\u2217(max(0,x)+min(0,\u03B1\u2217(exp(x)\u2212\
-  1))),\nwith \u03B1=1.6732632423543772848170429916717\\alpha=1.6732632423543772848170429916717\u03B1\
-  =1.6732632423543772848170429916717 and\nscale=1.0507009873554804934193349852946scale=1.0507009873554804934193349852946scale=1.0507009873554804934193349852946.\n\
-  See SELU for more details.\n\nReturn type\nTensor\n\n\n"

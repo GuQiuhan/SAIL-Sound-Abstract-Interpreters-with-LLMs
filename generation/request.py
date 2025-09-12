@@ -6,6 +6,8 @@ import openai
 import requests
 from huggingface_hub import InferenceClient
 
+from generation.utils import *
+
 
 class Client(ABC):
     def __init__(self, model, max_new_tokens=2048, temperature=1.0, do_sample=False):
@@ -96,7 +98,7 @@ class TGIClient(Client):
 
 
 if __name__ == "__main__":
-    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:6053")
+    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8084")
 
     CONSTRAINTFLOW = """
 DeepPoly certifier uses four kinds of bounds to approximate the operator: (Float l, Float u, PolyExp L, PolyExp U).

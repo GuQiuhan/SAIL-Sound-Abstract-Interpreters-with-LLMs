@@ -1,4 +1,0 @@
-api: torch.nn.functional.softsign
-doc: "\n\ntorch.nn.functional.softsign(input) \u2192 Tensor[source]\xB6\nApplies element-wise,\
-  \ the function SoftSign(x)=x1+\u2223x\u2223\\text{SoftSign}(x) = \\frac{x}{1 + |x|}SoftSign(x)=1+\u2223\
-  x\u2223x\u200B\nSee Softsign for more details.\n"

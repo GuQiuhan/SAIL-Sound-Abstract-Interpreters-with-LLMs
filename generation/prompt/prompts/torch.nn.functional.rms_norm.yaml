@@ -1,4 +1,0 @@
-api: torch.nn.functional.rms_norm
-doc: "\n\ntorch.nn.functional.rms_norm(input, normalized_shape, weight=None, eps=None)[source]\xB6\
-  \nApply Root Mean Square Layer Normalization.\nSee RMSNorm for details.\n\nReturn\
-  \ type\nTensor\n\n\n"

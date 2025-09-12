@@ -6,7 +6,7 @@ setup(
     version="0.1",
     packages=find_packages(),
     install_requires=[
-        "antlr4-python3-runtime==4.7.2",
+        "antlr4-python3-runtime==4.13.2",
         "tabulate",
     ],
     python_requires=">=3.7",

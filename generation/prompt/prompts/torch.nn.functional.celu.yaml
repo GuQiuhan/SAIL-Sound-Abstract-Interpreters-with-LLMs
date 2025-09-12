@@ -1,6 +1,0 @@
-api: torch.nn.functional.celu
-doc: "\n\ntorch.nn.functional.celu(input, alpha=1., inplace=False) \u2192 Tensor[source]\xB6\
-  \nApplies element-wise,\nCELU(x)=max\u2061(0,x)+min\u2061(0,\u03B1\u2217(exp\u2061\
-  (x/\u03B1)\u22121))\\text{CELU}(x) = \\max(0,x) + \\min(0, \\alpha * (\\exp(x/\\\
-  alpha) - 1))CELU(x)=max(0,x)+min(0,\u03B1\u2217(exp(x/\u03B1)\u22121)).\nSee CELU\
-  \ for more details.\n\nReturn type\nTensor\n\n\n"

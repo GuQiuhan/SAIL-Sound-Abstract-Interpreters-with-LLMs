@@ -1,4 +1,0 @@
-api: torch.nn.functional.rrelu
-doc: "\n\ntorch.nn.functional.rrelu(input, lower=1. / 8, upper=1. / 3, training=False,\
-  \ inplace=False) \u2192 Tensor[source]\xB6\nRandomized leaky ReLU.\nSee RReLU for\
-  \ more details.\n\nReturn type\nTensor\n\n\n"

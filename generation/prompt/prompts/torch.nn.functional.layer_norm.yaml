@@ -1,4 +1,0 @@
-api: torch.nn.functional.layer_norm
-doc: "\n\ntorch.nn.functional.layer_norm(input, normalized_shape, weight=None, bias=None,\
-  \ eps=1e-05)[source]\xB6\nApply Layer Normalization for last certain number of dimensions.\n\
-  See LayerNorm for details.\n\nReturn type\nTensor\n\n\n"

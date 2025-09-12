@@ -5,7 +5,7 @@ import tempfile
 
 from tabulate import tabulate
 
-from constraintflow.experiments.experiments_correct import run_verifier_from_str
+from constraintflow.core.verifier.provesound import run_verifier_from_str
 from generation.request import Client, TGIClient
 from generation.utils import *
 from generation.validator.repair import check

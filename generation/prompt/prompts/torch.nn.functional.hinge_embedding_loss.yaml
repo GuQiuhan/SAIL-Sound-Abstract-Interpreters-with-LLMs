@@ -1,4 +1,0 @@
-api: torch.nn.functional.hinge_embedding_loss
-doc: "\n\ntorch.nn.functional.hinge_embedding_loss(input, target, margin=1.0, size_average=None,\
-  \ reduce=None, reduction='mean') \u2192 Tensor[source]\xB6\nSee HingeEmbeddingLoss\
-  \ for details.\n\nReturn type\nTensor\n\n\n"

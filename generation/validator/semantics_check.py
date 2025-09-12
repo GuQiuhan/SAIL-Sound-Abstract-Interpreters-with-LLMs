@@ -311,7 +311,7 @@ transformer deepz{
                 ((prev[l]), (prev[u]), (prev[z])) :
                 (((prev[u]) <= 0) ?
                     (-(prev[u]), -(prev[l]), -(prev[z])) :
-                    (0, max(-(prev[l]), (prev[u])), ((max(-(prev[l]), (prev[u]))) / 2) + (((max(-(prev[l]), (prev[u]))) / 2) * EPSILON)));
+                    (0, max(-(prev[l]), (prev[u])), ((max(-(prev[l]), (prev[u]))) / 2) + (((max(-(prev[l]), (prev[u]))) / 2) *1)));
 }
     """
     result, dsl, errs = check_semantic(dsl)

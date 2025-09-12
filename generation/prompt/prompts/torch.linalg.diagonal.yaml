@@ -1,3 +1,0 @@
-api: torch.linalg.diagonal
-doc: "\n\ntorch.linalg.diagonal(A, *, offset=0, dim1=-2, dim2=-1) \u2192 Tensor\xB6\
-  \nAlias for torch.diagonal() with defaults dim1= -2, dim2= -1.\n"

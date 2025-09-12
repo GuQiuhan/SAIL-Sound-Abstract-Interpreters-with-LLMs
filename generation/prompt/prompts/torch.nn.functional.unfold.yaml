@@ -1,8 +1,0 @@
-api: torch.nn.functional.unfold
-doc: "\n\ntorch.nn.functional.unfold(input, kernel_size, dilation=1, padding=0, stride=1)[source]\xB6\
-  \nExtract sliding local blocks from a batched input tensor.\n\nWarning\nCurrently,\
-  \ only 4-D input tensors (batched image-like tensors) are\nsupported.\n\n\nWarning\n\
-  More than one element of the unfolded tensor may refer to a single\nmemory location.\
-  \ As a result, in-place operations (especially ones that\nare vectorized) may result\
-  \ in incorrect behavior. If you need to write\nto the tensor, please clone it first.\n\
-  \nSee torch.nn.Unfold for details\n\nReturn type\nTensor\n\n\n"

@@ -1,9 +1,0 @@
-api: torch.nn.functional.glu
-doc: "\n\ntorch.nn.functional.glu(input, dim=-1) \u2192 Tensor[source]\xB6\nThe gated\
-  \ linear unit. Computes:\n\nGLU(a,b)=a\u2297\u03C3(b)\\text{GLU}(a, b) = a \\otimes\
-  \ \\sigma(b)\n\nGLU(a,b)=a\u2297\u03C3(b)where input is split in half along dim\
-  \ to form a and b, \u03C3\\sigma\u03C3\nis the sigmoid function and \u2297\\otimes\u2297\
-  \ is the element-wise product between matrices.\nSee Language Modeling with Gated\
-  \ Convolutional Networks.\n\nParameters\n\ninput (Tensor) \u2013 input tensor\n\
-  dim (int) \u2013 dimension on which to split the input. Default: -1\n\n\nReturn\
-  \ type\nTensor\n\n\n"

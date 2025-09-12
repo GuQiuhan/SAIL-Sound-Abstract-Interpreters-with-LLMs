@@ -1,3 +1,0 @@
-api: torch.nn.functional.softshrink
-doc: "\n\ntorch.nn.functional.softshrink(input, lambd=0.5) \u2192 Tensor\xB6\nApplies\
-  \ the soft shrinkage function elementwise\nSee Softshrink for more details.\n"

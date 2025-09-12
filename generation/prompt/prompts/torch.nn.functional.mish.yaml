@@ -1,7 +1,0 @@
-api: torch.nn.functional.mish
-doc: "\n\ntorch.nn.functional.mish(input, inplace=False)[source]\xB6\nApply the Mish\
-  \ function, element-wise.\nMish: A Self Regularized Non-Monotonic Neural Activation\
-  \ Function.\n\nMish(x)=x\u2217Tanh(Softplus(x))\\text{Mish}(x) = x * \\text{Tanh}(\\\
-  text{Softplus}(x))\n\nMish(x)=x\u2217Tanh(Softplus(x))\nNote\nSee Mish: A Self Regularized\
-  \ Non-Monotonic Neural Activation Function\n\nSee Mish for more details.\n\nReturn\
-  \ type\nTensor\n\n\n"

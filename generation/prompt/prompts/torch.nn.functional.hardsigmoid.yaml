@@ -1,9 +1,0 @@
-api: torch.nn.functional.hardsigmoid
-doc: "\n\ntorch.nn.functional.hardsigmoid(input, inplace=False)[source]\xB6\nApply\
-  \ the Hardsigmoid function element-wise.\n\nHardsigmoid(x)={0if\_x\u2264\u22123,1if\_\
-  x\u2265+3,x/6+1/2otherwise\\text{Hardsigmoid}(x) = \\begin{cases}\n    0 & \\text{if~}\
-  \ x \\le -3, \\\\\n    1 & \\text{if~} x \\ge +3, \\\\\n    x / 6 + 1 / 2 & \\text{otherwise}\n\
-  \\end{cases}\n\nHardsigmoid(x)=\u23A9\u23A8\u23A7\u200B01x/6+1/2\u200Bif\_x\u2264\
-  \u22123,if\_x\u2265+3,otherwise\u200B\nParameters\ninplace (bool) \u2013 If set\
-  \ to True, will do this operation in-place. Default: False\n\nReturn type\nTensor\n\
-  \n\nSee Hardsigmoid for more details.\n"

@@ -44,7 +44,7 @@ from vllm import LLM, SamplingParams
 
 
 def launch_model_server(
-    model_config, port, max_tokens=256
+    model_config, port, host=HOST, max_tokens=256
 ):  # implement based on different models
     model_type = model_config["type"]  # hf, vllm, openai, aws
     model_id = model_config["model"]
@@ -490,7 +490,7 @@ def launch_model_server(
     else:
         raise ValueError(f"Unknown model name: {model_id}")
 
-    app.run(host="ggnds-serv-01.cs.illinois.edu", port=port)
+    app.run(host=host, port=port)
 
 
 """
@@ -625,6 +625,14 @@ if __name__ == "__main__":
         ),
     )
 
+    parser.add_argument(
+        "--host",
+        "-host",
+        type=str,
+        default=HOST,
+        help="Host IP to bind Flask servers",
+    )
+
     args = parser.parse_args()
 
     if isinstance(args.model, str):
@@ -651,7 +659,7 @@ if __name__ == "__main__":
     for config in selected_configs:
         p = multiprocessing.Process(
             target=launch_model_server,
-            args=(config, config["port"]),
+            args=(config, config["port"], args.host),
         )
         p.start()
         processes.append(p)

@@ -1,4 +1,0 @@
-api: torch.nn.functional.threshold
-doc: "\n\ntorch.nn.functional.threshold(input, threshold, value, inplace=False)\xB6\
-  \nApply a threshold to each element of the input Tensor.\nSee Threshold for more\
-  \ details.\n\nReturn type\nTensor\n\n\n"

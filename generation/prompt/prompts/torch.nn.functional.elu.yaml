@@ -1,4 +1,0 @@
-api: torch.nn.functional.elu
-doc: "\n\ntorch.nn.functional.elu(input, alpha=1.0, inplace=False)[source]\xB6\nApply\
-  \ the Exponential Linear Unit (ELU) function element-wise.\nSee ELU for more details.\n\
-  \nReturn type\nTensor\n\n\n"

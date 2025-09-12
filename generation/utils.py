@@ -1,6 +1,7 @@
 """
 Please change the configuration accordingly before using this tool.
 """
+HOST = "ggnds-serv-01.cs.illinois.edu"
 
 # for models.py
 # set models to use

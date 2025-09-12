@@ -1,9 +1,0 @@
-transformer deeppoly{
-    Minpool -> (
-        min_op([prev_0[l], prev_1[l], ..., prev_n[l]]),
-        min_op([prev_0[u], prev_1[u], ..., prev_n[u]]),
-        (argmin_op([prev_0[l], prev_1[l], ..., prev_n[l]]) == 0) ? prev_0[L] : (
-            (argmin_op([prev_0[l], prev_1[l], ..., prev_n[l]]) == 1) ? prev_1[L] : ...),
-        min_op([prev_0[U], prev_1[U], ..., prev_n[U]])
-    );
-}

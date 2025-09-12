@@ -1,6 +1,0 @@
-api: torch.nn.functional.adaptive_avg_pool3d
-doc: "\n\ntorch.nn.functional.adaptive_avg_pool3d(input, output_size)[source]\xB6\n\
-  Apply a 3D adaptive average pooling over an input signal composed of several input\
-  \ planes.\nSee AdaptiveAvgPool3d for details and output shape.\n\nParameters\noutput_size\
-  \ (None) \u2013 the target output size (single integer or\ntriple-integer tuple)\n\
-  \nReturn type\nTensor\n\n\n"

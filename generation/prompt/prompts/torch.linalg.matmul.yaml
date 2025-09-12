@@ -1,3 +1,0 @@
-api: torch.linalg.matmul
-doc: "\n\ntorch.linalg.matmul(input, other, *, out=None) \u2192 Tensor\xB6\nAlias\
-  \ for torch.matmul()\n"

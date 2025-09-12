@@ -1,4 +1,0 @@
-api: torch.nn.functional.alpha_dropout
-doc: "\n\ntorch.nn.functional.alpha_dropout(input, p=0.5, training=False, inplace=False)[source]\xB6\
-  \nApply alpha dropout to the input.\nSee AlphaDropout for details.\n\nReturn type\n\
-  Tensor\n\n\n"

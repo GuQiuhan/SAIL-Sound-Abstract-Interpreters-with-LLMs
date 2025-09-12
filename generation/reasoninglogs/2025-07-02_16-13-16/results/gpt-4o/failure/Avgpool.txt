@@ -1,8 +1,0 @@
-transformer deeppoly{
-    Avgpool x -> (
-        sum(x.map(n -> n[l])) / x.length(),
-        sum(x.map(n -> n[u])) / x.length(),
-        sum(x.map(n -> n[L])) / x.length(),
-        sum(x.map(n -> n[U])) / x.length()
-    )
-}

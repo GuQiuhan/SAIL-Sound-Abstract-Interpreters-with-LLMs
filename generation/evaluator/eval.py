@@ -8,14 +8,14 @@ import antlr4 as antlr
 import numpy as np
 from z3 import *
 
-from constraintflow.core import astBuilder
-from constraintflow.core import astcf as AST
-from constraintflow.core import astTC, astVisitor, dslLexer, dslParser
-from constraintflow.provesound.lib.globals import *
-from constraintflow.provesound.lib.optSolver import OptSolver
-from constraintflow.provesound.lib.utils import *
-from constraintflow.provesound.src.symbolicDNN import SymbolicDNN, populate_vars
-from constraintflow.provesound.src.value import *
+from constraintflow.core.ast_cflow import astBuilder
+from constraintflow.core.ast_cflow import astcf as AST
+from constraintflow.core.ast_cflow import astTC, astVisitor, dslLexer, dslParser
+from constraintflow.core.verifier.lib.globals import *
+from constraintflow.core.verifier.lib.optSolver import OptSolver
+from constraintflow.core.verifier.lib.utils import *
+from constraintflow.core.verifier.src.symbolicDNN import SymbolicDNN, populate_vars
+from constraintflow.core.verifier.src.value import *
 from generation.utils import *
 
 exptemp = None

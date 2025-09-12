@@ -1,4 +1,0 @@
-api: torch.nn.functional.multilabel_soft_margin_loss
-doc: "\n\ntorch.nn.functional.multilabel_soft_margin_loss(input, target, weight=None,\
-  \ size_average=None, reduce=None, reduction='mean') \u2192 Tensor[source]\xB6\n\
-  See MultiLabelSoftMarginLoss for details.\n\nReturn type\nTensor\n\n\n"

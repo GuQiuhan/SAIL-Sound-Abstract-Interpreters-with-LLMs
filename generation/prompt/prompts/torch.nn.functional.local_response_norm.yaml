@@ -1,6 +1,0 @@
-api: torch.nn.functional.local_response_norm
-doc: "\n\ntorch.nn.functional.local_response_norm(input, size, alpha=0.0001, beta=0.75,\
-  \ k=1.0)[source]\xB6\nApply local response normalization over an input signal.\n\
-  The input signal is composed of several input planes, where channels occupy the\
-  \ second dimension.\nNormalization is applied across channels.\nSee LocalResponseNorm\
-  \ for details.\n\nReturn type\nTensor\n\n\n"

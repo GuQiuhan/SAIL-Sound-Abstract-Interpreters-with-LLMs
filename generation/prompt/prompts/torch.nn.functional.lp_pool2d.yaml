@@ -1,6 +1,0 @@
-api: torch.nn.functional.lp_pool2d
-doc: "\n\ntorch.nn.functional.lp_pool2d(input, norm_type, kernel_size, stride=None,\
-  \ ceil_mode=False)[source]\xB6\nApply a 2D power-average pooling over an input signal\
-  \ composed of several input planes.\nIf the sum of all inputs to the power of p\
-  \ is\nzero, the gradient is set to zero as well.\nSee LPPool2d for details.\n\n\
-  Return type\nTensor\n\n\n"

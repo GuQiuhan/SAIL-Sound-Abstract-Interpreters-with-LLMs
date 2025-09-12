@@ -117,7 +117,7 @@ This will start a local Flask server on the specified port, allowing `gen.py` to
 
 ### 🖨️ DSL Generation
 ```bash
-python generation/gen.py
+python generation/gen.py -m [MODELS] -c [CERTIFIERS]
 ```
 This script guides the model to generate DSLs for neural operators using multi-stage reasoning and validation.
 

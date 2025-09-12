@@ -1,8 +1,0 @@
-api: torch.nn.functional.dropout
-doc: "\n\ntorch.nn.functional.dropout(input, p=0.5, training=True, inplace=False)[source]\xB6\
-  \nDuring training, randomly zeroes some elements of the input tensor with probability\
-  \ p.\nUses samples from a Bernoulli distribution.\nSee Dropout for details.\n\n\
-  Parameters\n\np (float) \u2013 probability of an element to be zeroed. Default:\
-  \ 0.5\ntraining (bool) \u2013 apply dropout if is True. Default: True\ninplace (bool)\
-  \ \u2013 If set to True, will do this operation in-place. Default: False\n\n\nReturn\
-  \ type\nTensor\n\n\n"

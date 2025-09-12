@@ -1,4 +1,0 @@
-api: torch.nn.functional.hardtanh
-doc: "\n\ntorch.nn.functional.hardtanh(input, min_val=-1., max_val=1., inplace=False)\
-  \ \u2192 Tensor[source]\xB6\nApplies the HardTanh function element-wise. See Hardtanh\
-  \ for more\ndetails.\n\nReturn type\nTensor\n\n\n"

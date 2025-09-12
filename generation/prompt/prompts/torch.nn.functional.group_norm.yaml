@@ -1,4 +1,0 @@
-api: torch.nn.functional.group_norm
-doc: "\n\ntorch.nn.functional.group_norm(input, num_groups, weight=None, bias=None,\
-  \ eps=1e-05)[source]\xB6\nApply Group Normalization for last certain number of dimensions.\n\
-  See GroupNorm for details.\n\nReturn type\nTensor\n\n\n"

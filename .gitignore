@@ -7,3 +7,6 @@ list_structure.py
 *tmp*
 *key.py*
 test.py
+constraintflow/nets/
+generation/prompt/
+test_models_scripts/

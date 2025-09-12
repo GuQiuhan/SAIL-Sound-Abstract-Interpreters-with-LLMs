@@ -1,8 +1,0 @@
-api: torch.nn.functional.softplus
-doc: "\n\ntorch.nn.functional.softplus(input, beta=1, threshold=20) \u2192 Tensor\xB6\
-  \nApplies element-wise, the function Softplus(x)=1\u03B2\u2217log\u2061(1+exp\u2061\
-  (\u03B2\u2217x))\\text{Softplus}(x) = \\frac{1}{\\beta} * \\log(1 + \\exp(\\beta\
-  \ * x))Softplus(x)=\u03B21\u200B\u2217log(1+exp(\u03B2\u2217x)).\nFor numerical\
-  \ stability the implementation reverts to the linear function\nwhen input\xD7\u03B2\
-  >thresholdinput \\times \\beta > thresholdinput\xD7\u03B2>threshold.\nSee Softplus\
-  \ for more details.\n"

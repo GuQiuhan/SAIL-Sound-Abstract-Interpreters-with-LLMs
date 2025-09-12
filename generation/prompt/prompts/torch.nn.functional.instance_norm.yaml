@@ -1,6 +1,0 @@
-api: torch.nn.functional.instance_norm
-doc: "\n\ntorch.nn.functional.instance_norm(input, running_mean=None, running_var=None,\
-  \ weight=None, bias=None, use_input_stats=True, momentum=0.1, eps=1e-05)[source]\xB6\
-  \nApply Instance Normalization independently for each channel in every data sample\
-  \ within a batch.\nSee InstanceNorm1d, InstanceNorm2d,\nInstanceNorm3d for details.\n\
-  \nReturn type\nTensor\n\n\n"
