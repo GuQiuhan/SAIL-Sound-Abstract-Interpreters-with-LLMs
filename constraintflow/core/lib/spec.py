@@ -1,10 +1,10 @@
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
-from constraintflow.gbcsr.sparse_tensor import *
-from constraintflow.lib.parse import *
-from constraintflow.lib.polyexp import PolyExpSparse
-from constraintflow.lib.symexp import SymExpSparse
+from constraintflow.core.gbcsr.sparse_tensor import *
+from constraintflow.core.lib.parse import *
+from constraintflow.core.lib.polyexp import PolyExpSparse
+from constraintflow.core.lib.symexp import SymExpSparse
 
 
 class ImageDataset:
@@ -59,15 +59,18 @@ class ImageDataset:
         true_label = data.targets[:n]
         return image, true_label
 
-    def get_output_spec_weight_and_bias(X, y):
-        num_classes = 10
+    def get_output_spec_weight_and_bias(X, y, dataset="mnist"):
+        if dataset in ["mnist", "cifar10", "cifar"]:
+            num_classes = 10
+        elif dataset in ["tinyimagenet", "imagenet"]:
+            num_classes = 200
         weight = torch.eye(num_classes).type_as(X)[y].unsqueeze(1) - torch.eye(
             num_classes
         ).type_as(X).unsqueeze(0)
         I = ~(y.unsqueeze(1) == torch.arange(num_classes).type_as(y).unsqueeze(0))
         weight = weight[I].view(X.size(0), num_classes - 1, num_classes)
 
-        bias = torch.zeros(9, dtype=torch.float32)
+        bias = torch.zeros(num_classes - 1, dtype=torch.float32)
         return weight, bias
 
 
@@ -173,7 +176,10 @@ def create_llist(network):
 def get_network_and_input_spec(
     network_file, batch_size, X, y, dataset, eps, train=False, no_sparsity=False
 ):
-    spec_weight, spec_bias = ImageDataset.get_output_spec_weight_and_bias(X, y)
+    if dataset == "tinyimagenet":
+        X = X.to(torch.float32) / 255.0
+
+    spec_weight, spec_bias = ImageDataset.get_output_spec_weight_and_bias(X, y, dataset)
     network = get_net(network_file, spec_weight, spec_bias, no_sparsity)
     l = ImageDataset.create_l(X, network.size, batch_size, eps, dataset, no_sparsity)
     u = ImageDataset.create_u(X, network.size, batch_size, eps, dataset, no_sparsity)

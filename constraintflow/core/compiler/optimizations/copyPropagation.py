@@ -1,5 +1,5 @@
-from constraintflow.compiler import representations
-from constraintflow.compiler.ir import *
+from constraintflow.core.compiler import representations
+from constraintflow.core.compiler.ir import *
 
 
 def replace_all_occurrences_metadata(irMetadata, old_var, new_var):

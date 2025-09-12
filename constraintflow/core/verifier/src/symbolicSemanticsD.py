@@ -1,12 +1,5 @@
 # dreal-only semantics
-
-try:
-    import dreal as dr
-
-    HAS_DREAL = True
-except ImportError:
-    dreal = None
-    HAS_DREAL = False
+import dreal as dr
 
 from constraintflow.core.ast_cflow import astcf as AST
 from constraintflow.core.ast_cflow import astVisitor

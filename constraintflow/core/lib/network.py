@@ -91,3 +91,4 @@ class LayerType(Enum):
     Input = 9
     Concat = 10
     Sigmoid = 11
+    Add = 12

@@ -1,3 +1,4 @@
+import copy
 import math
 from collections import deque
 
@@ -7,7 +8,7 @@ import torch
 import torch.nn as nn
 from onnx import numpy_helper
 
-from constraintflow.lib.network import Layer, LayerType, Network
+from constraintflow.core.lib.network import Layer, LayerType, Network
 
 
 def compute_size(shape):
@@ -61,6 +62,7 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
     input_shape = [
         dim.dim_value for dim in net.graph.input[0].type.tensor_type.shape.dim
     ]
+    input_shape = [1 if i == 0 else i for i in input_shape]
     if len(input_shape) == 3:
         input_shape = [1] + input_shape
     input_size = compute_size(input_shape)
@@ -107,13 +109,39 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
             parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
 
-            layer = Layer(
-                weight=model_name_to_val_dict[nd_inps[1]],
-                bias=(model_name_to_val_dict[nd_inps[2]]),
-                type=LayerType.Conv2D,
-                identifier=index,
-                parents=parents[index],
-            )
+            if isinstance(nd_inps[0], str):
+                w_key = None
+                b_key = None
+                for i in range(len(nd_inps)):
+                    if "weight" in nd_inps[i]:
+                        w_key = nd_inps[i]
+                    if "bias" in nd_inps[i]:
+                        b_key = nd_inps[i]
+                if b_key == None:
+                    layer = Layer(
+                        weight=model_name_to_val_dict[w_key],
+                        bias=torch.zeros(model_name_to_val_dict[w_key].shape[0]),
+                        type=LayerType.Conv2D,
+                        identifier=index,
+                        parents=parents[index],
+                    )
+                else:
+                    layer = Layer(
+                        weight=model_name_to_val_dict[w_key],
+                        bias=model_name_to_val_dict[b_key],
+                        type=LayerType.Conv2D,
+                        identifier=index,
+                        parents=parents[index],
+                    )
+
+            else:
+                layer = Layer(
+                    weight=model_name_to_val_dict[nd_inps[1]],
+                    bias=(model_name_to_val_dict[nd_inps[2]]),
+                    type=LayerType.Conv2D,
+                    identifier=index,
+                    parents=parents[index],
+                )
             layers.append(layer)
 
             layer.kernel_size = (node.attribute[2].ints[0], node.attribute[2].ints[1])
@@ -218,10 +246,24 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
             layer.shape = [o_1, o_2, o_3, o_4]
 
         elif operation == "Add":
-            index -= 1
-            names_hash[str(net.graph.node[cur_layer].output[0])] = index
-            layer = layers[-1]
-            layer.bias = model_name_to_val_dict[nd_inps[1]]
+            if nd_inps[1] not in model_name_to_val_dict:
+                names_hash[str(net.graph.node[cur_layer].output[0])] = index
+                parent1 = names_hash[nd_inps[0]]
+                parent2 = names_hash[nd_inps[1]]
+                parents[index] = [parent1, parent2]
+                layer = Layer(
+                    weight=None,
+                    type=LayerType.Add,
+                    identifier=index,
+                    parents=parents[index],
+                )
+                layers.append(layer)
+                layer.shape = copy.deepcopy(layers[parents[index][0]].shape)
+            else:
+                index -= 1
+                names_hash[str(net.graph.node[cur_layer].output[0])] = index
+                layer = layers[-1]
+                layer.bias = model_name_to_val_dict[nd_inps[1]]
 
         else:
             if len(net.graph.node[cur_layer].input) > 0:
@@ -240,21 +282,29 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
         layer.end = layers.size
         shape = layer.shape
 
-    layer = Layer(
-        weight=spec_weight,
-        bias=spec_bias,
-        type=LayerType.Linear,
-        identifier=index + 1,
-        parents=[layers[-1].identifier],
-    )
-    layer.last_layer = True
-    layer.shape = [1, spec_weight.shape[-2], 1, 1]
-    layer.size = compute_size(layer.shape)
-    layer.start = layers.size
-    layers.size += layer.size
-    layer.end = layers.size
-    layers.append(layer)
-
+    if layers[-1].type != LayerType.Linear:
+        layer = Layer(
+            weight=spec_weight,
+            bias=spec_bias,
+            type=LayerType.Linear,
+            identifier=index + 1,
+            parents=[layers[-1].identifier],
+        )
+        layer.last_layer = True
+        layer.shape = [1, spec_weight.shape[-2], 1, 1]
+        layer.size = compute_size(layer.shape)
+        layer.start = layers.size
+        layers.size += layer.size
+        layer.end = layers.size
+        layers.append(layer)
+    else:
+        layers[-1].weight = (spec_weight @ layers[-1].weight)[0]
+        layers[-1].bias = (spec_weight @ layers[-1].bias + spec_bias)[0]
+        layers[-1].shape[1] = spec_weight.shape[-2]
+        layers.size = layers.size - layers[-1].size
+        layers[-1].size = compute_size(layers[-1].shape)
+        layers.size += layers[-1].size
+        layers[-1].end = layers.size
     layers = post_process(layers)
     return layers
 
@@ -266,7 +316,6 @@ def post_process(layers):
     for i, layer in enumerate(layers):
         for j, parent in enumerate(layer.parents):
             layers[identifier_to_index[parent]].children.append(layer.identifier)
-
     queue = deque([layers[identifier_to_index[0]]])
     visited = set()
     layer_num = 0
@@ -281,7 +330,13 @@ def post_process(layers):
         visited.add(layer)
         for child in layer.children:
             if child not in visited:
-                queue.append(layers[identifier_to_index[child]])
+                parent_visited = True
+                for parent in layers[identifier_to_index[child]].parents:
+                    if layers[identifier_to_index[parent]] not in visited:
+                        parent_visited = False
+                        break
+                if parent_visited:
+                    queue.append(layers[identifier_to_index[child]])
 
     start = 0
     for i, layer in enumerate(new_layers):
@@ -290,12 +345,17 @@ def post_process(layers):
         parents = []
         for parent in layer.parents:
             parents.append(layers[parent].new_identifier)
-        layer.parents = parents
+        layer.new_parents = parents
         children = []
         for child in layer.children:
             children.append(layers[child].new_identifier)
-        layer.children = children
+        layer.new_children = children
         start += layer.size
+    for i, layer in enumerate(new_layers):
+        layer.identifier = layer.new_identifier
+        layer.parents = layer.new_parents
+        layer.children = layer.new_children
+
     return new_layers
 
 

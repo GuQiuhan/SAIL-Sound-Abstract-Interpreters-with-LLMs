@@ -1,7 +1,5 @@
 # ConstraintFlow
 
-![ConstraintFlow Logo](docs/logo.png)
-
 **ConstraintFlow** is a domain-specific language (DSL) and toolchain for specifying, verifying, and compiling neural network certifiers. It bridges the gap between high-level formal specifications and efficient tensor-based runtimes, enabling precise and verifiable DNN analysis.
 
 ---
@@ -20,6 +18,14 @@ ConstraintFlow allows you to:
 ## 🚀 Quick Start
 
 ### Installation
+
+Pip installation ([Pypi](https://pypi.org/project/constraintflow/0.1.1/))
+
+```bash
+pip install constraintflow==0.1.1
+```
+
+Or install from source
 
 Clone the repository and install in editable mode:
 

@@ -3,8 +3,8 @@ import operator
 
 import torch
 
-from constraintflow.gbcsr.sparse_tensor import *
-from constraintflow.lib.globals import *
+from constraintflow.core.gbcsr.sparse_tensor import *
+from constraintflow.core.lib.globals import *
 
 input_size = 784
 

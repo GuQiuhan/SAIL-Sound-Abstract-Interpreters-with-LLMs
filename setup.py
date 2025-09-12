@@ -9,6 +9,6 @@ setup(
         "antlr4-python3-runtime==4.13.2",
         "tabulate",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.6",
     include_package_data=True,
 )

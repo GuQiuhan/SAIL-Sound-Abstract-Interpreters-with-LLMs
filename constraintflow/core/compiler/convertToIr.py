@@ -1,8 +1,8 @@
-from constraintflow.ast_cflow import astcf as AST
-from constraintflow.ast_cflow import astVisitor
-from constraintflow.compiler import representations
-from constraintflow.compiler.globals import *
-from constraintflow.compiler.ir import *
+from constraintflow.core.ast_cflow import astcf as AST
+from constraintflow.core.ast_cflow import astVisitor
+from constraintflow.core.compiler import representations
+from constraintflow.core.compiler.globals import *
+from constraintflow.core.compiler.ir import *
 
 
 class FuncDef:
@@ -684,7 +684,10 @@ class ConvertToIr(astVisitor.ASTVisitor):
                         ],
                     )
                 if self.shape[list(self.shape.keys())[i]] == "PolyExp":
-                    exprIr = IrConvertConstToPoly(exprIr)
+                    if exprIr.irMetadata[-1].type in ["Int", "Float"]:
+                        exprIr = IrConvertConstToPoly(exprIr)
+                    else:
+                        exprIr = IrConvertNeuronToPoly(exprIr)
                 elif self.shape[list(self.shape.keys())[i]] == "SymExp":
                     exprIr = IrConvertConstToSym(exprIr)
 
@@ -842,29 +845,37 @@ class ConvertToIr(astVisitor.ASTVisitor):
         self.counter += 1
         original_store = copy.deepcopy(self.store)
 
-        stop_ast_node = self.ast_fstore[ast_node.sfunc.name]
-        assert len(stop_ast_node.decl.arglist.arglist) == 1
-        for (type_node, var_node) in stop_ast_node.decl.arglist.arglist:
-            if type_node == AST.BaseTypeNode("Neuron"):
-                self.store[var_node.name] = neuronIr
-        stopIr = self.visit(stop_ast_node.expr)
-        self.fstore[ast_node.sfunc.name] = (stopIr, [(var_node.name, "Neuron")])
+        if isinstance(ast_node.sfunc, AST.ConstBoolNode):
+            stop_val = self.visit(ast_node.sfunc)[0]
+        else:
+            stop_ast_node = self.ast_fstore[ast_node.sfunc.name]
+            assert len(stop_ast_node.decl.arglist.arglist) == 1
+            for (type_node, var_node) in stop_ast_node.decl.arglist.arglist:
+                if type_node == AST.BaseTypeNode("Neuron"):
+                    self.store[var_node.name] = neuronIr
+            stopIr = self.visit(stop_ast_node.expr)
+            self.fstore[ast_node.sfunc.name] = (stopIr, [(var_node.name, "Neuron")])
+            stop_val = ast_node.sfunc.name
 
-        priority_ast_node = self.ast_fstore[ast_node.pfunc.name]
-        assert len(priority_ast_node.decl.arglist.arglist) == 1
-        for (type_node, var_node) in priority_ast_node.decl.arglist.arglist:
-            if type_node == AST.BaseTypeNode("Neuron"):
-                self.store[var_node.name] = neuronIr
-        priorityIr = self.visit(priority_ast_node.expr)
-        self.fstore[ast_node.pfunc.name] = (priorityIr, [(var_node.name, "Neuron")])
-
+        if (
+            isinstance(ast_node.pfunc, AST.ConstBoolNode)
+            or isinstance(ast_node.pfunc, AST.ConstIntNode)
+            or isinstance(ast_node.pfunc, AST.ConstFloatNode)
+        ):
+            priority_val = ast_node.pfunc.value
+        else:
+            priority_ast_node = self.ast_fstore[ast_node.pfunc.name]
+            assert len(priority_ast_node.decl.arglist.arglist) == 1
+            for (type_node, var_node) in priority_ast_node.decl.arglist.arglist:
+                if type_node == AST.BaseTypeNode("Neuron"):
+                    self.store[var_node.name] = neuronIr
+            priorityIr = self.visit(priority_ast_node.expr)
+            self.fstore[ast_node.pfunc.name] = (priorityIr, [(var_node.name, "Neuron")])
+            priority_val = ast_node.pfunc.name
         self.store = original_store
 
         return IrFlow(
-            ast_node.sfunc.name,
-            ast_node.pfunc.name,
-            ast_node.trans.name,
-            ast_node.direction.value,
+            stop_val, priority_val, ast_node.trans.name, ast_node.direction.value
         )
 
     def visitProg(self, ast_node):

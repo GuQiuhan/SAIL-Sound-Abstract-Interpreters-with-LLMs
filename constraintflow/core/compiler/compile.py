@@ -1,10 +1,10 @@
 import antlr4 as antlr
 
-from constraintflow.ast_cflow import astBuilder, astTC, dslLexer, dslParser
-from constraintflow.compiler import codeGen
-from constraintflow.compiler import convertToIr as c2r
-from constraintflow.compiler import representations
-from constraintflow.compiler.optimizations import (
+from constraintflow.core.ast_cflow import astBuilder, astTC, dslLexer, dslParser
+from constraintflow.core.compiler import codeGen
+from constraintflow.core.compiler import convertToIr as c2r
+from constraintflow.core.compiler import representations
+from constraintflow.core.compiler.optimizations import (
     copyPropagation,
     cse,
     dce,

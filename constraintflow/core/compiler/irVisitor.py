@@ -1,4 +1,4 @@
-from constraintflow.compiler import ir as IR
+from constraintflow.core.compiler import ir as IR
 
 
 class IRVisitor:

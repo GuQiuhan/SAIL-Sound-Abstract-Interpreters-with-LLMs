@@ -1,21 +1,14 @@
 import os
+import shutil
 import sys
 
 import torch
 import typer
-from core.compiler.compile import compile as _compile
-from core.verifier.provesound import provesound as _provesound
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
-app = typer.Typer(
-    help="ConstraintFlow CLI for verification and compilation of DSL programs."
-)
-
-
-# --------------------------
-# Utility Functions
-# --------------------------
+from constraintflow.core.compiler.compile import compile as _compile
+from constraintflow.core.verifier.provesound import provesound as _provesound
 
 
 def get_program(program_file: str) -> str:
@@ -91,83 +84,63 @@ def get_precision(lb):
     return precision
 
 
-# --------------------------
-# CLI Commands
-# --------------------------
-
-
-@app.command()
-def provesound(
-    program_file: str = typer.Argument(..., help="ConstraintFlow program file"),
-    nprev: int = typer.Option(1, help="Number of previous states"),
-    nsymb: int = typer.Option(1, help="Number of symbols"),
-):
+def provesound(program_file: str, nprev: int = 1, nsymb: int = 1):
     """
     Prove soundness of a ConstraintFlow program.
     """
     program = get_program(program_file)
     res = _provesound(program, nprev=nprev, nsymb=nsymb)
-    typer.echo(f"Provesound result: {res}")
+    print(f"Provesound result: {res}")
 
 
-def compile_code(
-    program_file: str = typer.Argument(..., help="ConstraintFlow program file"),
-    output_path: str = typer.Option("output/", help="Output path for generated code"),
-):
+def compile_code(program_file: str, output_path: str = "output/"):
     """
     Compile a ConstraintFlow program into Python.
     """
     try:
+        # os.makedirs(output_path, exist_ok=True)
+        if os.path.exists(output_path):
+            shutil.rmtree(output_path)
         os.makedirs(output_path, exist_ok=True)
     except OSError as e:
-        typer.echo(f"Error creating folder '{output_path}': {e}")
-        raise typer.Exit(code=1)
+        print(f"Error creating folder '{output_path}': {e}")
+        sys.exit(1)
 
     program = get_program(program_file)
     res = _compile(program, output_path)
     if res:
-        typer.echo("Compilation successful ✅")
+        print("Compilation successful ✅")
     else:
-        typer.echo("Compilation failed ❌")
-        raise typer.Exit(code=1)
+        print("Compilation failed ❌")
+        sys.exit(1)
 
 
-@app.command()
-def compile(
-    program_file: str = typer.Argument(..., help="ConstraintFlow program file"),
-    output_path: str = typer.Option("output/", help="Output path for generated code"),
-):
-    compile_code(program_file, output_path)
-
-
-@app.command()
 def run(
-    program_file: str = typer.Argument(..., help="ConstraintFlow program file"),
-    network: str = typer.Option("mnist_relu_3_50", help="Network name"),
-    network_format: str = typer.Option("onnx", help="Network format"),
-    dataset: str = typer.Option("mnist", help="Dataset (mnist or cifar)"),
-    batch_size: int = typer.Option(1, help="Batch size"),
-    eps: float = typer.Option(0.01, help="Epsilon"),
-    train: bool = typer.Option(False, help="Run on training dataset"),
-    print_intermediate_results: bool = typer.Option(
-        False, help="Print intermediate results"
-    ),
-    no_sparsity: bool = typer.Option(False, help="Disable sparsity optimizations"),
-    output_path: str = typer.Option(
-        "output/", help="Path where compiled program is stored"
-    ),
-    compile: bool = typer.Option(False, help="Run compilation before execution"),
+    program_file: str,
+    network: str = "mnist_relu_3_50",
+    network_format: str = "onnx",
+    dataset: str = "mnist",
+    batch_size: int = 1,
+    eps: float = 0.01,
+    train: bool = False,
+    print_intermediate_results: bool = False,
+    no_sparsity: bool = False,
+    output_path: str = "output/",
+    do_compile: bool = False,
 ):
     """
     Run a compiled ConstraintFlow program.
     """
     try:
+        # os.makedirs(output_path, exist_ok=True)
+        if os.path.exists(output_path):
+            shutil.rmtree(output_path)
         os.makedirs(output_path, exist_ok=True)
     except OSError as e:
-        typer.echo(f"Error creating folder '{output_path}': {e}")
-        raise typer.Exit(code=1)
+        print(f"Error creating folder '{output_path}': {e}")
+        sys.exit(1)
 
-    if compile:
+    if do_compile:
         compile_code(program_file, output_path)
 
     sys.path.insert(0, os.path.abspath(output_path))
@@ -188,15 +161,25 @@ def run(
         no_sparsity=no_sparsity,
     )
 
-    typer.echo(f"Lower bound: {lb}")
-    typer.echo(f"Upper bound: {ub}")
+    print(f"Lower bound: {lb}")
+    print(f"Upper bound: {ub}")
     precision = get_precision(lb)
-    typer.echo(f"Precision: {precision}")
-
-
-def main():
-    app()
+    print(f"Precision: {precision}")
 
 
 if __name__ == "__main__":
-    main()
+    # compile_code(program_file = "gpt-5_deeppoly_relu.cf")
+
+    run(
+        program_file="gpt-5_deeppoly_relu.cf",
+        network="nets/mnist/mnist_relu_3_50.onnx",
+        network_format="onnx",
+        dataset="mnist",
+        batch_size=1,
+        eps=0.01,
+        train=False,
+        print_intermediate_results=False,
+        no_sparsity=False,
+        output_path="output/",
+        do_compile=True,
+    )

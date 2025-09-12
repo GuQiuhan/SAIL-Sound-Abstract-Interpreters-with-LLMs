@@ -2,14 +2,14 @@ import time
 
 import torch
 
-from constraintflow.gbcsr.sparse_block import DenseBlock, DiagonalBlock
-from constraintflow.gbcsr.sparse_tensor import SparseTensor
-from constraintflow.lib.abs_elem import Abs_elem_sparse
-from constraintflow.lib.globals import *
-from constraintflow.lib.llist import *
-from constraintflow.lib.network import LayerType, Network
-from constraintflow.lib.polyexp import *
-from constraintflow.lib.symexp import *
+from constraintflow.core.gbcsr.sparse_block import DenseBlock, DiagonalBlock
+from constraintflow.core.gbcsr.sparse_tensor import SparseTensor
+from constraintflow.core.lib.abs_elem import Abs_elem_sparse
+from constraintflow.core.lib.globals import *
+from constraintflow.core.lib.llist import *
+from constraintflow.core.lib.network import LayerType, Network
+from constraintflow.core.lib.polyexp import *
+from constraintflow.core.lib.symexp import *
 
 
 class Flow:
@@ -99,6 +99,34 @@ class Flow:
 
             elif layer.type == LayerType.Input:
                 continue
+            elif layer.type == LayerType.Add:
+                prev1 = Llist(self.model, [1], None, None, [layer.parents[0]])
+                prev2 = Llist(self.model, [1], None, None, [layer.parents[1]])
+                curr = Llist(self.model, [1], None, None, [tmp])
+                abs_shape = []
+                for key in self.abs_elem.d.keys():
+                    if key == "llist":
+                        continue
+                    elif isinstance(self.abs_elem.d[key], SparseTensor):
+                        res = self.abs_elem.get_elem(key, prev1).binary(
+                            self.abs_elem.get_elem(key, prev2), operator.add
+                        )
+                        abs_shape.append(res)
+                    elif isinstance(self.abs_elem.d[key], PolyExpSparse) or isinstance(
+                        self.abs_elem.d[key], SymExpSparse
+                    ):
+                        exp1 = self.abs_elem.get_elem(key, prev1)
+                        exp2 = self.abs_elem.get_elem(key, prev2)
+                        const1 = exp1.get_const()
+                        const2 = exp2.get_const()
+                        const = const1.binary(const2, operator.add)
+                        mat1 = exp1.get_mat(self.abs_elem)
+                        mat2 = exp2.get_mat(self.abs_elem)
+                        mat = mat1.binary(mat2, operator.add)
+                        if isinstance(self.abs_elem.d[key], PolyExpSparse):
+                            abs_shape.append(PolyExpSparse(self.model, mat, const))
+                        elif isinstance(self.abs_elem.d[key], SymExpSparse):
+                            abs_shape.append(SymExpSparse(self.model, mat, const))
             elif layer.type == LayerType.Concat:
                 debug_flag.set_flag()
                 prev = Llist(self.model, [1], None, None, layer.parents)

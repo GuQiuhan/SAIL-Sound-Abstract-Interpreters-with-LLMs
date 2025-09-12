@@ -20,10 +20,10 @@ class CodeGen(irVisitor.IRVisitor):
 
         self.write("import sys")
         self.write("import os")
-        self.write("from constraintflow.lib.spec import *")
-        self.write("from constraintflow.lib.flow_sparse import Flow")
-        self.write("from constraintflow.lib.abs_elem import Abs_elem_sparse")
-        self.write("from constraintflow.lib.symexp import *")
+        self.write("from constraintflow.core.lib.spec import *")
+        self.write("from constraintflow.core.lib.flow_sparse import Flow")
+        self.write("from constraintflow.core.lib.abs_elem import Abs_elem_sparse")
+        self.write("from constraintflow.core.lib.symexp import *")
         self.write("from transformers import *")
         self.write("\n")
         self.write(
@@ -77,11 +77,11 @@ class CodeGen(irVisitor.IRVisitor):
         self.open(self.transformers_file)
         self.indent = 0
         self.write("import torch")
-        self.write("from constraintflow.lib.polyexp import PolyExpSparse")
-        self.write("from constraintflow.lib.symexp import *")
-        self.write("from constraintflow.gbcsr.sparse_tensor import SparseTensor")
-        self.write("from constraintflow.lib.llist import Llist")
-        self.write("from constraintflow.gbcsr.tensor_ops import *")
+        self.write("from constraintflow.core.lib.polyexp import PolyExpSparse")
+        self.write("from constraintflow.core.lib.symexp import *")
+        self.write("from constraintflow.core.gbcsr.sparse_tensor import SparseTensor")
+        self.write("from constraintflow.core.lib.llist import Llist")
+        self.write("from constraintflow.core.gbcsr.tensor_ops import *")
 
         for i, transformer_name in enumerate(node.tstore.keys()):
             self.write("class " + transformer_name + ":")

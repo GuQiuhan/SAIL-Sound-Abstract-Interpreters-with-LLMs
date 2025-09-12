@@ -2,7 +2,7 @@ import graphviz
 import matplotlib.pyplot as plt
 import networkx as nx
 
-from constraintflow.compiler.ir import *
+from constraintflow.core.compiler.ir import *
 
 
 def get_z3_vars(z3_expr):

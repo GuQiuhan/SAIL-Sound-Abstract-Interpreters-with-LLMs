@@ -1,5 +1,5 @@
-from constraintflow.compiler.ir import *
-from constraintflow.compiler.optimizations import uses
+from constraintflow.core.compiler.ir import *
+from constraintflow.core.compiler.optimizations import uses
 
 
 def dce_block(block):

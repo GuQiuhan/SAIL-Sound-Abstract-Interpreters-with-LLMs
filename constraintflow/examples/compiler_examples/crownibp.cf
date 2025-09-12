@@ -7,7 +7,7 @@ func replace_lower(Neuron n, Float coeff) = (coeff >= 0.0) ? (coeff * n[L]) : (c
 func replace_upper(Neuron n, Float coeff) = (coeff >= 0.0) ? (coeff * n[U]) : (coeff * n[L]);
 
 func priority(Neuron n) = n[layer];
-func priority2(Neuron n, Float c) = -n[layer];
+func priority2(Neuron n, Float c) = n[layer];
 func stop(Neuron n) = false;
 func stop_traverse(Neuron n, Float c) = false;
 

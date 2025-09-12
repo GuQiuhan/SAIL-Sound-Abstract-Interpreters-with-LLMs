@@ -2,9 +2,9 @@ import copy
 
 import torch
 
-from constraintflow.lib.llist import Llist
-from constraintflow.lib.polyexp import *
-from constraintflow.lib.symexp import *
+from constraintflow.core.lib.llist import Llist
+from constraintflow.core.lib.polyexp import *
+from constraintflow.core.lib.symexp import *
 
 
 class Abs_elem_sparse:
@@ -45,8 +45,6 @@ class Abs_elem_sparse:
         start_time = time.time()
         llist = self.filter_non_live(llist)
         llist_compressed = torch.nonzero(self.d["llist"]).flatten().tolist()
-        # print(self.d['llist'])
-        # print(llist_compressed)
         if llist.llist_flag:
             if self.types[key] in ["int", "float", "Int", "Float", "bool", "Bool"]:
                 start_indices = []
@@ -197,25 +195,7 @@ class Abs_elem_sparse:
                     start_indices = []
                     end_indices = []
                     blocks = []
-                    # print(llist.llist)
-                    # print(llist_compressed)
-                    # kf
                     for l in llist.llist:
-                        # for l2 in range(min(llist_compressed), max(llist_compressed)+1):
-                        #     start_index = torch.tensor([0, llist.network[l].start, self.network[l2].start])
-                        #     end_index = torch.tensor([self.batch_size, llist.network[l].end, self.network[l2].end])
-                        #     res = self.d[key].mat.get_sparse_custom_range(start_index, end_index)
-                        #     start_indices += res.start_indices
-                        #     end_indices += res.end_indices
-                        #     blocks += res.blocks
-                        # start_index = torch.tensor([0, llist.network[l].start, self.network[min(llist_compressed)].start])
-                        # end_index = torch.tensor([self.batch_size, llist.network[l].end, self.network[max(llist_compressed)].end])
-                        # # print(start_index)
-                        # # print(end_index)
-                        # res = self.d[key].mat.get_sparse_custom_range(start_index, end_index)
-                        # start_indices += res.start_indices
-                        # end_indices += res.end_indices
-                        # blocks += res.blocks
                         start_index = torch.tensor(
                             [
                                 0,
@@ -270,7 +250,6 @@ class Abs_elem_sparse:
                         self.d[key].mat.type,
                         self.d[key].mat.dense_const,
                     )
-                    # val_mat = SparseTensor(start_indices, blocks, res.dims, res.total_size, end_indices, res.type, res.dense_const)
 
                     start_index = torch.tensor(
                         [0, self.network[min(llist.llist)].start, 0]
@@ -387,13 +366,6 @@ class Abs_elem_sparse:
                     end_indices = []
                     blocks = []
                     for l in llist.llist:
-                        #     start_index = torch.tensor([0, llist.network[l].start, 0])
-                        #     end_index = torch.tensor([self.batch_size, llist.network[l].end, SymExpSparse.count])
-                        #     res = self.d[key].mat.get_sparse_custom_range(start_index, end_index)
-                        #     start_indices += res.start_indices
-                        #     end_indices += res.end_indices
-                        #     blocks += res.blocks
-                        # val_mat = SparseTensor(start_indices, blocks, res.dims, res.total_size, end_indices, res.type, res.dense_const)
                         start_index = torch.tensor([0, llist.network[l].start, 0])
                         end_index = torch.tensor(
                             [self.batch_size, llist.network[l].end, SymExpSparse.count]
@@ -465,58 +437,6 @@ class Abs_elem_sparse:
                 get_elem_time.update_total_time(end_time - start_time)
                 return SymExpSparse(self.network, val_mat, val_const)
 
-            # elif self.types[key] == 'SymExp':
-            #     start_indices = []
-            #     end_indices = []
-            #     blocks = []
-            #     for l in llist.llist:
-            #         start_index = torch.tensor([0, llist.network[l].start])
-            #         end_index = torch.tensor([self.batch_size, llist.network[l].end])
-            #         res = self.d[key].const.get_sparse_custom_range(start_index, end_index)
-            #         start_indices += res.start_indices
-            #         end_indices += res.end_indices
-            #         blocks += res.blocks
-            #     val_const = SparseTensor(start_indices, blocks, res.dims, res.total_size, end_indices, res.type, res.dense_const)
-
-            #     start_index = torch.tensor([0, self.network[min(llist.llist)].start])
-            #     end_index = torch.tensor([self.batch_size, self.network[max(llist.llist)].end])
-            #     total_size = end_index - start_index
-            #     val_const = val_const.reduce_size(start_index, end_index, total_size)
-            #     extra_dims = len(llist.initial_shape)-1
-            #     for i in range(extra_dims):
-            #         val_const = val_const.unsqueeze(1)
-
-            #     repeat_shape = torch.tensor(llist.initial_shape + [1])
-            #     if not (repeat_shape==1).all():
-            #         val_const = val_const.repeat(repeat_shape)
-
-            #     start_indices = []
-            #     end_indices = []
-            #     blocks = []
-            #     for l in llist.llist:
-            #         start_index = torch.tensor([0, llist.network[l].start, self.network[min(llist.llist)].start])
-            #         end_index = torch.tensor([self.batch_size, llist.network[l].end, self.network[max(llist.llist)].end])
-            #         res = self.d[key].mat.get_sparse_custom_range(start_index, end_index)
-            #         start_indices += res.start_indices
-            #         end_indices += res.end_indices
-            #         blocks += res.blocks
-            #     val_mat = SparseTensor(start_indices, blocks, res.dims, res.total_size, end_indices, res.type, res.dense_const)
-
-            #     start_index = torch.tensor([0, self.network[min(llist.llist)].start, 0])
-            #     end_index = torch.tensor([self.batch_size, self.network[max(llist.llist)].end, val_mat.total_size[-1]])
-            #     total_size = end_index - start_index
-            #     val_mat = val_mat.reduce_size(start_index, end_index, total_size)
-            #     extra_dims = len(llist.initial_shape)-1
-            #     for i in range(extra_dims):
-            #         val_mat = val_mat.unsqueeze(1)
-
-            #     repeat_shape = torch.tensor(llist.initial_shape + [1,1])
-            #     if not (repeat_shape==1).all():
-            #         val_mat = val_mat.repeat(repeat_shape)
-
-            #     end_time = time.time()
-            #     get_elem_time.update_total_time(end_time-start_time)
-            #     return SymExpSparse(self.network, val_mat, val_const)
         else:
             if (
                 self.types[key] == "int"
@@ -766,15 +686,9 @@ class Abs_elem_sparse:
                         self.d[key].mat = self.d[key].mat.overwrite(
                             (abs_shape[i].mat).increase_size(start_index, total_size)
                         )
-                    # a = self.d[key].mat
-                    # a.plot_3d()
-                    # print(self.d[key].mat)
 
                 else:
                     raise Exception(f"Unrecognized type {self.types[key]}")
             self.d["llist"][llist.llist] = True
-            # mat = self.d['L'].mat
-            # mat.plot_3d()
-            # print(self.d['L'].mat.blocks[])
         else:
             raise Exception("NOT NEEDED")

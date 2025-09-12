@@ -2,15 +2,15 @@ import math
 
 import torch
 
-from constraintflow.gbcsr.sparse_block import (
+from constraintflow.core.gbcsr.sparse_block import (
     ConstBlock,
     DenseBlock,
     DiagonalBlock,
     KernelBlock,
 )
-from constraintflow.gbcsr.sparse_tensor import SparseTensor
-from constraintflow.lib.network import LayerType
-from constraintflow.lib.polyexp import *
+from constraintflow.core.gbcsr.sparse_tensor import SparseTensor
+from constraintflow.core.lib.network import LayerType
+from constraintflow.core.lib.polyexp import *
 
 
 class Llist:

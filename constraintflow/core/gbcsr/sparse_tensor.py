@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 import torch
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-from constraintflow.gbcsr.op_helper import *
-from constraintflow.gbcsr.plot import *
-from constraintflow.gbcsr.sparse_block import *
-from constraintflow.lib.globals import *
+from constraintflow.core.gbcsr.op_helper import *
+from constraintflow.core.gbcsr.plot import *
+from constraintflow.core.gbcsr.sparse_block import *
+from constraintflow.core.lib.globals import *
 
 
 def plot_block(ax, batch_idx, y_start, z_start, x_size, y_size, z_size, color="blue"):

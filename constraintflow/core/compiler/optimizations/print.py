@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 
-from constraintflow.compiler.ir import *
+from constraintflow.core.compiler.ir import *
 
 G = nx.DiGraph()
 types = {}

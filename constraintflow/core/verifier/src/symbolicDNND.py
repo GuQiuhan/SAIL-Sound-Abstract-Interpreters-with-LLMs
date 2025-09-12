@@ -3,16 +3,16 @@
 try:
     import dreal as dr
 
+    from constraintflow.core.verifier.lib.drealSolver import DRealSolver
+    from constraintflow.core.verifier.src.symbolicSemanticsD import SymbolicSemanticsD
+
     HAS_DREAL = True
-except ImportError:
-    dreal = None
+except:
     HAS_DREAL = False
 
 from constraintflow.core.ast_cflow import astcf as AST
 from constraintflow.core.ast_cflow import astVisitor
-from constraintflow.core.verifier.lib.drealSolver import DRealSolver
 from constraintflow.core.verifier.lib.globals import *
-from constraintflow.core.verifier.src.symbolicSemanticsD import SymbolicSemanticsD
 from constraintflow.core.verifier.src.value import *
 
 
@@ -21,7 +21,8 @@ class VertexD:
     def __init__(self, name_str: str):
         self.symmap = {}
         self.name_str = str(name_str)
-        self.name = dr.Variable(self.name_str)
+        if HAS_DREAL:
+            self.name = dr.Variable(self.name_str)
 
 
 # dReal populate_vars

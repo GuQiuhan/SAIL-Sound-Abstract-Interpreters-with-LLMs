@@ -1,4 +1,4 @@
-from constraintflow.compiler.ir import *
+from constraintflow.core.compiler.ir import *
 
 
 def populate_uses_metadata(irMetadata, ir_node, vars):

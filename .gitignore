@@ -10,3 +10,6 @@ test.py
 constraintflow/nets/
 generation/prompt/
 test_models_scripts/
+
+*MNIST*/
+*nets*/

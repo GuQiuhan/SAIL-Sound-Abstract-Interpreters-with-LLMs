@@ -8,8 +8,7 @@ try:
     import dreal as dr
 
     HAS_DREAL = True
-except ImportError:
-    dreal = None
+except:
     HAS_DREAL = False
 
 from constraintflow.core.ast_cflow import astcf as AST

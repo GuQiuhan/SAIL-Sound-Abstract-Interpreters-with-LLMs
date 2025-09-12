@@ -1,6 +1,6 @@
-from constraintflow.compiler import representations
-from constraintflow.compiler.ir import *
-from constraintflow.compiler.optimizations import uses
+from constraintflow.core.compiler import representations
+from constraintflow.core.compiler.ir import *
+from constraintflow.core.compiler.optimizations import uses
 
 
 def get_vars_expr(expr):

@@ -2,7 +2,7 @@ import copy
 
 from z3 import *
 
-from constraintflow.compiler.globals import *
+from constraintflow.core.compiler.globals import *
 
 # POLYEXP_SIZE = Int('poly_size')
 # CURR_SIZE = Int('curr_size')

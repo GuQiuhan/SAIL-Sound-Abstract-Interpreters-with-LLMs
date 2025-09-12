@@ -1,6 +1,6 @@
 import torch
 
-from constraintflow.gbcsr.sparse_tensor import *
+from constraintflow.core.gbcsr.sparse_tensor import *
 
 
 class PolyExpSparse:

@@ -1,5 +1,5 @@
-from constraintflow.gbcsr.sparse_block import *
-from constraintflow.gbcsr.sparse_tensor import *
+from constraintflow.core.gbcsr.sparse_block import *
+from constraintflow.core.gbcsr.sparse_tensor import *
 
 
 def get_num_eps(mat):

@@ -3,21 +3,7 @@ from z3 import *
 try:
     import dreal as dr
 
-    HAS_DREAL = True
-except ImportError:
-    dreal = None
-    HAS_DREAL = False
-
-import time
-import traceback
-
-from constraintflow.core.ast_cflow import astcf as AST
-from constraintflow.core.ast_cflow import astVisitor
-from constraintflow.core.verifier.src.value import *
-
-try:
     from constraintflow.core.verifier.lib.drealSolver import DRealSolver
-    from constraintflow.core.verifier.src.symbolicDNN import SymbolicDNN, populate_vars
     from constraintflow.core.verifier.src.symbolicDNND import (
         SymbolicDNND,
         VertexD,
@@ -25,12 +11,18 @@ try:
     )
 
     HAS_DREAL = True
-except ImportError:
+except:
     HAS_DREAL = False
+import time
+import traceback
 
+from constraintflow.core.ast_cflow import astcf as AST
+from constraintflow.core.ast_cflow import astVisitor
 from constraintflow.core.verifier.lib.globals import *
 from constraintflow.core.verifier.lib.optSolver import OptSolver
 from constraintflow.core.verifier.lib.utils import *
+from constraintflow.core.verifier.src.symbolicDNN import SymbolicDNN, populate_vars
+from constraintflow.core.verifier.src.value import *
 
 exptemp = None
 op_ = None

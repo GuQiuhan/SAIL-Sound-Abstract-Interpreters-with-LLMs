@@ -4,8 +4,8 @@ import time
 import torch
 import torch.nn.functional as F
 
-from constraintflow.gbcsr.op_helper import *
-from constraintflow.lib.globals import *
+from constraintflow.core.gbcsr.op_helper import *
+from constraintflow.core.lib.globals import *
 
 
 def get_slice(start_index, end_index):
@@ -618,27 +618,11 @@ Output Size: {self.ox, self.oy} \n"
             d_block = DenseBlock(sp_block.get_dense())
             res = self.matmul_equal_dims(d_block)
         else:
-            print(type(sp_block))
-            raise NotImplementedError
+            temp = self.convert_to_patches()
+            res = temp.matmul_equal_dims(sp_block)
+            return res
         matmul_time.update_op_time(time.time() - start_time)
         return res
-
-    """
-a b c 0 0 0 0 0 0
-d e f 0 0 0
-g h i 0 0 0
-
-a b c
-d e f
-g h i
-
-a b c 0 0 0 d e f 0 0 0         a b c 0 0 0 d e f 0 0 0         a b c d e f         a b 0 0 c d e 0 0 f
-0 a b c 0 0 0 d e f 0 0         0 a b c 0 0 0 d e f 0 0         a b c d e f         a b 0 0 c d e 0 0 f
-0 0 a b c 0 0 0 d e f 0         0 0 a b c 0 0 0 d e f 0         a b c d e f         a b 0 0 c d e 0 0 f
-
-ox = (ix + 2*px)/sx - kx + 1
-
-    """
 
     def compute_patches_stride_padding(
         self, patches_padding, patches_stride, op_padding, op_stride
@@ -1159,9 +1143,6 @@ class PatchesBlock(SparseBlock):
                 flattened_patches, sp_block.block, stride=(sp_block.sx, sp_block.sy)
             )
             end_time = time.time()
-            # print(end_time - start_time, flattened_patches.shape, patches.shape, '!!!!!!!!!!')
-            # print(flattened_patches.shape, flattened_patches.sum(), sp_block.block.sum(), patches.sum())
-            # print('actual time taken', time.time() - start_time)
             kx = patches.shape[-2]
             ky = patches.shape[-1]
             # assert(kx == (self.kx-1)*sp_block.sx + sp_block.kx)
@@ -1198,7 +1179,6 @@ class PatchesBlock(SparseBlock):
                 sp_block.num_channels,
                 self.num_kernels,
             )
-            # print('total time taken', time.time() - start_time)
 
         elif isinstance(sp_block, DiagonalBlock):
             patches = self.block
