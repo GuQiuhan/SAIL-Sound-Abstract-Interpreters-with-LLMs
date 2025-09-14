@@ -88,12 +88,8 @@ class ConvertToIr(astVisitor.ASTVisitor):
                 rhsIrMetadata = rhsIr.irMetadata
 
                 if lhsIrMetadata[-1].type == "Float" or lhsIrMetadata[-1].type == "Int":
-                    set_debug_flag1()
-                    rhsIr_coeff = IrExtractPolyCoeff(rhsIr)
-                    new_lhsIr = IrMult(lhsIr, rhsIr_coeff, op)
-                    reset_debug_flag1()
+                    new_lhsIr = IrMult(lhsIr, IrExtractPolyCoeff(rhsIr), op)
                     new_rhsIr = IrMult(lhsIr, IrExtractPolyConst(rhsIr), op)
-
                 elif (
                     rhsIrMetadata[-1].type == "Float" or rhsIrMetadata[-1].type == "Int"
                 ):
@@ -762,23 +758,31 @@ class ConvertToIr(astVisitor.ASTVisitor):
         return new_ast_node
 
     def visitTransRetIf(self, ast_node):
-        condIr = self.visit(ast_node.cond)
-        leftIrs = self.visit(ast_node.left)
-        rightIrs = self.visit(ast_node.right)
+        ast_node = self.merge_condition(ast_node)
+        return self.visit(ast_node)
 
-        new_var = IrVar(self.get_var(), IrUnaryOp(condIr[0], "any").irMetadata)
-        new_assignment = IrAssignment(new_var, IrUnaryOp(condIr[0], "any"))
-        return condIr[1] + [new_assignment, IrIte(new_var, leftIrs, rightIrs)]
+    # def visitTransRetIf(self, ast_node):
+    #     condIr = self.visit(ast_node.cond)
+    #     leftIrs = self.visit(ast_node.left)
+    #     rightIrs = self.visit(ast_node.right)
+
+    #     new_var = IrVar(self.get_var(), IrUnaryOp(condIr[0], 'any').irMetadata)
+    #     new_assignment = IrAssignment(new_var, IrUnaryOp(condIr[0], 'any'))
+    #     return condIr[1] + [new_assignment, IrIte(new_var, leftIrs, rightIrs)]
 
     def visitOpStmt(self, ast_node):
         original_store = copy.deepcopy(self.store)
-        if (
-            ast_node.op.op_name == "Relu"
-            or ast_node.op.op_name == "Abs"
-            or ast_node.op.op_name == "HardSigmoid"
-            or ast_node.op.op_name == "HardTanh"
-            or ast_node.op.op_name == "Sigmoid"
-        ):
+        if ast_node.op.op_name in [
+            "Relu",
+            "Abs",
+            "HardSigmoid",
+            "HardTanh",
+            "Sigmoid",
+            "Tanh",
+            "Relu6",
+            "HardSwish",
+        ]:
+            # if ast_node.op.op_name == 'Relu' or ast_node.op.op_name == 'Abs' or ast_node.op.op_name == 'HardSigmoid' or ast_node.op.op_name == 'HardTanh' or ast_node.op.op_name == 'Sigmoid':
             self.store["curr"] = IrVar(
                 "curr",
                 [

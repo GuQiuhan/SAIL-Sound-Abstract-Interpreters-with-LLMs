@@ -13,3 +13,5 @@ test_models_scripts/
 
 *MNIST*/
 *nets*/
+*cifar-10-python.tar.gz*
+*cifar-10-batches-py/

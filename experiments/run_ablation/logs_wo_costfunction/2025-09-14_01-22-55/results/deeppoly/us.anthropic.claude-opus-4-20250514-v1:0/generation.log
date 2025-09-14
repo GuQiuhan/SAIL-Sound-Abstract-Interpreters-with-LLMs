@@ -1,0 +1,2040 @@
+2025-09-14 04:12:31,427 - INFO - 2025-09-14 04:12:31.427650 - Extracting Abs
+2025-09-14 04:12:31,427 - INFO -
+API: Abs -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 04:12:31,427 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 04:12:55,807 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:12:55,816 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:12:55,816 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:12:55,823 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(0-(prev[l]), (prev[u])), 0-(prev), (prev)));
+}
+2025-09-14 04:12:56,303 - INFO - [RETRY 0 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:12:56,312 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:12:56,321 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:12:56,321 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:12:56,328 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(0-(prev[l]), (prev[u])), 0-(prev), (prev)));
+}
+2025-09-14 04:12:56,793 - INFO - [RETRY 0 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:12:56,793 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:12:56,793 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 04:13:29,984 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:13:29,993 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:13:29,993 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:13:29,999 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(0-(prev[l]), (prev[u])), 0-(prev), (prev)));
+}
+2025-09-14 04:13:30,479 - INFO - [RETRY 1 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:13:30,479 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:13:30,479 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:13:30,479 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 04:13:50,952 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:13:50,961 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:13:50,961 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:13:50,969 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(0-(prev[l]), (prev[u])), 0-(prev), (prev)));
+}
+2025-09-14 04:13:51,446 - INFO - [RETRY 2 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:13:51,446 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:13:51,446 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:13:51,446 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 04:14:18,889 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:14:18,900 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:14:18,911 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:14:18,911 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:14:18,919 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(0-(prev[l]), (prev[u])), 0-(prev), prev));
+}
+2025-09-14 04:14:19,408 - INFO - [RETRY 3 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:14:19,408 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:14:19,408 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-14 04:14:49,812 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:14:49,821 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:14:49,843 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:14:49,843 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:14:49,861 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(0-(prev[l]), (prev[u])), ((prev[u])/(prev[u]-prev[l]))*(prev) - ((prev[u]*prev[l])/(prev[u]-prev[l])), ((prev[u])/(prev[u]-prev[l]))*(prev) - ((prev[u]*prev[l])/(prev[u]-prev[l]))));
+}
+2025-09-14 04:14:50,422 - INFO - [RETRY 4 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:14:50,422 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:14:50,422 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-14 04:15:15,422 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:15:15,432 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:15:15,441 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:15:15,441 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:15:15,449 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(0-(prev[l]), (prev[u])), 0-(prev), prev));
+}
+2025-09-14 04:15:15,958 - INFO - [RETRY 5 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:15:15,958 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:15:15,958 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-14 04:15:31,675 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:15:31,676 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:15:31,676 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:15:31,676 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-14 04:15:52,777 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:15:52,794 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:15:52,794 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:15:52,803 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(0-(prev[l]), (prev[u])), 0-(prev), prev));
+}
+2025-09-14 04:15:53,282 - INFO - [RETRY 7 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:15:53,282 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:15:53,282 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:15:53,282 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-14 04:16:16,789 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:16:16,799 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:16:16,819 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:16:16,819 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:16:16,838 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(0-(prev[l]), (prev[u])), ((prev[u])/(prev[u]-prev[l]))*(prev) - ((prev[u]*prev[l])/(prev[u]-prev[l])), ((prev[u]+prev[l])/(prev[u]-prev[l]))*(prev) - ((2*prev[u]*prev[l])/(prev[u]-prev[l]))));
+}
+2025-09-14 04:16:17,456 - INFO - [RETRY 8 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:16:17,457 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:16:17,457 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-14 04:16:50,303 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:16:50,313 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:16:50,327 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:16:50,327 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:16:50,339 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, max(0-(prev[l]), (prev[u])), ((prev[u])/(prev[u]-prev[l]))*prev - ((prev[u]*prev[l])/(prev[u]-prev[l])), prev));
+}
+2025-09-14 04:16:50,872 - INFO - [RETRY 9 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:16:50,874 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:16:50,874 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-14 04:16:50,874 - INFO - [Abs] Runtime: 259.45 seconds
+2025-09-14 04:16:50,879 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-14 04:16:50,881 - INFO - 2025-09-14 04:16:50.881161 - Extracting Affine
+2025-09-14 04:16:50,881 - INFO -
+API: Affine -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 04:16:50,881 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 04:17:19,930 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:17:19,940 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:17:19,950 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:17:19,950 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:17:19,959 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-14 04:17:20,387 - INFO - [RETRY 0 STEP 1] Sample 2: Validation passed for code:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}.
+2025-09-14 04:17:20,388 - INFO - [Affine] Runtime: 29.51 seconds
+2025-09-14 04:17:20,388 - INFO - Succeed. Saved to logs_wo_costfunction/2025-09-14_01-22-55/results/deeppoly/us.anthropic.claude-opus-4-20250514-v1:0/success/Affine.txt
+
+2025-09-14 04:17:20,388 - INFO - 2025-09-14 04:17:20.388356 - Extracting Avgpool
+2025-09-14 04:17:20,388 - INFO -
+API: Avgpool -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 04:17:20,388 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 04:17:50,789 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:17:50,808 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:17:50,827 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:17:50,828 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:17:50,838 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: simplify_upper
+2025-09-14 04:17:50,838 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: simplify_upper
+2025-09-14 04:18:31,332 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:18:31,338 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:18:31,338 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 04:18:31,339 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:18:31,339 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:18:53,794 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I'll fix the DSL code. The error indicates that the parser expected a 'transformer' keyword but found end-of-file (EOF) instead, meaning the code is empty or missing the required transformer declaration.
+
+Here's the fixed DSL code:
+
+```
+transformer {
+}
+```
+2025-09-14 04:18:53,801 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:18:53,801 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 04:18:53,802 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:18:53,802 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:19:15,368 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:19:15,379 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:19:15,413 - INFO - [RETRY 0 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:19:15,413 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:19:15,413 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 04:19:53,646 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:19:53,655 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:19:53,668 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:19:53,668 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:19:53,678 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: simplify_upper
+2025-09-14 04:19:53,678 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: simplify_upper
+2025-09-14 04:20:29,758 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I'll fix the DSL code by replacing the invalid function calls `simplify_lower` and `simplify_upper` with the correct syntax.
+
+```
+transformer deeppoly{
+    Avgpool -> (avg(prev.map(x -> x*(1.0/len(prev)))), avg(prev.map(x -> x*(1.0/len(prev)))), avg(prev)*(1.0/len(prev)), avg(prev)*(1.0/len(prev)));
+}
+```
+2025-09-14 04:20:29,767 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Avgpool -> (avg(prev.map(x -> x*(1.0/len(prev)))), avg(prev.map(x -> x*(1.0/len(prev)))), avg(prev)*(1.0/len(prev)), avg(prev)*(1.0/len(prev)));
+}
+2025-09-14 04:20:29,767 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 04:20:29,771 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 2:31 no viable alternative at input 'Avgpool->(avg(prev.map(x->'
+2025-09-14 04:20:29,771 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 2:31 no viable alternative at input 'Avgpool->(avg(prev.map(x->'
+2025-09-14 04:21:01,050 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I'll fix the DSL code. The error indicates a syntax issue with the lambda expression in the `map` function. Looking at the code, it seems like the DSL might not support lambda expressions in this format, or there might be a simpler way to express the average pooling operation.
+
+```
+transformer deeppoly{
+    Avgpool -> (avg(prev), avg(prev), avg(prev), avg(prev));
+}
+```
+2025-09-14 04:21:01,058 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Avgpool -> (avg(prev), avg(prev), avg(prev), avg(prev));
+}
+2025-09-14 04:21:01,058 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 04:21:01,059 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (avg(prev), avg(prev), avg(prev), avg(prev));
+}
+2025-09-14 04:21:01,257 - INFO - [RETRY 1 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:21:01,257 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:21:01,257 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 04:21:26,869 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:21:26,896 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:21:26,897 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:21:26,915 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: simplify_upper
+2025-09-14 04:21:26,915 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: simplify_upper
+2025-09-14 04:22:09,190 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:22:09,196 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:22:09,196 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 04:22:09,196 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:22:09,197 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:22:31,144 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:22:31,149 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:22:31,150 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 04:22:31,150 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:22:31,150 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:22:52,277 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I'll fix the DSL code by adding the missing 'transformer' keyword that the parser is expecting.
+
+```
+transformer
+```
+2025-09-14 04:22:52,284 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:22:52,318 - INFO - [RETRY 2 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:22:52,318 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:22:52,318 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:22:52,318 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 04:23:27,158 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:23:27,180 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:23:27,180 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:23:27,191 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: simplify_upper
+2025-09-14 04:23:27,191 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: simplify_upper
+2025-09-14 04:23:50,694 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I'll fix the DSL code by correcting the function calls. The error indicates that `simplify_upper` is not a valid function call. Looking at the pattern, it seems like `simplify_lower` and `simplify_upper` should be lambda functions that multiply by the scaling factor.
+
+```
+transformer deeppoly{
+    Avgpool -> (avg(prev.map(x -> x * (1.0/len(prev)))), avg(prev.map(x -> x * (1.0/len(prev)))), avg(prev.map(x -> x * (1.0/len(prev)))), avg(prev.map(x -> x * (1.0/len(prev)))));
+}
+```
+2025-09-14 04:23:50,701 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Avgpool -> (avg(prev.map(x -> x * (1.0/len(prev)))), avg(prev.map(x -> x * (1.0/len(prev)))), avg(prev.map(x -> x * (1.0/len(prev)))), avg(prev.map(x -> x * (1.0/len(prev)))));
+}
+2025-09-14 04:23:50,701 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 04:23:50,704 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 2:31 no viable alternative at input 'Avgpool->(avg(prev.map(x->'
+2025-09-14 04:23:50,704 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 2:31 no viable alternative at input 'Avgpool->(avg(prev.map(x->'
+2025-09-14 04:24:19,224 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:24:19,230 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:24:19,230 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 04:24:19,230 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:24:19,231 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:24:55,520 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:24:55,525 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:24:55,558 - INFO - [RETRY 3 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:24:55,558 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:24:55,558 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:24:55,558 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-14 04:25:14,908 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:25:14,918 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:25:14,939 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:25:14,939 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:25:14,950 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: simplify_upper
+2025-09-14 04:25:14,950 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: simplify_upper
+2025-09-14 04:25:54,683 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:25:54,688 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:25:54,688 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 04:25:54,688 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:25:54,688 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:26:27,538 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , let me help you fix this DSL code. The error indicates that the parser is expecting a 'transformer' keyword but found end-of-file (EOF) instead. This means the code is empty or missing the required transformer definition.
+
+Here's the fixed DSL code:
+
+```
+transformer {
+}
+```
+2025-09-14 04:26:27,554 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:26:27,554 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 04:26:27,555 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:26:27,555 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:27:06,603 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , the error is that the DSL expects a transformer declaration but the code is empty. Here's the minimal fix:
+
+```
+transformer
+```
+2025-09-14 04:27:06,619 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:27:06,651 - INFO - [RETRY 4 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:27:06,651 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:27:06,651 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-14 04:27:31,789 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:27:31,790 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:27:31,790 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:27:31,790 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-14 04:28:01,647 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:28:01,707 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:28:01,707 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:28:01,721 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: simplify_upper
+2025-09-14 04:28:01,721 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: simplify_upper
+2025-09-14 04:28:24,104 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I'll fix the DSL code. The error indicates that `simplify_upper` is not a valid function call. Looking at the pattern, it seems like `simplify_lower` and `simplify_upper` should be similar operations, but `simplify_upper` doesn't exist. Based on the context of the Avgpool operation, it appears the code is trying to compute bounds for an average pooling operation.
+
+Here's the fixed DSL code:
+
+```
+transformer deeppoly{
+    Avgpool -> (avg(prev.map_list(simplify_lower(1.0/len(prev)))), avg(prev.map_list(simplify_lower(1.0/len(prev)))), avg(prev) * (1.0/len(prev)), avg(prev) * (1.0/len(prev)));
+}
+```
+2025-09-14 04:28:24,112 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Avgpool -> (avg(prev.map_list(simplify_lower(1.0/len(prev)))), avg(prev.map_list(simplify_lower(1.0/len(prev)))), avg(prev) * (1.0/len(prev)), avg(prev) * (1.0/len(prev)));
+}
+2025-09-14 04:28:24,113 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 04:28:24,124 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (avg(prev.map_list(simplify_lower(1.0/len(prev)))), avg(prev.map_list(simplify_lower(1.0/len(prev)))), avg(prev) * (1.0/len(prev)), avg(prev) * (1.0/len(prev)));
+}
+2025-09-14 04:28:24,405 - INFO - [RETRY 6 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:28:24,406 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:28:24,406 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:28:24,406 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-14 04:28:44,881 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:28:44,891 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:28:44,905 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:28:44,905 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:28:44,916 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: simplify_upper
+2025-09-14 04:28:44,916 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: simplify_upper
+2025-09-14 04:29:24,283 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:29:24,289 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:29:24,289 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 04:29:24,290 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:29:24,290 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:29:41,362 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:29:41,366 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:29:41,366 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 04:29:41,367 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:29:41,367 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 04:30:06,528 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:30:06,533 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:30:06,577 - INFO - [RETRY 7 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:30:06,577 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:30:06,577 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-14 04:30:21,064 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:30:21,064 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:30:21,064 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:30:21,064 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-14 04:30:54,001 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:30:54,011 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:30:54,024 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:30:54,024 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:30:54,035 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: simplify_upper
+2025-09-14 04:30:54,035 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: simplify_upper
+2025-09-14 04:32:10,283 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+  so I need to fix the DSL code. The error says "Invalid function call: simplify_upper" on line 2.
+
+Looking at the code, I can see that `simplify_lower` and `simplify_upper` are being called as functions with arguments, but based on the error, it seems like `simplify_upper` is not a valid function in this context.
+
+The pattern appears to be using `simplify_lower` and `simplify_upper` as operations on expressions. Looking at the structure, it seems like these might need to be applied differently - perhaps as methods or in a different syntax.
+
+Given that only `simplify_upper` is mentioned in the error (not `simplify_lower`), and looking at the symmetry of the code, I suspect that `simplify_upper` might need to be called differently or might not exist at all.
+
+Let me analyze the pattern:
+- `avg(prev.map(simplify_lower(1.0/len(prev))))`
+- `avg(prev.map(simplify_upper(1.0/len(prev))))`
+
+It seems like these are trying to compute bounds. If `simplify_upper` is not a valid function, perhaps the correct approach is to use the same function or a different syntax.
+
+Without more context about the DSL specification, I'll make a reasonable assumption that if `simplify_upper` is invalid, we might need to use just `simplify_lower` for both, or remove the simplification calls entirely.
+
+Given the context of "deeppoly" (which is often used for neural network verification with abstract interpretation), and the fact that we're dealing with upper and lower bounds, I'll assume we should keep the structure but fix the function call.
+
+The most likely fix is to remove the invalid function call and just use the expression directly:
+
+```
+transformer deeppoly{
+    Avgpool -> (avg(prev.map(simplify_lower(1.0/len(prev)))), avg(prev.map(1.0/len(prev))), avg(prev)*(1.0/len(prev)), avg(prev)*(1.0/len(prev)));
+}
+```
+2025-09-14 04:32:10,305 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Avgpool -> (avg(prev.map(simplify_lower(1.0/len(prev)))), avg(prev.map(1.0/len(prev))), avg(prev)*(1.0/len(prev)), avg(prev)*(1.0/len(prev)));
+}
+2025-09-14 04:32:10,305 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 04:32:10,316 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (avg(prev.map(simplify_lower(1.0/len(prev)))), avg(prev.map(1.0/len(prev))), avg(prev)*(1.0/len(prev)), avg(prev)*(1.0/len(prev)));
+}
+2025-09-14 04:32:10,542 - INFO - [RETRY 9 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:32:10,542 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:32:10,542 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-14 04:32:10,542 - INFO - [Avgpool] Runtime: 890.15 seconds
+2025-09-14 04:32:10,685 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-14 04:32:10,685 - INFO - 2025-09-14 04:32:10.685877 - Extracting HardSigmoid
+2025-09-14 04:32:10,686 - INFO -
+API: HardSigmoid -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 04:32:10,686 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 04:33:19,463 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:33:19,463 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:33:19,483 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:33:19,544 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:33:19,550 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:33:19,593 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), (prev + 3) / 6, (prev + 3) / 6) : (((prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : ((prev[l] <= -3 and prev[u] >= 3) ? (0, 1, 0, (prev + 3) / 6) : (f2(prev[l]), f1(prev[u]), slope(prev[l], 3) * prev + intercept(prev[l], 3), (prev + 3) / 6)))));
+}
+2025-09-14 04:33:19,855 - INFO - [RETRY 0 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:33:19,855 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 04:33:45,576 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:33:45,576 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:33:45,576 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:33:45,576 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 04:33:57,707 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:33:57,707 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:33:57,707 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:33:57,707 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 04:34:31,510 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:34:31,644 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:34:31,644 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:34:31,727 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + slope(prev[l], prev[u]) * (prev - prev[l]), f2(prev[u]) + slope(prev[l], prev[u]) * (prev - prev[u])) : (((prev[u]) <= 3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + slope(prev[l], prev[u]) * (prev - prev[l]), f2(prev[u]) + slope(prev[l], prev[u]) * (prev - prev[u])) : (f1(prev[l]), 1, f2(prev[l]) + slope(prev[l], 3) * (prev - prev[l]), 1))));
+}
+2025-09-14 04:34:32,460 - INFO - [RETRY 3 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:34:32,461 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:34:32,461 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:34:32,461 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-14 04:35:45,714 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:35:46,232 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:35:46,232 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:35:46,332 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + (slope(prev[l], prev[u]) * (prev - prev[l])), f2(prev[u]) + (slope(prev[l], prev[u]) * (prev - prev[u]))) : (((prev[u]) <= 3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + (slope(prev[l], prev[u]) * (prev - prev[l])), f2(prev[u]) + (slope(prev[l], prev[u]) * (prev - prev[u]))) : (0, 1, (prev[u] <= 0) ? 0 : ((prev + 3) / 6), (prev[l] >= 0) ? 1 : ((prev + 3) / 6)))));
+}
+2025-09-14 04:35:46,983 - INFO - [RETRY 4 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:35:46,983 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:35:46,993 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:35:47,086 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:35:47,086 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:35:47,176 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + slope(prev[l], prev[u]) * (prev - prev[l]), f2(prev[u]) + slope(prev[l], prev[u]) * (prev - prev[u])) : (((prev[u]) <= 3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + slope(prev[l], prev[u]) * (prev - prev[l]), f2(prev[u]) + slope(prev[l], prev[u]) * (prev - prev[u])) : (f1(prev[l]), 1, f2(prev[l]) + slope(prev[l], 3) * (prev - prev[l]), 1))));
+}
+2025-09-14 04:35:47,799 - INFO - [RETRY 4 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:35:47,799 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-14 04:37:04,973 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:37:04,973 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:37:04,993 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:37:05,254 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:37:05,254 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:37:05,427 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + ((f1(prev[u]) - f2(prev[l])) / (prev[u] - prev[l])) * (prev - prev[l]), f2(prev[u]) + ((f1(prev[l]) - f2(prev[u])) / (prev[l] - prev[u])) * (prev - prev[u])) : (((prev[u]) <= 3) ? (f1(prev[l]), f1(prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (f1(prev[l]), 1, f2(prev[l]) + ((1 - f2(prev[l])) / (3 - prev[l])) * (prev - prev[l]), f3(prev) + ((1 - f3(prev)) / (3 - ((prev[l] < 0) ? prev[l] : ((prev[u] > 0) ? prev[u] : 0)))) * (prev - ((prev[l] < 0) ? prev[l] : ((prev[u] > 0) ? prev[u] : 0))))))
+);}
+2025-09-14 04:37:06,221 - INFO - [RETRY 5 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:37:06,221 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-14 04:38:19,283 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:38:45,689 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:38:45,819 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:38:45,819 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:38:45,900 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + (slope(prev[l], prev[u]) * (prev - prev[l])), f2(prev[u]) + (slope(prev[l], prev[u]) * (prev - prev[u]))) : (((prev[u]) <= 3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + (slope(prev[l], prev[u]) * (prev - prev[l])), f2(prev[u]) + (slope(prev[l], prev[u]) * (prev - prev[u]))) : (f1(prev[l]), 1, (prev[l] >= 0) ? (f3(prev) + (slope(prev[l], 3) * (prev - prev[l]))) : (slope(-3, 3) * (prev + 3)), 1))));
+}
+2025-09-14 04:38:46,547 - INFO - [RETRY 6 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:38:46,558 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:38:46,618 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:38:46,618 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:38:46,652 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), (prev + 3) / 6, (prev + 3) / 6) : (((prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : ((prev[l] <= -3 and prev[u] >= 3) ? (0, 1, 0, (prev + 3) / 6) : (f2(prev[l]), f1(prev[u]), slope(prev[l], 3) * prev + intercept(prev[l], 3), (prev + 3) / 6)))));
+}
+2025-09-14 04:38:46,907 - INFO - [RETRY 6 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:38:46,907 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-14 04:40:00,093 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:40:00,093 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:40:00,109 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:40:00,209 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:40:00,209 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:40:00,293 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + (slope(prev[l], prev[u]) * (prev - prev[l])), f2(prev[u]) + (slope(prev[l], prev[u]) * (prev - prev[u]))) : (((prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), f2(prev[l]) + (slope(prev[l], prev[u]) * (prev - prev[l])), f2(prev[u]) + (slope(prev[l], prev[u]) * (prev - prev[u]))) : (f2(prev[l]), 1, f2(prev[l]) + (slope(prev[l], 3) * (prev - prev[l])), 1))));
+}
+2025-09-14 04:40:00,945 - INFO - [RETRY 7 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:40:00,945 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-14 04:41:03,055 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:41:03,150 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:41:03,150 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:41:03,235 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + (prev - prev[l]) * slope(prev[l], prev[u]), f2(prev[u]) + (prev - prev[u]) * slope(prev[l], prev[u])) : (((prev[u]) <= 3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + (prev - prev[l]) * slope(prev[l], prev[u]), f2(prev[u]) + (prev - prev[u]) * slope(prev[l], prev[u])) : (f1(prev[l]), 1, f2(prev[l]) + (prev - prev[l]) * slope(prev[l], 3), 1))));
+}
+2025-09-14 04:41:03,852 - INFO - [RETRY 8 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:41:03,852 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:41:03,870 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:41:03,949 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:41:03,950 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:41:04,039 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + (slope(prev[l], prev[u]) * (prev - prev[l])), f2(prev[u]) + (slope(prev[l], prev[u]) * (prev - prev[u]))) : (((prev[u]) <= 3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + (slope(prev[l], prev[u]) * (prev - prev[l])), f2(prev[u]) + (slope(prev[l], prev[u]) * (prev - prev[u]))) : (f1(prev[l]), 1, f2(prev[l]) + (slope(prev[l], 3) * (prev - prev[l])), (prev + 3) / 6))));
+}
+2025-09-14 04:41:04,647 - INFO - [RETRY 8 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:41:04,647 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-14 04:42:01,353 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:42:01,445 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:42:01,445 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:42:01,529 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + slope(prev[l], prev[u]) * (prev - prev[l]), f2(prev[u]) + slope(prev[l], prev[u]) * (prev - prev[u])) : (((prev[u]) <= 3) ? (f1(prev[l]), f1(prev[u]), f2(prev[l]) + slope(prev[l], prev[u]) * (prev - prev[l]), f2(prev[u]) + slope(prev[l], prev[u]) * (prev - prev[u])) : (f1(prev[l]), 1, f2(prev[l]) + slope(prev[l], 3) * (prev - prev[l]), 1))));
+}
+2025-09-14 04:42:02,148 - INFO - [RETRY 9 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:42:02,148 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:42:02,158 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:42:02,236 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:42:02,236 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:42:02,275 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) ? (f1(prev[l]), f1(prev[u]), (prev + 3) / 6, (prev + 3) / 6) : (((prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : ((prev[l] <= -3 and prev[u] >= 3) ? (0, 1, 0, (prev + 3) / 6) : (f2(prev[l]), f1(prev[u]), slope(prev[l], f3(prev)) * prev + intercept(prev[l], f3(prev)), (prev + 3) / 6)))));
+}
+2025-09-14 04:42:02,536 - INFO - [RETRY 9 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:42:02,536 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-14 04:42:02,536 - INFO - [HardSigmoid] Runtime: 591.85 seconds
+2025-09-14 04:42:02,536 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-14 04:42:02,536 - INFO - 2025-09-14 04:42:02.536565 - Extracting HardSwish
+2025-09-14 04:42:02,536 - INFO -
+API: HardSwish -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 04:42:02,536 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 04:43:45,693 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:43:45,704 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:43:45,872 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:43:45,872 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:43:45,935 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3 and (prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), f2(prev[l]), f2(prev[u])) : (((prev[l]) <= -3 and (prev[u]) >= -3 and (prev[u]) <= 3) ? (0, f2(prev[u]), 0, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (((prev[l]) >= -3 and (prev[l]) <= 3 and (prev[u]) >= 3) ? (f2(prev[l]), prev[u], slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), prev) : (f1(prev[l]), f1(prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), ((f3(prev) - f2(prev[l])) / (prev[u] - prev[l])) * (prev - prev[l]) + f2(prev[l]))))));
+}
+2025-09-14 04:43:46,256 - INFO - [RETRY 0 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:43:46,256 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:43:46,256 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 04:44:45,695 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:44:45,706 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:44:45,888 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:44:45,888 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:44:45,942 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[l]) >= -3) ? ((f2(prev[l])), (f1(prev[u])), (slope(prev[l], prev[u]) * (prev)) + intercept(prev[l], prev[u]), (slope(prev[l], prev[u]) * (prev)) + intercept(prev[l], prev[u])) : (((prev[u]) <= 3) ? ((f2(prev[l])), (f2(prev[u])), (prev[l] >= 0) ? ((slope(prev[l], prev[u]) * (prev)) + intercept(prev[l], prev[u])) : ((f3(prev) * (prev)) / (prev[u])), (prev[u] <= 0) ? ((slope(prev[l], prev[u]) * (prev)) + intercept(prev[l], prev[u])) : ((f3(prev) * (prev)) / (prev[l]))) : (0, (prev[u]), (prev[l] >= 0) ? ((slope(prev[l], 3) * (prev)) + intercept(prev[l], 3)) : ((f1(3) * (prev)) / 3), (prev)))));
+}
+2025-09-14 04:44:46,655 - INFO - [RETRY 1 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:44:46,655 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:44:46,655 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 04:45:45,720 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:45:45,730 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:45:45,837 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:45:45,837 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:45:45,870 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3 and (prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (((prev[l]) <= -3 and (prev[u]) >= 3) ? (0, prev[u], 0, prev) : (((prev[l]) <= -3 and (prev[u]) >= -3 and (prev[u]) <= 3) ? (0, f2(prev[u]), 0, slope(-3, prev[u]) * prev + intercept(-3, prev[u])) : (f2(prev[l]), prev[u], slope(prev[l], 3) * prev + intercept(prev[l], 3), prev)))));
+}
+2025-09-14 04:45:46,122 - INFO - [RETRY 2 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:45:46,122 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:45:46,122 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 04:47:01,964 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:47:01,964 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:47:01,983 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:47:02,099 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:47:02,099 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:47:02,143 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3 and (prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), f2(prev[l]), f2(prev[u])) : (((prev[l]) <= -3 and (prev[u]) >= -3 and (prev[u]) <= 3) ? (0, f2(prev[u]), 0, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (((prev[l]) >= -3 and (prev[l]) <= 3 and (prev[u]) >= 3) ? (f2(prev[l]), prev[u], slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), prev) : (f1(prev[l]), f1(prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))))));
+}
+2025-09-14 04:47:02,396 - INFO - [RETRY 3 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:47:02,396 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-14 04:47:48,517 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:47:48,688 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:47:48,688 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:47:48,739 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3 and (prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) : (((prev[l]) <= -3 and (prev[u]) >= -3 and (prev[u]) <= 3) ? (0, f2(prev[u]), 0, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (((prev[l]) >= -3 and (prev[l]) <= 3 and (prev[u]) >= 3) ? (f2(prev[l]), prev[u], slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), prev) : (min(f1(prev[l]), f1(prev[u])), max(f1(prev[l]), f1(prev[u])), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))))));
+}
+2025-09-14 04:47:49,058 - INFO - [RETRY 4 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:47:49,058 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:47:49,058 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:47:49,058 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-14 04:48:45,697 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:48:45,707 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:48:45,842 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:48:45,842 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:48:45,898 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3 and (prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), f2(prev[l]), f2(prev[u])) : (((prev[l]) <= -3 and (prev[u]) >= -3 and (prev[u]) <= 3) ? (0, f2(prev[u]), 0, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (((prev[l]) >= -3 and (prev[l]) <= 3 and (prev[u]) >= 3) ? (f2(prev[l]), prev[u], slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), prev) : (min(f1(prev[l]), f1(prev[u])), max(f1(prev[l]), f1(prev[u])), slope(prev[l], f3(prev)) * prev + intercept(prev[l], f3(prev)), slope(f3(prev), prev[u]) * prev + intercept(f3(prev), prev[u]))))));
+}
+2025-09-14 04:48:46,167 - INFO - [RETRY 5 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:48:46,167 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:48:46,167 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-14 04:49:45,741 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:49:45,741 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:49:45,741 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:49:45,741 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-14 04:51:02,772 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:51:02,910 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 04:51:02,910 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 04:51:54,635 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , let me analyze the DSL code to identify and fix the syntax error.
+
+Looking at the code, I can see it's defining a transformer called "deeppoly" with a HardSwish operation. The syntax appears to be using conditional expressions with the ternary operator `?:`.
+
+The issue appears to be with the function calls and their syntax. In DSL transformers, function calls typically don't use parentheses around their arguments in the same way. Let me fix the syntax:
+
+```
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3 and (prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) : (((prev[l]) <= -3 and (prev[u]) >= -3 and (prev[u]) <= 3) ? (0, f2(prev[u]), 0, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (((prev[l]) >= -3 and (prev[l]) <= 3 and (prev[u]) >= 3) ? (f2(prev[l]), prev[u], slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), prev) : (f1(prev[l]), f1(prev[u]), (f3(prev) <= f1(prev[l])) ? (0, prev) : (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])), (f3(prev) <= f1(prev[u])) ? (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (prev))))));
+}
+```
+2025-09-14 04:51:54,653 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? (prev[l], prev[u], prev, prev) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3 and (prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) : (((prev[l]) <= -3 and (prev[u]) >= -3 and (prev[u]) <= 3) ? (0, f2(prev[u]), 0, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (((prev[l]) >= -3 and (prev[l]) <= 3 and (prev[u]) >= 3) ? (f2(prev[l]), prev[u], slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), prev) : (f1(prev[l]), f1(prev[u]), (f3(prev) <= f1(prev[l])) ? (0, prev) : (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])), (f3(prev) <= f1(prev[u])) ? (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (prev))))));
+}
+2025-09-14 04:51:54,653 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 04:51:54,713 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 04:51:54,713 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 04:53:29,265 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:53:45,716 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:53:46,028 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 04:53:46,050 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 04:53:46,050 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 04:54:07,033 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:54:07,047 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:54:07,047 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 04:54:07,047 - INFO - [RETRY 7 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:54:07,047 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:54:45,742 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:54:45,851 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:54:45,851 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:54:45,895 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3 and (prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), f2(prev[l]), f2(prev[u])) : (((prev[l]) <= -3 and (prev[u]) >= -3 and (prev[u]) <= 3) ? (0, f2(prev[u]), 0, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (((prev[l]) >= -3 and (prev[l]) <= 3 and (prev[u]) >= 3) ? (f2(prev[l]), prev[u], slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), prev) : (f1(prev[l]), f1(prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))))));
+}
+2025-09-14 04:54:46,138 - INFO - [RETRY 7 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:54:46,138 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-14 04:55:45,709 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:55:45,709 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:55:45,709 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:55:45,709 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-14 04:56:45,731 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:56:45,842 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:56:45,843 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:56:46,215 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3 and (prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), f2(prev[l]), f2(prev[u])) : (((prev[l]) <= -3 and (prev[u]) >= -3 and (prev[u]) <= 3) ? (0, f2(prev[u]), 0, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (((prev[l]) >= -3 and (prev[l]) <= 3 and (prev[u]) >= 3) ? (f2(prev[l]), prev[u], slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), prev) : (f1(prev[l]), f1(prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]))))));
+}
+2025-09-14 04:56:46,447 - INFO - [RETRY 9 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:56:46,456 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:56:46,639 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 04:56:46,639 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 04:56:46,701 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3 and (prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), f2(prev), f2(prev)) : (((prev[l]) <= -3 and (prev[u]) >= -3 and (prev[u]) <= 3) ? (0, f2(prev[u]), 0, slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])) : (((prev[l]) >= -3 and (prev[l]) <= 3 and (prev[u]) >= 3) ? (f2(prev[l]), prev[u], slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), prev) : (f1(prev[l]), f1(prev[u]), slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u]), (f3(prev) >= slope(prev[l], prev[u]) * prev[u] + intercept(prev[l], prev[u])) ? prev : (slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])))))));
+}
+2025-09-14 04:56:47,020 - INFO - [RETRY 9 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 04:56:47,020 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-14 04:56:47,020 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-14 04:56:47,020 - INFO - [HardSwish] Runtime: 884.48 seconds
+2025-09-14 04:56:47,020 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-14 04:56:47,020 - INFO - 2025-09-14 04:56:47.020496 - Extracting HardTanh
+2025-09-14 04:56:47,020 - INFO -
+API: HardTanh -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 04:56:47,020 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 04:58:01,567 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-14 04:58:01,567 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-14 04:58:01,581 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 04:58:01,680 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 04:58:01,680 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 04:59:00,707 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I'll fix the DSL code. The issue appears to be with the syntax for conditional expressions and the use of `prev` without proper indexing.
+
+```
+transformer deeppoly{
+    HardTanh -> ((prev[0].l) >= 1) ? (1, 1, 1, 1) : (((prev[0].u) <= -1) ? (-1, -1, -1, -1) : (((prev[0].l) >= -1 and (prev[0].u) <= 1) ? ((prev[0].l), (prev[0].u), (prev[0]), (prev[0])) : (((prev[0].l) < -1 and (prev[0].u) > -1 and (prev[0].u) <= 1) ? (-1, (prev[0].u), -1, (prev[0])) : (((prev[0].l) >= -1 and (prev[0].l) < 1 and (prev[0].u) > 1) ? ((prev[0].l), 1, (prev[0]), 1) : (-1, 1, ((prev[0].u)+1)/((prev[0].u)-(prev[0].l))*(prev[0]) - ((prev[0].u)+1)/((prev[0].u)-(prev[0].l))*(prev[0].l) - 1, ((prev[0].u)+1)/((prev[0].u)-(prev[0].l))*(prev[0]) - ((prev[0].u)+1)/((prev[0].u)-(prev[0].l))*(prev[0].l) - 1)))));
+}
+```
+2025-09-14 04:59:00,742 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardTanh -> ((prev[0].l) >= 1) ? (1, 1, 1, 1) : (((prev[0].u) <= -1) ? (-1, -1, -1, -1) : (((prev[0].l) >= -1 and (prev[0].u) <= 1) ? ((prev[0].l), (prev[0].u), (prev[0]), (prev[0])) : (((prev[0].l) < -1 and (prev[0].u) > -1 and (prev[0].u) <= 1) ? (-1, (prev[0].u), -1, (prev[0])) : (((prev[0].l) >= -1 and (prev[0].l) < 1 and (prev[0].u) > 1) ? ((prev[0].l), 1, (prev[0]), 1) : (-1, 1, ((prev[0].u)+1)/((prev[0].u)-(prev[0].l))*(prev[0]) - ((prev[0].u)+1)/((prev[0].u)-(prev[0].l))*(prev[0].l) - 1, ((prev[0].u)+1)/((prev[0].u)-(prev[0].l))*(prev[0]) - ((prev[0].u)+1)/((prev[0].u)-(prev[0].l))*(prev[0].l) - 1)))));
+}
+2025-09-14 04:59:00,742 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 04:59:00,799 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 04:59:00,799 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 04:59:53,859 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 04:59:53,865 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 04:59:53,865 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 04:59:53,878 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 04:59:53,878 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:00:48,456 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:00:48,461 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:00:48,461 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:00:48,461 - INFO - [RETRY 0 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:00:48,461 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 05:01:45,719 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:01:45,719 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:01:45,719 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:01:45,719 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 05:02:45,712 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:02:45,713 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:02:45,713 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:02:45,713 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 05:03:33,662 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:03:33,770 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:03:33,770 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:03:56,829 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:03:56,834 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:03:56,834 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 05:03:56,847 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:03:56,847 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:04:22,652 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:04:22,658 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:04:22,658 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 05:04:22,671 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:04:22,671 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:04:45,575 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:04:45,580 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:04:45,580 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:04:45,580 - INFO - [RETRY 3 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:04:45,590 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:04:45,673 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:04:45,673 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:05:45,728 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:05:45,733 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:05:45,733 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 05:05:45,746 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:05:45,746 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:06:04,871 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:06:04,876 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:06:04,876 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 05:06:04,889 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:06:04,889 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:06:59,121 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:06:59,126 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:06:59,126 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:06:59,126 - INFO - [RETRY 3 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:06:59,126 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:06:59,126 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-14 05:07:56,210 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:07:56,248 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:07:56,248 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:07:56,258 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardTanh -> ((prev[u]) <= -1) ? (-1, -1, -1, -1) : (((prev[l]) >= 1) ? (1, 1, 1, 1) : (((prev[l]) >= -1) ? ((prev[l] >= -1 ? prev[l] : -1), (prev[u] <= 1 ? prev[u] : 1), (prev), (prev)) : (((prev[u]) <= 1) ? (-1, (prev[u]), -1, (prev)) : (-1, 1, -1, 1))));
+}
+2025-09-14 05:07:56,922 - INFO - [RETRY 4 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:07:56,922 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:07:56,932 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:07:56,943 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:07:56,943 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:07:56,951 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardTanh -> ((prev[u]) <= -1) ? (-1, -1, -1, -1) : (((prev[l]) >= 1) ? (1, 1, 1, 1) : (((prev[l]) >= -1) ? ((prev[l] >= -1 ? prev[l] : -1), (prev[u] <= 1 ? prev[u] : 1), (prev), (prev)) : (((prev[u]) <= 1) ? (-1, (prev[u]), -1, (prev)) : (-1, 1, -1, 1))));
+}
+2025-09-14 05:07:57,569 - INFO - [RETRY 4 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:07:57,570 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-14 05:08:50,966 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:08:50,966 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:08:50,966 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:08:50,966 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-14 05:09:48,138 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:09:48,157 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:09:48,269 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:09:48,269 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:10:22,202 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:10:22,216 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:10:22,216 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 05:10:22,230 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:10:22,230 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:10:40,992 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:10:40,998 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:10:40,998 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 05:10:41,011 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:10:41,011 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:11:01,104 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:11:01,109 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:11:01,109 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:11:01,109 - INFO - [RETRY 6 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:11:01,119 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:11:01,239 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:11:01,239 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:11:27,398 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:11:27,403 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:11:27,403 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 05:11:27,417 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:11:27,417 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:11:54,538 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+  so i have to fix the dsl code based on the error. the error says "unknown syntax error" but the code section is empty. this means there's no code provided to fix.
+
+since there's no code to fix, i'll return an empty result as there's nothing to correct:
+
+```
+
+```
+2025-09-14 05:11:54,553 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:11:54,553 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 05:11:54,568 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:11:54,568 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:12:45,780 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:12:45,785 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:12:45,785 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:12:45,785 - INFO - [RETRY 6 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:12:45,785 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-14 05:13:12,410 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:13:12,410 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:13:45,718 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:13:45,730 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:13:45,730 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:13:45,739 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardTanh -> ((prev[u]) <= -1) ? (-1, -1, -1, -1) : (((prev[l]) >= 1) ? (1, 1, 1, 1) : (((prev[l]) >= -1) ? (((prev[u]) <= 1) ? ((prev[l]), (prev[u]), (prev), (prev)) : ((prev[l]), 1, (prev), 1)) : (((prev[u]) <= 1) ? (-1, (prev[u]), -1, (prev)) : (-1, 1, -1, 1))));
+}
+2025-09-14 05:13:46,456 - INFO - [RETRY 7 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:13:46,456 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-14 05:14:45,729 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:14:45,729 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:14:45,729 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:14:45,729 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-14 05:15:45,737 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:15:45,858 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:15:45,858 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:16:45,725 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:16:45,735 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:16:45,735 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 05:16:45,753 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:16:45,753 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:17:05,142 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:17:05,147 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:17:05,147 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 05:17:05,160 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:17:05,160 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:17:25,524 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:17:25,528 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:17:25,528 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:17:25,528 - INFO - [RETRY 9 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:17:25,538 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:17:25,596 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:17:25,597 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:17:25,627 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardTanh -> ((prev[l]) >= 1) ? (1, 1, 1, 1) : (((prev[u]) <= -1) ? (-1, -1, -1, -1) : (((prev[l]) >= -1 and (prev[u]) <= 1) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[l]) < -1 and (prev[u]) <= 1) ? (-1, (prev[u]), -1, (prev)) : (((prev[l]) >= -1 and (prev[u]) > 1) ? ((prev[l]), 1, (prev), 1) : (-1, 1, ((prev[u] + 1) / ((prev[u]) - (prev[l]))) * (prev) - ((prev[u] + 1) / ((prev[u]) - (prev[l]))), ((prev[l] + 1) / ((prev[u]) - (prev[l]))) * (prev) + ((prev[u] - 1) / ((prev[u]) - (prev[l])))))) ));
+}
+2025-09-14 05:17:25,852 - INFO - [RETRY 9 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:17:25,852 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:17:25,852 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-14 05:17:25,853 - INFO - [HardTanh] Runtime: 1238.83 seconds
+2025-09-14 05:17:25,853 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-14 05:17:25,854 - INFO - 2025-09-14 05:17:25.854118 - Extracting Maxpool
+2025-09-14 05:17:25,854 - INFO -
+API: Maxpool -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 05:17:25,854 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 05:18:00,824 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:18:00,871 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:18:00,871 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:18:22,753 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:18:22,758 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:18:22,758 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 05:18:22,772 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:18:22,772 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:18:48,674 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:18:48,679 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:18:48,679 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 05:18:48,691 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:18:48,692 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:19:05,509 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:19:05,521 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:19:05,521 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:19:05,521 - INFO - [RETRY 0 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:19:05,521 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:19:05,521 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:19:05,522 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 05:19:58,401 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:19:58,411 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:19:58,418 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:19:58,418 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:19:58,422 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Undefined variable: simplify_lower
+[Line 2] Undefined variable: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_lower
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_upper
+2025-09-14 05:19:58,422 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Undefined variable: simplify_lower
+[Line 2] Undefined variable: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_lower
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_upper
+2025-09-14 05:21:01,123 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:21:01,135 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:21:01,135 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 05:21:01,136 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:21:01,136 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:21:25,017 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ . Here's the fixed DSL code:
+
+```
+transformer
+```
+
+The error indicates that the parser expected the keyword 'transformer' but found end-of-file (EOF) instead. The code was empty, so I added the required 'transformer' keyword to fix the syntax error.
+2025-09-14 05:21:25,024 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:21:25,025 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 05:21:25,025 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:21:25,025 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:21:48,521 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:21:48,526 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:21:48,557 - INFO - [RETRY 1 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:21:48,558 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:21:48,558 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 05:22:18,773 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:22:18,783 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:22:18,800 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:22:18,800 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:22:18,803 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Undefined variable: simplify_lower
+[Line 2] Undefined variable: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_lower
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_upper
+2025-09-14 05:22:18,803 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Undefined variable: simplify_lower
+[Line 2] Undefined variable: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_lower
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_upper
+2025-09-14 05:22:41,068 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:22:41,091 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:22:41,092 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 05:22:41,093 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:22:41,093 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:22:59,455 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:22:59,460 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:22:59,460 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 05:22:59,461 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:22:59,461 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:23:45,775 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:23:45,780 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:23:45,812 - INFO - [RETRY 2 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:23:45,812 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:23:45,812 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 05:24:46,087 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:24:46,093 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:24:46,093 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:24:46,096 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Undefined variable: simplify_lower
+[Line 2] Undefined variable: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_lower
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_upper
+2025-09-14 05:24:46,096 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Undefined variable: simplify_lower
+[Line 2] Undefined variable: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_lower
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_upper
+2025-09-14 05:25:45,786 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I need to fix the undefined variables in the DSL code. The error shows that `simplify_lower`, `simplify_upper`, `f`, `replace_lower`, and `replace_upper` are undefined.
+
+Looking at the pattern, these appear to be functions that should be defined. In DSL syntax, these are likely meant to be lambda functions or predefined operations.
+
+Here's the fixed code:
+
+```
+transformer deeppoly{
+    Maxpool -> (max(prev.map(x -> x)), max(prev.map(x -> x)), sum(argmax(prev, x -> x).map(x -> x)), sum(argmax(prev, x -> x).map(x -> x)));
+}
+```
+2025-09-14 05:25:45,794 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Maxpool -> (max(prev.map(x -> x)), max(prev.map(x -> x)), sum(argmax(prev, x -> x).map(x -> x)), sum(argmax(prev, x -> x).map(x -> x)));
+}
+2025-09-14 05:25:45,794 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 05:25:45,796 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 2:31 no viable alternative at input 'Maxpool->(max(prev.map(x->'
+2025-09-14 05:25:45,796 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 2:31 no viable alternative at input 'Maxpool->(max(prev.map(x->'
+2025-09-14 05:26:45,742 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I'll fix the DSL code. The error appears to be related to incorrect syntax in the lambda expression within the `map` function. Looking at the pattern, it seems like the transformer is trying to define a maxpool operation with multiple outputs.
+
+```
+transformer deeppoly{
+    Maxpool -> (max(prev.map(x -> x)), max(prev.map(x -> x)), sum(argmax(prev, x -> x).map(x -> x)), sum(argmax(prev, x -> x).map(x -> x)));
+}
+```
+
+Wait, let me analyze this more carefully. The error says "no viable alternative at input 'Maxpool->(max(prev.map(x->'" which suggests the parser is having trouble with the syntax after the arrow. The issue might be with how the lambda expressions are formatted or the overall structure.
+
+Let me provide the fixed version:
+
+```
+transformer deeppoly{
+    Maxpool -> (max(prev.map((x) -> x)), max(prev.map((x) -> x)), sum(argmax(prev, (x) -> x).map((x) -> x)), sum(argmax(prev, (x) -> x).map((x) -> x)));
+}
+```
+2025-09-14 05:26:45,750 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Maxpool -> (max(prev.map(x -> x)), max(prev.map(x -> x)), sum(argmax(prev, x -> x).map(x -> x)), sum(argmax(prev, x -> x).map(x -> x)));
+}
+2025-09-14 05:26:45,750 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 05:26:45,752 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 2:31 no viable alternative at input 'Maxpool->(max(prev.map(x->'
+2025-09-14 05:26:45,752 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 2:31 no viable alternative at input 'Maxpool->(max(prev.map(x->'
+2025-09-14 05:27:45,737 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I need to analyze this DSL code and fix the syntax error. The error indicates there's an issue with the lambda expression syntax in the Maxpool transformation.
+
+Looking at the code, I can see the issue is with the lambda expressions. The syntax `x -> x` appears to be incorrect for this DSL. Based on the pattern and the error message, it seems the DSL expects a different syntax for lambda expressions.
+
+Here's the fixed code:
+
+```
+transformer deeppoly{
+    Maxpool -> (max(prev), max(prev), sum(argmax(prev)), sum(argmax(prev)));
+}
+```
+2025-09-14 05:27:45,745 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Maxpool -> (max(prev), max(prev), sum(argmax(prev)), sum(argmax(prev)));
+}
+2025-09-14 05:27:45,779 - INFO - [RETRY 3 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:27:45,779 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:27:45,779 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:27:45,779 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-14 05:28:45,739 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:28:45,739 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:28:45,739 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:28:45,739 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-14 05:29:45,734 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:29:45,763 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:29:45,763 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:30:10,930 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:30:45,725 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:30:45,725 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 05:30:45,747 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:30:45,747 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:31:45,739 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:31:45,744 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:31:45,744 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 05:31:45,759 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:31:45,759 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:32:05,095 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I need to see the DSL code to fix it. However, you haven't provided any code in the [CODE] section - it appears to be empty.
+
+Could you please provide the DSL code that needs to be fixed? Once you share the code, I'll be able to identify and fix the syntax error.
+2025-09-14 05:32:05,103 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:32:05,103 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:32:05,103 - INFO - [RETRY 5 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:32:05,103 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:32:05,113 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:32:05,142 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:32:05,143 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:33:07,749 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:33:07,754 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:33:07,754 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 05:33:45,739 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:33:45,739 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:34:45,818 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:34:45,824 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:34:45,824 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 05:34:45,836 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:34:45,837 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:35:45,779 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:35:45,784 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:35:45,784 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:35:45,784 - INFO - [RETRY 5 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:35:45,784 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-14 05:36:45,751 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:36:45,765 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:36:45,765 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:36:45,770 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Undefined variable: simplify_lower
+[Line 2] Undefined variable: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_lower
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_upper
+2025-09-14 05:36:45,770 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Undefined variable: simplify_lower
+[Line 2] Undefined variable: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_lower
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: replace_upper
+2025-09-14 05:37:12,660 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:37:45,745 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:37:45,746 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 05:37:45,747 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:37:45,747 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:38:06,603 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I'll fix the DSL code. The error indicates that the parser expected a 'transformer' keyword but found end-of-file (EOF) instead, meaning the code is empty or missing the required transformer declaration.
+
+```
+transformer
+```
+2025-09-14 05:38:06,625 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:38:06,625 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 05:38:06,626 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:38:06,626 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:39:01,280 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:39:01,285 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:39:01,318 - INFO - [RETRY 6 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:39:01,318 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:39:01,318 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:39:01,318 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-14 05:39:57,063 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:39:57,084 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:39:57,084 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:40:49,244 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ , I'll analyze this DSL code and fix the syntax error.
+
+Looking at the transformer definition, I can see that the issue is with the `argmax` function calls. The `argmax` function appears to be taking two arguments `(prev, f)`, but `f` is not defined anywhere in this context.
+
+Based on the pattern and the fact that this appears to be computing bounds (lower and upper), the `argmax` calls should likely be using the same mapped functions as the `max` calls.
+
+Here's the fixed DSL code:
+
+```
+transformer deeppoly{
+    Maxpool -> (max(prev.map(simplify_lower)), max(prev.map(simplify_upper)), argmax(prev.map(simplify_lower)), argmax(prev.map(simplify_upper)));
+}
+```
+2025-09-14 05:40:49,254 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Maxpool -> (max(prev.map(simplify_lower)), max(prev.map(simplify_upper)), argmax(prev.map(simplify_lower)), argmax(prev.map(simplify_upper)));
+}
+2025-09-14 05:40:49,254 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 05:40:49,285 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:40:49,285 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:41:45,791 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:41:45,797 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:41:45,797 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 05:41:45,811 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:41:45,811 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:42:45,747 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:42:45,752 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:42:45,753 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:42:45,753 - INFO - [RETRY 7 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:42:45,753 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:42:45,753 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:42:45,753 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-14 05:43:26,131 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:43:26,152 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:43:26,153 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:43:53,597 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:43:53,601 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:43:53,601 - INFO - [Syntax Phase] Attempt 2
+2025-09-14 05:43:53,622 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:43:53,622 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:44:18,706 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:44:18,710 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:44:18,710 - INFO - [Syntax Phase] Attempt 3
+2025-09-14 05:44:18,723 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-14 05:44:18,723 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-14 05:44:46,530 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:44:46,535 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:44:46,535 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-14 05:44:46,535 - INFO - [RETRY 8 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:44:46,535 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:44:46,535 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:44:46,535 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-14 05:45:09,585 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:45:09,586 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:45:45,767 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:45:45,775 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:45:45,775 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:45:45,778 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Undefined variable: l
+[Line 2] Undefined variable: u
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: f
+2025-09-14 05:45:45,778 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Undefined variable: l
+[Line 2] Undefined variable: u
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: f
+2025-09-14 05:46:38,188 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+  I'll fix the undefined variable errors in the DSL code.
+
+Looking at the error, the variables `l`, `u`, and `f` are undefined in line 2. These appear to be attempting to access properties or perform operations on the `prev` variable, but the syntax is incorrect.
+
+Based on the context of a Maxpool operation in what appears to be a neural network verification DSL (likely for DeepPoly abstract interpretation), I'll fix the syntax:
+
+```
+transformer deeppoly{
+    Maxpool -> (max(prev), max(prev), argmax(prev), argmax(prev));
+}
+```
+2025-09-14 05:46:38,202 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Maxpool -> (max(prev), max(prev), argmax(prev), argmax(prev));
+}
+2025-09-14 05:46:38,202 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 05:46:38,203 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 2:49 no viable alternative at input 'Maxpool->(max(prev),max(prev),argmax(prev)'
+2025-09-14 05:46:38,203 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 2:49 no viable alternative at input 'Maxpool->(max(prev),max(prev),argmax(prev)'
+2025-09-14 05:47:05,366 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:47:05,371 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:47:05,371 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 05:47:05,372 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:47:05,373 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:47:22,134 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:47:22,139 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:47:22,185 - INFO - [RETRY 9 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:47:22,185 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-14 05:47:22,185 - INFO - [Maxpool] Runtime: 1796.33 seconds
+2025-09-14 05:47:22,185 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-14 05:47:22,186 - INFO - 2025-09-14 05:47:22.186022 - Extracting Minpool
+2025-09-14 05:47:22,186 - INFO -
+API: Minpool -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 05:47:22,186 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 05:47:45,045 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:47:45,069 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:47:45,075 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:47:45,075 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:47:45,078 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Undefined variable: l
+[Line 2] Undefined variable: u
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: L
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: U
+2025-09-14 05:47:45,078 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Undefined variable: l
+[Line 2] Undefined variable: u
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: L
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: U
+2025-09-14 05:48:20,948 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:48:20,953 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:48:20,953 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 05:48:20,954 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:48:20,954 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:48:52,619 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:48:52,625 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:48:52,625 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 05:48:52,625 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:48:52,625 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:49:51,909 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:49:51,925 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:49:51,963 - INFO - [RETRY 0 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:49:51,963 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:49:51,963 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 05:50:53,564 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:50:53,564 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:50:53,582 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:50:53,608 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:50:53,608 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:50:53,620 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: f
+2025-09-14 05:50:53,620 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: f
+2025-09-14 05:51:59,467 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:51:59,480 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:51:59,480 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 05:51:59,481 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:51:59,481 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:52:58,253 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:52:58,258 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:52:58,258 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 05:52:58,259 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:52:58,259 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:53:53,057 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:53:53,070 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:53:53,116 - INFO - [RETRY 1 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:53:53,116 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 05:54:49,636 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:54:49,637 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:54:49,664 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:54:49,682 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:54:49,682 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:54:49,694 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: f
+2025-09-14 05:54:49,694 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: simplify_upper
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: f
+2025-09-14 05:55:19,687 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:55:19,692 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:55:19,692 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 05:55:19,693 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:55:19,693 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:55:39,912 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:55:39,918 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:55:39,918 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 05:55:39,919 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:55:39,919 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:56:16,790 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:56:16,795 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:56:16,830 - INFO - [RETRY 2 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:56:16,830 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 05:56:36,262 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:56:36,262 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:56:36,262 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:56:36,262 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-14 05:56:58,077 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:56:58,077 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:56:58,077 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:56:58,077 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-14 05:57:18,218 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:57:18,218 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-14 05:57:18,218 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:57:18,218 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-14 05:57:43,678 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-14 05:57:43,698 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:57:43,727 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:57:43,727 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:57:43,731 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Undefined variable: l
+[Line 2] Undefined variable: u
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: L
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: U
+2025-09-14 05:57:43,731 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Undefined variable: l
+[Line 2] Undefined variable: u
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: L
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: U
+2025-09-14 05:57:59,902 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:57:59,906 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:57:59,906 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 05:57:59,907 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:57:59,907 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:58:28,548 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:58:28,553 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:58:28,553 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 05:58:28,553 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:58:28,553 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:59:00,133 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:59:00,138 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:59:00,174 - INFO - [RETRY 6 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 05:59:00,174 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-14 05:59:00,174 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-14 05:59:22,887 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 05:59:22,919 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 05:59:22,919 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 05:59:22,927 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Undefined variable: n
+[Line 2] Undefined variable: n
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: n
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: n
+2025-09-14 05:59:22,928 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Undefined variable: n
+[Line 2] Undefined variable: n
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: n
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: n
+2025-09-14 05:59:51,678 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 05:59:51,683 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 05:59:51,683 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 05:59:51,684 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 05:59:51,684 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:00:45,768 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:00:45,782 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:00:45,782 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 06:00:45,783 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:00:45,783 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:01:06,744 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:01:06,749 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:01:45,839 - INFO - [RETRY 7 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:01:45,839 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:01:45,839 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:01:45,839 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-14 06:02:29,833 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:02:29,833 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:02:29,833 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:02:29,833 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-14 06:03:09,339 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:03:09,339 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:03:09,357 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:03:09,363 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:03:09,363 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:03:09,366 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Undefined variable: l
+[Line 2] Undefined variable: u
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: L
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: U
+2025-09-14 06:03:09,366 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Undefined variable: l
+[Line 2] Undefined variable: u
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: L
+[Line 2] Undefined variable: f
+[Line 2] Undefined variable: U
+2025-09-14 06:03:37,262 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:03:37,266 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:03:37,267 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 06:03:37,267 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:03:37,267 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:04:07,954 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:04:07,965 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:04:07,965 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 06:04:07,966 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:04:07,966 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:04:38,014 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:04:38,026 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:04:38,060 - INFO - [RETRY 9 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:04:38,060 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-14 06:04:38,061 - INFO - [Minpool] Runtime: 1035.87 seconds
+2025-09-14 06:04:38,061 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-14 06:04:38,061 - INFO - 2025-09-14 06:04:38.061213 - Extracting Neuron_add
+2025-09-14 06:04:38,061 - INFO -
+API: Neuron_add -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 06:04:38,061 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 06:05:10,537 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:05:10,537 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:05:10,537 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:05:10,537 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 06:05:31,253 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:05:31,253 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:05:31,253 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:05:31,253 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 06:05:58,105 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:05:58,122 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:05:58,122 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:05:58,134 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_add -> ((prev_0[l]) + (prev_1[l]), (prev_0[u]) + (prev_1[u]), (prev_0) + (prev_1), (prev_0) + (prev_1));
+}
+2025-09-14 06:05:58,437 - INFO - [RETRY 2 STEP 1] Sample 1: Validation passed for code:
+transformer deeppoly{
+    Neuron_add -> ((prev_0[l]) + (prev_1[l]), (prev_0[u]) + (prev_1[u]), (prev_0) + (prev_1), (prev_0) + (prev_1));
+}.
+2025-09-14 06:05:58,437 - INFO - [Neuron_add] Runtime: 80.38 seconds
+2025-09-14 06:05:58,437 - INFO - Succeed. Saved to logs_wo_costfunction/2025-09-14_01-22-55/results/deeppoly/us.anthropic.claude-opus-4-20250514-v1:0/success/Neuron_add.txt
+
+2025-09-14 06:05:58,437 - INFO - 2025-09-14 06:05:58.437517 - Extracting Neuron_max
+2025-09-14 06:05:58,437 - INFO -
+API: Neuron_max -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 06:05:58,437 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 06:06:41,979 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:06:42,027 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:06:42,027 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:06:42,050 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_max -> ((prev_0[u]) <= (prev_1[l])) ? ((prev_1[l]), (prev_1[u]), (prev_1), (prev_1)) : (((prev_1[u]) <= (prev_0[l])) ? ((prev_0[l]), (prev_0[u]), (prev_0), (prev_0)) : (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), max(prev_0[l], prev_1[l]), ((((prev_0[u] - prev_1[l]) / (prev_0[u] - prev_1[l] + prev_1[u] - prev_0[l])) * prev_0) + ((prev_1[u] - prev_0[l]) / (prev_0[u] - prev_1[l] + prev_1[u] - prev_0[l])) * prev_1) + ((prev_0[l] * prev_1[l]) / (prev_0[u] - prev_1[l] + prev_1[u] - prev_0[l]))));
+}
+2025-09-14 06:06:42,299 - INFO - [RETRY 0 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:06:42,299 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:06:42,316 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:06:42,327 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:06:42,327 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:06:42,335 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_max -> ((prev_0[l]) >= (prev_1[u])) ? ((prev_0[l]), (prev_0[u]), (prev_0), (prev_0)) : (((prev_0[u]) <= (prev_1[l])) ? ((prev_1[l]), (prev_1[u]), (prev_1), (prev_1)) : (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u])));
+}
+2025-09-14 06:06:43,102 - INFO - [RETRY 0 STEP 1] Sample 3: Validation passed for code:
+transformer deeppoly{
+    Neuron_max -> ((prev_0[l]) >= (prev_1[u])) ? ((prev_0[l]), (prev_0[u]), (prev_0), (prev_0)) : (((prev_0[u]) <= (prev_1[l])) ? ((prev_1[l]), (prev_1[u]), (prev_1), (prev_1)) : (max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u]), max(prev_0[l], prev_1[l]), max(prev_0[u], prev_1[u])));
+}.
+2025-09-14 06:06:43,104 - INFO - [Neuron_max] Runtime: 44.67 seconds
+2025-09-14 06:06:43,104 - INFO - Succeed. Saved to logs_wo_costfunction/2025-09-14_01-22-55/results/deeppoly/us.anthropic.claude-opus-4-20250514-v1:0/success/Neuron_max.txt
+
+2025-09-14 06:06:43,104 - INFO - 2025-09-14 06:06:43.104591 - Extracting Neuron_min
+2025-09-14 06:06:43,104 - INFO -
+API: Neuron_min -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 06:06:43,104 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 06:07:12,668 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:07:12,669 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:07:12,687 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:07:12,697 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:07:12,697 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:07:12,704 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> ((prev_0[u]) <= (prev_1[l])) ? ((prev_0[l]), (prev_0[u]), (prev_0), (prev_0)) : (((prev_1[u]) <= (prev_0[l])) ? ((prev_1[l]), (prev_1[u]), (prev_1), (prev_1)) : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), prev_0, prev_1));
+}
+2025-09-14 06:07:13,342 - INFO - [RETRY 0 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:07:13,342 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 06:07:29,811 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:07:29,811 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:07:29,811 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:07:29,811 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 06:07:49,128 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:07:49,134 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:07:49,134 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:07:49,134 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 06:08:26,158 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:08:26,168 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:08:26,180 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:08:26,181 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:08:26,190 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> ((prev_0[u]) <= (prev_1[l])) ? ((prev_0[l]), (prev_0[u]), (prev_0), (prev_0)) : (((prev_1[u]) <= (prev_0[l])) ? ((prev_1[l]), (prev_1[u]), (prev_1), (prev_1)) : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), ((prev_0[l]) <= (prev_1[l])) ? (prev_0) : (prev_1), ((prev_0[u]) <= (prev_1[u])) ? (prev_0) : (prev_1)));
+}
+2025-09-14 06:08:26,810 - INFO - [RETRY 3 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:08:26,810 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:08:26,810 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-14 06:08:55,835 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:08:55,844 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:08:55,844 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:08:55,851 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> ((prev_0[u]) <= (prev_1[l])) ? ((prev_0[l]), (prev_0[u]), (prev_0), (prev_0)) : (((prev_1[u]) <= (prev_0[l])) ? ((prev_1[l]), (prev_1[u]), (prev_1), (prev_1)) : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), prev_0, prev_1));
+}
+2025-09-14 06:08:56,548 - INFO - [RETRY 4 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:08:56,548 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:08:56,548 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:08:56,548 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-14 06:09:14,838 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:09:14,838 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:09:14,838 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:09:14,838 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-14 06:09:37,264 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:09:37,264 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:09:37,264 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:09:37,265 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...

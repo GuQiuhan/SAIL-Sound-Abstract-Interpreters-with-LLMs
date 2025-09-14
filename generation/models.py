@@ -604,8 +604,8 @@ if __name__ == "__main__":
         default=["deepseek"],
         choices=[
             "llama",
-            "llama-3.3",
-            "llama-4",
+            "llama3.3",
+            "llama4",
             "deepseek",
             "gpt-4o",
             "gpt-4.1",

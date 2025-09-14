@@ -110,8 +110,8 @@ def rounds_subplot(ax, data, model_name):
 def draw_three(statistics, output_path):
     num_models = len(statistics)
 
-    rows, cols = num_models, 1
-    fig, axes = plt.subplots(rows, cols, figsize=(10, 6 * rows))
+    rows, cols = 1, num_models
+    fig, axes = plt.subplots(rows, cols, figsize=(8 * num_models, 6))
 
     if num_models == 1:
         axes = [axes]
@@ -123,10 +123,12 @@ def draw_three(statistics, output_path):
     fig.legend(handles, labels, loc="upper center", ncol=4, fontsize=9)
 
     plt.suptitle(
-        "LLM Rounds, Counterexamples, and Time per Operator (Model: GPT-5)", fontsize=14
+        "LLM Rounds, Counterexamples, and Time per Operator (Model: GPT-5)",
+        fontsize=14,
+        y=0.9,
     )
 
-    plt.tight_layout(rect=[0, 0, 1, 0.95])
+    plt.tight_layout(rect=[0, 0, 1, 0.9])
 
     plt.savefig(output_path, dpi=300)
     plt.show()

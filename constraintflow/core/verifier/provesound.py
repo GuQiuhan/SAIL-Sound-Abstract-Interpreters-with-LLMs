@@ -82,7 +82,7 @@ func priority(Neuron n) = n[layer];
 func si(Float x) = sigma x;
 
 transformer ibp{
-  HardSigmoid -> (0, 1);
+  Sigmoid -> (0.1, 1);
 }
 
 

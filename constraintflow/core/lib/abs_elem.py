@@ -605,7 +605,11 @@ class Abs_elem_sparse:
                     )
                     total_size = torch.tensor(list(self.d[key].mat.total_size))
                     mat = abs_shape[i].mat
-                    if mat.dense_const != self.d[key].mat.dense_const and (
+                    if (
+                        isinstance(mat, float) or isinstance(mat, int)
+                    ) and mat == self.d[key].mat.dense_const:
+                        pass
+                    elif mat.dense_const != self.d[key].mat.dense_const and (
                         not mat.check_dense()
                     ):
                         temp_mat = SparseTensor(

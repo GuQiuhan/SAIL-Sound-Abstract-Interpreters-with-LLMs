@@ -146,6 +146,7 @@ def draw_eight(statistics, output_path):
     plt.suptitle(
         "LLM Rounds, Counterexamples, and Time per Operator (Certifier: DeepPoly)",
         fontsize=14,
+        y=0.95,
     )
 
     plt.tight_layout(rect=[0, 0, 1, 0.96])

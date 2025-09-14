@@ -38,6 +38,9 @@ from request import Client
 from utils import *
 from validator.soundness_check import *
 
+op_eval = {}  # for monitoring the progress
+op_curr = None
+
 
 class Step:
     def __init__(
@@ -174,6 +177,9 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                     if result:
                         success = True
                         best_code = code
+
+                        op_eval[op_curr].append(0)
+
                         logging.info(
                             f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation passed for code: \n{best_code}."
                         )
@@ -193,6 +199,8 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
 
                                 best_score = score  # update
                                 best_code = code
+
+                                op_eval[op_curr].append(best_score)
 
                                 step.update_failure(code, ce)
                                 GlobalState.ce_number_now += 1
@@ -271,8 +279,8 @@ if __name__ == "__main__":
         nargs="+",  # multiple models
         choices=[
             "llama",
-            "llama-3.3",
-            "llama-4",
+            "llama3.3",
+            "llama4",
             "deepseek",
             "gpt-4o",
             "gpt-4.1",
@@ -304,7 +312,7 @@ if __name__ == "__main__":
     statistic = {}
 
     run_timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    run_dir = os.path.join("logs", run_timestamp)
+    run_dir = os.path.join(args.log_dir, run_timestamp)
     results_dir = os.path.join(run_dir, "results")
 
     if isinstance(args.model, str):
@@ -374,6 +382,7 @@ if __name__ == "__main__":
                 model_type = endpoint_info["mode"]
 
                 statistic = {}
+                op_eval = {}
                 overall_start_time = time.time()
 
                 model_out_dir = os.path.join(result_dir, model_name)
@@ -383,6 +392,7 @@ if __name__ == "__main__":
                 statistic_dir = os.path.join(model_out_dir, "statistics")
                 os.makedirs(statistic_dir, exist_ok=True)
                 statistic_path = os.path.join(statistic_dir, "statistic.json")
+                op_eval_path = os.path.join(statistic_dir, "op_monitor.json")
 
                 log_path = os.path.join(model_out_dir, "generation.log")
                 for handler in logging.root.handlers[:]:
@@ -400,6 +410,10 @@ if __name__ == "__main__":
                     statistic[model_name] = []
 
                 for op_name in p.track(sorted(op_list)):  # TODO: change the opt list
+                    op_eval[op_name] = []
+
+                    op_curr = op_name
+
                     op_start_time = time.time()
                     doc = {"api": op_name}
 
@@ -596,5 +610,8 @@ if __name__ == "__main__":
 
                 with open(statistic_path, "w") as f:
                     json.dump(statistic, f, indent=2)
+
+                with open(op_eval_path, "w") as f:
+                    json.dump(op_eval, f, indent=2)
 
                 draw_all(statistic, statistic_dir)

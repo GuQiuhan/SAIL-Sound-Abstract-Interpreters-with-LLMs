@@ -286,6 +286,9 @@ def matchDims(lhsIr, rhsIr):
 
     elif len(rhsIrMetadata[-1].shape) < len(lhsIrMetadata[-1].shape):
         updated_irMetadataElement = lhsIrMetadata[-1].copy()
+        for i in range(len(rhsIr.irMetadata[-1].shape)):
+            updated_irMetadataElement.shape[i] = rhsIr.irMetadata[-1].shape[i]
+            updated_irMetadataElement.broadcast[i] = rhsIr.irMetadata[-1].broadcast[i]
         for i in range(len(rhsIrMetadata[-1].shape), len(lhsIrMetadata[-1].shape)):
             updated_irMetadataElement.broadcast[i] = mult_metadata(
                 updated_irMetadataElement.broadcast[i],

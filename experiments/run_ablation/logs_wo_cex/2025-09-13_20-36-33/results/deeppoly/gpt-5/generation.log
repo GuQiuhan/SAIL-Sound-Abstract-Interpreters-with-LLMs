@@ -1,0 +1,2734 @@
+2025-09-13 20:36:33,929 - INFO - 2025-09-13 20:36:33.929885 - Extracting Abs
+2025-09-13 20:36:33,930 - INFO -
+API: Abs -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 20:36:33,930 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 20:39:06,503 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:39:06,676 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:39:06,676 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:39:06,691 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Abs -> ((prev[l]) >= 0)
+        ? ((prev[l]), (prev[u]), (prev), (prev))
+        : (((prev[u]) <= 0)
+            ? (0 - (prev[u]), 0 - (prev[l]), 0 - (prev), 0 - (prev))
+            : (0, max(prev[u], 0 - (prev[l])), (prev), (prev * ((prev[u] + prev[l]) / (prev[u] - (prev[l])))) - (((2 * (prev[u])) * (prev[l])) / (prev[u] - (prev[l])))))
+        ;
+}
+2025-09-13 20:39:07,482 - INFO - [RETRY 0 STEP 1] Sample 1: Validation passed for code:
+transformer deeppoly{
+    Abs -> ((prev[l]) >= 0)
+        ? ((prev[l]), (prev[u]), (prev), (prev))
+        : (((prev[u]) <= 0)
+            ? (0 - (prev[u]), 0 - (prev[l]), 0 - (prev), 0 - (prev))
+            : (0, max(prev[u], 0 - (prev[l])), (prev), (prev * ((prev[u] + prev[l]) / (prev[u] - (prev[l])))) - (((2 * (prev[u])) * (prev[l])) / (prev[u] - (prev[l])))))
+        ;
+}.
+2025-09-13 20:39:07,482 - INFO - [Abs] Runtime: 153.55 seconds
+2025-09-13 20:39:07,483 - INFO - Succeed. Saved to logs_wo_cex/2025-09-13_20-36-33/results/deeppoly/gpt-5/success/Abs.txt
+
+2025-09-13 20:39:07,483 - INFO - 2025-09-13 20:39:07.483080 - Extracting Affine
+2025-09-13 20:39:07,483 - INFO -
+API: Affine -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 20:39:07,483 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 20:40:08,343 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:40:08,373 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-09-13 20:40:08,373 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-09-13 20:41:02,243 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev.. dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.. dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.. dot(curr[weight]) + curr[bias], prev.. dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:41:02,252 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev.. dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.. dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.. dot(curr[weight]) + curr[bias], prev.. dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:41:02,252 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 20:41:02,273 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 20:41:02,273 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 20:41:53,063 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(dot(prev, curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(dot(prev, curr[weight]) + curr[bias], curr, curr[layer]), dot(prev, curr[weight]) + curr[bias], dot(prev, curr[weight]) + curr[bias]);
+}
+2025-09-13 20:41:53,072 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(dot(prev, curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(dot(prev, curr[weight]) + curr[bias], curr, curr[layer]), dot(prev, curr[weight]) + curr[bias], dot(prev, curr[weight]) + curr[bias]);
+}
+2025-09-13 20:41:53,072 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 20:41:53,094 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 20:41:53,094 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 20:42:38,973 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (backsubs_lower(dot(prev, curr["weight"]) + curr["bias"], curr, curr["layer"]), backsubs_upper(dot(prev, curr["weight"]) + curr["bias"], curr, curr["layer"]), dot(prev, curr["weight"]) + curr["bias"], dot(prev, curr["weight"]) + curr["bias"]);
+}
+2025-09-13 20:42:38,982 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (backsubs_lower(dot(prev, curr["weight"]) + curr["bias"], curr, curr["layer"]), backsubs_upper(dot(prev, curr["weight"]) + curr["bias"], curr, curr["layer"]), dot(prev, curr["weight"]) + curr["bias"], dot(prev, curr["weight"]) + curr["bias"]);
+}
+2025-09-13 20:42:38,982 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    Affine -> (backsubs_lower(dot(prev, curr["weight"]) + curr["bias"], curr, curr["layer"]), backsubs_upper(dot(prev, curr["weight"]) + curr["bias"], curr, curr["layer"]), dot(prev, curr["weight"]) + curr["bias"], dot(prev, curr["weight"]) + curr["bias"]);
+}
+2025-09-13 20:42:38,983 - INFO - [RETRY 0 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:42:38,993 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:42:39,012 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-09-13 20:42:39,012 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-09-13 20:43:24,099 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev.DOT(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.DOT(curr[weight]) + curr[bias], curr, curr[layer]), prev.DOT(curr[weight]) + curr[bias], prev.DOT(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:43:24,108 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev.DOT(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.DOT(curr[weight]) + curr[bias], curr, curr[layer]), prev.DOT(curr[weight]) + curr[bias], prev.DOT(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:43:24,109 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 20:43:24,130 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 20:43:24,130 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 20:44:05,627 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (backsubs_lower((prev @ curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper((prev @ curr[weight]) + curr[bias], curr, curr[layer]), (prev @ curr[weight]) + curr[bias], (prev @ curr[weight]) + curr[bias]);
+}
+2025-09-13 20:44:05,636 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (backsubs_lower((prev @ curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper((prev @ curr[weight]) + curr[bias], curr, curr[layer]), (prev @ curr[weight]) + curr[bias], (prev @ curr[weight]) + curr[bias]);
+}
+2025-09-13 20:44:05,636 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 20:44:05,702 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 20:44:05,702 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 20:45:03,653 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    Affine -> (backsubs_lower(prev @ curr.weight + curr.bias, curr, curr.layer), backsubs_upper(prev @ curr.weight + curr.bias, curr, curr.layer), prev @ curr.weight + curr.bias, prev @ curr.weight + curr.bias)
+}
+2025-09-13 20:45:03,662 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    Affine -> (backsubs_lower(prev @ curr.weight + curr.bias, curr, curr.layer), backsubs_upper(prev @ curr.weight + curr.bias, curr, curr.layer), prev @ curr.weight + curr.bias, prev @ curr.weight + curr.bias)
+}
+2025-09-13 20:45:03,662 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    Affine -> (backsubs_lower(prev @ curr.weight + curr.bias, curr, curr.layer), backsubs_upper(prev @ curr.weight + curr.bias, curr, curr.layer), prev @ curr.weight + curr.bias, prev @ curr.weight + curr.bias)
+}
+2025-09-13 20:45:03,662 - INFO - [RETRY 0 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:45:03,670 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:45:03,690 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-09-13 20:45:03,690 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-09-13 20:45:49,334 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev.DOT(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.DOT(curr[weight]) + curr[bias], curr, curr[layer]), prev.DOT(curr[weight]) + curr[bias], prev.DOT(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:45:49,343 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev.DOT(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.DOT(curr[weight]) + curr[bias], curr, curr[layer]), prev.DOT(curr[weight]) + curr[bias], prev.DOT(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:45:49,343 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 20:45:49,364 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 20:45:49,364 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 20:46:42,973 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower((prev * curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper((prev * curr[weight]) + curr[bias], curr, curr[layer]), (prev * curr[weight]) + curr[bias], (prev * curr[weight]) + curr[bias]);
+}
+2025-09-13 20:46:42,983 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower((prev * curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper((prev * curr[weight]) + curr[bias], curr, curr[layer]), (prev * curr[weight]) + curr[bias], (prev * curr[weight]) + curr[bias]);
+}
+2025-09-13 20:46:42,986 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 20:46:43,110 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:46:43,110 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:46:43,119 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower((prev * curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper((prev * curr[weight]) + curr[bias], curr, curr[layer]), (prev * curr[weight]) + curr[bias], (prev * curr[weight]) + curr[bias]);
+}
+2025-09-13 20:46:43,378 - INFO - [RETRY 0 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:46:43,380 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 20:47:42,887 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:47:42,907 - INFO - [Syntax Phase] ❌ Syntax error:
+Issue Type: DOT or uppercase metadata usage.
+2025-09-13 20:47:42,907 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Issue Type: DOT or uppercase metadata usage.
+2025-09-13 20:48:12,977 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:48:12,986 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:48:12,986 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 20:48:13,013 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:48:13,013 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:48:13,020 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:48:13,427 - INFO - [RETRY 1 STEP 1] Sample 1: Validation passed for code:
+transformer deeppoly{
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}.
+2025-09-13 20:48:13,427 - INFO - [Affine] Runtime: 545.94 seconds
+2025-09-13 20:48:13,427 - INFO - Succeed. Saved to logs_wo_cex/2025-09-13_20-36-33/results/deeppoly/gpt-5/success/Affine.txt
+
+2025-09-13 20:48:13,427 - INFO - 2025-09-13 20:48:13.427941 - Extracting Avgpool
+2025-09-13 20:48:13,427 - INFO -
+API: Avgpool -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 20:48:13,428 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 20:50:12,063 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:50:12,073 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:50:12,073 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:50:12,077 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 20:50:12,277 - INFO - [RETRY 0 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:50:12,281 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:50:12,289 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:50:12,289 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:50:12,297 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:50:12,519 - INFO - [RETRY 0 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:50:12,523 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:50:12,531 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:50:12,531 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:50:12,539 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:50:12,752 - INFO - [RETRY 0 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:50:12,752 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 20:52:01,546 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:52:01,553 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:52:01,553 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:52:01,557 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}
+2025-09-13 20:52:01,776 - INFO - [RETRY 1 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:52:01,780 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:52:01,788 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:52:01,788 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:52:01,796 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:52:02,017 - INFO - [RETRY 1 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:52:02,021 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:52:02,029 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:52:02,029 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:52:02,037 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:52:02,257 - INFO - [RETRY 1 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:52:02,257 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 20:53:28,543 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:53:28,550 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:53:28,550 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:53:28,554 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}
+2025-09-13 20:53:28,825 - INFO - [RETRY 2 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:53:28,830 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:53:28,837 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:53:28,837 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:53:28,845 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:53:29,057 - INFO - [RETRY 2 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:53:29,061 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:53:29,066 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:53:29,067 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:53:29,071 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 20:53:29,267 - INFO - [RETRY 2 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:53:29,267 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 20:55:06,536 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:55:06,546 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:55:06,546 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:55:06,554 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:55:06,769 - INFO - [RETRY 3 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:55:06,773 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:55:06,781 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:55:06,781 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:55:06,789 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:55:07,000 - INFO - [RETRY 3 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:55:07,004 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:55:07,009 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:55:07,010 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:55:07,014 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}
+2025-09-13 20:55:07,233 - INFO - [RETRY 3 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:55:07,233 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 20:56:12,408 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:56:12,416 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:56:12,416 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:56:12,420 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 20:56:12,612 - INFO - [RETRY 4 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:56:12,616 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:56:12,621 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:56:12,621 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:56:12,625 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}
+2025-09-13 20:56:12,838 - INFO - [RETRY 4 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:56:12,843 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:56:12,847 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:56:12,847 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:56:12,852 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}
+2025-09-13 20:56:13,061 - INFO - [RETRY 4 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:56:13,061 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 20:57:10,373 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:57:10,379 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:57:10,379 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:57:10,384 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}
+2025-09-13 20:57:10,594 - INFO - [RETRY 5 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:57:10,602 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:57:10,607 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:57:10,607 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:57:10,611 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 20:57:10,806 - INFO - [RETRY 5 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:57:10,810 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:57:10,818 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:57:10,818 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:57:10,825 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 20:57:11,043 - INFO - [RETRY 5 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:57:11,043 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 20:58:34,182 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:58:34,189 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:58:34,189 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:58:34,194 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 20:58:34,454 - INFO - [RETRY 6 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:58:34,458 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:58:34,463 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:58:34,463 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:58:34,467 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 20:58:34,659 - INFO - [RETRY 6 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:58:34,663 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 20:58:34,668 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 20:58:34,668 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 20:58:34,672 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 20:58:34,869 - INFO - [RETRY 6 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 20:58:34,869 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 21:00:08,016 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:00:08,022 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:00:08,022 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:00:08,026 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}
+2025-09-13 21:00:08,239 - INFO - [RETRY 7 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:00:08,243 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:00:08,251 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:00:08,251 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:00:08,258 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+}
+2025-09-13 21:00:08,466 - INFO - [RETRY 7 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:00:08,470 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:00:08,474 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:00:08,475 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:00:08,479 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 21:00:08,673 - INFO - [RETRY 7 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:00:08,673 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 21:01:39,148 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:01:39,155 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:01:39,155 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:01:39,160 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 21:01:39,359 - INFO - [RETRY 8 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:01:39,363 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:01:39,368 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:01:39,368 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:01:39,373 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}
+2025-09-13 21:01:39,589 - INFO - [RETRY 8 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:01:39,594 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:01:39,599 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:01:39,599 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:01:39,603 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}
+2025-09-13 21:01:39,822 - INFO - [RETRY 8 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:01:39,823 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 21:02:55,421 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:02:55,428 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:02:55,428 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:02:55,433 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 21:02:55,628 - INFO - [RETRY 9 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:02:55,632 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:02:55,637 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:02:55,637 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:02:55,642 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[weight]), curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]), curr, curr[layer]), prev.dot(curr[weight]), prev.dot(curr[weight]));
+}
+2025-09-13 21:02:59,299 - INFO - [RETRY 9 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:02:59,306 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:02:59,312 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:02:59,312 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:02:59,317 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr, curr[layer]), backsubs_upper(prev.dot(curr[equations]), curr, curr[layer]), prev.dot(curr[equations]), prev.dot(curr[equations]));
+}
+2025-09-13 21:02:59,512 - INFO - [RETRY 9 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:02:59,512 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 21:02:59,512 - INFO - [Avgpool] Runtime: 886.08 seconds
+2025-09-13 21:02:59,512 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 21:02:59,512 - INFO - 2025-09-13 21:02:59.512892 - Extracting HardSigmoid
+2025-09-13 21:02:59,512 - INFO -
+API: HardSigmoid -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 21:02:59,513 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 21:10:06,750 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:10:07,178 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 21:10:07,178 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 21:13:14,188 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    HardSigmoid -> ((prev[u] <= -3) ? (0, 0, 0, 0)
+    : ((prev[l] >= 3) ? (1, 1, 1, 1)
+    : ((prev[l] >= -3)
+        ? ((prev[u] <= 3)
+            ? (((prev[l] + 3) / 6), ((prev[u] + 3) / 6), ((prev + 3) / 6), ((prev + 3) / 6))
+            : (((prev[l] + 3) / 6), 1,
+               (((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l)) * prev) + ((prev[l] + 3) / 6) - ((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l)) * prev[l]),
+               1))
+        : ((prev[u] <= 3)
+            ? (0, ((prev[u] + 3) / 6), 0,
+               ((((prev[u] + 3) / 6) / (prev[u] - prev[l)) * prev) - (((prev[u] + 3) / 6) / (prev[u] - prev[l)) * prev[l]))
+            : (0, 1,
+               (((1 / (prev[u] + 3)) * prev) + (3 / (prev[u] + 3))),
+               (((1 / (3 - prev[l])) * prev) - (prev[l] / (3 - prev[l])))))));
+}
+2025-09-13 21:13:14,198 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid -> ((prev[u] <= -3) ? (0, 0, 0, 0)
+    : ((prev[l] >= 3) ? (1, 1, 1, 1)
+    : ((prev[l] >= -3)
+        ? ((prev[u] <= 3)
+            ? (((prev[l] + 3) / 6), ((prev[u] + 3) / 6), ((prev + 3) / 6), ((prev + 3) / 6))
+            : (((prev[l] + 3) / 6), 1,
+               (((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l)) * prev) + ((prev[l] + 3) / 6) - ((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l)) * prev[l]),
+               1))
+        : ((prev[u] <= 3)
+            ? (0, ((prev[u] + 3) / 6), 0,
+               ((((prev[u] + 3) / 6) / (prev[u] - prev[l)) * prev) - (((prev[u] + 3) / 6) / (prev[u] - prev[l)) * prev[l]))
+            : (0, 1,
+               (((1 / (prev[u] + 3)) * prev) + (3 / (prev[u] + 3))),
+               (((1 / (3 - prev[l])) * prev) - (prev[l] / (3 - prev[l])))))));
+}
+2025-09-13 21:13:14,198 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 21:13:14,357 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 21:13:14,357 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 21:15:16,611 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    HardSigmoid -> (
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3) ? (1, 1, 1, 1)
+            : (
+                (prev[l] >= -3)
+                ? (
+                    (prev[u] <= 3)
+                    ? (
+                        ((prev[l] + 3) / 6),
+                        ((prev[u] + 3) / 6),
+                        ((prev + 3) / 6),
+                        ((prev + 3) / 6)
+                      )
+                    : (
+                        ((prev[l] + 3) / 6),
+                        1,
+                        (
+                            (((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l])) * prev)
+                            + ((prev[l] + 3) / 6)
+                            - (((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l])) * prev[l])
+                        ),
+                        1
+                      )
+                  )
+                : (
+                    (prev[u] <= 3)
+                    ? (
+                        0,
+                        ((prev[u] + 3) / 6),
+                        0,
+                        (
+                            ((((prev[u] + 3) / 6) / (prev[u] - prev[l])) * prev)
+                            - ((((prev[u] + 3) / 6) / (prev[u] - prev[l])) * prev[l])
+                        )
+                      )
+                    : (
+                        0,
+                        1,
+                        (((1 / (prev[u] + 3)) * prev) + (3 / (prev[u] + 3))),
+                        (((1 / (3 - prev[l])) * prev) - (prev[l] / (3 - prev[l])))
+                      )
+                  )
+              )
+          )
+    );
+}
+2025-09-13 21:15:16,626 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSigmoid -> (
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3) ? (1, 1, 1, 1)
+            : (
+                (prev[l] >= -3)
+                ? (
+                    (prev[u] <= 3)
+                    ? (
+                        ((prev[l] + 3) / 6),
+                        ((prev[u] + 3) / 6),
+                        ((prev + 3) / 6),
+                        ((prev + 3) / 6)
+                      )
+                    : (
+                        ((prev[l] + 3) / 6),
+                        1,
+                        (
+                            (((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l])) * prev)
+                            + ((prev[l] + 3) / 6)
+                            - (((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l])) * prev[l])
+                        ),
+                        1
+                      )
+                  )
+                : (
+                    (prev[u] <= 3)
+                    ? (
+                        0,
+                        ((prev[u] + 3) / 6),
+                        0,
+                        (
+                            ((((prev[u] + 3) / 6) / (prev[u] - prev[l])) * prev)
+                            - ((((prev[u] + 3) / 6) / (prev[u] - prev[l])) * prev[l])
+                        )
+                      )
+                    : (
+                        0,
+                        1,
+                        (((1 / (prev[u] + 3)) * prev) + (3 / (prev[u] + 3))),
+                        (((1 / (3 - prev[l])) * prev) - (prev[l] / (3 - prev[l])))
+                      )
+                  )
+              )
+          )
+    );
+}
+2025-09-13 21:15:16,626 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 21:15:16,803 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:15:16,803 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:15:16,838 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSigmoid -> (
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3) ? (1, 1, 1, 1)
+            : (
+                (prev[l] >= -3)
+                ? (
+                    (prev[u] <= 3)
+                    ? (
+                        ((prev[l] + 3) / 6),
+                        ((prev[u] + 3) / 6),
+                        ((prev + 3) / 6),
+                        ((prev + 3) / 6)
+                      )
+                    : (
+                        ((prev[l] + 3) / 6),
+                        1,
+                        (
+                            (((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l])) * prev)
+                            + ((prev[l] + 3) / 6)
+                            - (((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l])) * prev[l])
+                        ),
+                        1
+                      )
+                  )
+                : (
+                    (prev[u] <= 3)
+                    ? (
+                        0,
+                        ((prev[u] + 3) / 6),
+                        0,
+                        (
+                            ((((prev[u] + 3) / 6) / (prev[u] - prev[l])) * prev)
+                            - ((((prev[u] + 3) / 6) / (prev[u] - prev[l])) * prev[l])
+                        )
+                      )
+                    : (
+                        0,
+                        1,
+                        (((1 / (prev[u] + 3)) * prev) + (3 / (prev[u] + 3))),
+                        (((1 / (3 - prev[l])) * prev) - (prev[l] / (3 - prev[l])))
+                      )
+                  )
+              )
+          )
+    );
+}
+2025-09-13 21:15:17,930 - INFO - [RETRY 0 STEP 1] Sample 1: Validation passed for code:
+transformer deeppoly{
+    HardSigmoid -> (
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3) ? (1, 1, 1, 1)
+            : (
+                (prev[l] >= -3)
+                ? (
+                    (prev[u] <= 3)
+                    ? (
+                        ((prev[l] + 3) / 6),
+                        ((prev[u] + 3) / 6),
+                        ((prev + 3) / 6),
+                        ((prev + 3) / 6)
+                      )
+                    : (
+                        ((prev[l] + 3) / 6),
+                        1,
+                        (
+                            (((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l])) * prev)
+                            + ((prev[l] + 3) / 6)
+                            - (((1 - ((prev[l] + 3) / 6)) / (prev[u] - prev[l])) * prev[l])
+                        ),
+                        1
+                      )
+                  )
+                : (
+                    (prev[u] <= 3)
+                    ? (
+                        0,
+                        ((prev[u] + 3) / 6),
+                        0,
+                        (
+                            ((((prev[u] + 3) / 6) / (prev[u] - prev[l])) * prev)
+                            - ((((prev[u] + 3) / 6) / (prev[u] - prev[l])) * prev[l])
+                        )
+                      )
+                    : (
+                        0,
+                        1,
+                        (((1 / (prev[u] + 3)) * prev) + (3 / (prev[u] + 3))),
+                        (((1 / (3 - prev[l])) * prev) - (prev[l] / (3 - prev[l])))
+                      )
+                  )
+              )
+          )
+    );
+}.
+2025-09-13 21:15:17,930 - INFO - [HardSigmoid] Runtime: 738.42 seconds
+2025-09-13 21:15:17,931 - INFO - Succeed. Saved to logs_wo_cex/2025-09-13_20-36-33/results/deeppoly/gpt-5/success/HardSigmoid.txt
+
+2025-09-13 21:15:17,931 - INFO - 2025-09-13 21:15:17.931197 - Extracting HardSwish
+2025-09-13 21:15:17,931 - INFO -
+API: HardSwish -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 21:15:17,931 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 21:25:22,824 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:25:22,915 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 21:25:22,915 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 21:29:34,926 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    HardSwish -> (prev[u] <= -3) ? (0, 0, 0, 0) :
+                 ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+                  (
+                    (prev[l] >= -3) ?
+                    (
+                      (prev[u] <= 3) ?
+                      (
+                        ((prev[u] <= -1.5) ? f2(prev[u]) : ((prev[l] >= -1.5) ? f2(prev[l]) : -0.375)),
+                        f3(prev),
+                        ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                        (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                      )
+                      :
+                      (
+                        -0.375,
+                        prev[u],
+                        ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                        ((prev[l] >= 0) ? prev : ((prev[u] <= 0) ? 0 : (((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))))
+                      )
+                    )
+                    :
+                    (
+                      -0.375,
+                      ((prev[u] <= 0) ? 0 : prev[u]),
+                      -0.375,
+                      ((prev[l] >= 0) ? prev : ((prev[u] <= 0) ? 0 : (((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))))
+                    )
+                  )
+                 );
+}
+2025-09-13 21:29:34,937 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish -> (prev[u] <= -3) ? (0, 0, 0, 0) :
+                 ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+                  (
+                    (prev[l] >= -3) ?
+                    (
+                      (prev[u] <= 3) ?
+                      (
+                        ((prev[u] <= -1.5) ? f2(prev[u]) : ((prev[l] >= -1.5) ? f2(prev[l]) : -0.375)),
+                        f3(prev),
+                        ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                        (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                      )
+                      :
+                      (
+                        -0.375,
+                        prev[u],
+                        ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                        ((prev[l] >= 0) ? prev : ((prev[u] <= 0) ? 0 : (((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))))
+                      )
+                    )
+                    :
+                    (
+                      -0.375,
+                      ((prev[u] <= 0) ? 0 : prev[u]),
+                      -0.375,
+                      ((prev[l] >= 0) ? prev : ((prev[u] <= 0) ? 0 : (((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))))
+                    )
+                  )
+                 );
+}
+2025-09-13 21:29:34,937 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 21:29:35,024 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 21:29:35,024 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 21:31:38,633 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    HardSwish -> (prev[u] <= -3) ? (0, 0, 0, 0) :
+                 ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+                  (
+                    (prev[l] >= -3) ?
+                    (
+                      (prev[u] <= 3) ?
+                      (
+                        ((prev[u] <= (-3/2)) ? f2(prev[u]) : ((prev[l] >= (-3/2)) ? f2(prev[l]) : (-3/8))),
+                        f3(prev),
+                        ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                        (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                      )
+                      :
+                      (
+                        (-3/8),
+                        prev[u],
+                        ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                        ((prev[l] >= 0) ? prev : ((prev[u] <= 0) ? 0 : (((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))))
+                      )
+                    )
+                    :
+                    (
+                      (-3/8),
+                      ((prev[u] <= 0) ? 0 : prev[u]),
+                      (-3/8),
+                      ((prev[l] >= 0) ? prev : ((prev[u] <= 0) ? 0 : (((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))))
+                    )
+                  )
+                 );
+}
+2025-09-13 21:31:38,649 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish -> (prev[u] <= -3) ? (0, 0, 0, 0) :
+                 ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+                  (
+                    (prev[l] >= -3) ?
+                    (
+                      (prev[u] <= 3) ?
+                      (
+                        ((prev[u] <= (-3/2)) ? f2(prev[u]) : ((prev[l] >= (-3/2)) ? f2(prev[l]) : (-3/8))),
+                        f3(prev),
+                        ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                        (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                      )
+                      :
+                      (
+                        (-3/8),
+                        prev[u],
+                        ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                        ((prev[l] >= 0) ? prev : ((prev[u] <= 0) ? 0 : (((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))))
+                      )
+                    )
+                    :
+                    (
+                      (-3/8),
+                      ((prev[u] <= 0) ? 0 : prev[u]),
+                      (-3/8),
+                      ((prev[l] >= 0) ? prev : ((prev[u] <= 0) ? 0 : (((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))))
+                    )
+                  )
+                 );
+}
+2025-09-13 21:31:38,649 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 21:31:39,263 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 21:31:39,263 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 21:31:39,332 - INFO - ✅ All check passed for code:
+ transformer deeppoly {
+    HardSwish -> (prev[u] <= -3) ? (0, 0, 0, 0) :
+                 ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+                  (
+                    (prev[l] >= -3) ?
+                    (
+                      (prev[u] <= 3) ?
+                      (
+                        ((prev[u] <= (-3/2)) ? f2(prev[u]) : ((prev[l] >= (-3/2)) ? f2(prev[l]) : (-3/8))),
+                        f3(prev),
+                        ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                        (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                      )
+                      :
+                      (
+                        (-3/8),
+                        prev[u],
+                        ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                        ((prev[l] >= 0) ? prev : ((prev[u] <= 0) ? 0 : (((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))))
+                      )
+                    )
+                    :
+                    (
+                      (-3/8),
+                      ((prev[u] <= 0) ? 0 : prev[u]),
+                      (-3/8),
+                      ((prev[l] >= 0) ? prev : ((prev[u] <= 0) ? 0 : (((prev[u] / (prev[u] - prev[l])) * prev) - ((prev[u] * prev[l]) / (prev[u] - prev[l])))))
+                    )
+                  )
+                 );
+}
+2025-09-13 21:31:40,616 - INFO - [RETRY 0 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:31:40,901 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:31:41,068 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 21:31:41,068 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 21:35:51,317 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    HardSwish -> (
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+        : (prev[l] >= -3) ? (
+            (prev[u] <= 3) ? (-0.375, f3(prev), -0.375, (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+                            : (-0.375, prev[u], -0.375, prev[u])
+        ) : (
+            (prev[u] <= 3) ? (-0.375, max(0, f2(prev[u])), -0.375, max(0, f2(prev[u])))
+                            : (-0.375, prev[u], -0.375, prev[u])
+        )
+    );
+}
+2025-09-13 21:35:51,330 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish -> (
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+        : (prev[l] >= -3) ? (
+            (prev[u] <= 3) ? (-0.375, f3(prev), -0.375, (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+                            : (-0.375, prev[u], -0.375, prev[u])
+        ) : (
+            (prev[u] <= 3) ? (-0.375, max(0, f2(prev[u])), -0.375, max(0, f2(prev[u])))
+                            : (-0.375, prev[u], -0.375, prev[u])
+        )
+    );
+}
+2025-09-13 21:35:51,330 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 21:35:51,392 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 21:35:51,392 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 21:38:20,139 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer DeepPoly {
+    HardSwish -> (
+        (prev[u] <= -3.0) ? (0.0, 0.0, 0.0, 0.0)
+        : (
+            (prev[l] >= 3.0) ? (prev[l], prev[u], prev, prev)
+            : (
+                (prev[l] >= -3.0) ? (
+                    (prev[u] <= 3.0) ? (-0.375, f3(prev), -0.375, (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+                                     : (-0.375, prev[u], -0.375, prev[u])
+                ) : (
+                    (prev[u] <= 3.0) ? (-0.375, max(0.0, f2(prev[u])), -0.375, max(0.0, f2(prev[u])))
+                                     : (-0.375, prev[u], -0.375, prev[u])
+                )
+            )
+        )
+    );
+}
+2025-09-13 21:38:20,151 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-13 21:38:20,151 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 21:38:20,160 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 21:38:20,160 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 21:39:04,954 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ {}
+2025-09-13 21:39:04,960 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-13 21:39:04,961 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-13 21:39:04,961 - INFO - [RETRY 0 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:39:04,971 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 21:39:05,037 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 21:39:05,038 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 21:42:18,245 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    HardSwish ->
+    ((prev[u] <= -3) ? (0, 0, 0, 0)
+    : ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+    : ((prev[l] >= -3) ?
+        ((prev[u] <= 3) ?
+            (
+                ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                f3(prev),
+                (prev - 3),
+                ((slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+            )
+            :
+            (
+                ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+        :
+        ((prev[u] <= 3) ?
+            (
+                ((prev[u] <= -1.5) ? f2(prev[u]) : -0.375),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                (prev - 3),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0)
+            )
+            :
+            (
+                -0.375,
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+    ));
+}
+2025-09-13 21:42:18,255 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish ->
+    ((prev[u] <= -3) ? (0, 0, 0, 0)
+    : ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+    : ((prev[l] >= -3) ?
+        ((prev[u] <= 3) ?
+            (
+                ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                f3(prev),
+                (prev - 3),
+                ((slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+            )
+            :
+            (
+                ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+        :
+        ((prev[u] <= 3) ?
+            (
+                ((prev[u] <= -1.5) ? f2(prev[u]) : -0.375),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                (prev - 3),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0)
+            )
+            :
+            (
+                -0.375,
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+    ));
+}
+2025-09-13 21:42:18,256 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 21:42:18,335 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 21:42:18,336 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 21:44:17,153 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    HardSwish ->
+    ((prev[u] <= -3) ? (0, 0, 0, 0)
+    : ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+    : ((prev[l] >= -3) ?
+        ((prev[u] <= 3) ?
+            (
+                ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                f3(prev),
+                (prev - 3),
+                ((slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+            )
+            :
+            (
+                ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+        :
+        ((prev[u] <= 3) ?
+            (
+                ((prev[u] <= -1.5) ? f2(prev[u]) : -0.375),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                (prev - 3),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0)
+            )
+            :
+            (
+                -0.375,
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+    ));
+}
+2025-09-13 21:44:17,164 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish ->
+    ((prev[u] <= -3) ? (0, 0, 0, 0)
+    : ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+    : ((prev[l] >= -3) ?
+        ((prev[u] <= 3) ?
+            (
+                ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                f3(prev),
+                (prev - 3),
+                ((slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+            )
+            :
+            (
+                ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+        :
+        ((prev[u] <= 3) ?
+            (
+                ((prev[u] <= -1.5) ? f2(prev[u]) : -0.375),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                (prev - 3),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0)
+            )
+            :
+            (
+                -0.375,
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+    ));
+}
+2025-09-13 21:44:17,164 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 21:44:17,234 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 21:44:17,234 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 21:46:33,827 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    HardSwish ->
+    ((prev[u] <= -3) ? (0, 0, 0, 0)
+    : ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+    : ((prev[l] >= -3) ?
+        ((prev[u] <= 3) ?
+            (
+                ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                f3(prev),
+                (prev - 3),
+                ((slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+            )
+            :
+            (
+                ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+        :
+        ((prev[u] <= 3) ?
+            (
+                ((prev[u] <= -1.5) ? f2(prev[u]) : -0.375),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                (prev - 3),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0)
+            )
+            :
+            (
+                -0.375,
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+    ));
+}
+2025-09-13 21:46:33,840 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish ->
+    ((prev[u] <= -3) ? (0, 0, 0, 0)
+    : ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+    : ((prev[l] >= -3) ?
+        ((prev[u] <= 3) ?
+            (
+                ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                f3(prev),
+                (prev - 3),
+                ((slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+            )
+            :
+            (
+                ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+        :
+        ((prev[u] <= 3) ?
+            (
+                ((prev[u] <= -1.5) ? f2(prev[u]) : -0.375),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                (prev - 3),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0)
+            )
+            :
+            (
+                -0.375,
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+    ));
+}
+2025-09-13 21:46:33,840 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly{
+    HardSwish ->
+    ((prev[u] <= -3) ? (0, 0, 0, 0)
+    : ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+    : ((prev[l] >= -3) ?
+        ((prev[u] <= 3) ?
+            (
+                ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                f3(prev),
+                (prev - 3),
+                ((slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u]))
+            )
+            :
+            (
+                ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+        :
+        ((prev[u] <= 3) ?
+            (
+                ((prev[u] <= -1.5) ? f2(prev[u]) : -0.375),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                (prev - 3),
+                ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0)
+            )
+            :
+            (
+                -0.375,
+                prev[u],
+                (prev - 3),
+                prev[u]
+            )
+        )
+    ));
+}
+2025-09-13 21:46:33,840 - INFO - [RETRY 0 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 21:46:33,840 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 22:00:21,447 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 22:00:21,538 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:00:21,538 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:02:38,497 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    HardSwish ->
+        ((prev[u]) <= (0-3)) ? (0, 0, 0, 0)
+        : ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev[l]), (prev[u]))
+        : (
+            (prev[l] >= (0-3)) ? (
+                (prev[u] <= 3) ? (
+                    (((prev[l]) <= (0-1.5)) ? (((prev[u]) >= (0-1.5)) ? f2(0-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                    ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u])),
+                    (((prev[l]) <= (0-1.5)) ? (((prev[u]) >= (0-1.5)) ? f2(0-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                    ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))
+                )
+                : (
+                    (((prev[l]) <= (0-1.5)) ? f2(0-1.5) : f2(prev[l])),
+                    (prev[u]),
+                    (((prev[l]) <= (0-1.5)) ? f2(0-1.5) : f2(prev[l])),
+                    (prev[u])
+                )
+            )
+            : (
+                (prev[u] <= 3) ? (
+                    (((prev[u]) >= (0-1.5)) ? f2(0-1.5) : f2(prev[u])),
+                    ((0 > f2(prev[u])) ? 0 : f2(prev[u])),
+                    (((prev[u]) >= (0-1.5)) ? f2(0-1.5) : f2(prev[u])),
+                    ((0 > f2(prev[u])) ? 0 : f2(prev[u]))
+                )
+                : (
+                    (f2(0-1.5)),
+                    (prev[u]),
+                    (f2(0-1.5)),
+                    (prev[u])
+                )
+            )
+        );
+}
+2025-09-13 22:02:38,509 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish ->
+        ((prev[u]) <= (0-3)) ? (0, 0, 0, 0)
+        : ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev[l]), (prev[u]))
+        : (
+            (prev[l] >= (0-3)) ? (
+                (prev[u] <= 3) ? (
+                    (((prev[l]) <= (0-1.5)) ? (((prev[u]) >= (0-1.5)) ? f2(0-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                    ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u])),
+                    (((prev[l]) <= (0-1.5)) ? (((prev[u]) >= (0-1.5)) ? f2(0-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                    ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))
+                )
+                : (
+                    (((prev[l]) <= (0-1.5)) ? f2(0-1.5) : f2(prev[l])),
+                    (prev[u]),
+                    (((prev[l]) <= (0-1.5)) ? f2(0-1.5) : f2(prev[l])),
+                    (prev[u])
+                )
+            )
+            : (
+                (prev[u] <= 3) ? (
+                    (((prev[u]) >= (0-1.5)) ? f2(0-1.5) : f2(prev[u])),
+                    ((0 > f2(prev[u])) ? 0 : f2(prev[u])),
+                    (((prev[u]) >= (0-1.5)) ? f2(0-1.5) : f2(prev[u])),
+                    ((0 > f2(prev[u])) ? 0 : f2(prev[u]))
+                )
+                : (
+                    (f2(0-1.5)),
+                    (prev[u]),
+                    (f2(0-1.5)),
+                    (prev[u])
+                )
+            )
+        );
+}
+2025-09-13 22:02:38,509 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 22:02:38,601 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:02:38,601 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:05:42,263 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    HardSwish ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (prev[l] >= 3) ? (prev[l], prev[u], prev[l], prev[u])
+        : (
+            (prev[l] >= -3) ? (
+                (prev[u] <= 3) ? (
+                    ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? f2(-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                    ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u])),
+                    ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? f2(-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                    ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))
+                )
+                : (
+                    ((prev[l] <= -1.5) ? f2(-1.5) : f2(prev[l])),
+                    prev[u],
+                    ((prev[l] <= -1.5) ? f2(-1.5) : f2(prev[l])),
+                    prev[u]
+                )
+            )
+            : (
+                (prev[u] <= 3) ? (
+                    ((prev[u] >= -1.5) ? f2(-1.5) : f2(prev[u])),
+                    ((0 > f2(prev[u])) ? 0 : f2(prev[u])),
+                    ((prev[u] >= -1.5) ? f2(-1.5) : f2(prev[u])),
+                    ((0 > f2(prev[u])) ? 0 : f2(prev[u]))
+                )
+                : (
+                    f2(-1.5),
+                    prev[u],
+                    f2(-1.5),
+                    prev[u]
+                )
+            )
+        );
+}
+2025-09-13 22:05:42,280 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (prev[l] >= 3) ? (prev[l], prev[u], prev[l], prev[u])
+        : (
+            (prev[l] >= -3) ? (
+                (prev[u] <= 3) ? (
+                    ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? f2(-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                    ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u])),
+                    ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? f2(-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                    ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))
+                )
+                : (
+                    ((prev[l] <= -1.5) ? f2(-1.5) : f2(prev[l])),
+                    prev[u],
+                    ((prev[l] <= -1.5) ? f2(-1.5) : f2(prev[l])),
+                    prev[u]
+                )
+            )
+            : (
+                (prev[u] <= 3) ? (
+                    ((prev[u] >= -1.5) ? f2(-1.5) : f2(prev[u])),
+                    ((0 > f2(prev[u])) ? 0 : f2(prev[u])),
+                    ((prev[u] >= -1.5) ? f2(-1.5) : f2(prev[u])),
+                    ((0 > f2(prev[u])) ? 0 : f2(prev[u]))
+                )
+                : (
+                    f2(-1.5),
+                    prev[u],
+                    f2(-1.5),
+                    prev[u]
+                )
+            )
+        );
+}
+2025-09-13 22:05:42,280 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 22:05:42,390 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:05:42,390 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:08:17,273 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    HardSwish ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3) ? (prev[l], prev[u], prev[l], prev[u])
+            : (
+                (prev[l] >= -3) ? (
+                    (prev[u] <= 3) ? (
+                        ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? f2(-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                        ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u])),
+                        ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? f2(-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                        ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))
+                    )
+                    : (
+                        ((prev[l] <= -1.5) ? f2(-1.5) : f2(prev[l])),
+                        prev[u],
+                        ((prev[l] <= -1.5) ? f2(-1.5) : f2(prev[l])),
+                        prev[u]
+                    )
+                )
+                : (
+                    (prev[u] <= 3) ? (
+                        ((prev[u] >= -1.5) ? f2(-1.5) : f2(prev[u])),
+                        ((0 > f2(prev[u])) ? 0 : f2(prev[u])),
+                        ((prev[u] >= -1.5) ? f2(-1.5) : f2(prev[u])),
+                        ((0 > f2(prev[u])) ? 0 : f2(prev[u]))
+                    )
+                    : (
+                        f2(-1.5),
+                        prev[u],
+                        f2(-1.5),
+                        prev[u]
+                    )
+                )
+            )
+        );
+}
+2025-09-13 22:08:17,288 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3) ? (prev[l], prev[u], prev[l], prev[u])
+            : (
+                (prev[l] >= -3) ? (
+                    (prev[u] <= 3) ? (
+                        ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? f2(-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                        ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u])),
+                        ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? f2(-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                        ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))
+                    )
+                    : (
+                        ((prev[l] <= -1.5) ? f2(-1.5) : f2(prev[l])),
+                        prev[u],
+                        ((prev[l] <= -1.5) ? f2(-1.5) : f2(prev[l])),
+                        prev[u]
+                    )
+                )
+                : (
+                    (prev[u] <= 3) ? (
+                        ((prev[u] >= -1.5) ? f2(-1.5) : f2(prev[u])),
+                        ((0 > f2(prev[u])) ? 0 : f2(prev[u])),
+                        ((prev[u] >= -1.5) ? f2(-1.5) : f2(prev[u])),
+                        ((0 > f2(prev[u])) ? 0 : f2(prev[u]))
+                    )
+                    : (
+                        f2(-1.5),
+                        prev[u],
+                        f2(-1.5),
+                        prev[u]
+                    )
+                )
+            )
+        );
+}
+2025-09-13 22:08:17,288 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    HardSwish ->
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3) ? (prev[l], prev[u], prev[l], prev[u])
+            : (
+                (prev[l] >= -3) ? (
+                    (prev[u] <= 3) ? (
+                        ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? f2(-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                        ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u])),
+                        ((prev[l] <= -1.5) ? ((prev[u] >= -1.5) ? f2(-1.5) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) < f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                        ((f2(prev[l]) > f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))
+                    )
+                    : (
+                        ((prev[l] <= -1.5) ? f2(-1.5) : f2(prev[l])),
+                        prev[u],
+                        ((prev[l] <= -1.5) ? f2(-1.5) : f2(prev[l])),
+                        prev[u]
+                    )
+                )
+                : (
+                    (prev[u] <= 3) ? (
+                        ((prev[u] >= -1.5) ? f2(-1.5) : f2(prev[u])),
+                        ((0 > f2(prev[u])) ? 0 : f2(prev[u])),
+                        ((prev[u] >= -1.5) ? f2(-1.5) : f2(prev[u])),
+                        ((0 > f2(prev[u])) ? 0 : f2(prev[u]))
+                    )
+                    : (
+                        f2(-1.5),
+                        prev[u],
+                        f2(-1.5),
+                        prev[u]
+                    )
+                )
+            )
+        );
+}
+2025-09-13 22:08:17,288 - INFO - [RETRY 1 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 22:08:17,299 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 22:08:17,408 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:08:17,409 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:13:17,742 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    HardSwish -> (prev[u] <= -3) ? (0, 0, 0, 0) :
+                 (
+                   (prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+                   (
+                     (prev[l] >= -3) ?
+                     (
+                       (prev[u] <= 3) ?
+                       (
+                         ((prev[l] <= (-3/2)) ? ((prev[u] >= (-3/2)) ? f2((-3/2)) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                         f3(prev),
+                         ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                         (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                       )
+                       :
+                       (
+                         ((prev[l] <= (-3/2)) ? f2((-3/2)) : f2(prev[l])),
+                         prev[u],
+                         ((prev[l] <= (-3/2)) ? f2((-3/2)) : f2(prev[l])),
+                         ((prev[l] < 0) ? ((prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l]))) :
+                                          (((prev[u] - f2(prev[l])) / (prev[u] - prev[l])) * prev + (f2(prev[l]) - (((prev[u] - f2(prev[l])) / (prev[u] - prev[l])) * prev[l]))))
+                       )
+                     )
+                     :
+                     (
+                       (prev[u] <= 3) ?
+                       (
+                         ((prev[u] >= (-3/2)) ? f2((-3/2)) : f2(prev[u])),
+                         ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                         ((prev[u] >= (-3/2)) ? f2((-3/2)) : f2(prev[u])),
+                         ((prev[u] <= 0) ? 0 : ((prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l]))))
+                       )
+                       :
+                       (
+                         f2((-3/2)),
+                         prev[u],
+                         f2((-3/2)),
+                         ((prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l])))
+                       )
+                     )
+                   )
+                 );
+}
+2025-09-13 22:13:17,755 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish -> (prev[u] <= -3) ? (0, 0, 0, 0) :
+                 (
+                   (prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+                   (
+                     (prev[l] >= -3) ?
+                     (
+                       (prev[u] <= 3) ?
+                       (
+                         ((prev[l] <= (-3/2)) ? ((prev[u] >= (-3/2)) ? f2((-3/2)) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                         f3(prev),
+                         ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                         (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                       )
+                       :
+                       (
+                         ((prev[l] <= (-3/2)) ? f2((-3/2)) : f2(prev[l])),
+                         prev[u],
+                         ((prev[l] <= (-3/2)) ? f2((-3/2)) : f2(prev[l])),
+                         ((prev[l] < 0) ? ((prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l]))) :
+                                          (((prev[u] - f2(prev[l])) / (prev[u] - prev[l])) * prev + (f2(prev[l]) - (((prev[u] - f2(prev[l])) / (prev[u] - prev[l])) * prev[l]))))
+                       )
+                     )
+                     :
+                     (
+                       (prev[u] <= 3) ?
+                       (
+                         ((prev[u] >= (-3/2)) ? f2((-3/2)) : f2(prev[u])),
+                         ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                         ((prev[u] >= (-3/2)) ? f2((-3/2)) : f2(prev[u])),
+                         ((prev[u] <= 0) ? 0 : ((prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l]))))
+                       )
+                       :
+                       (
+                         f2((-3/2)),
+                         prev[u],
+                         f2((-3/2)),
+                         ((prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l])))
+                       )
+                     )
+                   )
+                 );
+}
+2025-09-13 22:13:17,755 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 22:13:19,121 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-13 22:13:19,121 - INFO - [Semantic Phase] Attempt 1
+2025-09-13 22:13:19,281 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    HardSwish -> (prev[u] <= -3) ? (0, 0, 0, 0) :
+                 (
+                   (prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+                   (
+                     (prev[l] >= -3) ?
+                     (
+                       (prev[u] <= 3) ?
+                       (
+                         ((prev[l] <= (-3/2)) ? ((prev[u] >= (-3/2)) ? f2((-3/2)) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))) : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                         f3(prev),
+                         ((((2*prev[l]) + 3) / 6) * prev) + (f2(prev[l]) - ((((2*prev[l]) + 3) / 6) * prev[l])),
+                         (slope(prev[l], prev[u]) * prev) + intercept(prev[l], prev[u])
+                       )
+                       :
+                       (
+                         ((prev[l] <= (-3/2)) ? f2((-3/2)) : f2(prev[l])),
+                         prev[u],
+                         ((prev[l] <= (-3/2)) ? f2((-3/2)) : f2(prev[l])),
+                         ((prev[l] < 0) ? ((prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l]))) :
+                                          (((prev[u] - f2(prev[l])) / (prev[u] - prev[l])) * prev + (f2(prev[l]) - (((prev[u] - f2(prev[l])) / (prev[u] - prev[l])) * prev[l]))))
+                       )
+                     )
+                     :
+                     (
+                       (prev[u] <= 3) ?
+                       (
+                         ((prev[u] >= (-3/2)) ? f2((-3/2)) : f2(prev[u])),
+                         ((f2(prev[u]) >= 0) ? f2(prev[u]) : 0),
+                         ((prev[u] >= (-3/2)) ? f2((-3/2)) : f2(prev[u])),
+                         ((prev[u] <= 0) ? 0 : ((prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l]))))
+                       )
+                       :
+                       (
+                         f2((-3/2)),
+                         prev[u],
+                         f2((-3/2)),
+                         ((prev[u] / (prev[u] - prev[l])) * prev - ((prev[u] * prev[l]) / (prev[u] - prev[l])))
+                       )
+                     )
+                   )
+                 );
+}
+2025-09-13 22:13:21,494 - INFO - [RETRY 1 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 22:13:21,499 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 22:13:21,569 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:13:21,569 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:15:21,224 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly{
+    HardSwish -> (
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+      : (prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+      : (prev[l] >= -3)
+        ? ((prev[u] <= 3)
+            ? (
+                ((prev[l] <= -1.5)
+                  ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u])))
+                  : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                f3(prev),
+                0.5 * prev,
+                slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+              )
+            : (
+                ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                prev[u],
+                0.5 * prev,
+                prev + 3
+              )
+          )
+        : ((prev[u] <= 3)
+            ? (
+                ((prev[u] >= -1.5) ? -0.375 : f2(prev[u])),
+                ((prev[u] <= 0) ? 0 : f2(prev[u])),
+                0.5 * prev,
+                prev - prev[l]
+              )
+            : (
+                -0.375,
+                prev[u],
+                0.5 * prev,
+                prev - prev[l]
+              )
+          )
+    );
+}
+2025-09-13 22:15:21,237 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly{
+    HardSwish -> (
+        (prev[u] <= -3) ? (0, 0, 0, 0)
+      : (prev[l] >= 3) ? (prev[l], prev[u], prev, prev)
+      : (prev[l] >= -3)
+        ? ((prev[u] <= 3)
+            ? (
+                ((prev[l] <= -1.5)
+                  ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u])))
+                  : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))),
+                f3(prev),
+                0.5 * prev,
+                slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+              )
+            : (
+                ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                prev[u],
+                0.5 * prev,
+                prev + 3
+              )
+          )
+        : ((prev[u] <= 3)
+            ? (
+                ((prev[u] >= -1.5) ? -0.375 : f2(prev[u])),
+                ((prev[u] <= 0) ? 0 : f2(prev[u])),
+                0.5 * prev,
+                prev - prev[l]
+              )
+            : (
+                -0.375,
+                prev[u],
+                0.5 * prev,
+                prev - prev[l]
+              )
+          )
+    );
+}
+2025-09-13 22:15:21,237 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 22:15:21,307 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:15:21,307 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:17:39,450 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    HardSwish -> (
+        (prev[u] <= -3)
+        ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+            : (
+                (prev[l] >= -3)
+                ? (
+                    (prev[u] <= 3)
+                    ? (
+                        (
+                            (prev[l] <= -1.5)
+                            ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u])))
+                            : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))
+                        ),
+                        f3(prev),
+                        0.5 * prev,
+                        slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+                    )
+                    : (
+                        ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                        prev[u],
+                        0.5 * prev,
+                        prev + 3
+                    )
+                )
+                : (
+                    (prev[u] <= 3)
+                    ? (
+                        ((prev[u] >= -1.5) ? -0.375 : f2(prev[u])),
+                        ((prev[u] <= 0) ? 0 : f2(prev[u])),
+                        0.5 * prev,
+                        prev - prev[l]
+                    )
+                    : (
+                        -0.375,
+                        prev[u],
+                        0.5 * prev,
+                        prev - prev[l]
+                    )
+                )
+            )
+        )
+    );
+}
+2025-09-13 22:17:39,464 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish -> (
+        (prev[u] <= -3)
+        ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+            : (
+                (prev[l] >= -3)
+                ? (
+                    (prev[u] <= 3)
+                    ? (
+                        (
+                            (prev[l] <= -1.5)
+                            ? ((prev[u] >= -1.5) ? -0.375 : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u])))
+                            : ((f2(prev[l]) <= f2(prev[u])) ? f2(prev[l]) : f2(prev[u]))
+                        ),
+                        f3(prev),
+                        0.5 * prev,
+                        slope(prev[l], prev[u]) * prev + intercept(prev[l], prev[u])
+                    )
+                    : (
+                        ((prev[l] <= -1.5) ? -0.375 : f2(prev[l])),
+                        prev[u],
+                        0.5 * prev,
+                        prev + 3
+                    )
+                )
+                : (
+                    (prev[u] <= 3)
+                    ? (
+                        ((prev[u] >= -1.5) ? -0.375 : f2(prev[u])),
+                        ((prev[u] <= 0) ? 0 : f2(prev[u])),
+                        0.5 * prev,
+                        prev - prev[l]
+                    )
+                    : (
+                        -0.375,
+                        prev[u],
+                        0.5 * prev,
+                        prev - prev[l]
+                    )
+                )
+            )
+        )
+    );
+}
+2025-09-13 22:17:39,464 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 22:17:39,531 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:17:39,531 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:20:08,174 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ transformer deeppoly {
+    HardSwish -> (
+        (prev[u] <= -3)
+        ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+            : (
+                (prev[l] >= -3)
+                ? (
+                    (prev[u] <= 3)
+                    ? (
+                        (
+                            (prev[l] <= -1.5)
+                            ? (
+                                (prev[u] >= -1.5)
+                                ? -0.375
+                                : (
+                                    (
+                                        (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                        <=
+                                        (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                    )
+                                    ? (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                    : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                )
+                            )
+                            : (
+                                (
+                                    (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                    <=
+                                    (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                )
+                                ? (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                            )
+                        ),
+                        (
+                            (
+                                (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                >=
+                                (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                            )
+                            ? (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                            : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                        ),
+                        0.5 * prev,
+                        (
+                            (
+                                (
+                                    (
+                                        (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                        -
+                                        (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                    )
+                                    / (prev[u] - prev[l])
+                                ) * (prev - prev[l])
+                            )
+                            + (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                        )
+                    )
+                    : (
+                        (
+                            (prev[l] <= -1.5)
+                            ? -0.375
+                            : (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                        ),
+                        prev[u],
+                        0.5 * prev,
+                        prev + 3
+                    )
+                )
+                : (
+                    (prev[u] <= 3)
+                    ? (
+                        (
+                            (prev[u] >= -1.5)
+                            ? -0.375
+                            : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                        ),
+                        (
+                            (prev[u] <= 0)
+                            ? 0
+                            : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                        ),
+                        0.5 * prev,
+                        prev - prev[l]
+                    )
+                    : (
+                        -0.375,
+                        prev[u],
+                        0.5 * prev,
+                        prev - prev[l]
+                    )
+                )
+            )
+        )
+    );
+}
+2025-09-13 22:20:08,193 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+transformer deeppoly {
+    HardSwish -> (
+        (prev[u] <= -3)
+        ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+            : (
+                (prev[l] >= -3)
+                ? (
+                    (prev[u] <= 3)
+                    ? (
+                        (
+                            (prev[l] <= -1.5)
+                            ? (
+                                (prev[u] >= -1.5)
+                                ? -0.375
+                                : (
+                                    (
+                                        (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                        <=
+                                        (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                    )
+                                    ? (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                    : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                )
+                            )
+                            : (
+                                (
+                                    (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                    <=
+                                    (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                )
+                                ? (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                            )
+                        ),
+                        (
+                            (
+                                (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                >=
+                                (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                            )
+                            ? (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                            : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                        ),
+                        0.5 * prev,
+                        (
+                            (
+                                (
+                                    (
+                                        (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                        -
+                                        (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                    )
+                                    / (prev[u] - prev[l])
+                                ) * (prev - prev[l])
+                            )
+                            + (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                        )
+                    )
+                    : (
+                        (
+                            (prev[l] <= -1.5)
+                            ? -0.375
+                            : (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                        ),
+                        prev[u],
+                        0.5 * prev,
+                        prev + 3
+                    )
+                )
+                : (
+                    (prev[u] <= 3)
+                    ? (
+                        (
+                            (prev[u] >= -1.5)
+                            ? -0.375
+                            : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                        ),
+                        (
+                            (prev[u] <= 0)
+                            ? 0
+                            : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                        ),
+                        0.5 * prev,
+                        prev - prev[l]
+                    )
+                    : (
+                        -0.375,
+                        prev[u],
+                        0.5 * prev,
+                        prev - prev[l]
+                    )
+                )
+            )
+        )
+    );
+}
+2025-09-13 22:20:08,193 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+ transformer deeppoly {
+    HardSwish -> (
+        (prev[u] <= -3)
+        ? (0, 0, 0, 0)
+        : (
+            (prev[l] >= 3)
+            ? (prev[l], prev[u], prev, prev)
+            : (
+                (prev[l] >= -3)
+                ? (
+                    (prev[u] <= 3)
+                    ? (
+                        (
+                            (prev[l] <= -1.5)
+                            ? (
+                                (prev[u] >= -1.5)
+                                ? -0.375
+                                : (
+                                    (
+                                        (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                        <=
+                                        (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                    )
+                                    ? (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                    : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                )
+                            )
+                            : (
+                                (
+                                    (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                    <=
+                                    (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                )
+                                ? (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                            )
+                        ),
+                        (
+                            (
+                                (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                >=
+                                (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                            )
+                            ? (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                            : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                        ),
+                        0.5 * prev,
+                        (
+                            (
+                                (
+                                    (
+                                        (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                                        -
+                                        (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                                    )
+                                    / (prev[u] - prev[l])
+                                ) * (prev - prev[l])
+                            )
+                            + (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                        )
+                    )
+                    : (
+                        (
+                            (prev[l] <= -1.5)
+                            ? -0.375
+                            : (((prev[l] * prev[l]) / 6) + 0.5 * prev[l])
+                        ),
+                        prev[u],
+                        0.5 * prev,
+                        prev + 3
+                    )
+                )
+                : (
+                    (prev[u] <= 3)
+                    ? (
+                        (
+                            (prev[u] >= -1.5)
+                            ? -0.375
+                            : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                        ),
+                        (
+                            (prev[u] <= 0)
+                            ? 0
+                            : (((prev[u] * prev[u]) / 6) + 0.5 * prev[u])
+                        ),
+                        0.5 * prev,
+                        prev - prev[l]
+                    )
+                    : (
+                        -0.375,
+                        prev[u],
+                        0.5 * prev,
+                        prev - prev[l]
+                    )
+                )
+            )
+        )
+    );
+}
+2025-09-13 22:20:08,193 - INFO - [RETRY 1 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 22:20:08,193 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 22:27:49,658 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 22:27:49,786 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:27:49,786 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:27:57,942 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-13 22:27:57,948 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-13 22:27:57,948 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 22:27:57,956 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:27:57,956 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:28:05,379 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-13 22:28:05,385 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-13 22:28:05,385 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 22:28:05,393 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:28:05,393 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:28:13,315 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-13 22:28:13,317 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-13 22:28:13,317 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-13 22:28:13,318 - INFO - [RETRY 2 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 22:28:13,326 - INFO - [Syntax Phase] Attempt 1
+2025-09-13 22:28:13,442 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:28:13,442 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:28:21,195 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-13 22:28:21,202 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-13 22:28:21,202 - INFO - [Syntax Phase] Attempt 2
+2025-09-13 22:28:21,213 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:28:21,213 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:28:31,131 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-13 22:28:31,138 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-13 22:28:31,138 - INFO - [Syntax Phase] Attempt 3
+2025-09-13 22:28:31,150 - INFO - [Syntax Phase] ❌ Syntax error:
+Unknown syntax error.
+2025-09-13 22:28:31,150 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ Unknown syntax error.
+2025-09-13 22:28:40,478 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-13 22:28:40,484 - INFO - [Syntax Phase] 🔧 Model-provided fix:
+
+2025-09-13 22:28:40,484 - ERROR - [Syntax Phase] ❌ Failed after 3 attempts for code:
+
+2025-09-13 22:28:40,484 - INFO - [RETRY 2 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-13 22:28:40,484 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:28:40,484 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 22:29:04,576 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:29:04,576 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:29:04,576 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:29:04,576 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 22:29:12,523 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:29:12,523 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:29:12,523 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:29:12,523 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 22:29:22,047 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:29:22,051 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:29:22,051 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:29:22,051 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 22:29:29,627 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:29:29,627 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:29:29,628 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:29:29,628 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 22:29:59,370 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:29:59,371 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:29:59,371 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:29:59,371 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 22:30:07,087 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:30:07,087 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:30:07,087 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:30:07,087 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 22:30:15,500 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:30:15,500 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:30:15,500 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:30:15,500 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 22:30:15,501 - INFO - [HardSwish] Runtime: 4497.57 seconds
+2025-09-13 22:30:15,501 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 22:30:15,501 - INFO - 2025-09-13 22:30:15.501246 - Extracting HardTanh
+2025-09-13 22:30:15,501 - INFO -
+API: HardTanh -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 22:30:15,501 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 22:30:23,355 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:30:23,355 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:30:23,355 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:30:23,355 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 22:30:31,539 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:30:31,539 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:30:31,539 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:30:31,540 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 22:31:05,002 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:31:05,002 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:31:05,002 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:31:05,002 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 22:31:12,668 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:31:12,668 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:31:12,668 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:31:12,668 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 22:31:20,063 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:31:20,063 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:31:20,063 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:31:20,063 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 22:31:27,103 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:31:27,103 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:31:27,103 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:31:27,103 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 22:31:59,390 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:31:59,390 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:31:59,391 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:31:59,391 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 22:34:00,453 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:34:00,453 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:34:00,453 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:34:00,453 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 22:34:08,057 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:34:08,057 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:34:08,057 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:34:08,057 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 22:34:16,607 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:34:16,607 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:34:16,607 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:34:16,607 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 22:34:16,607 - INFO - [HardTanh] Runtime: 241.11 seconds
+2025-09-13 22:34:16,608 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 22:34:16,608 - INFO - 2025-09-13 22:34:16.608582 - Extracting Maxpool
+2025-09-13 22:34:16,608 - INFO -
+API: Maxpool -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 22:34:16,609 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 22:34:23,846 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:34:23,846 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:34:23,847 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:34:23,847 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 22:34:32,283 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:34:32,283 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:34:32,283 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:34:32,283 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 22:35:02,062 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:35:02,065 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:35:02,065 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:35:02,065 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 22:35:10,060 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:35:10,061 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:35:10,061 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:35:10,061 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 22:35:18,018 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:35:18,018 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:35:18,018 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:35:18,018 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 22:35:25,283 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:35:25,287 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:35:25,287 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:35:25,287 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 22:35:32,776 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:35:32,776 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:35:32,776 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:35:32,776 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 22:36:07,219 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:36:07,219 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:36:07,219 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:36:07,219 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 22:36:16,245 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:36:16,245 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:36:16,245 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:36:16,245 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 22:36:23,481 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:36:23,482 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:36:23,482 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:36:23,482 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 22:36:23,482 - INFO - [Maxpool] Runtime: 126.87 seconds
+2025-09-13 22:36:23,482 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 22:36:23,482 - INFO - 2025-09-13 22:36:23.482381 - Extracting Minpool
+2025-09-13 22:36:23,482 - INFO -
+API: Minpool -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 22:36:23,482 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 22:36:34,147 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:36:34,147 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:36:34,147 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:36:34,147 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 22:37:05,220 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:37:05,220 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:37:05,220 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:37:05,220 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 22:37:14,332 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:37:14,332 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:37:14,332 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:37:14,332 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 22:37:22,221 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:37:22,221 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:37:22,221 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:37:22,221 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 22:37:29,846 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:37:29,846 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:37:29,846 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:37:29,846 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 22:37:37,953 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:37:37,953 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:37:37,953 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:37:37,953 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 22:37:46,590 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-13 22:37:46,590 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-13 22:37:46,590 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-13 22:37:46,590 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 23:10:57,773 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:10:57,773 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:10:57,773 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:10:57,773 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 23:11:07,075 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:11:07,075 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:11:07,076 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:11:07,076 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 23:11:15,014 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:11:15,014 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:11:15,014 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:11:15,014 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 23:11:15,014 - INFO - [Minpool] Runtime: 2091.53 seconds
+2025-09-13 23:11:15,014 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 23:11:15,015 - INFO - 2025-09-13 23:11:15.014994 - Extracting Neuron_add
+2025-09-13 23:11:15,015 - INFO -
+API: Neuron_add -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 23:11:15,015 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 23:11:22,629 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:11:22,629 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:11:22,629 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:11:22,629 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 23:11:30,088 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:11:30,088 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:11:30,088 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:11:30,088 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 23:11:37,917 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:11:37,917 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:11:37,917 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:11:37,917 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 23:11:45,852 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:11:45,853 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:11:45,853 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:11:45,853 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 23:11:54,930 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:11:54,931 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:11:54,931 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:11:54,931 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 23:12:03,652 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:12:03,652 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:12:03,652 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:12:03,652 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 23:12:12,273 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:12:12,273 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:12:12,273 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:12:12,273 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 23:12:21,964 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:12:21,964 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:12:21,964 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:12:21,964 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 23:12:29,309 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:12:29,309 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:12:29,309 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:12:29,309 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 23:12:38,559 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:12:38,559 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:12:38,559 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:12:38,559 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 23:12:38,559 - INFO - [Neuron_add] Runtime: 83.54 seconds
+2025-09-13 23:12:38,560 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 23:12:38,560 - INFO - 2025-09-13 23:12:38.560256 - Extracting Neuron_max
+2025-09-13 23:12:38,560 - INFO -
+API: Neuron_max -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 23:12:38,560 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 23:12:45,970 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:12:45,970 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:12:45,970 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:12:45,970 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 23:12:53,705 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:12:53,706 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:12:53,706 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:12:53,706 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 23:13:01,575 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:13:01,575 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:13:01,575 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:13:01,575 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 23:13:09,005 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:13:09,005 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:13:09,005 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:13:09,005 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 23:13:16,816 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:13:16,816 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:13:16,816 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:13:16,816 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 23:13:24,182 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:13:24,182 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:13:24,182 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:13:24,182 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 23:13:31,811 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:13:31,812 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:13:31,812 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:13:31,812 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 23:13:39,359 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:13:39,359 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:13:39,359 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:13:39,359 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 23:13:49,359 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:13:49,360 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:13:49,360 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:13:49,360 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 23:13:59,057 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:13:59,057 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:13:59,058 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:13:59,058 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 23:13:59,058 - INFO - [Neuron_max] Runtime: 80.50 seconds
+2025-09-13 23:13:59,058 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 23:13:59,058 - INFO - 2025-09-13 23:13:59.058942 - Extracting Neuron_min
+2025-09-13 23:13:59,059 - INFO -
+API: Neuron_min -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 23:13:59,059 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 23:14:07,387 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:14:07,387 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:14:07,387 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:14:07,387 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 23:14:14,652 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:14:14,653 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:14:14,653 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:14:14,653 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 23:14:27,203 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:14:27,203 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:14:27,204 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:14:27,204 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 23:14:34,808 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:14:34,808 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:14:34,808 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:14:34,808 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 23:14:42,840 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:14:42,840 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:14:42,840 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:14:42,841 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 23:15:02,245 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:15:02,245 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:15:02,245 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:15:02,245 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 23:15:11,945 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:15:11,946 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:15:11,946 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:15:11,946 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 23:15:19,771 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:15:19,772 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:15:19,772 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:15:19,772 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 23:15:29,003 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:15:29,003 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:15:29,004 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:15:29,004 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 23:15:37,348 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:15:37,348 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:15:37,348 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:15:37,348 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 23:15:37,348 - INFO - [Neuron_min] Runtime: 98.29 seconds
+2025-09-13 23:15:37,348 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 23:15:37,348 - INFO - 2025-09-13 23:15:37.348917 - Extracting Neuron_mult
+2025-09-13 23:15:37,348 - INFO -
+API: Neuron_mult -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 23:15:37,349 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 23:15:45,946 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:15:45,947 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:15:45,947 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:15:45,947 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 23:15:53,684 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:15:53,684 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:15:53,684 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:15:53,684 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 23:16:02,184 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:16:02,185 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:16:02,185 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:16:02,185 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 23:16:09,938 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:16:09,939 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:16:09,939 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:16:09,939 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 23:16:17,260 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:16:17,260 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:16:17,260 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:16:17,260 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 23:16:25,101 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:16:25,101 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:16:25,102 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:16:25,102 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 23:16:32,856 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:16:32,856 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:16:32,856 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:16:32,856 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 23:16:40,636 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:16:40,692 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:16:40,692 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:16:40,692 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 23:16:50,292 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:16:50,912 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:16:50,912 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:16:50,912 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 23:17:01,597 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:17:01,598 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:17:01,598 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:17:01,598 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 23:17:01,598 - INFO - [Neuron_mult] Runtime: 84.25 seconds
+2025-09-13 23:17:01,598 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 23:17:01,598 - INFO - 2025-09-13 23:17:01.598924 - Extracting Relu
+2025-09-13 23:17:01,599 - INFO -
+API: Relu -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 23:17:01,599 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 23:17:09,187 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:17:09,187 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:17:09,187 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:17:09,188 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 23:17:18,131 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:17:18,132 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:17:18,132 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:17:18,132 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 23:17:27,750 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:17:27,750 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:17:27,750 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:17:27,750 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 23:17:36,080 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:17:36,080 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:17:36,081 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:17:36,081 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 23:17:43,658 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:17:43,659 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:17:43,659 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:17:43,659 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 23:17:52,044 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:17:52,044 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:17:52,044 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:17:52,044 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 23:18:01,336 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:18:01,336 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:18:01,336 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:18:01,336 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 23:18:09,238 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:18:09,239 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:18:09,239 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:18:09,239 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 23:18:18,153 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:18:18,153 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:18:18,153 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:18:18,153 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 23:18:25,970 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:18:25,970 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:18:25,970 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:18:25,970 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 23:18:25,970 - INFO - [Relu] Runtime: 84.37 seconds
+2025-09-13 23:18:25,970 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 23:18:25,971 - INFO - 2025-09-13 23:18:25.971012 - Extracting Relu6
+2025-09-13 23:18:25,971 - INFO -
+API: Relu6 -> Model: gpt-5 @ http://ggnds-serv-01.cs.illinois.edu:8086
+2025-09-13 23:18:25,971 - INFO - [STEP 1] Starting step 1/1
+2025-09-13 23:18:33,664 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:18:33,664 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:18:33,664 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:18:33,664 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-13 23:18:41,712 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:18:41,712 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:18:41,712 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:18:41,712 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-13 23:18:49,601 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:18:49,601 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:18:49,601 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:18:49,601 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-13 23:18:59,609 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:18:59,610 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:18:59,610 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:18:59,610 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-13 23:19:07,357 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:19:07,357 - WARNING - [RETRY 4 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:19:07,357 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:19:07,357 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-13 23:19:15,473 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:19:15,473 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:19:15,474 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:19:15,474 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-13 23:19:22,911 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:19:22,912 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:19:22,912 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:19:22,912 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-13 23:19:52,211 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:19:52,211 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:19:52,211 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:19:52,211 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-13 23:20:00,485 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:20:00,485 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:20:00,485 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:20:00,485 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-13 23:20:10,891 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-13 23:20:10,891 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-13 23:20:10,891 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-13 23:20:10,891 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-13 23:20:10,891 - INFO - [Relu6] Runtime: 104.92 seconds
+2025-09-13 23:20:10,892 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-13 23:20:10,896 - INFO - ✅ Total runtime for all operators with the model gpt-5: 9816.97 seconds

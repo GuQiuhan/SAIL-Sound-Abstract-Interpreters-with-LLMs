@@ -14,19 +14,25 @@ def replace(expr):
         if isinstance(inputIr, IrCombineToPoly):
             expr = inputIr.children[0]
         elif isinstance(inputIr, IrVar):
-            def_assignment = inputIr.defs
-            inputIr = def_assignment.children[1]
-            if isinstance(inputIr, IrCombineToPoly):
-                expr = inputIr.children[0]
+            if inputIr.formal_argument:
+                expr = inputIr
+            else:
+                def_assignment = inputIr.defs
+                inputIr = def_assignment.children[1]
+                if isinstance(inputIr, IrCombineToPoly):
+                    expr = inputIr.children[0]
     elif isinstance(expr, IrExtractPolyConst):
         inputIr = expr.children[0]
         if isinstance(inputIr, IrCombineToPoly):
             expr = inputIr.children[1]
         elif isinstance(inputIr, IrVar):
-            def_assignment = inputIr.defs
-            inputIr = def_assignment.children[1]
-            if isinstance(inputIr, IrCombineToPoly):
-                expr = inputIr.children[1]
+            if inputIr.formal_argument:
+                expr = inputIr
+            else:
+                def_assignment = inputIr.defs
+                inputIr = def_assignment.children[1]
+                if isinstance(inputIr, IrCombineToPoly):
+                    expr = inputIr.children[1]
     return expr
 
 

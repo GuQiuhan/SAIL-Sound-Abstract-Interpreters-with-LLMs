@@ -919,7 +919,9 @@ class Verify(astVisitor.ASTVisitor):
                     result = True
                     print(f"Proved {op_}")
                 except Exception as e:
-                    print(f"Transformer unsound for {op_}")
+                    print(
+                        f"\nUnable to prove the soundness of the transformer for {op_} due to the imprecision of dreal. \nGet the counterexample(s) for further manual check.\n"
+                    )
                     result = False
                     if len(e.args) > 1:
                         counterex = e.args[1]

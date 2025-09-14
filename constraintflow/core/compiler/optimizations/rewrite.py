@@ -71,7 +71,7 @@ def rewrite_expr_1(expr):
 def percolate_repeat_and_add_dimension(expr):
     if isinstance(expr, int):
         return expr
-    if isinstance(expr, IrVar):
+    if isinstance(expr, IrVar) and expr.defs is not None:
         return percolate_repeat_and_add_dimension(expr.defs.children[1])
     if isinstance(expr, IrRepeat):
         new_input = percolate_repeat_and_add_dimension(expr.children[0])
@@ -102,7 +102,7 @@ def percolate_repeat_and_add_dimension(expr):
 def depercolate_repeat_and_add_dimension(expr):
     if isinstance(expr, int):
         return expr
-    if isinstance(expr, IrVar):
+    if isinstance(expr, IrVar) and expr.defs is not None:
         return depercolate_repeat_and_add_dimension(expr.defs.children[1])
     if isinstance(expr, IrClamp):
         if isinstance(expr.children[0], IrRepeat):
@@ -289,9 +289,9 @@ def rewrite_expr_3(expr):
     expr.update_parent_child(new_children)
     if isinstance(expr, IrBinaryOp) or isinstance(expr, IrMult):
         [lhs, rhs] = expr.children
-        if isinstance(lhs, IrVar):
+        if isinstance(lhs, IrVar) and lhs.defs is not None:
             lhs = lhs.defs.children[1]
-        if isinstance(rhs, IrVar):
+        if isinstance(rhs, IrVar) and rhs.defs is not None:
             rhs = rhs.defs.children[1]
         if (
             (isinstance(lhs, IrRepeat) and isinstance(rhs, IrRepeat))
@@ -403,7 +403,7 @@ def rewrite_expr_3(expr):
 
     elif isinstance(expr, IrUnaryOp) and expr.op != "get_dims":
         child = expr.children[0]
-        if isinstance(child, IrVar):
+        if isinstance(child, IrVar) and child.defs is not None:
             child = child.defs.children[1]
         if isinstance(child, IrRepeat):
             last_irMetadata = child.irMetadata
@@ -411,7 +411,7 @@ def rewrite_expr_3(expr):
             expr = IrRepeat(new_unary_op, last_irMetadata)
     elif isinstance(expr, IrConvertBoolToFloat):
         child = expr.children[0]
-        if isinstance(child, IrVar):
+        if isinstance(child, IrVar) and child.defs is not None:
             child = child.defs.children[1]
         if isinstance(child, IrRepeat):
             last_irMetadata = child.irMetadata
@@ -447,9 +447,9 @@ def rewrite_expr_4(expr):
     expr.update_parent_child(new_children)
     if isinstance(expr, IrBinaryOp) or isinstance(expr, IrMult):
         [lhs, rhs] = expr.children
-        if isinstance(lhs, IrVar):
+        if isinstance(lhs, IrVar) and lhs.defs is not None:
             lhs = lhs.defs.children[1]
-        if isinstance(rhs, IrVar):
+        if isinstance(rhs, IrVar) and rhs.defs is not None:
             rhs = rhs.defs.children[1]
         if (
             (isinstance(lhs, IrAddDimension) and isinstance(rhs, IrAddDimension))
@@ -548,7 +548,7 @@ def rewrite_expr_4(expr):
 
     elif isinstance(expr, IrUnaryOp):
         child = expr.children[0]
-        if isinstance(child, IrVar):
+        if isinstance(child, IrVar) and child.defs is not None:
             child = child.defs.children[1]
         if isinstance(child, IrAddDimension):
             last_irMetadata = child.irMetadata[-1]
@@ -556,7 +556,7 @@ def rewrite_expr_4(expr):
             expr = IrAddDimension(new_unary_op, last_irMetadata)
     elif isinstance(expr, IrConvertBoolToFloat):
         child = expr.children[0]
-        if isinstance(child, IrVar):
+        if isinstance(child, IrVar) and child.defs is not None:
             child = child.defs.children[1]
         if isinstance(child, IrAddDimension):
             last_irMetadata = child.irMetadata[-1]
@@ -578,7 +578,7 @@ def get_const(expr):
         return get_const(expr.children[0])
     if isinstance(expr, IrRepeat):
         return get_const(expr.children[0])
-    if isinstance(expr, IrVar):
+    if isinstance(expr, IrVar) and expr.defs is not None:
         return get_const(expr.defs.children[1])
     return None
 
@@ -597,11 +597,11 @@ def rewrite_expr_clamp(expr):
         if not is_div(expr):
             lhs = expr.children[0]
             rhs = expr.children[1]
-            if isinstance(lhs, IrVar):
+            if isinstance(lhs, IrVar) and lhs.defs is not None:
                 lhs = lhs.defs.children[1]
             if isinstance(lhs, IrConvertBoolToFloat):
                 lhs = lhs.children[0]
-                if isinstance(lhs, IrVar):
+                if isinstance(lhs, IrVar) and lhs.defs is not None:
                     lhs = lhs.defs.children[1]
                 if isinstance(lhs, IrBinaryOp) and lhs.op == ">=":
                     lhs_lhs, lhs_rhs = lhs.children
@@ -638,7 +638,7 @@ def rewrite_percolate_reduce_inside_phi(expr):
     expr.update_parent_child(new_children)
     if isinstance(expr, IrReduce):
         child = expr.children[0]
-        if isinstance(child, IrVar):
+        if isinstance(child, IrVar) and child.defs is not None:
             child = child.defs.children[1]
         if isinstance(child, IrPhi):
             can_replace = True
@@ -679,13 +679,13 @@ def rewrite_expr_5(expr):
 
     if isinstance(expr, IrReduce) and len(expr.children[0].irMetadata[-1].shape) == 2:
         child = expr.children[0]
-        if isinstance(child, IrVar):
+        if isinstance(child, IrVar) and child.defs is not None:
             child = child.defs.children[1]
         if isinstance(child, IrMult) and child.op == "*":
             [lhs, rhs] = child.children
-            if isinstance(lhs, IrVar):
+            if isinstance(lhs, IrVar) and lhs.defs is not None:
                 lhs = lhs.defs.children[1]
-            if isinstance(rhs, IrVar):
+            if isinstance(rhs, IrVar) and rhs.defs is not None:
                 rhs = rhs.defs.children[1]
             if isinstance(lhs, IrRepeat) and isinstance(rhs, IrRepeat):
                 lhs_end_points = get_repeat_dims(lhs, [-1, -3])
@@ -705,13 +705,13 @@ def rewrite_expr_5(expr):
 
     if isinstance(expr, IrReduce) and len(expr.children[0].irMetadata[-1].shape) == 1:
         child = expr.children[0]
-        if isinstance(child, IrVar):
+        if isinstance(child, IrVar) and child.defs is not None:
             child = child.defs.children[1]
         if isinstance(child, IrMult) and child.op == "*":
             [lhs, rhs] = child.children
-            if isinstance(lhs, IrVar):
+            if isinstance(lhs, IrVar) and lhs.defs is not None:
                 lhs = lhs.defs.children[1]
-            if isinstance(rhs, IrVar):
+            if isinstance(rhs, IrVar) and rhs.defs is not None:
                 rhs = rhs.defs.children[1]
             if isinstance(lhs, IrRepeat):
                 lhs_end_points = get_repeat_dims(lhs, [-1, -2])
@@ -754,7 +754,7 @@ def rewrite_percolate_repeat_inside_binary(expr):
     expr.update_parent_child(new_children)
     if isinstance(expr, IrReduce):
         child = expr.children[0]
-        if isinstance(expr.children[0], IrVar):
+        if isinstance(child, IrVar) and child.defs is not None:
             child = child.defs.children[1]
         if isinstance(child, IrBinaryOp) and (child.op == "+" or child.op == "-"):
             expr = IrBinaryOp(
@@ -775,7 +775,7 @@ def rewrite_extract_coeff(expr):
     expr.update_parent_child(new_children)
     if isinstance(expr, IrExtractPolyCoeff) or isinstance(expr, IrExtractSymCoeff):
         parent_expr = expr.children[0]
-        if isinstance(parent_expr, IrVar):
+        if isinstance(parent_expr, IrVar) and parent_expr.defs is not None:
             parent_expr = parent_expr.defs.children[1]
         if isinstance(parent_expr, IrCombineToPoly) or isinstance(
             parent_expr, IrCombineToSym
@@ -783,7 +783,7 @@ def rewrite_extract_coeff(expr):
             expr = parent_expr.children[0]
     if isinstance(expr, IrExtractPolyConst) or isinstance(expr, IrExtractSymConst):
         parent_expr = expr.children[0]
-        if isinstance(parent_expr, IrVar):
+        if isinstance(parent_expr, IrVar) and parent_expr.defs is not None:
             parent_expr = parent_expr.defs.children[1]
         if isinstance(parent_expr, IrCombineToPoly) or isinstance(
             parent_expr, IrCombineToSym
@@ -812,7 +812,7 @@ def rewrite_associativity(expr):
                 or isinstance(expr, IrAddDimensionConst)
             ):
                 return get_multiplicands(expr.children[0])
-            elif isinstance(expr, IrVar):
+            elif isinstance(expr, IrVar) and expr.defs is not None:
                 return get_multiplicands(expr.defs.children[1])
             elif isinstance(expr, IrMult) and expr.op == "*":
                 return get_multiplicands(expr.children[0]) + get_multiplicands(
