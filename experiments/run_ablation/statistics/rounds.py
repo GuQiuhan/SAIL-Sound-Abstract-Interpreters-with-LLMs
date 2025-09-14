@@ -4,6 +4,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # op, gen_rounds, repair_reounds, ce_number, time, success/fail
+d1 = [
+    ["Abs", 1, 0, 0, 128.96567606925964, True],
+    ["Affine", 2, 0, 0, 830.1170408725739, True],
+    ["Avgpool", 10, 6, 0, 1559.7766621112823, True],
+    ["HardSigmoid", 1, 3, 1, 903.027379989624, True],
+    ["HardSwish", 10, 0, 1, 26696.940661907196, True],
+    ["HardTanh", 1, 0, 0, 369.2898533344269, True],
+    ["Maxpool", 1, 1, 0, 291.0352168083191, True],
+    ["Minpool", 1, 3, 0, 540.1951503753662, True],
+    ["Neuron_add", 1, 0, 0, 60.26173758506775, True],
+    ["Neuron_max", 1, 0, 0, 180.59920454025269, True],
+    ["Neuron_min", 1, 0, 0, 188.7460196018219, True],
+    ["Neuron_mult", 1, 3, 0, 531.7936959266663, True],
+    ["Relu", 1, 0, 0, 119.0497395992279, True],
+    ["Relu6", 1, 0, 0, 428.9358389377594, True],
+    [32828.75975847244],
+]
+
+
 raw_data = [
     ["Abs", 1, 1, 1, 14.23, True],
     ["Add", 1, 0, 0, 5.94, True],
@@ -129,4 +148,4 @@ if __name__ == "__main__":
         ["Affine", 1, 0, 0, 28.318931579589844, True],
         [48.386308908462524],
     ]
-    rounds(raw_data, "pics/rounds.png", "gpt-4o")
+    rounds(d1, "tmp.png", "gpt-5")

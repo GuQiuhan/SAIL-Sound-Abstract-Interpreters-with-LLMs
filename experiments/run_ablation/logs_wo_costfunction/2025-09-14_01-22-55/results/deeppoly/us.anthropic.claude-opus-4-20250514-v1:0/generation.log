@@ -2038,3 +2038,362 @@ API: Neuron_min -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnd
 2025-09-14 06:09:37,264 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
 2025-09-14 06:09:37,264 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
 2025-09-14 06:09:37,265 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-14 06:10:13,063 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:10:13,064 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:10:13,090 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:10:13,102 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:10:13,102 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:10:13,111 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> ((prev_0[u]) <= (prev_1[l])) ? ((prev_0[l]), (prev_0[u]), (prev_0), (prev_0)) : (((prev_1[u]) <= (prev_0[l])) ? ((prev_1[l]), (prev_1[u]), (prev_1), (prev_1)) : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), ((prev_0[l]) <= (prev_1[l])) ? (prev_0) : (prev_1), ((prev_0[u]) <= (prev_1[u])) ? (prev_0) : (prev_1)));
+}
+2025-09-14 06:10:13,743 - INFO - [RETRY 7 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:10:13,743 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-14 06:10:43,867 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:10:43,867 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:10:43,867 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:10:43,867 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-14 06:11:12,050 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:11:12,050 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:11:12,070 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:11:12,079 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:11:12,079 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:11:12,087 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Neuron_min -> ((prev_0[u]) <= (prev_1[l])) ? ((prev_0[l]), (prev_0[u]), (prev_0), (prev_0)) : (((prev_1[u]) <= (prev_0[l])) ? ((prev_1[l]), (prev_1[u]), (prev_1), (prev_1)) : (min(prev_0[l], prev_1[l]), min(prev_0[u], prev_1[u]), prev_0, prev_1));
+}
+2025-09-14 06:11:12,711 - INFO - [RETRY 9 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:11:12,711 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-14 06:11:12,712 - INFO - [Neuron_min] Runtime: 269.61 seconds
+2025-09-14 06:11:12,712 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-14 06:11:12,712 - INFO - 2025-09-14 06:11:12.712328 - Extracting Neuron_mult
+2025-09-14 06:11:12,712 - INFO -
+API: Neuron_mult -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 06:11:12,712 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 06:11:41,722 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:11:41,722 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:11:41,722 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:11:41,722 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 06:12:19,836 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:12:19,856 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:12:19,860 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:12:19,860 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:12:19,862 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+2025-09-14 06:12:19,862 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+2025-09-14 06:12:50,982 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:12:50,987 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:12:50,987 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 06:12:50,988 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:12:50,988 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:13:20,511 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:13:20,516 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:13:20,516 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 06:13:20,517 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:13:20,517 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:13:52,823 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:13:52,837 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:13:52,872 - INFO - [RETRY 1 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:13:52,872 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:13:52,872 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 06:14:22,852 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:14:22,852 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:14:22,852 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:14:22,852 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 06:14:48,108 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:14:48,108 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:14:48,108 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:14:48,108 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-14 06:15:16,627 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:15:16,647 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:15:16,652 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:15:16,652 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:15:16,655 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+2025-09-14 06:15:16,655 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+2025-09-14 06:15:42,170 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:15:42,181 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:15:42,182 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 06:15:42,182 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:15:42,182 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:16:03,981 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:16:03,986 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:16:03,986 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 06:16:03,986 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:16:03,986 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:16:26,526 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:16:26,534 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:16:26,588 - INFO - [RETRY 4 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:16:26,588 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:16:26,588 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-14 06:16:55,508 - WARNING - [RETRY 5 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:16:55,508 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:16:55,508 - WARNING - [RETRY 5 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:16:55,508 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-14 06:17:57,753 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:17:57,753 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:17:57,753 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:17:57,753 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-14 06:18:57,935 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:18:57,935 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:18:57,935 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:18:57,935 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-14 06:19:38,717 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:19:38,718 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:19:38,744 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:19:38,750 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:19:38,750 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:19:38,752 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+2025-09-14 06:19:38,752 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+2025-09-14 06:19:58,264 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:19:58,278 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:19:58,278 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 06:19:58,279 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:19:58,279 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:20:23,737 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:20:23,743 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:20:23,743 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 06:20:23,744 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:20:23,744 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:20:50,291 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:20:50,300 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:20:50,333 - INFO - [RETRY 8 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:20:50,333 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-14 06:21:12,978 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:21:12,988 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:21:12,993 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:21:12,993 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:21:12,995 - INFO - [Semantic Phase] ❌ Semantic error:
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+2025-09-14 06:21:12,995 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+[Line 2] Invalid function call: compute_l
+[Line 2] Invalid function call: compute_u
+2025-09-14 06:21:34,634 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:21:34,649 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:21:34,649 - INFO - [Semantic Phase] Attempt 2
+2025-09-14 06:21:34,650 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:21:34,650 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:21:55,129 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:21:55,134 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:21:55,134 - INFO - [Semantic Phase] Attempt 3
+2025-09-14 06:21:55,135 - INFO - [Semantic Phase] ❌ Semantic error:
+[Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:21:55,135 - INFO -
+💡 [Model Repair] Triggered model repair due to error:
+ [Syntax Error] Line 1:0 mismatched input '<EOF>' expecting 'transformer'
+2025-09-14 06:22:13,256 - INFO -
+💡 [Model Repair] Fix found. Fixed DSL:
+ Model Generation Error: HTTPError
+2025-09-14 06:22:13,277 - INFO - [Semantic Phase] 🔧 Model-provided fix:
+
+2025-09-14 06:22:13,330 - INFO - [RETRY 9 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:22:13,330 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:22:13,330 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-14 06:22:13,330 - INFO - [Neuron_mult] Runtime: 660.62 seconds
+2025-09-14 06:22:13,330 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-14 06:22:13,330 - INFO - 2025-09-14 06:22:13.330554 - Extracting Relu
+2025-09-14 06:22:13,330 - INFO -
+API: Relu -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 06:22:13,330 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 06:22:39,599 - WARNING - [RETRY 0 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:22:39,599 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:22:39,599 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:22:39,599 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 06:23:03,051 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:23:03,051 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:23:03,051 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:23:03,051 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 06:23:30,188 - WARNING - [RETRY 2 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:23:30,188 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:23:30,188 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:23:30,188 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 06:23:58,125 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:23:58,136 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:23:58,136 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:23:58,146 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l])))) );
+}
+2025-09-14 06:23:58,692 - INFO - [RETRY 3 STEP 1] Sample 1: Validation passed for code:
+transformer deeppoly{
+    Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l])))) );
+}.
+2025-09-14 06:23:58,692 - INFO - [Relu] Runtime: 105.36 seconds
+2025-09-14 06:23:58,692 - INFO - Succeed. Saved to logs_wo_costfunction/2025-09-14_01-22-55/results/deeppoly/us.anthropic.claude-opus-4-20250514-v1:0/success/Relu.txt
+
+2025-09-14 06:23:58,692 - INFO - 2025-09-14 06:23:58.692540 - Extracting Relu6
+2025-09-14 06:23:58,692 - INFO -
+API: Relu6 -> Model: us.anthropic.claude-opus-4-20250514-v1:0 @ http://ggnds-serv-01.cs.illinois.edu:6028
+2025-09-14 06:23:58,692 - INFO - [STEP 1] Starting step 1/1
+2025-09-14 06:24:34,289 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:24:34,347 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:24:34,347 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:24:34,372 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Relu6 -> ((prev[l]) >= 6) ? (6, 6, 6, 6) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (((prev[l]) >= 0 and (prev[u]) <= 6) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[l]) >= 0 and (prev[u]) > 6) ? ((prev[l]), 6, (prev), 6) : (((prev[l]) < 0 and (prev[u]) <= 6) ? (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l])))) : (0, 6, 0, (6 / ((prev[u]) - (prev[l]))) * ((prev) - (prev[l])))))));
+}
+2025-09-14 06:24:34,599 - INFO - [RETRY 0 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:24:34,599 - WARNING - [RETRY 0 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:24:34,599 - WARNING - [RETRY 0 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:24:34,599 - INFO - [RETRY 1 STEP 1] All 3 samples failed validation. Retrying 1/10...
+2025-09-14 06:25:01,105 - WARNING - [RETRY 1 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:25:01,105 - WARNING - [RETRY 1 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:25:01,105 - WARNING - [RETRY 1 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:25:01,105 - INFO - [RETRY 2 STEP 1] All 3 samples failed validation. Retrying 2/10...
+2025-09-14 06:25:29,651 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:25:29,909 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:25:29,909 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:25:29,925 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Relu6 -> ((prev[l]) >= 6) ? (6, 6, 6, 6) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (((prev[l]) >= 0 and (prev[u]) <= 6) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[l]) >= 0 and (prev[u]) > 6) ? ((prev[l]), 6, (prev), 6) : (((prev[l]) < 0 and (prev[u]) <= 6) ? (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l])))) : (0, 6, 0, 6)))));
+}
+2025-09-14 06:25:30,144 - INFO - [RETRY 2 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:25:30,149 - WARNING - [RETRY 2 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:25:30,149 - WARNING - [RETRY 2 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:25:30,149 - INFO - [RETRY 3 STEP 1] All 3 samples failed validation. Retrying 3/10...
+2025-09-14 06:25:50,069 - WARNING - [RETRY 3 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:25:50,069 - WARNING - [RETRY 3 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:25:50,069 - WARNING - [RETRY 3 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:25:50,069 - INFO - [RETRY 4 STEP 1] All 3 samples failed validation. Retrying 4/10...
+2025-09-14 06:26:28,259 - WARNING - [RETRY 4 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:26:28,278 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:26:28,331 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:26:28,331 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:26:28,347 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Relu6 -> ((prev[l]) >= 6) ? (6, 6, 6, 6) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (((prev[l]) >= 0 and (prev[u]) <= 6) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[l]) >= 0 and (prev[u]) > 6) ? ((prev[l]), 6, (prev), 6) : (((prev[l]) < 0 and (prev[u]) <= 6) ? (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l])))) : (0, 6, 0, 6)))));
+}
+2025-09-14 06:26:28,574 - INFO - [RETRY 4 STEP 1] Sample 2: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:26:28,575 - WARNING - [RETRY 4 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:26:28,575 - INFO - [RETRY 5 STEP 1] All 3 samples failed validation. Retrying 5/10...
+2025-09-14 06:27:18,026 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:27:18,086 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:27:18,086 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:27:18,105 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Relu6 -> ((prev[l]) >= 6) ? (6, 6, 6, 6) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (((prev[l]) >= 0 and (prev[u]) <= 6) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[l]) >= 0 and (prev[u]) > 6) ? ((prev[l]), 6, (prev), 6) : (((prev[l]) < 0 and (prev[u]) <= 6) ? (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l])))) : (0, 6, 0, ((6 / ((prev[u]) - (prev[l]))) * (prev)) - ((6 * (prev[l])) / ((prev[u]) - (prev[l]))))))));
+}
+2025-09-14 06:27:18,324 - INFO - [RETRY 5 STEP 1] Sample 1: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:27:18,324 - WARNING - [RETRY 5 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:27:18,334 - INFO - [Syntax Phase] Attempt 1
+2025-09-14 06:27:18,404 - INFO - [Syntax Phase] ✅ Syntax check passed.
+2025-09-14 06:27:18,404 - INFO - [Semantic Phase] Attempt 1
+2025-09-14 06:27:18,425 - INFO - ✅ All check passed for code:
+ transformer deeppoly{
+    Relu6 -> ((prev[l]) >= 6) ? (6, 6, 6, 6) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (((prev[l]) >= 0 and (prev[u]) <= 6) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[l]) < 0 and (prev[u]) <= 6) ? (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l])))) : (((prev[l]) >= 0 and (prev[u]) > 6) ? ((prev[l]), 6, (((6 - (prev[l])) / ((prev[u]) - (prev[l]))) * (prev)) + ((((prev[u]) - 6) / ((prev[u]) - (prev[l]))) * (prev[l])), 6) : (0, 6, 0, 6)))));
+}
+2025-09-14 06:27:18,665 - INFO - [RETRY 5 STEP 1] Sample 3: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist.
+2025-09-14 06:27:18,665 - INFO - [RETRY 6 STEP 1] All 3 samples failed validation. Retrying 6/10...
+2025-09-14 06:27:44,296 - WARNING - [RETRY 6 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:27:44,296 - WARNING - [RETRY 6 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:27:44,296 - WARNING - [RETRY 6 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:27:44,296 - INFO - [RETRY 7 STEP 1] All 3 samples failed validation. Retrying 7/10...
+2025-09-14 06:28:06,229 - WARNING - [RETRY 7 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:28:06,229 - WARNING - [RETRY 7 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:28:06,229 - WARNING - [RETRY 7 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:28:06,229 - INFO - [RETRY 8 STEP 1] All 3 samples failed validation. Retrying 8/10...
+2025-09-14 06:28:37,833 - WARNING - [RETRY 8 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:28:37,833 - WARNING - [RETRY 8 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:28:37,833 - WARNING - [RETRY 8 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:28:37,833 - INFO - [RETRY 9 STEP 1] All 3 samples failed validation. Retrying 9/10...
+2025-09-14 06:28:56,518 - WARNING - [RETRY 9 STEP 1] Sample 1: Model Generation Error
+2025-09-14 06:28:56,518 - WARNING - [RETRY 9 STEP 1] Sample 2: Model Generation Error
+2025-09-14 06:28:56,518 - WARNING - [RETRY 9 STEP 1] Sample 3: Model Generation Error
+2025-09-14 06:28:56,518 - INFO - [RETRY 10 STEP 1] All 3 samples failed validation. Retrying 10/10...
+2025-09-14 06:28:56,518 - INFO - [Relu6] Runtime: 297.83 seconds
+2025-09-14 06:28:56,519 - ERROR - Failed with Error:[STEP 1] Failed after 10 retries.
+ during generating code:
+
+
+2025-09-14 06:28:56,528 - INFO - ✅ Total runtime for all operators with the model us.anthropic.claude-opus-4-20250514-v1:0: 8185.11 seconds

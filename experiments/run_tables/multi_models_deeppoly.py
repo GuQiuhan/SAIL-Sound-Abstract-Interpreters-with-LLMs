@@ -130,7 +130,7 @@ def draw_nine(statistics, output_path):
 
 def draw_eight(statistics, output_path):
     num_models = len(statistics)
-    rows, cols = 2, 4
+    rows, cols = 4, 2
     fig, axes = plt.subplots(rows, cols, figsize=(6 * cols, 5 * rows))
     axes = axes.flatten()
 
@@ -146,7 +146,6 @@ def draw_eight(statistics, output_path):
     plt.suptitle(
         "LLM Rounds, Counterexamples, and Time per Operator (Certifier: DeepPoly)",
         fontsize=14,
-        y=0.95,
     )
 
     plt.tight_layout(rect=[0, 0, 1, 0.96])
@@ -295,4 +294,4 @@ if __name__ == "__main__":
             [2140.2547714710236],
         ],
     }
-    draw_eight(statistics, "pics/rmulti_models_deeppoly.png")
+    draw_eight(statistics, "pics/multi_models_deeppoly.png")
