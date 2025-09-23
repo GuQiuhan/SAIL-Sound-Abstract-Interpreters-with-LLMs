@@ -538,7 +538,6 @@ if __name__ == "__main__":
 
     ### Example: ReLU operator
     Input: Generate the transformer for `relu` operator
-    Reasoning: {PRMPT_RELU_REASONING}
     Output:
     {prmpt_relu}
 

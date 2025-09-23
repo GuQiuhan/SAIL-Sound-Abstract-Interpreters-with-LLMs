@@ -286,13 +286,15 @@ Function you can use:
 - func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
 - func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
 - func priority(Neuron n) = n[layer];
-- func priority2(Neuron n) = -n[layer];
-- func stop(Int x, Neuron n, Float coeff) = true;
-- func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
-- func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+- func priority2(Neuron n, Float c) = -n[layer];
+- func stop(Neuron n) = false;
+- func stop_traverse(Neuron n, Float c) = false;
+- func backsubs_lower(PolyExp e, Neuron n) = (e.traverse(backward, priority2, stop_traverse, replace_lower){e <= n}).map(simplify_lower);
+- func backsubs_upper(PolyExp e, Neuron n) = (e.traverse(backward, priority2, stop_traverse, replace_upper){e >= n}).map(simplify_upper);
 - func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
 - func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
 - func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
+- func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
 - func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
 - func f2(Float x) = x * ((x + 3) / 6);
 - func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
@@ -325,7 +327,7 @@ prmpt_affine_deeppoly = """
 def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
 
 transformer deeppoly{
-    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
 }
 """
 

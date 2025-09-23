@@ -8,12 +8,12 @@ func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coe
 func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
 
 func priority(Neuron n) = n[layer];
-func priority2(Neuron n) = -n[layer];
+func priority2(Neuron n, Float c) = -n[layer];
+func stop(Neuron n) = false;
+func stop_traverse(Neuron n, Float c) = false;
 
-func stop(Int x, Neuron n, Float coeff) = true;
-
-func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
-func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
+func backsubs_lower(PolyExp e, Neuron n) = (e.traverse(backward, priority2, stop_traverse, replace_lower){e <= n}).map(simplify_lower);
+func backsubs_upper(PolyExp e, Neuron n) = (e.traverse(backward, priority2, stop_traverse, replace_upper){e >= n}).map(simplify_upper);
 
 func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
 
@@ -28,7 +28,7 @@ func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 
 transformer deeppoly{
-    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr, curr[layer]), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
 
     Abs -> (prev[l] >= 0) ? (prev[l], prev[u], prev, prev) : ((prev[u] <= 0) ? (0 - prev[u], 0 - prev[l], 0 - prev, 0 - prev) : (0, max(prev[u], 0 - prev[l]), 0, (prev * ((prev[u] + prev[l]) / (prev[u] - prev[l]))) - (((2 * prev[u]) * prev[l]) / (prev[u] - prev[l]))));
 

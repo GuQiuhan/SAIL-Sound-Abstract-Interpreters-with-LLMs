@@ -72,22 +72,29 @@ def run_verifier_from_str(code: str, nprev=1, nsymb=1):
 if __name__ == "__main__":
 
     dsl = """
-def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func replace_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[L]) : (coeff * n[U]);
+func replace_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[U]) : (coeff * n[L]);
 
 func priority(Neuron n) = n[layer];
+func priority2(Neuron n) = -n[layer];
+
+func stop(Int x, Neuron n, Float coeff) = true;
 
 
+transformer deeppoly{
+  Sigmoid -> ((prev[u]) <= (-3)) ? (0, 0, 0, 0) : (((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[l]) >= (-3)) ? (((prev[u]) <= 3) ? (((prev[l] / 6) + 0.5), ((prev[u] / 6) + 0.5), ((prev / 6) + 0.5), ((prev / 6) + 0.5)) : (((prev[l] / 6) + 0.5), (1), ((((0.5 - (prev[l] / 6)) / ((prev[u]) - (prev[l]))) * (prev)) + (((prev[l] / 6) + 0.5) - (((0.5 - (prev[l] / 6)) / ((prev[u]) - (prev[l]))) * (prev[l])))), (1))) : (((prev[u]) <= 3) ? ((0), ((prev[u] / 6) + 0.5), (0), (((((prev[u] / 6) + 0.5) / ((prev[u]) - (prev[l]))) * (prev)) - ((((prev[u] / 6) + 0.5) / ((prev[u]) - (prev[l]))) * (prev[l])))) : ((0), (1), (0), (1)))));
 
-
-func si(Float x) = sigma x;
-
-transformer ibp{
-  Sigmoid -> (0.1, 1);
 }
 
 
 
-flow(forward, priority, true, ibp);
+flow(forward, priority, true, deeppoly);
     """
     try:
         print(run_verifier_from_str(dsl))

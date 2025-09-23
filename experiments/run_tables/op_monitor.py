@@ -474,15 +474,28 @@ def plot_ablation_scores(data_dict, title, filename):
         if not scores:
             continue
         color = colors[idx % len(colors)]
-        plt.plot(range(len(scores)), scores, label=op, color=color, linewidth=2)
+        rounds = range(1, len(scores) + 1)  # 横轴从1开始
+        plt.plot(
+            rounds,
+            scores,
+            label=op,
+            color=color,
+            linewidth=2,
+            marker="o",  # 在每个点上加顶点标记
+            markersize=3,
+        )
 
     plt.xlabel("Round", fontsize=12)
     plt.ylabel("Score", fontsize=12)
     plt.title(title, fontsize=14)
     plt.grid(True, linestyle="--", alpha=0.4)
     plt.legend(fontsize=9, loc="upper right", ncol=2)
-    plt.tight_layout()
 
+    # 确保横坐标刻度是整数，并覆盖所有round
+    max_len = max(len(scores) for scores in data_dict.values() if scores)
+    plt.xticks(range(1, max_len + 1))
+
+    plt.tight_layout()
     plt.savefig(filename, dpi=300)
     plt.close()
 

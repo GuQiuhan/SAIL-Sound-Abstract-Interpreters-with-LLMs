@@ -181,15 +181,13 @@ def run(
     return precision, duration
 
 
-if __name__ == "__main__":
-    # compile_code(program_file = "gpt-5_deeppoly_relu.cf")
-    # compile_code(program_file = "test.cf")
-
+def run_all():
+    file = "gpt-5_deeppoly_relu.cf"
+    compile_code(program_file=file)
     results = {}
-
     for directory, dataset, eps in [
-        ("nets/mnist", "mnist", 0.00001),
-        ("nets/cifar", "cifar", 4e-8),
+        ("nets/mnist", "mnist", 0.0001),
+        ("nets/cifar", "cifar", 4e-6),
     ]:
         for fname in os.listdir(directory):
             net_path = os.path.join(directory, fname)
@@ -199,7 +197,7 @@ if __name__ == "__main__":
             print(f"Running: {fname}")
             try:
                 precision, duration = run(
-                    program_file="gpt-5_deeppoly_relu.cf",
+                    program_file=file,
                     network=net_path,
                     network_format="onnx",
                     dataset=dataset,
@@ -222,3 +220,26 @@ if __name__ == "__main__":
     with open("precision.json", "w") as f:
         json.dump(results, f, indent=2)
     print("Saved results to precision.json")
+
+
+if __name__ == "__main__":
+    # compile_code(program_file = "gpt-5_deeppoly_relu.cf")
+    # compile_code(program_file = "test.cf")
+
+    # run_all()
+
+    precision, duration = run(
+        program_file="gpt-5_deeppoly_relu.cf",
+        network="nets/cifar/ffnnTANH__PGDK_w_0.0078_6_500.onnx",
+        network_format="onnx",
+        dataset="cifar",
+        batch_size=100,
+        eps=4e-8,
+        train=False,
+        print_intermediate_results=False,
+        no_sparsity=False,
+        output_path="output/",
+        do_compile=True,
+    )
+
+    print(duration)

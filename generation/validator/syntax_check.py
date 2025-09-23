@@ -325,12 +325,13 @@ class SyntaxChecker:
 
 if __name__ == "__main__":
     dsl = """
-transformer deepz{
-    Abs -> ((prev[l]) >= 0) ?
-                ((prev[l]), (prev[u]), (prev[z])) :
-                (((prev[u]) <= 0) ?
-                    (-(prev[u]), -(prev[l]), -(prev[z])) :
-                    (0, max(-(prev[l]), (prev[u])), ((max(-(prev[l]), (prev[u]))) / 2) + (((max(-(prev[l]), (prev[u]))) / 2) * EPSILON)));
+transformer deeppoly{
+    Abs ->
+        let l = f1(prev[l]);
+        let u = f1(prev[u]);
+        let L = backsubs_lower((prev * f3(curr)) + curr, curr);
+        let U = backsubs_upper((prev * f3(curr)) + curr, curr);
+        (l, u, L, U);
 }
     """
 
