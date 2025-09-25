@@ -352,7 +352,12 @@ class DenseBlock(SparseBlock):
                 new_total_shape = self.total_shape.clone()[:-1]
                 res = ConstBlock(0, new_total_shape)
             else:
-                raise NotImplementedError
+                a = self.block
+                b = (torch.ones(list(sp_block.total_shape)) * sp_block.block).unsqueeze(
+                    -1
+                )
+                res = (a @ b).squeeze(-1)
+                res = DenseBlock(res)
         elif isinstance(sp_block, RepeatBlock):
             # warnings.warn(f'Matmul with unequal dims inefficient for {type(self)} and {type(sp_block)}')
             sp_block = DenseBlock(sp_block.get_dense())

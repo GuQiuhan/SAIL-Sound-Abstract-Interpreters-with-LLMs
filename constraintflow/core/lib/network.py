@@ -92,3 +92,5 @@ class LayerType(Enum):
     Concat = 10
     Sigmoid = 11
     Add = 12
+    HardTanh = 13
+    HardSigmoid = 14

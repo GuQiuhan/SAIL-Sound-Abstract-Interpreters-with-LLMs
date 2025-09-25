@@ -186,8 +186,8 @@ class ConvertToIr(astVisitor.ASTVisitor):
         lhsIr, lhsSeqIr = self.visit(ast_node.left)
         rhsIr, rhsSeqIr = self.visit(ast_node.right)
         seqIr = condSeqIr + lhsSeqIr + rhsSeqIr
-        if ast_node.type == "PolyExp":
-            if lhsIr.irMetadata[-1].type == "PolyExp":
+        if ast_node.type in ["PolyExp", "Neuron"]:
+            if lhsIr.irMetadata[-1].type in ["PolyExp", "Neuron"]:
                 if rhsIr.irMetadata[-1].isConst:
                     copied_irMetadata = copy_metadata(lhsIr.irMetadata)
                     copied_irMetadata[-1].type = rhsIr.irMetadata[-1].type
@@ -197,7 +197,7 @@ class ConvertToIr(astVisitor.ASTVisitor):
                     copied_irMetadata[-1].type = condIr.irMetadata[-1].type
                     condIr = IrAddDimensionConst(condIr, copied_irMetadata)
 
-            elif rhsIr.irMetadata[-1].type == "PolyExp":
+            elif rhsIr.irMetadata[-1].type in ["PolyExp", "Neuron"]:
                 if lhsIr.irMetadata[-1].isConst:
                     copied_irMetadata = copy_metadata(rhsIr.irMetadata)
                     copied_irMetadata[-1].type = lhsIr.irMetadata[-1].type

@@ -40,7 +40,7 @@ class Flow:
                 list(torch.nonzero(self.abs_elem.d["llist"]))[-1].item()
             ].end
             curr_size = self.model[tmp].end - size
-
+            # print(tmp, layer.type)
             if layer.type == LayerType.ReLU:
                 prev = Llist(self.model, [1], None, None, layer.parents)
                 curr = Llist(self.model, [1], None, None, [tmp])
@@ -55,10 +55,52 @@ class Flow:
                     self.batch_size,
                 )
 
+            elif layer.type == LayerType.HardSigmoid:
+                prev = Llist(self.model, [1], None, None, layer.parents)
+                curr = Llist(self.model, [1], None, None, [tmp])
+                abs_shape = self.transformer.HardSigmoid(
+                    self.abs_elem,
+                    prev,
+                    curr,
+                    poly_size,
+                    curr_size,
+                    prev_size,
+                    self.input_size,
+                    self.batch_size,
+                )
+
+            elif layer.type == LayerType.HardTanh:
+                prev = Llist(self.model, [1], None, None, layer.parents)
+                curr = Llist(self.model, [1], None, None, [tmp])
+                abs_shape = self.transformer.HardTanh(
+                    self.abs_elem,
+                    prev,
+                    curr,
+                    poly_size,
+                    curr_size,
+                    prev_size,
+                    self.input_size,
+                    self.batch_size,
+                )
+
             elif layer.type == LayerType.Sigmoid:
                 prev = Llist(self.model, [1], None, None, layer.parents)
                 curr = Llist(self.model, [1], None, None, [tmp])
                 abs_shape = self.transformer.Sigmoid(
+                    self.abs_elem,
+                    prev,
+                    curr,
+                    poly_size,
+                    curr_size,
+                    prev_size,
+                    self.input_size,
+                    self.batch_size,
+                )
+
+            elif layer.type == LayerType.Tanh:
+                prev = Llist(self.model, [1], None, None, layer.parents)
+                curr = Llist(self.model, [1], None, None, [tmp])
+                abs_shape = self.transformer.Tanh(
                     self.abs_elem,
                     prev,
                     curr,
@@ -365,7 +407,8 @@ class Flow:
             size += curr_size
             prev_size = self.model[tmp].size
             self.abs_elem.update(curr, abs_shape)
-
+            # lb = (abs_shape[0].get_dense())
+            # print(lb.sum())
             if self.print_intermediate_results:
                 print(tmp + 1, layer.type, layer.shape)
                 print(time.time() - t_time)

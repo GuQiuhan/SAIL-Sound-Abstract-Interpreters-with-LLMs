@@ -3,7 +3,9 @@ import os
 import shutil
 import sys
 import time
+from datetime import datetime
 
+import pandas as pd
 import torch
 import typer
 from torch.utils.data import DataLoader
@@ -11,6 +13,57 @@ from torchvision import datasets, transforms
 
 from constraintflow.core.compiler.compile import compile as _compile
 from constraintflow.core.verifier.provesound import provesound as _provesound
+
+mapping = {
+    "N1": ["mnist_relu_3_50.onnx", "MNIST"],
+    "N2": ["mnist_relu_3_100.onnx", "MNIST"],
+    "N3": ["mnist_relu_5_100.onnx", "MNIST"],
+    "N4": ["mnist_relu_6_100.onnx", "MNIST"],
+    "N5": ["mnist_relu_9_100.onnx", "MNIST"],
+    "N6": ["mnist_relu_6_200.onnx", "MNIST"],
+    "N7": ["mnist_relu_9_200.onnx", "MNIST"],
+    "N8": ["mnist_relu_4_1024.onnx", "MNIST"],
+    "N9": ["convSmallRELU__Point.onnx", "MNIST"],
+    "N10": ["convSmallRELU__DiffAI.onnx", "MNIST"],
+    "N11": ["convSmallRELU__PGDK.onnx", "MNIST"],
+    "N12": ["convMedGRELU__Point.onnx", "MNIST"],
+    "N13": ["convMedGTANH__Point.onnx", "MNIST"],
+    "N14": ["convBigRELU__DiffAI.onnx", "MNIST"],
+    "N15": ["convSuperRELU__DiffAI.onnx", "MNIST"],
+    "N16": ["ffnnTANH__Point_6_500.onnx", "MNIST"],
+    "N17": ["ffnnTANH__PGDK_w_0.3_6_500.onnx", "MNIST"],
+    "N18": ["ffnnRELU__Point_6_500.onnx", "MNIST"],
+    "N19": ["ffnnRELU__PGDK_w_0.3_6_500.onnx", "MNIST"],
+    "N20": ["ffnnRELU__PGDK_w_0.1_6_500.onnx", "MNIST"],
+    "N21": ["cifar_relu_4_100.onnx", "CIFAR10"],
+    "N22": ["cifar_relu_6_100.onnx", "CIFAR10"],
+    "N23": ["cifar_relu_9_200.onnx", "CIFAR10"],
+    "N24": ["cifar_relu_7_1024.onnx", "CIFAR10"],
+    "N25": ["convSmallRELU__DiffAI.onnx", "CIFAR10"],
+    "N26": ["convSmallRELU__PGDK.onnx", "CIFAR10"],
+    "N27": ["convSmallRELU__Point.onnx", "CIFAR10"],
+    "N28": ["convMedGRELU__Point.onnx", "CIFAR10"],
+    "N29": ["convMedGRELU__PGDK_w_0.0078.onnx", "CIFAR10"],
+    "N30": ["convMedGRELU__PGDK_w_0.0313.onnx", "CIFAR10"],
+    "N31": ["convMedGTANH__Point.onnx", "CIFAR10"],
+    "N32": ["convMedGTANH__PGDK_w_0.0078.onnx", "CIFAR10"],
+    "N33": ["convMedGTANH__PGDK_w_0.0313.onnx", "CIFAR10"],
+    "N34": ["convBigRELU__DiffAI.onnx", "CIFAR10"],
+    "N35": ["ffnnRELU__Point_6_500.onnx", "CIFAR10"],
+    "N36": ["ffnnRELU__PGDK_w_0.0078_6_500.onnx", "CIFAR10"],
+    "N37": ["ffnnRELU__PGDK_w_0.0313_6_500.onnx", "CIFAR10"],
+    "N38": ["ffnnTANH__PGDK_w_0.0313_6_500.onnx", "CIFAR10"],
+    "N39": ["ffnnTANH__Point_6_500.onnx", "CIFAR10"],
+    "N40": ["ffnnSIGMOID__PGDK_w_0.1_6_500.onnx", "MNIST"],
+    "N41": ["ffnnSIGMOID__PGDK_w_0.3_6_500.onnx", "MNIST"],
+    "N42": ["ffnnSIGMOID__Point_6_500.onnx", "MNIST"],
+    "N43": ["convMedGSIGMOID__PGDK_w_0.0078.onnx", "CIFAR10"],
+    "N44": ["convMedGSIGMOID__PGDK_w_0.0313.onnx", "CIFAR10"],
+    "N45": ["convMedGSIGMOID__Point.onnx", "CIFAR10"],
+    "N46": ["ffnnSIGMOID__PGDK_w_0.0078_6_500.onnx", "CIFAR10"],
+    "N47": ["ffnnSIGMOID__PGDK_w_0.0313_6_500.onnx", "CIFAR10"],
+    "N48": ["ffnnSIGMOID__Point_6_500.onnx", "CIFAR10"],
+}
 
 
 def get_program(program_file: str) -> str:
@@ -183,11 +236,15 @@ def run(
 
 def run_all():
     file = "gpt-5_deeppoly_relu.cf"
+    eps_mnist = 0.0001
+    eps_cifar = 4e-6
+    batch_size = 100
+
     compile_code(program_file=file)
-    results = {}
+
     for directory, dataset, eps in [
-        ("nets/mnist", "mnist", 0.0001),
-        ("nets/cifar", "cifar", 4e-6),
+        ("nets/mnist", "mnist", eps_mnist),
+        ("nets/cifar", "cifar", eps_cifar),
     ]:
         for fname in os.listdir(directory):
             net_path = os.path.join(directory, fname)
@@ -201,7 +258,7 @@ def run_all():
                     network=net_path,
                     network_format="onnx",
                     dataset=dataset,
-                    batch_size=100,
+                    batch_size=batch_size,
                     eps=eps,
                     train=False,
                     print_intermediate_results=False,
@@ -209,17 +266,51 @@ def run_all():
                     output_path="output/",
                     do_compile=False,
                 )
-                results[fname] = [float(precision), float(duration)]
+
+                for N, vals in mapping.items():
+                    mapped_fname, mapped_ds = vals[0], vals[1]
+
+                    if fname == mapped_fname and dataset.lower() in mapped_ds.lower():
+                        mapping[N].extend(
+                            [eps, batch_size, float(precision), float(duration)]
+                        )
+                        break
+                else:
+                    print(f"{fname} not found in mapping")
+
             except Exception as e:
                 print(f"Skipped {fname} due to error: {e}")
 
-    # print("Final Results:")
-    # for k, v in results.items():
-    #    print(k, v)
+    # save to file
+    rows = []
+    for N, vals in mapping.items():
+        fname = vals[0] if len(vals) > 0 else None
+        dataset = vals[1] if len(vals) > 1 else None
+        eps = vals[2] if len(vals) > 2 else None
+        batch_size = vals[3] if len(vals) > 3 else None
+        precision = vals[4] if len(vals) > 4 else None
+        duration = vals[5] if len(vals) > 5 else None
 
-    with open("precision.json", "w") as f:
-        json.dump(results, f, indent=2)
-    print("Saved results to precision.json")
+        rows.append([N, fname, dataset, eps, batch_size, precision, duration])
+
+    df = pd.DataFrame(
+        rows,
+        columns=[
+            "N#",
+            "fname",
+            "dataset",
+            "eps",
+            "batch_size",
+            "precision",
+            "duration",
+        ],
+    )
+    os.makedirs("precision_results", exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    csv_file = os.path.join("precision_results", f"{timestamp}.csv")
+    df.to_csv(csv_file, index=False)
+
+    print(f"Saved results to {csv_file}")
 
 
 if __name__ == "__main__":
@@ -230,11 +321,11 @@ if __name__ == "__main__":
 
     precision, duration = run(
         program_file="gpt-5_deeppoly_relu.cf",
-        network="nets/cifar/ffnnTANH__PGDK_w_0.0078_6_500.onnx",
+        network="nets/cifar/ffnnSIGMOID__PGDK_w_0.0313_6_500.onnx",
         network_format="onnx",
         dataset="cifar",
         batch_size=100,
-        eps=4e-8,
+        eps=4e-6,
         train=False,
         print_intermediate_results=False,
         no_sparsity=False,
@@ -242,4 +333,4 @@ if __name__ == "__main__":
         do_compile=True,
     )
 
-    print(duration)
+    print(f"Duration: {duration}")

@@ -483,6 +483,7 @@ class IrPhi(IrExpression):
 
 class IrRepeat(IrExpression):
     def __init__(self, inputIr, irMetadata=None, repeat_dims=None):
+        assert inputIr.irMetadata[-1].type not in ["SymExp", "PolyExp", "Neuron"]
         super().__init__()
         if irMetadata == None and repeat_dims == None:
             self.irMetadata = copy_metadata(inputIr.irMetadata)
