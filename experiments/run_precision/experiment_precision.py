@@ -320,8 +320,8 @@ if __name__ == "__main__":
     # run_all()
 
     precision, duration = run(
-        program_file="gpt-5_deeppoly_relu.cf",
-        network="nets/cifar/ffnnSIGMOID__PGDK_w_0.0313_6_500.onnx",
+        program_file="constraintflow_ibp.cf",
+        network="nets/cifar/convMedGTANH__Point.onnx",
         network_format="onnx",
         dataset="cifar",
         batch_size=100,

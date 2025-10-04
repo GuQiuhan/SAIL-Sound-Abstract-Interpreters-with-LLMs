@@ -191,7 +191,7 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
             layers.append(layer)
             layer.shape = layers[parents[index][0]].shape
 
-        elif operation == "Sigmoid":
+        elif operation == "HardSigmoid":
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
             parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
 
@@ -201,13 +201,31 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
             layers.append(layer)
             layer.shape = layers[parents[index][0]].shape
 
-        elif operation == "Tanh":
+        elif operation == "HardTanh":
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
             parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
 
             layer = Layer(
                 type=LayerType.HardTanh, identifier=index, parents=parents[index]
             )
+            layers.append(layer)
+            layer.shape = layers[parents[index][0]].shape
+
+        elif operation == "Sigmoid":
+            names_hash[str(net.graph.node[cur_layer].output[0])] = index
+            parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
+
+            layer = Layer(
+                type=LayerType.Sigmoid, identifier=index, parents=parents[index]
+            )
+            layers.append(layer)
+            layer.shape = layers[parents[index][0]].shape
+
+        elif operation == "Tanh":
+            names_hash[str(net.graph.node[cur_layer].output[0])] = index
+            parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
+
+            layer = Layer(type=LayerType.Tanh, identifier=index, parents=parents[index])
             layers.append(layer)
             layer.shape = layers[parents[index][0]].shape
 

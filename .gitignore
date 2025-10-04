@@ -16,3 +16,6 @@ test_models_scripts/
 *cifar-10-python.tar.gz*
 *cifar-10-batches-py/
 **precision_results**
+*data*
+*checkpoints*
+*logs*
