@@ -57,11 +57,14 @@ class ConvSmallReLU6(nn.Module):
         if use_maxpool:
             layers += [nn.MaxPool2d(2)]
         self.feat = nn.Sequential(*layers)
+        side = 32 if in_ch == 3 else 28
+        if use_maxpool:
+            side //= 2
+        in_features = 64 * side * side
+
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(
-                64 * (14 if use_maxpool else 28) * (14 if use_maxpool else 28), 256
-            ),
+            nn.Linear(in_features, 256),
             relu6(),
             nn.Linear(256, num_classes),
         )

@@ -33,7 +33,8 @@ ACTIVATION_CLASSES = (
     nn.AvgPool3d,
 )
 
-combos = [
+# combos = [
+"""
     # === MNIST fully connected ===
     {"dataset": "mnist", "arch": "fcn3x50", "defense": "standard"},
     {"dataset": "mnist", "arch": "fcn3x100", "defense": "standard"},
@@ -78,6 +79,8 @@ combos = [
         "eps": 0.0313,
     },  # 8/255
     {"dataset": "cifar10", "arch": "fcn7x1024", "defense": "standard"},
+    """
+combos = [
     # === CIFAR10 conv family ===
     {"dataset": "cifar10", "arch": "convsmall", "defense": "standard"},
     {"dataset": "cifar10", "arch": "convsmall", "defense": "pgd", "eps": 0.0313},
