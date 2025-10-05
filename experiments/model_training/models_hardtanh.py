@@ -296,7 +296,7 @@ def run_all():
             pgd_step_factor=0.25,
             mix_alpha=0.5,
             use_maxpool=cfg_dict.get("use_maxpool", False),
-            save_dir="./checkpoints",
+            save_dir="./checkpoints/hardtanh/",
         )
 
         # print("="*80)

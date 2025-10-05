@@ -1,4 +1,0 @@
-transformer deeppoly{
-    Avgpool -> (backsubs_lower(avg(prev), curr, curr[layer]),
-        backsubs_upper(avg(prev), curr, curr[layer]), avg(prev), avg(prev));
-}

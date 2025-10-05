@@ -1,4 +1,4 @@
-# LLM-based DSL Generation for Abstract Transformer
+# 🛳️SAIL: Sound Abstract Interpreters with LLMs
 
 ![workflow](https://github.com/GuQiuhan/ConstraintFlow_patch1/blob/main/experiments/run_tables/pics/workflow.png)
 
@@ -12,9 +12,6 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 
 ```
 ├── generation                # Core LLM generation logic
-│   ├── prompt
-│   │   ├── prompts           # (Few-shot) prompt examples and templates
-│   │   └── doc_collector.py  # Collects operator documentation to support grounding
 │   ├── validator
 │   │   ├── miniDSL           # ANTLR grammar files and parser modules for the DSL
 │   │   │   └── ...
@@ -27,25 +24,19 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 │   ├── models.py             # Unified model interface for Llama, Gpt, DeepSeek, etc.
 │   ├── request.py            # Prompt formatting and model communication
 │   ├── gen.py                # Constraint generation workflow, allow multiple models and multiple certifiers
-│   └── reasoning_gen.py      # Constraint generation workflow augmented with reasoning steps
 │   └── utils.py              # Shared utilities and constants (e.g., model-port mapping, helper functions)
 ├── results/                  # Outputs of models' generation, including generation results, generation log, statistic analysis
 │   ├── date1/
-│   │   ├──deepseek/
-│   │   │   ├── certifier/
+│   │   ├──model1/
+│   │   │   ├── certifier1/
 │   │   │   │   └── failure/
 │   │   │   │   └── success/
 │   │   │   │   └── statistics/
 │   │   │   │   │   └── statistics.json
 │   │   │   │   │   └── statistics.png
 │   │   │   │   └── generation.log
-│   ├── date2/
-│   │   ├──llama/
-│   │   │   ├── certifier/
-│   │   │   │   └── failure/
-│   │   │   │   └── success/
-│   │   │   │   └── statistics/
-│   │   │   │   └── generation.log
+│   │   │   └── ...
+│   │   └── ...
 │   └── ...
 └── requirements.txt     # Python dependencies
 └── setup.py             # Pack the project
@@ -88,15 +79,8 @@ python generation/run_all.py --model llama-4 --certifier ibp
 python generation/run_all.py -m deepseek llama-3.3 -c deepz
 ```
 
-
-
-### 📖 Documentation Collection
-```bash
-python generation/prompt/doc_collector.py
-```
-This tool scrapes and organizes PyTorch operator documentation for use in grounded prompting.
-
-### 🧠 Model Deployment
+> You can also run each module separately:
+#### 1. Model Deployment
 Before running `gen.py`, you must start the model server. You can launch any supported LLMs (e.g., DeepSeek, LLaMA3/4, GPT-4o) via:
 
 ```bash
@@ -115,13 +99,13 @@ python generation/models.py --model MODEL_NAME
 
 This will start a local Flask server on the specified port, allowing `gen.py` to interact with the LLM.
 
-### 🖨️ DSL Generation
+#### 2. DSL Generation
 ```bash
 python generation/gen.py -m [MODELS] -c [CERTIFIERS]
 ```
 This script guides the model to generate DSLs for neural operators using multi-stage reasoning and validation.
 
-#### 🛠️ DSL Validation and Repair Pipeline
+#### 3. DSL Validation and Repair Pipeline
 This project integrates a three-stage validation and repair framework for dDSL generation.
 
 * Syntax Checker (`generation/validator/syntax_check.py`)
@@ -140,17 +124,3 @@ When the previous two parts detect the erros and fail to fix, the generation and
 ```bash
 python -m generation.validator.repair
 ```
-
-# TODO:
-
-* [x] read code of constraintflow and print out the counterexamples to prompt model
-* [x] package constraitflow
-* [ ] reasoning for `join` and `meet` operators
-* [x] llm repair
-* [x] the controller/orchestrator
-* [ ] improve dsl validation module
-* [ ] formalize the generation, verification, repair phases into algorithms
-* [ ] formal proofs of the soundness, completeness, (efficiency) of proposed algorithms
-* [ ] evaluations: compare with other transformer generation/synthesis baselines
-* [ ] Analysis: - Can it generate more complicated transformers?
-* [ ] Fix constraintflow, including negative floats/ProveSound

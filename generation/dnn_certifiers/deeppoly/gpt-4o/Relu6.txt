@@ -1,8 +1,0 @@
-transformer deeppoly{
-    Relu6 ->
-        (prev[u] <= 0) ? (0, 0, 0, 0)
-        : (prev[l] >= 6) ? (6, 6, 6, 6)
-        : (prev[l] >= 0) ? (prev[l], min(prev[u], 6), prev[l], min(prev[u], 6))
-        : (prev[u] <= 6) ? (0, prev[u], 0, prev[u])
-        : (0, 6, 0, ((prev[u] / (prev[u] - prev[l])) * prev[l]) - ((prev[u] * prev[l]) / (prev[u] - prev[l])));
-}

@@ -16,6 +16,7 @@ global DEVICE
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 global ACTIVATION_CLASSES
+
 ACTIVATION_CLASSES = (
     nn.ReLU,
     nn.Sigmoid,
@@ -79,12 +80,13 @@ ACTIVATION_CLASSES = (
         "eps": 0.0313,
     },  # 8/255
     {"dataset": "cifar10", "arch": "fcn7x1024", "defense": "standard"},
-    """
-combos = [
+
     # === CIFAR10 conv family ===
     {"dataset": "cifar10", "arch": "convsmall", "defense": "standard"},
     {"dataset": "cifar10", "arch": "convsmall", "defense": "pgd", "eps": 0.0313},
     {"dataset": "cifar10", "arch": "convsmall", "defense": "diffai", "eps": 0.0313},
+    """
+combos = [
     {"dataset": "cifar10", "arch": "convmed", "defense": "standard"},
     {"dataset": "cifar10", "arch": "convmed", "defense": "pgd", "eps": 0.0078},
     {"dataset": "cifar10", "arch": "convmed", "defense": "pgd", "eps": 0.0313},

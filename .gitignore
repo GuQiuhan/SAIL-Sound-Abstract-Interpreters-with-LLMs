@@ -19,3 +19,4 @@ test_models_scripts/
 *data*
 *checkpoints*
 *logs*
+generation/dnn_certifiers/
