@@ -1,4 +1,4 @@
-# ⛵︎ SAIL: Sound Abstract Interpreters with LLMs
+# ⛵ SAIL: Sound Abstract Interpreters with LLMs
 
 ![workflow](https://github.com/GuQiuhan/ConstraintFlow_patch1/blob/main/experiments/run_tables/pics/workflow.png)
 

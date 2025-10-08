@@ -59,7 +59,7 @@ def launch_model_server(
         def text_generation():
             data = request.json
             messages = data.get("messages", "")
-            temperature = float(data.get("temperature", 1.0))
+            temperature = float(data.get("temperature", 1))
             max_new_tokens = int(data.get("max_tokens", max_tokens))
 
             system_msg = data.get("system_msg", None)

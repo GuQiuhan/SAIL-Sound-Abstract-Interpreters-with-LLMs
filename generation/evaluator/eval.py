@@ -866,7 +866,7 @@ class Evaluate(astVisitor.ASTVisitor):
 
                         return results
 
-                    return None
+                    return []
 
                 s.ss.tempC = []
 
@@ -877,12 +877,12 @@ class Evaluate(astVisitor.ASTVisitor):
             resultl = self.evaluate(
                 preC + [condz3], vallist.left, s, curr_prime, computation, exptemp
             )
-            if len(resultl) != 0:
+            if resultl:
                 results.extend(resultl)
             resultr = self.evaluate(
                 preC + [Not(condz3)], vallist.right, s, curr_prime, computation, exptemp
             )
-            if len(resultr) != 0:
+            if resultr:
                 results.extend(resultr)
 
         return results
@@ -1125,8 +1125,20 @@ def make_constraintflow_evaluator(certifier: str):
 if __name__ == "__main__":
 
     dsl = """
-transformer ibp{
-    Abs -> (((prev[l]) >= 0) ? ((prev[l]), (prev[u])) : (((prev[u]) <= 0) ? (-prev[u], -prev[l]) : (1, max(-prev[l], prev[u]))));
+transformer deeppoly {
+    HardSigmoid -> (prev[u] <= -3) ? (0, 0, 0, 0)
+        : ((prev[l] >= 3) ? (1, 1, 1, 1)
+        : ((prev[u] <= 3)
+            ? ((prev[l] >= -3)
+                ? ((prev[l] + 3) / 6, (prev[u] + 3) / 6, (prev + 3) / 6, (prev + 3) / 6)
+                : (0, (prev[u] + 3) / 6, (prev + 3) / 6,
+                   ((prev[u] + 3) / (6 * (prev[u] - prev[l]))) * prev
+                   - ((prev[u] + 3) / (6 * (prev[u] - prev[l]))) * prev[l]))
+            : ((prev[l] >= -3)
+                ? ((prev[l] + 3) / 6, 1,
+                   ((3 - prev[l]) / (6 * (prev[u] - prev[l]))) * (prev - prev[l]) + (prev[l] + 3) / 6,
+                   (prev + 3) / 6)
+                : (0, 1, (prev + 3) / (prev[u] + 3), (prev - prev[l]) / (3 - prev[l])))));
 }
 
     """
@@ -1134,7 +1146,7 @@ transformer ibp{
     # ce_string2 = "Prev0_l_5 = -5\nPrev0_U_8 = 1\nPrev0 = 1\nCurr_u_2 = 0\nPrev0_u_6 = -5\nPrev0_L_7 = 1\nCurr_U_4 = 0\nCurr = 0\ncurr_prime0 = 0\nCurr_l_1 = 0\nCurr_L_3 = 0"
     # ce_string3 = "V13_l_14 = 0\n  Curr_u_2 = 1\n  Prev0_u_6 = 0\n  V13_u_15 = 0\n  Curr_L_3 = 1\n  Prev0_L_7 = 0\n  curr_prime0 = 1\n  V13_L_16 = 0\n  Curr_U_4 = 1\n  out_trav_X19 = 1\n  Prev0_U_8 = 0\n  Curr_l_1 = 1\n  V13_U_17 = 0\n  Prev0_l_5 = 0\n  out_trav_X23 = 1\n  V13 = 0\n  out_trav_c24 = 0\n  out_trav_c20 = 0\n  Prev0 = 0\n  prevLength = 1\n  weight_curr0_9 = 0\n  bias_curr10 = 1\n  Curr = 1"
 
-    evaluator = make_constraintflow_evaluator("ibp")
+    evaluator = make_constraintflow_evaluator("deeppoly")
     print(evaluator(dsl))
 
 

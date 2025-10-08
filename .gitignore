@@ -20,3 +20,4 @@ test_models_scripts/
 *checkpoints*
 *logs*
 generation/dnn_certifiers/
+*benchmarks*

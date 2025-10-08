@@ -87,9 +87,20 @@ func priority2(Neuron n) = -n[layer];
 func stop(Int x, Neuron n, Float coeff) = true;
 
 
-transformer deeppoly{
-  Sigmoid -> ((prev[u]) <= (-3)) ? (0, 0, 0, 0) : (((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[l]) >= (-3)) ? (((prev[u]) <= 3) ? (((prev[l] / 6) + 0.5), ((prev[u] / 6) + 0.5), ((prev / 6) + 0.5), ((prev / 6) + 0.5)) : (((prev[l] / 6) + 0.5), (1), ((((0.5 - (prev[l] / 6)) / ((prev[u]) - (prev[l]))) * (prev)) + (((prev[l] / 6) + 0.5) - (((0.5 - (prev[l] / 6)) / ((prev[u]) - (prev[l]))) * (prev[l])))), (1))) : (((prev[u]) <= 3) ? ((0), ((prev[u] / 6) + 0.5), (0), (((((prev[u] / 6) + 0.5) / ((prev[u]) - (prev[l]))) * (prev)) - ((((prev[u] / 6) + 0.5) / ((prev[u]) - (prev[l]))) * (prev[l])))) : ((0), (1), (0), (1)))));
-
+transformer deeppoly {
+    HardSigmoid -> (prev[u] <= -3) ? (0, 0, 0, 0)
+        : ((prev[l] >= 3) ? (1, 1, 1, 1)
+        : ((prev[u] <= 3)
+            ? ((prev[l] >= -3)
+                ? ((prev[l] + 3) / 6, (prev[u] + 3) / 6, (prev + 3) / 6, (prev + 3) / 6)
+                : (0, (prev[u] + 3) / 6, (prev + 3) / 6,
+                   ((prev[u] + 3) / (6 * (prev[u] - prev[l]))) * prev
+                   - ((prev[u] + 3) / (6 * (prev[u] - prev[l]))) * prev[l]))
+            : ((prev[l] >= -3)
+                ? ((prev[l] + 3) / 6, 1,
+                   ((3 - prev[l]) / (6 * (prev[u] - prev[l]))) * (prev - prev[l]) + (prev[l] + 3) / 6,
+                   (prev + 3) / 6)
+                : (0, 1, (prev + 3) / (prev[u] + 3), (prev - prev[l]) / (3 - prev[l])))));
 }
 
 

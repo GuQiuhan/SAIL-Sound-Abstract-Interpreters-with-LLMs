@@ -98,7 +98,7 @@ class TGIClient(Client):
 
 
 if __name__ == "__main__":
-    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:6045")
+    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8086")
 
     CONSTRAINTFLOW = """
 You are a formal methods expert working on neural network verification.
@@ -265,8 +265,8 @@ transformer deeppoly{
     );
 }
 """
-    # output = client.chat(messages=message)
-    output = client.textgen(prompt=prompt)
+    output = client.chat(messages=message)
+    # output = client.textgen(prompt=prompt)
 
     print(output)
 

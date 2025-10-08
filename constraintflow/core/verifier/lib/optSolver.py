@@ -17,6 +17,12 @@ class OptSolver:
         self.result_event = None
         self.final_answer = None
 
+        # @qiuhan:
+        self.last_model = None  # to get the counterexample
+
+        self.models = []  # to get more counterexample
+        self.max_models = 5  # sampling
+
     def clear(self):
         self.solved = []
         self.counter = -1
@@ -206,6 +212,10 @@ class OptSolver:
         return isinstance(rhs, z3.z3.QuantifierRef)
 
     def solve(self, lhs, rhs):
+        # @qiuhan:
+        self.last_model = None  # Reset last model on each call
+        self.models = []
+
         if self.check_quantifier(lhs, rhs):
             return self.check(lhs, rhs)
 
@@ -214,5 +224,37 @@ class OptSolver:
         for i in m_if:
             ret = self.solve_temp(*i)
             if not ret:
+                # @qiuhan: Unsound->try to get counterexample
+                try:
+                    solver = Solver()
+                    solver.add(Not(Implies(i[0], i[1])))
+
+                    print(i[0])
+                    print("--------------------------")
+                    print(i[1])
+                    print("--------------------------")
+                    count = 0
+                    while solver.check() == sat and count < self.max_models:
+                        m = solver.model()
+
+                        self.models.append(m)
+                        if count == 0:
+                            self.last_model = m  # for the verifier
+
+                        block = []
+                        for d in m.decls():
+                            if d.arity() == 0:
+                                var = d()
+                                val = m[var]
+                                if is_int_value(val) or is_rational_value(val):
+                                    block.append(var != val)
+                        if block:
+                            solver.add(Or(block))
+                        else:
+                            break
+                        count += 1
+                except Exception as e:
+                    print(f"[error] Failed to extract counterexamples from Z3: {e}")
+
                 return False
         return True

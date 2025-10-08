@@ -46,23 +46,23 @@ def make_constraintflow_validator(certifier: str, client: Client, is_chat: bool)
 
 
 if __name__ == "__main__":
-    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8084")
+    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8086")
 
     dsl = """
-transformer deeppoly{
-    HardTanh ->
-        (prev[u] <= -1) ?
-            (-1, -1, -1, -1) :
-        (prev[l] >= 1) ?
-            (1, 1, 1, 1) :
-        ((prev[l] >= -1) and (prev[u] <= 1)) ?
-            (prev[l], prev[u], prev, prev) :
-        ((prev[l] < -1) and (prev[u] <= 1)) ?
-            (max(-1, prev[l]), prev[u], max(-1, prev[l]), prev[u]) :
-        ((prev[l] >= -1) and (prev[u] > 1)) ?
-            (prev[l], min(1, prev[u]), prev[l], min(1, prev[u])) :
-        (-1, 1, max(-1, prev[l]), min(1, prev[u]))
-    ;
+transformer deeppoly {
+    HardSigmoid -> (prev[u] <= -3) ? (0, 0, 0, 0)
+        : ((prev[l] >= 3) ? (1, 1, 1, 1)
+        : ((prev[u] <= 3)
+            ? ((prev[l] >= -3)
+                ? ((prev[l] + 3) / 6, (prev[u] + 3) / 6, (prev + 3) / 6, (prev + 3) / 6)
+                : (0, (prev[u] + 3) / 6, (prev + 3) / 6,
+                   ((prev[u] + 3) / (6 * (prev[u] - prev[l]))) * prev
+                   - ((prev[u] + 3) / (6 * (prev[u] - prev[l]))) * prev[l]))
+            : ((prev[l] >= -3)
+                ? ((prev[l] + 3) / 6, 1,
+                   ((3 - prev[l]) / (6 * (prev[u] - prev[l]))) * (prev - prev[l]) + (prev[l] + 3) / 6,
+                   (prev + 3) / 6)
+                : (0, 1, (prev + 3) / (prev[u] + 3), (prev - prev[l]) / (3 - prev[l])))));
 }
 
     """
