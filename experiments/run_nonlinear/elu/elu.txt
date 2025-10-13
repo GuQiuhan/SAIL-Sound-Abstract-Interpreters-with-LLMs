@@ -1,0 +1,5 @@
+def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
+
+transformer ibp{
+    Elu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u])) : (((prev[u]) <= 0) ? (eps(prev[l]) - 1, eps(prev[u]) - 1) : (eps(prev[l]) - 1, (prev[u])));
+}

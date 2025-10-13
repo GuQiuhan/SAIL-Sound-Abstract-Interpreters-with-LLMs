@@ -21,3 +21,4 @@ test_models_scripts/
 *logs*
 generation/dnn_certifiers/
 *benchmarks*
+*baselines*

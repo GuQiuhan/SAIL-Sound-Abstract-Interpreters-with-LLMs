@@ -1,0 +1,7 @@
+def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
+
+transformer ibp{
+    Gelu -> ((prev[l] >= 0) ? ((0.5*prev[l]*(1+erf(prev[l]/1.4142135623730951))), (0.5*prev[u]*(1+erf(prev[u]/1.4142135623730951))))
+            : ((prev[u] <= 0) ? ((prev[l]*(0.5*(1+erf(prev[u]/1.4142135623730951)))), 0)
+                              : ((0.5*prev[l]), (0.5*prev[u]*(1+erf(prev[u]/1.4142135623730951))))));
+}

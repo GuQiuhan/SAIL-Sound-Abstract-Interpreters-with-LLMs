@@ -1,0 +1,7 @@
+def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
+
+transformer ibp{
+    Silu -> ((prev[l] >= 0) ? ((prev[l]*sigma(prev[l])), (prev[u]*sigma(prev[u])))
+            : ((prev[u] <= 0) ? (-0.28, 0)
+            : (-0.28, (prev[u]*sigma(prev[u])))));
+}

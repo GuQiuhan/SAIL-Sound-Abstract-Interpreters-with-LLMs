@@ -1,0 +1,7 @@
+def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
+
+transformer ibp{
+    Swish -> (-max(max(-(prev[l]*sigma(2*prev[l])),-(prev[l]*sigma(2*prev[u]))),max(-(prev[u]*sigma(2*prev[l])),-(prev[u]*sigma(2*prev[u])))),
+              max(max(prev[l]*sigma(2*prev[l]),prev[l]*sigma(2*prev[u])),max(prev[u]*sigma(2*prev[l]),prev[u]*sigma(2*prev[u])))
+    );
+}
