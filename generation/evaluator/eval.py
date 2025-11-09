@@ -973,10 +973,10 @@ class Evaluator:
         # print(np.log1p(np.exp(grad_norm)))
         return np.log1p(np.exp(grad_norm))  # softplus, avoid get 0
 
-    def Ds(self, code: str, certifier: str):
+    def Ds(self, code: str, certifier: str, delta=0.0001):
         """
         When the code is unsound, measure the deviation
-        D_s = Sum (w(x)*d(x))
+        D_s = Max Max (w(x)*d(x))
 
         Args:
             code (str): dsl
@@ -987,6 +987,8 @@ class Evaluator:
             op, results = self.eval(code)
 
             sum = 0
+
+            maxre = 0
 
             if certifier == "deeppoly":
                 weights = 0
@@ -1014,12 +1016,24 @@ class Evaluator:
 
                     w = self.phi(op, x) / weights
 
+                    """
                     sum += (
                         max(0, l - fx)
                         + max(0, fx - u)
                         + max(0, L - fx)
                         + max(0, fx - U)
                     ) * w
+                    """
+
+                    sum = (
+                        max(0, l - fx)
+                        + max(0, fx - u)
+                        + max(0, L - fx)
+                        + max(0, fx - U)
+                    ) * w
+
+                    if sum > maxre:
+                        maxre = sum
 
             elif certifier == "deepz":
                 weights = 0
@@ -1046,7 +1060,12 @@ class Evaluator:
 
                     w = self.phi(op, x) / weights
 
-                    sum += (max(0, l - fx) + max(0, fx - u) + max(0, fx - z)) * w
+                    # sum += (max(0, l - fx) + max(0, fx - u) + max(0, fx - z)) * w
+
+                    sum = (max(0, l - fx) + max(0, fx - u) + max(0, fx - z)) * w
+
+                    if sum > maxre:
+                        maxre = sum
 
             elif certifier == "ibp":
                 weights = 0
@@ -1072,16 +1091,21 @@ class Evaluator:
 
                     w = self.phi(op, x) / weights
 
-                    sum += (max(0, l - fx) + max(0, fx - u)) * w
+                    # sum += (max(0, l - fx) + max(0, fx - u)) * w
+
+                    sum = (max(0, l - fx) + max(0, fx - u)) * w
+
+                    if sum > maxre:
+                        maxre = sum
 
             else:
                 pass
 
             logging.info(
-                f"\n [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code: {code} to {sum}.\n"
+                f"\n [Unsound Transformer Evaluation] Evaluation succeeds. Set the evaluation for the code: {code} to {maxre}.\n"
             )
 
-            return sum
+            return maxre
 
         except Exception as e:
             logging.info(
@@ -1117,6 +1141,7 @@ def make_constraintflow_evaluator(certifier: str):
 
     def evaluator(dsl: str) -> float:
         full_dsl = DSL1[certifier] + dsl + DSL2[certifier]
+        print(full_dsl)
         return Evaluator().Ds(full_dsl, certifier=certifier)
 
     return evaluator
@@ -1125,20 +1150,8 @@ def make_constraintflow_evaluator(certifier: str):
 if __name__ == "__main__":
 
     dsl = """
-transformer deeppoly {
-    HardSigmoid -> (prev[u] <= -3) ? (0, 0, 0, 0)
-        : ((prev[l] >= 3) ? (1, 1, 1, 1)
-        : ((prev[u] <= 3)
-            ? ((prev[l] >= -3)
-                ? ((prev[l] + 3) / 6, (prev[u] + 3) / 6, (prev + 3) / 6, (prev + 3) / 6)
-                : (0, (prev[u] + 3) / 6, (prev + 3) / 6,
-                   ((prev[u] + 3) / (6 * (prev[u] - prev[l]))) * prev
-                   - ((prev[u] + 3) / (6 * (prev[u] - prev[l]))) * prev[l]))
-            : ((prev[l] >= -3)
-                ? ((prev[l] + 3) / 6, 1,
-                   ((3 - prev[l]) / (6 * (prev[u] - prev[l]))) * (prev - prev[l]) + (prev[l] + 3) / 6,
-                   (prev + 3) / 6)
-                : (0, 1, (prev + 3) / (prev[u] + 3), (prev - prev[l]) / (3 - prev[l])))));
+transformer deeppoly{
+    HardSigmoid -> ((prev[l]) >= 3) ? (1, 1, 1, 1) : (((prev[u]) <= -3) ? (0, 0, 0, 0) : (((prev[l]) >= -3) and ((prev[u]) <= 3) ? (f2(prev[l]), f2(prev[u]), (prev + 3)/6, (prev + 3)/6) : (((prev[l]) >= -3) and ((prev[u]) > 3) ? (f2(prev[l]), 1, 0, 1) : (((prev[l]) < -3) and ((prev[u]) <= 3) ? (0, f2(prev[u]), (prev + 3)/6, slope(-3, prev[u]) * prev + intercept(-3, prev[u])) : (0, 1, 0, 1)))));
 }
 
     """

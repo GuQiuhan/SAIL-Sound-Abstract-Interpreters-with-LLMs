@@ -1,3 +1,0 @@
-transformer deepz{
-    Affine -> ((prev[l].dot(curr[weight]) + curr[bias]), (prev[u].dot(curr[weight]) + curr[bias]), (prev[z].dot(curr[weight]) + curr[bias]));
-}

@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Avgpool -> ((1/size) * simplify_lower(prev, 1), (1/size) * simplify_upper(prev, 1), (1/size) * replace_lower(prev, 1), (1/size) * replace_upper(prev, 1));
-}

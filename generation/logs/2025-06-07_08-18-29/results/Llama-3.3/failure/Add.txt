@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Add -> ((simplify_lower(prev_0, 1) + simplify_lower(prev_1, 1)), (simplify_upper(prev_0, 1) + simplify_upper(prev_1, 1)), (replace_lower(prev_0, 1) + replace_lower(prev_1, 1)), (replace_upper(prev_0, 1) + replace_upper(prev_1, 1)));
-}

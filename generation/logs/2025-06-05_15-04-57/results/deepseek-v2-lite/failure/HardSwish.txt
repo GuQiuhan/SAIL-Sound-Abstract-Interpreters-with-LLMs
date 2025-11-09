@@ -1,3 +1,0 @@
-transformer deeppoly{
-    HardSwish -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 0) ? (0, 0, 0, 0) : (((prev[u]) > 6) ? ((prev[u])/6, (prev[u])/6, (prev[u])/6, (prev[u])/6) : ((prev[l]) <= -6) ? (0, 0, 0, 0) : ((prev[l]) > -6) ? ((prev[l])/6, (prev[u])/6, (prev[l])/6, (prev[u])/6) : (0, (prev[u])/6, 0, (prev[u])/6) ));
-}

@@ -1,3 +1,0 @@
-transformer deepz{
-    Minpool -> (curr[l], curr[u], curr[z]);
-}

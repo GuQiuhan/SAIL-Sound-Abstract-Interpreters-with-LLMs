@@ -1,4 +1,0 @@
-transformer ibp{
-    HardSwish -> ((prev.map(x -> max_lower(0, min_upper(x, 6))) * prev.map(x -> (6 + min_lower(0, max_upper(x, -3))) / 6)).map(simplify_lower),
-                  (prev.map(x -> max_upper(0, min_upper(x, 6))) * prev.map(x -> (6 + min_lower(0, max_upper(x, -3))) / 6)).map(simplify_upper));
-}

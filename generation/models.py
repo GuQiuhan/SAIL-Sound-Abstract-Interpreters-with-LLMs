@@ -44,7 +44,7 @@ from vllm import LLM, SamplingParams
 
 
 def launch_model_server(
-    model_config, port, host=HOST, max_tokens=256
+    model_config, port, host=HOST, max_tokens=4096
 ):  # implement based on different models
     model_type = model_config["type"]  # hf, vllm, openai, aws
     model_id = model_config["model"]

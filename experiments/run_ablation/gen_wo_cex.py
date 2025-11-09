@@ -1,5 +1,23 @@
 """
-Ablation Study: generation without counterexample and cost function.
+DSL Transformer Generation Script
+-----------------------------------------------------------
+
+This script automatically generates ConstraintFlow-style DSL transformers
+for deep learning operators.
+
+1. Supports multiple abstract domains (certifiers: DeepPoly, IBP, DeepZ)
+and multiple models (e.g., DeepSeek, GPT-4, LLaMA).
+2. Automatically detects whether the model is chat-based (e.g., DeepSeek) or prompt-based.
+3. Extracts the DSL transformer block from generated output based on the certifier type.
+4. Validates generated code using formal verification tools.
+5. Logs successful and failed generations; saves results with timestamps.
+
+Usage:
+    python gen_dsl_transformer.py --model deepseek --certifier deeppoly
+    (Optional: --log-dir <log_folder> --output-dir <output_folder>)
+
+Output:
+    Results are saved under logs/<timestamp>/results/ by default.
 """
 
 
@@ -7,12 +25,12 @@ import json
 import logging
 import re
 import shutil
-import time
 import traceback
 import typing
 from abc import ABC, abstractmethod
 from datetime import datetime
 from statistics.rounds import *
+from time import time
 from typing import Callable, Dict, List, Optional, Tuple, Union
 
 from evaluator.eval import *
@@ -22,6 +40,8 @@ from validator.soundness_check import *
 
 op_eval = {}  # for monitoring the progress
 op_curr = None
+
+LAMDA = 0.0001
 
 
 class Step:
@@ -111,7 +131,9 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
 
             code = ""
             messages_or_prompt = step.prompter(code)
-            messages_or_prompt = step.prompter_with_augmentation(messages_or_prompt)
+
+            # Ablation Study: No Counterexample+Cost Function guided
+            # messages_or_prompt = step.prompter_with_augmentation(messages_or_prompt)
 
             print(f"[STEP {index}] Messages_or_prompt: \n {messages_or_prompt}\n")
 
@@ -139,6 +161,10 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                     f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}\n"
                 )
 
+                logging.info(
+                    f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}\n"
+                )
+
                 if code == "":
                     logging.warning(
                         f"[STEP {index}] Sample {sample_id}: No valid generation: \n{completion}\n"
@@ -159,19 +185,59 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                     if result:
                         success = True
                         best_code = code
+
                         op_eval[op_curr].append(0)
+
                         logging.info(
                             f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation passed for code: \n{best_code}."
                         )
                         return True, best_code, ""
-                    else:
-                        score = step.evaluator(code)
-                        op_eval[op_curr].append(score)
-                        logging.info(
-                            f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist."
-                        )
-                        if step.error_generation is None:
-                            step.update_failure(code, "")
+                    else:  # TODO: augment the prompt with ce. Done.
+
+                        if ce:
+                            # if have a ce, get the score first
+                            logging.info(
+                                f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation failed. Get counter example: \n {ce}.\n Start to evaluate the deviation."
+                            )
+
+                            score = step.evaluator(code)
+
+                            if score == 0:
+                                success = True
+                                best_code = code
+
+                                op_eval[op_curr].append(0)
+
+                                logging.info(
+                                    f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation passed for code: \n{best_code}."
+                                )
+                                return True, best_code, ""
+
+                            if score <= best_score - LAMDA:
+                                logging.info(
+                                    f"best_score : score = {best_score} : {score}",
+                                )
+
+                                best_score = score  # update
+                                best_code = code
+
+                                op_eval[op_curr].append(best_score)
+
+                                # Ablation Study: No Counterexample+Cost Function guided
+                                # step.update_failure(code, ce)
+
+                                GlobalState.ce_number_now += 1
+
+                                logging.info(
+                                    f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Get a 'better' unsound abstract transformer: \n{code}\n with the score {score}. Use it to guide the regeneration."
+                                )
+
+                        else:
+                            logging.info(
+                                f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation failed. Get no counter example. Other errors(semantic/syntactic) exist."
+                            )
+                            if step.error_generation is None:
+                                step.update_failure(code, "")
                 else:
                     success = True
                     best_code = code
@@ -225,10 +291,7 @@ if __name__ == "__main__":
         required=False,
     )
     parser.add_argument(
-        "--log-dir",
-        help="Path to the log directory",
-        default="logs_wo_cex/",
-        required=False,
+        "--log-dir", help="Path to the log directory", default="logs/", required=False
     )
 
     parser.add_argument(
@@ -334,7 +397,7 @@ if __name__ == "__main__":
             TimeRemainingColumn(),
         )
 
-        prefix = os.path.join(os.path.dirname(__file__), "prompt/prompts")
+        # prefix = os.path.join(os.path.dirname(__file__), "prompt/prompts")
 
         with progress_bar as p:
             for model_name, endpoint_info in MODEL_ENDPOINTS.items():
@@ -370,10 +433,12 @@ if __name__ == "__main__":
                     statistic[model_name] = []
 
                 for op_name in p.track(sorted(op_list)):  # TODO: change the opt list
+                    op_eval[op_name] = []
+
+                    op_curr = op_name
+
                     op_start_time = time.time()
                     doc = {"api": op_name}
-                    op_eval[op_name] = []
-                    op_curr = op_name
 
                     logging.info(f"{datetime.now()} - Extracting {doc['api']}")
                     api_name = doc["api"]
@@ -458,6 +523,8 @@ if __name__ == "__main__":
                         )
                         evaluator = make_constraintflow_evaluator(certifier)
 
+                        op_appen = op_appendix.get(api, "")
+
                         if is_chat:
 
                             def chat_prompter(code: Optional[str]) -> List[dict]:
@@ -483,7 +550,7 @@ if __name__ == "__main__":
                                     {"role": "assistant", "content": prmpt_affine},
                                     {
                                         "role": "user",
-                                        "content": f"Generate the transformer for `{api}` operator ",
+                                        "content": f"Generate the transformer for `{api}` operator. {op_appen}",
                                     },
                                 ]
 
@@ -496,7 +563,6 @@ if __name__ == "__main__":
 
     ### Example: ReLU operator
     Input: Generate the transformer for `relu` operator
-    Reasoning: {PRMPT_RELU_REASONING}
     Output:
     {prmpt_relu}
 
@@ -511,7 +577,7 @@ if __name__ == "__main__":
     {prmpt_affine}
 
     ### Now generate the transformer for `{api}` operator
-    Input: Generate the transformer for `{api}` operator
+    Input: Generate the transformer for `{api}` operator. {op_appen}.
     Output:
     """
 
@@ -573,3 +639,6 @@ if __name__ == "__main__":
                     json.dump(op_eval, f, indent=2)
 
                 draw_all(statistic, statistic_dir)
+
+                for op in op_eval:
+                    draw_cost_curve(op, op_eval[op], statistic_dir)

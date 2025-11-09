@@ -34,13 +34,14 @@ def make_constraintflow_validator(certifier: str, client: Client, is_chat: bool)
          -(False, str): fail, counterexample
          -(False, ""): fail, invalid, no counterexample
         """
+
         success, repaired_dsl = check(certifier, client, is_chat, dsl)
         if not success:
             return False, "", repaired_dsl  # invalid, no counterexample
 
-        full_dsl = DSL1[certifier] + repaired_dsl + DSL2[certifier]
+        full_dsl = DSL1[certifier] + dsl + DSL2[certifier]
         result, ce = run_verifier_from_str(full_dsl)  # return (T/F, ce: str/"")
-        return result, ce, repaired_dsl
+        return result, ce, dsl
 
     return validator
 

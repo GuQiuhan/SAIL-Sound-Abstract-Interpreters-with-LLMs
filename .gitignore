@@ -22,3 +22,7 @@ test_models_scripts/
 generation/dnn_certifiers/
 *benchmarks*
 *baselines*
+
+generation/statistics/*
+!generation/statistics/__init__.py
+!generation/statistics/rounds.py

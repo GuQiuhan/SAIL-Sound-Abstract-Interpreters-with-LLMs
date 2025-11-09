@@ -229,10 +229,10 @@ class OptSolver:
                     solver = Solver()
                     solver.add(Not(Implies(i[0], i[1])))
 
-                    print(i[0])
-                    print("--------------------------")
-                    print(i[1])
-                    print("--------------------------")
+                    # print(i[0])
+                    # print("--------------------------")
+                    # print(i[1])
+                    # print("--------------------------")
                     count = 0
                     while solver.check() == sat and count < self.max_models:
                         m = solver.model()

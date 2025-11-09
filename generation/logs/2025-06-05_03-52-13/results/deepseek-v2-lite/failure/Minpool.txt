@@ -1,3 +1,0 @@
-transformer deeppoly{
-    MinPool -> /* Define the transformer for Minpool operator */
-}

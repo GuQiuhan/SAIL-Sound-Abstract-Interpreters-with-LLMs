@@ -1,0 +1,106 @@
+// Shape: (l, u, L, U)
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){
+  [(curr[l] <= curr), (curr[u] >= curr), (curr[L] <= curr), (curr[U] >= curr)]
+};
+
+// -------- Helper functions (constants inlined) --------
+// Phi(x) = 0.5*(1 + erf(x / sqrt(2)))
+def Phi as (Float x){ 0.5 * (1 + erf(x / 1.4142135623730951)) };
+// phi(x) = (1/sqrt(2π)) * exp(-x^2/2)
+def phi as (Float x){ 0.3989422804014327 * exp(-0.5 * x * x) };
+// GELU
+def F as (Float x){ 0.5 * x * (1 + erf(x / 1.4142135623730951)) };
+// GELU'
+def dF as (Float x){ Phi(x) + x * phi(x) };
+
+// Secant s(x) = a_s * x + b_s
+def SecantA as (Float l, Float u){ (F(u) - F(l)) / (u - l) };
+def SecantB as (Float l, Float u){ F(l) - SecantA(l,u) * l };
+
+// Tangents at endpoints
+def TangentA_l as (Float l){ dF(l) };
+def TangentB_l as (Float l){ F(l) - TangentA_l(l) * l };
+def TangentA_u as (Float u){ dF(u) };
+def TangentB_u as (Float u){ F(u) - TangentA_u(u) * u };
+
+// Midpoint and tangent values at midpoint
+def Mid as (Float l, Float u){ (l + u) / 2.0 };
+def T_l_at_m as (Float l, Float u){ TangentA_l(l) * Mid(l,u) + TangentB_l(l) };
+def T_u_at_m as (Float l, Float u){ TangentA_u(u) * Mid(l,u) + TangentB_u(u) };
+
+// -------- DeepPoly transformer for GELU --------
+transformer deeppoly{
+  Gelu -> (
+    // ===== Interval output bounds (l_out, u_out) =====
+    // l_out = min{ F(l), F(u), -0.18 if interval hits the minimum window [-0.9, -0.6] }
+    // u_out = max{ F(l), F(u) }
+    (
+      // if intersects minimum window [-0.9, -0.6]
+      ( (prev[l] <= -0.6) ? ( (prev[u] >= -0.9) ?
+          // min( min(F(l),F(u)), -0.18 )
+          ( ((F(prev[l]) <= F(prev[u])) ? F(prev[l]) : F(prev[u])) <= (-0.18)
+              ? ((F(prev[l]) <= F(prev[u])) ? F(prev[l]) : F(prev[u]))
+              : (-0.18) )
+        :  // not intersect: min(F(l),F(u))
+          ( (F(prev[l]) <= F(prev[u])) ? F(prev[l]) : F(prev[u]) ) )
+        :  // not intersect: min(F(l),F(u))
+          ( (F(prev[l]) <= F(prev[u])) ? F(prev[l]) : F(prev[u]) ) )
+    ),
+    ( (F(prev[l]) >= F(prev[u])) ? F(prev[l]) : F(prev[u]) ),
+
+    // ===== Affine lower bound L(prev) =====
+    // Case order without logical AND: left-concave, right-concave, convex, else mixed (constants)
+    (
+      // Case A: entirely concave on the left (u <= -sqrt(2))
+      (prev[u] <= -1.4142135623730951) ?
+        ( SecantA(prev[l],prev[u]) * prev + SecantB(prev[l],prev[u]) )
+      :
+      // Case B: entirely concave on the right (l >= +sqrt(2))
+      (prev[l] >=  1.4142135623730951) ?
+        ( SecantA(prev[l],prev[u]) * prev + SecantB(prev[l],prev[u]) )
+      :
+      // Case C: entirely convex (-sqrt(2) <= l and u <= +sqrt(2))
+      ( (prev[l] >= -1.4142135623730951) ?
+          ( (prev[u] <=  1.4142135623730951) ?
+              // choose the larger tangent at midpoint for the lower bound in convex case
+              ( ( T_l_at_m(prev[l],prev[u]) >= T_u_at_m(prev[l],prev[u]) )
+                  ? ( TangentA_l(prev[l]) * prev + TangentB_l(prev[l]) )
+                  : ( TangentA_u(prev[u]) * prev + TangentB_u(prev[u]) ) )
+            :  // mixed
+              // constant affine (alpha=0), safe but looser
+              ( ((F(prev[l]) <= F(prev[u])) ? F(prev[l]) : F(prev[u])) <= (-0.18)
+                  ? ((F(prev[l]) <= F(prev[u])) ? F(prev[l]) : F(prev[u]))
+                  : (-0.18) )
+        )
+        :  // mixed
+          ( ((F(prev[l]) <= F(prev[u])) ? F(prev[l]) : F(prev[u])) <= (-0.18)
+              ? ((F(prev[l]) <= F(prev[u])) ? F(prev[l]) : F(prev[u]))
+              : (-0.18) )
+    ),
+
+    // ===== Affine upper bound U(prev) =====
+    (
+      // Case A: entirely concave on the left (u <= -sqrt(2))
+      (prev[u] <= -1.4142135623730951) ?
+        // choose the smaller tangent at midpoint for the upper bound in concave case
+        ( ( T_l_at_m(prev[l],prev[u]) <= T_u_at_m(prev[l],prev[u]) )
+            ? ( TangentA_l(prev[l]) * prev + TangentB_l(prev[l]) )
+            : ( TangentA_u(prev[u]) * prev + TangentB_u(prev[u]) ) )
+      :
+      // Case B: entirely concave on the right (l >= +sqrt(2))
+      (prev[l] >=  1.4142135623730951) ?
+        ( ( T_l_at_m(prev[l],prev[u]) <= T_u_at_m(prev[l],prev[u]) )
+            ? ( TangentA_l(prev[l]) * prev + TangentB_l(prev[l]) )
+            : ( TangentA_u(prev[u]) * prev + TangentB_u(prev[u]) ) )
+      :
+      // Case C: entirely convex (-sqrt(2) <= l and u <= +sqrt(2)) -> secant as upper bound
+      ( (prev[l] >= -1.4142135623730951) ?
+          ( (prev[u] <=  1.4142135623730951) ?
+              ( SecantA(prev[l],prev[u]) * prev + SecantB(prev[l],prev[u]) )
+            :  // mixed
+              ( (F(prev[l]) >= F(prev[u])) ? F(prev[l]) : F(prev[u]) ) )
+        :  // mixed
+          ( (F(prev[l]) >= F(prev[u])) ? F(prev[l]) : F(prev[u]) ) )
+    )
+  );
+}

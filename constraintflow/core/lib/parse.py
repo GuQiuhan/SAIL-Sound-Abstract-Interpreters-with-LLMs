@@ -105,6 +105,8 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
         nd_inps = node.input
         index += 1
 
+        # print(operation)
+
         if operation == "Conv":
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
             parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
@@ -211,6 +213,28 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
             layers.append(layer)
             layer.shape = layers[parents[index][0]].shape
 
+        # new
+        elif operation == "HardSwish":
+            names_hash[str(net.graph.node[cur_layer].output[0])] = index
+            parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
+
+            layer = Layer(
+                type=LayerType.HardSwish, identifier=index, parents=parents[index]
+            )
+            layers.append(layer)
+            layer.shape = layers[parents[index][0]].shape
+
+        # new
+        elif operation == "Relu6":
+            names_hash[str(net.graph.node[cur_layer].output[0])] = index
+            parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
+
+            layer = Layer(
+                type=LayerType.HardTanh, identifier=index, parents=parents[index]
+            )
+            layers.append(layer)
+            layer.shape = layers[parents[index][0]].shape
+
         elif operation == "Sigmoid":
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
             parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
@@ -294,6 +318,7 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
                 layer.bias = model_name_to_val_dict[nd_inps[1]]
 
         else:
+
             if len(net.graph.node[cur_layer].input) > 0:
                 if str(net.graph.node[cur_layer].input[0]) in names_hash:
                     names_hash[str(net.graph.node[cur_layer].output[0])] = names_hash[

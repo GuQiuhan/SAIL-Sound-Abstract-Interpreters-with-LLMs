@@ -1,3 +1,0 @@
-transformer deeppoly{
-    RevHardTanh -> ((prev[l]) >= 1) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= -1) ? (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev)) : (0, 1, prev, prev) );
-}

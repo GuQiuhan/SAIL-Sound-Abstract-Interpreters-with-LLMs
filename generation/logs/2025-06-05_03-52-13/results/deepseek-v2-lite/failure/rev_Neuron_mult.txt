@@ -1,7 +1,0 @@
-transformer deeppoly{
-    Rev_Neuron_mult -> (CASE (prev[l], prev[u]) of
-        ((prev[l] >= 0) AND (prev[u] >= 0)) -> ((prev[l]), (prev[u]), (prev), (prev));
-        ((prev[l] <= 0) AND (prev[u] <= 0)) -> (0-(prev[u]), 0-(prev[l]), 0-(prev), 0-(prev));
-        ELSE -> (min(prev[u], 0-prev[l]), max(prev[u], 0-prev[l]), prev, prev*(prev[u]+prev[l])/(prev[u]-prev[l]) - (((2*prev[u])*prev[l])/(prev[u]-prev[l])))
-    );
-}

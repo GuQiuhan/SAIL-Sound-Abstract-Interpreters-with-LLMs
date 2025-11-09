@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Neuron_add -> (backsubs_lower(prev_0[L] + prev_1[L], curr, curr[layer]), backsubs_upper(prev_0[U] + prev_1[U], curr, curr[layer]), prev_0[L] + prev_1[L], prev_0[U] + prev_1[U]);
-}

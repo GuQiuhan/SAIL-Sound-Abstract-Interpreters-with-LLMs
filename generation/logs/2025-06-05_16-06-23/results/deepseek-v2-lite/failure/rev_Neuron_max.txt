@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Rev_Neuron_max -> (backsubs_lower((prev[l]) <= curr, curr, curr[layer]), backsubs_upper((prev[u]) >= curr, curr, curr[layer]), (prev[L]) <= curr, (prev[U]) >= curr);
-}

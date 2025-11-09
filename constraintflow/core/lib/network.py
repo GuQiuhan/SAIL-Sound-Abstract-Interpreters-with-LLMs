@@ -94,3 +94,6 @@ class LayerType(Enum):
     Add = 12
     HardTanh = 13
     HardSigmoid = 14
+    # new
+    HardSwish = 15
+    Relu6 = 16

@@ -1,8 +1,0 @@
-transformer deeppoly{
-    Affine -> (
-        backsubs_lower((prev DOT DOTT(curr[WEIGHT])) + curr[BIAS], curr),
-        backsubs_upper((prev DOT DOTT(curr[WEIGHT])) + curr[BIAS], curr),
-        (prev DOT DOTT(curr[WEIGHT])) + curr[BIAS],
-        (prev DOT DOTT(curr[WEIGHT])) + curr[BIAS]
-    );
-}

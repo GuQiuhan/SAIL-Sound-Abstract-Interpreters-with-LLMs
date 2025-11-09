@@ -4,25 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # op, gen_rounds, repair_reounds, ce_number, time, success/fail
-d1 = [
-    ["Abs", 1, 0, 0, 128.96567606925964, True],
-    ["Affine", 2, 0, 0, 830.1170408725739, True],
-    ["Avgpool", 10, 6, 0, 1559.7766621112823, True],
-    ["HardSigmoid", 1, 3, 1, 903.027379989624, True],
-    ["HardSwish", 10, 0, 1, 26696.940661907196, True],
-    ["HardTanh", 1, 0, 0, 369.2898533344269, True],
-    ["Maxpool", 1, 1, 0, 291.0352168083191, True],
-    ["Minpool", 1, 3, 0, 540.1951503753662, True],
-    ["Neuron_add", 1, 0, 0, 60.26173758506775, True],
-    ["Neuron_max", 1, 0, 0, 180.59920454025269, True],
-    ["Neuron_min", 1, 0, 0, 188.7460196018219, True],
-    ["Neuron_mult", 1, 3, 0, 531.7936959266663, True],
-    ["Relu", 1, 0, 0, 119.0497395992279, True],
-    ["Relu6", 1, 0, 0, 428.9358389377594, True],
-    [32828.75975847244],
-]
-
-
 raw_data = [
     ["Abs", 1, 1, 1, 14.23, True],
     ["Add", 1, 0, 0, 5.94, True],
@@ -94,7 +75,7 @@ def rounds(data, path, model):
     ax1.legend(
         lines_labels[0] + lines_labels2[0],
         lines_labels[1] + lines_labels2[1],
-        loc="upper left",
+        loc="upper right",
     )
 
     max_height = max(
@@ -120,7 +101,9 @@ def rounds(data, path, model):
         symbol = "\u2713" if success_flags[i] else "\u2717"
         ax1.text(x[i], max_height + 5, symbol, ha="center", va="bottom", fontsize=12)
 
-    plt.title("LLM Rounds, Counterexamples, and Time per Operator")
+    plt.title(
+        "LLM Generation Rounds, LLM Repair Rounds, Counterexamples, and Time per Operator"
+    )
 
     # plt.tight_layout()
     if total_time is not None:
@@ -133,19 +116,244 @@ def rounds(data, path, model):
             fontsize=10,
         )
 
-    plt.savefig(path, dpi=300)
+    plt.savefig(path, bbox_inches="tight")
 
 
 def draw_all(statistic, dir):
     for model_name, data in statistic.items():
-        path = os.path.join(dir, f"{model_name}.png")
+        path = os.path.join(dir, f"{model_name}.pdf")
         rounds(data, path, model_name)
 
 
-if __name__ == "__main__":
-    d = [
-        ["Abs", 1, 0, 0, 20.062506914138794, True],
-        ["Affine", 1, 0, 0, 28.318931579589844, True],
-        [48.386308908462524],
-    ]
-    rounds(d1, "tmp.png", "gpt-5")
+def draw_cost_curve(op, costs, output_dir):
+    if not costs:
+        return
+
+    rounds = list(range(1, len(costs) + 1))
+
+    chain_idxs = []
+    i = 0
+    chain_idxs.append(i)
+    next_idx = 0
+    chain_idxs.append(next_idx)
+    for j in range(1, len(costs)):
+        if costs[j] < costs[next_idx] - 0.0001:
+            next_idx = j
+            chain_idxs.append(next_idx)
+
+    os.makedirs(output_dir, exist_ok=True)
+    out_path = os.path.join(output_dir, f"{op}_cost_curve.pdf")
+
+    plt.subplots(figsize=(6, 4), dpi=150)
+
+    plt.scatter(rounds, costs)
+
+    chain_x = [rounds[k] for k in chain_idxs]
+    chain_y = [costs[k] for k in chain_idxs]
+    plt.plot(chain_x, chain_y, marker="o", linewidth=1)
+
+    # for x, y in zip(rounds, costs):
+    #    plt.annotate(f"{y:.3f}", (x, y), textcoords="offset points",
+    #                 xytext=(0, 8), ha='center', fontsize=9)
+
+    for x, y in zip(rounds, costs):
+        offset = 8
+        va = "bottom"
+        if y == max(costs):
+            offset = -12
+            va = "top"
+        plt.annotate(
+            f"{y:.3f}",
+            (x, y),
+            textcoords="offset points",
+            xytext=(0, offset),
+            ha="center",
+            va=va,
+            fontsize=6,
+        )
+
+    plt.xticks(rounds)
+    plt.xlabel("")
+    plt.ylabel("Cost Function")
+    # plt.title(f"{op} — Cost Function vs. Rounds")
+    plt.grid(True, linestyle="--", alpha=0.4)
+
+    plt.tight_layout()
+    plt.savefig(out_path, bbox_inches="tight")
+    plt.close()
+
+
+def rq1(outfile="rq1.pdf", annotate=True):
+
+    data_map = {
+        "GPT-5": [1, 0, 0, True],
+        "GPT-4o": [6, 0, 5, True],
+        "Llama4-maverick": [28, 39, 16, True],
+        "Claude-opus-4": [40, 3, 9, True],
+    }
+
+    model_names = list(data_map.keys())
+    gen_vals = [data_map[m][0] for m in model_names]
+    repair_vals = [data_map[m][1] for m in model_names]
+    ce_vals = [data_map[m][2] for m in model_names]
+    success_flags = [data_map[m][3] for m in model_names]
+
+    x = np.arange(len(model_names))
+    bar_width = 0.22
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    plt.subplots_adjust(bottom=0.18)
+
+    b1 = ax.bar(
+        x - bar_width,
+        gen_vals,
+        width=bar_width,
+        label="LLM Gen Rounds",
+        color="#f7b7a3",
+    )
+    b2 = ax.bar(
+        x,
+        repair_vals,
+        width=bar_width,
+        label="LLM Repair Rounds",
+        color="#f6d5e3",
+    )
+    b3 = ax.bar(
+        x + bar_width,
+        ce_vals,
+        width=bar_width,
+        label="Counterexamples",
+        color="#7e9ce0",
+    )
+
+    ax.set_ylabel("Number of Rounds / Counterexamples")
+    ax.set_xticks(x)
+    ax.set_xticklabels(model_names, rotation=15, ha="right")
+
+    ax.legend(loc="upper left")
+
+    ymax = (
+        max(max(gen_vals), max(repair_vals), max(ce_vals))
+        if len(model_names) > 0
+        else 0
+    )
+    ax.set_ylim(0, ymax * 1.25 + 1)
+
+    if annotate:
+        for bars in (b1, b2, b3):
+            for bar in bars:
+                h = bar.get_height()
+                ax.text(
+                    bar.get_x() + bar.get_width() / 2,
+                    h + max(0.02 * ymax, 0.2),
+                    f"{int(h)}" if float(h).is_integer() else f"{h:.2f}",
+                    ha="center",
+                    va="bottom",
+                    fontsize=8,
+                )
+
+    for i in range(len(model_names)):
+        max_height = max(gen_vals[i], repair_vals[i], ce_vals[i])
+        symbol = "\u2713" if success_flags[i] else "\u2717"
+        ax.text(
+            x[i],
+            max_height + max(0.08 * ymax, 1.0),
+            symbol,
+            ha="center",
+            va="bottom",
+            fontsize=12,
+            # color="green" if success_flags[i] else "red",
+            fontweight="bold",
+        )
+
+    fig.tight_layout()
+    plt.savefig(outfile, bbox_inches="tight", dpi=200)
+    plt.close(fig)
+
+
+def rq1(outfile="rq2.pdf", annotate=True):
+
+    data_map = {
+        "Sigmoid": [1, 0, 0, True],
+        "Elu": [2, 0, 5, True],
+        "Selu": [28, 39, 16, True],
+        "Gelu": [40, 3, 9, True],
+    }
+
+    model_names = list(data_map.keys())
+    gen_vals = [data_map[m][0] for m in model_names]
+    repair_vals = [data_map[m][1] for m in model_names]
+    ce_vals = [data_map[m][2] for m in model_names]
+    success_flags = [data_map[m][3] for m in model_names]
+
+    x = np.arange(len(model_names))
+    bar_width = 0.22
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    plt.subplots_adjust(bottom=0.18)
+
+    b1 = ax.bar(
+        x - bar_width,
+        gen_vals,
+        width=bar_width,
+        label="LLM Gen Rounds",
+        color="#f7b7a3",
+    )
+    b2 = ax.bar(
+        x,
+        repair_vals,
+        width=bar_width,
+        label="LLM Repair Rounds",
+        color="#f6d5e3",
+    )
+    b3 = ax.bar(
+        x + bar_width,
+        ce_vals,
+        width=bar_width,
+        label="Counterexamples",
+        color="#7e9ce0",
+    )
+
+    ax.set_ylabel("Number of Rounds / Counterexamples")
+    ax.set_xticks(x)
+    ax.set_xticklabels(model_names, rotation=15, ha="right")
+
+    ax.legend(loc="upper left")
+
+    ymax = (
+        max(max(gen_vals), max(repair_vals), max(ce_vals))
+        if len(model_names) > 0
+        else 0
+    )
+    ax.set_ylim(0, ymax * 1.25 + 1)
+
+    if annotate:
+        for bars in (b1, b2, b3):
+            for bar in bars:
+                h = bar.get_height()
+                ax.text(
+                    bar.get_x() + bar.get_width() / 2,
+                    h + max(0.02 * ymax, 0.2),
+                    f"{int(h)}" if float(h).is_integer() else f"{h:.2f}",
+                    ha="center",
+                    va="bottom",
+                    fontsize=8,
+                )
+
+    for i in range(len(model_names)):
+        max_height = max(gen_vals[i], repair_vals[i], ce_vals[i])
+        symbol = "\u2713" if success_flags[i] else "\u2717"
+        ax.text(
+            x[i],
+            max_height + max(0.08 * ymax, 1.0),
+            symbol,
+            ha="center",
+            va="bottom",
+            fontsize=12,
+            # color="green" if success_flags[i] else "red",
+            fontweight="bold",
+        )
+
+    fig.tight_layout()
+    plt.savefig(outfile, bbox_inches="tight", dpi=200)
+    plt.close(fig)

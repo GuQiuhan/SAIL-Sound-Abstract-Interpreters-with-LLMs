@@ -1,7 +1,0 @@
-transformer deeppoly{
-    HardSigmoid -> ((prev[l]) <= -2.0)? (0.0, 0.0, 0.0, 0.0) :
-                  ((prev[u]) >= 2.0)? (1.0, 1.0, 1.0, 1.0) :
-                  ((prev[l]) >= 2.0)? (1.0, 1.0, 1.0, 1.0) :
-                  ((prev[u]) <= -2.0)? (0.0, 0.0, 0.0, 0.0) :
-                  (0.0, 1.0, replace_lower(prev, 0.2) - 0.5, replace_upper(prev, 0.2) - 0.5);
-}

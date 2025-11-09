@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Maxpool -> (curr[l], curr[u], curr[L], curr[U]);
-}

@@ -1,0 +1,62 @@
+def Shape as (Float l, Float u, SymExp Z){[(curr[u]>=curr),(curr In curr[Z]),(curr[l]<=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func priority(Neuron n) = n[layer];
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func s1(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func i1(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (s1(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+
+func stop(Neuron n) = false;
+
+transformer deepZ{
+    Affine -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper), prev[Z].dot(curr[weight]) + (curr[bias]));
+
+    Abs -> ((prev[l]) >= 0) ?
+                ((prev[l]), (prev[u]), (prev[Z])) :
+                (((prev[u]) <= 0) ?
+                    (-(prev[u]), -(prev[l]), -(prev[Z])) :
+                    (0, max(-(prev[l]), (prev[u])), (max(-(prev[l]), (prev[u])) / 2) + ((max(-(prev[l]), (prev[u])) / 2) * eps)));
+
+   HardSigmoid -> (prev[u] <= -3) ? (0, 0, 0) :
+                   ((prev[l] >= 3) ? (1, 1, 1) :
+                   ((prev[l] >= -3) ?
+                        ((prev[u] <= 3) ?
+                            (((prev[l] + 3) / 6), ((prev[u] + 3) / 6), ((prev[Z] / 6) + 0.5)) :
+                            (((prev[l] + 3) / 6), 1, (((1 + ((prev[l] + 3) / 6)) / 2) + ((((1 - ((prev[l] + 3) / 6)) / 2)) * eps)))) :
+                        ((prev[u] <= 3) ?
+                            (0, ((prev[u] + 3) / 6), ((((prev[u] + 3) / 12)) + ((((prev[u] + 3) / 12)) * eps))) :
+                            (0, 1, (0.5 + (0.5 * eps))))));
+
+    HardTanh -> ((prev[u]) <= -1) ? (-1, -1, -1)
+                 : (((prev[l]) >= 1) ? (1, 1, 1)
+                 : (((prev[l]) >= -1) ? (((prev[u]) <= 1) ? ((prev[l]), (prev[u]), (prev[Z]))
+                                        : ((prev[l]), 1, (((prev[l]) + 1) / 2) + ((((1) - (prev[l])) / 2) * eps)))
+                                      : (((prev[u]) <= 1) ? (-1, (prev[u]), ((((-1) + (prev[u])) / 2) + ((((prev[u]) - (-1)) / 2) * eps)))
+                                                         : (-1, 1, eps))));
+
+
+    Relu -> (((prev[l]) >= 0) ?
+                ((prev[l]), (prev[u]), (prev[Z])) :
+                (((prev[u]) <= 0) ?
+                    (0, 0, 0) :
+                    (0, (prev[u]),
+                        ((((prev[u]) / ((prev[u]) - (prev[l]))) * (prev[Z]))
+                         + ((((- (prev[l]) * (prev[u])) / ((prev[u]) - (prev[l]))) / 2)
+                         + (((( - (prev[l]) * (prev[u])) / ((prev[u]) - (prev[l]))) / 2) * eps))))));
+
+    Relu6 -> (prev[u] <= 0) ? (0, 0, 0) :
+             ((prev[l] >= 6) ? (6, 6, 6) :
+             ((prev[l] >= 0) ?
+                 ((prev[u] <= 6) ? (prev[l], prev[u], prev[Z]) : (prev[l], 6, (((prev[l] + 6) / 2) + (((6 - prev[l]) / 2) * eps)))) :
+                 ((prev[u] <= 6) ? (0, prev[u], (((prev[u]) / 2) + (((prev[u]) / 2) * eps))) : (0, 6, (3 + (3 * eps))))));
+
+
+    }
+
+flow(forward, priority, stop, deepZ);

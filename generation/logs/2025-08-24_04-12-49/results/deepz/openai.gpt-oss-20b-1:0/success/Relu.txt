@@ -1,3 +1,0 @@
-transformer deepz{
-    Relu -> (prev[l] >= 0) ? (prev[l], prev[u], prev[z]) : ((prev[u] <= 0) ? (0, 0, 0) : (0, prev[u], (prev[u] / 2) + ((prev[u] / 2) * eps)));
-}

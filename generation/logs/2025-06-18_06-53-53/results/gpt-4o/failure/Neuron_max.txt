@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Neuron_max ->  ( (prev_0[l] >= prev_1[l]) ? prev_0[l] : prev_1[l], (prev_0[u] >= prev_1[u]) ? prev_0[u] : prev_1[u], (prev_0[l] >= prev_1[l]) ? prev_0 : (prev_1[l] >= prev_0[l]) ? prev_1 : (0.5 * (prev_0 + prev_1)), (prev_0[u] >= prev_1[u]) ? prev_0 : (prev_1[u] >= prev_0[u]) ? prev_1 : (0.5 * (prev_0 + prev_1)) );
-}

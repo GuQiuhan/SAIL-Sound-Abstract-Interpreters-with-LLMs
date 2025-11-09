@@ -35,6 +35,7 @@ class Flow:
         size = self.model.input_size
 
         for tmp, layer in enumerate(self.model):
+
             t_time = time.time()
             poly_size = self.model[
                 list(torch.nonzero(self.abs_elem.d["llist"]))[-1].item()
@@ -69,9 +70,40 @@ class Flow:
                     self.batch_size,
                 )
 
+            # new
+            elif layer.type == LayerType.HardSwish:
+                prev = Llist(self.model, [1], None, None, layer.parents)
+                curr = Llist(self.model, [1], None, None, [tmp])
+                abs_shape = self.transformer.HardSigmoid(
+                    self.abs_elem,
+                    prev,
+                    curr,
+                    poly_size,
+                    curr_size,
+                    prev_size,
+                    self.input_size,
+                    self.batch_size,
+                )
+
+            # new
+            elif layer.type == LayerType.Relu6:
+                prev = Llist(self.model, [1], None, None, layer.parents)
+                curr = Llist(self.model, [1], None, None, [tmp])
+                abs_shape = self.transformer.HardSigmoid(
+                    self.abs_elem,
+                    prev,
+                    curr,
+                    poly_size,
+                    curr_size,
+                    prev_size,
+                    self.input_size,
+                    self.batch_size,
+                )
+
             elif layer.type == LayerType.HardTanh:
                 prev = Llist(self.model, [1], None, None, layer.parents)
                 curr = Llist(self.model, [1], None, None, [tmp])
+
                 abs_shape = self.transformer.HardTanh(
                     self.abs_elem,
                     prev,

@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Neuron_max -> (...); // implement the transformer logic here
-}

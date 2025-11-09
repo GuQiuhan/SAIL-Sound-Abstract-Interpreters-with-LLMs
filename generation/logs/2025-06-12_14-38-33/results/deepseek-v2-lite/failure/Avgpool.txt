@@ -1,3 +1,0 @@
-transformer ibp{
-    Avgpool -> ((prev_0 + prev_1 + ... + prev_n) / n).map(simplify_lower), ((prev_0 + prev_1 + ... + prev_n) / n).map(simplify_upper));
-}

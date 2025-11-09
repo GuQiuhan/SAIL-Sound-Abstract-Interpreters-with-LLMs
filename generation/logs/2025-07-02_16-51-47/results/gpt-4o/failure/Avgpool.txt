@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Avgpool -> (prev[l].map_list(x -> x).listOp(sum) / FloatConst(size(prev)), prev[u].map_list(x -> x).listOp(sum) / FloatConst(size(prev)), prev.map_list(x -> x).listOp(sum) / FloatConst(size(prev)), prev.map_list(x -> x).listOp(sum) / FloatConst(size(prev)));
-}

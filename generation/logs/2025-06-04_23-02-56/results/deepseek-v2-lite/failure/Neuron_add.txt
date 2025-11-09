@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Neuron_add -> (curr[l] = prev1[l] + prev2[l], curr[u] = prev1[u] + prev2[u], curr[L] = prev1[L] + prev2[L], curr[U] = prev1[U] + prev2[U]);
-}

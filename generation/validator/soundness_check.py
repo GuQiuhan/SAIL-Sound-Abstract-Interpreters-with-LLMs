@@ -49,20 +49,8 @@ if __name__ == "__main__":
     client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8086")
 
     dsl = """
-transformer deeppoly {
-    HardSigmoid -> (prev[u] <= -3) ? (0, 0, 0, 0)
-        : ((prev[l] >= 3) ? (1, 1, 1, 1)
-        : ((prev[u] <= 3)
-            ? ((prev[l] >= -3)
-                ? ((prev[l] + 3) / 6, (prev[u] + 3) / 6, (prev + 3) / 6, (prev + 3) / 6)
-                : (0, (prev[u] + 3) / 6, (prev + 3) / 6,
-                   ((prev[u] + 3) / (6 * (prev[u] - prev[l]))) * prev
-                   - ((prev[u] + 3) / (6 * (prev[u] - prev[l]))) * prev[l]))
-            : ((prev[l] >= -3)
-                ? ((prev[l] + 3) / 6, 1,
-                   ((3 - prev[l]) / (6 * (prev[u] - prev[l]))) * (prev - prev[l]) + (prev[l] + 3) / 6,
-                   (prev + 3) / 6)
-                : (0, 1, (prev + 3) / (prev[u] + 3), (prev - prev[l]) / (3 - prev[l])))));
+ transformer deeppoly{
+    Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
 }
 
     """

@@ -1,7 +1,0 @@
-transformer deepz{
-    Relu6 -> (prev[u] <= 0) ? (0, 0, 0) :
-             ((prev[l] >= 6) ? (6, 6, 6) :
-             ((prev[l] >= 0) ?
-                 ((prev[u] <= 6) ? (prev[l], prev[u], prev[z]) : (prev[l], 6, (((prev[l] + 6) / 2) + (((6 - prev[l]) / 2) * eps)))) :
-                 ((prev[u] <= 6) ? (0, prev[u], (((prev[u]) / 2) + (((prev[u]) / 2) * eps))) : (0, 6, (3 + (3 * eps))))));
-}

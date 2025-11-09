@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Rev_HardSigmoid -> ((prev[l]) <= (-3)) ? (0, 0, 0, 0) : (((prev[u]) >= 3) ? (0, 1, 0, 1) : (0, (0.2*prev + 0.5), 0, (0.2*prev + 0.5)) );
-}

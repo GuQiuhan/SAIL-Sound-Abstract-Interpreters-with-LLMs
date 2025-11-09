@@ -1,3 +1,0 @@
-transformer ibp{
-    Relu -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u])) : (((prev[u]) <= 0) ? (0, 0) : (0, (prev[u])));
-}

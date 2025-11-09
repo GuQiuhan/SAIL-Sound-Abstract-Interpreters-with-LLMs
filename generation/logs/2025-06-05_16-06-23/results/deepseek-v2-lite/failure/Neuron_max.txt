@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Neuron_max -> (backsubs_lower(max(prev1, prev2), curr, curr[layer]), backsubs_upper(max(prev1, prev2), curr, curr[layer]), max(prev1, prev2), max(prev1, prev2));
-}

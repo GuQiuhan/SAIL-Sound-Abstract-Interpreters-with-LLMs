@@ -1,3 +1,0 @@
-transformer deepz{
-    Avgpool -> (sum(prev[l]) / len(prev[l]), sum(prev[u]) / len(prev[u]), sum(prev[z]) / len(prev[z]));
-}

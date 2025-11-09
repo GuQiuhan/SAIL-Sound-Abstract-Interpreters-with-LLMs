@@ -18,6 +18,7 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 │   │   ├── repair            # LLM-driven repair logic for incorrect DSL generations
 │   │   ├── syntax_check      # Rule-based syntax checker and fixer for malformed DSL code
 │   │   └── semantics_check   # Type-based semantic checker for DSL AST
+│   │   └── soundness_check   # Check global soundness based on SMT
 │   ├── evaluator
 │   │   ├── eval              # Compute the cost function for each candidate
 │   ├── run_all.py            # One-click launcher: starts model server, runs generation, shuts down
@@ -33,7 +34,8 @@ This project aims to automate the generation of **neuron-level DSL constraints**
 │   │   │   │   └── success/
 │   │   │   │   └── statistics/
 │   │   │   │   │   └── statistics.json
-│   │   │   │   │   └── statistics.png
+│   │   │   │   │   └── xxx.png
+│   │   │   │   │   └── op_monitor.json
 │   │   │   │   └── generation.log
 │   │   │   └── ...
 │   │   └── ...

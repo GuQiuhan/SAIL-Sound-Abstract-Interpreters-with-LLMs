@@ -12,6 +12,8 @@ func i1(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (s1(x1, x2) * x1);
 func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
 func f2(Float x) = x * ((x + 3) / 6);
 
+func stop(Neuron n) = false;
+
 transformer deepZ{
     Affine -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper), prev[Z].dot(curr[weight]) + (curr[bias]));
 
@@ -59,4 +61,4 @@ transformer deepZ{
                                 ))));
 }
 
-flow(forward, priority, true, deepZ);
+flow(forward, priority, stop, deepZ);

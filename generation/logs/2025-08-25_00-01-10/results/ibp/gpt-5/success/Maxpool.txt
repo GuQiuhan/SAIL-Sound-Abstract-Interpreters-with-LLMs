@@ -1,3 +1,0 @@
-transformer ibp{
-    Maxpool -> (max(prev[l]), max(prev[u]));
-}

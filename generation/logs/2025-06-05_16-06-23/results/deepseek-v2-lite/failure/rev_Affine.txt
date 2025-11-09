@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Rev_Affine -> (backsubs_lower(((curr[weight]).T.dot(prev) - curr[bias]), curr, curr[layer]), backsubs_upper(((curr[weight]).T.dot(prev) - curr[bias]), curr, curr[layer]), ((curr[weight]).T.dot(prev) - curr[bias]), ((curr[weight]).T.dot(prev) - curr[bias]));
-}

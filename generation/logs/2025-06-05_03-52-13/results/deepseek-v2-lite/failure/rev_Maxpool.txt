@@ -1,8 +1,0 @@
-transformer deeppoly{
-    RevMaxpool -> (Out -> (for each entry in Out.dimensions) {
-        if entry is a pooling size:
-            (max(prev[l]), max(prev[u]), prev, prev)
-        else:
-            (prev[l], prev[u], prev, prev)
-    });
-}

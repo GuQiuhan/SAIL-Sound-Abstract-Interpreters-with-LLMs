@@ -1,7 +1,0 @@
-transformer deepz{
-    Avgpool -> ((prev_0[l] <= curr),(prev_0[u] >= curr),(prev_0 In prev_0[z]));
-    for (i in 1..(num_inputs-1)){
-        ((prev_i[l] <= curr),(prev_i[u] >= curr),(prev_i In prev_i[z]));
-    }
-    return (compute_l(prev_0, prev_1, ...), compute_u(prev_0, prev_1, ...), compute_z(prev_0, prev_1, ...));
-}

@@ -1,7 +1,0 @@
-transformer deeppoly{
-    HardSwish -> ((prev[l]) >= 3) ? ((prev[l]), (prev[u]), (prev), (prev)) : (
-        ((prev[u]) <= -3) ? (0, 0, 0, 0) : (
-            (intercept(prev[l], prev[u]), f3(prev), prev * slope(prev[l], prev[u]) + intercept(prev[l], prev[u]), f1(prev[u]))
-        )
-    );
-}

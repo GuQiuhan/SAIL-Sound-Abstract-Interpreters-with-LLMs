@@ -1,8 +1,0 @@
-transformer deeppoly{
-    Affine -> (
-        prev.dot(curr[weight]) + curr[bias] .map(simplify_lower),
-        prev.dot(curr[weight]) + curr[bias] .map(simplify_upper),
-        prev.dot(curr[weight]) + curr[bias],
-        prev.dot(curr[weight]) + curr[bias]
-    );
-}

@@ -98,149 +98,86 @@ class TGIClient(Client):
 
 
 if __name__ == "__main__":
-    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:8086")
+    client = TGIClient(model="http://ggnds-serv-01.cs.illinois.edu:6046")
 
     cex = """
-# Previously generated (invalid) code:
+# You can modify previously generated (invalid) code to make it sound:
 
-def Shape as (Float l, Float u){[(curr[l]<=curr),(curr[u]>=curr)]};
-
-transformer ibp{
-    Gelu -> (0.5*prev[l]*(1+erf(prev[l]/1.4142135623730951)), 0.5*prev[u]*(1+erf(prev[u]/1.4142135623730951)));
+transformer deeppoly{
+    HardSwish ->
+        ((prev[l] >= 3) ? (prev[l], prev[u], prev, prev) :
+         ((prev[u] <= -3) ? (0, 0, 0, 0) :
+          ((prev[l] >= -3 && prev[u] <= 3) ?
+           (min(f1(prev[l]), f1(prev[u])), max(f1(prev[l]), f1(prev[u])),
+            f2(prev) * (prev >= -3 && prev <= 3),
+            f2(prev) * (prev >= -3 && prev <= 3)) :
+           (((prev[l] < -3 && prev[u] > -3 && prev[u] <= 3) ?
+             (0, f1(prev[u]), 0, f2(prev) * (prev >= -3 && prev <= 3)) :
+             (((prev[l] >= -3 && prev[u] > 3) ?
+               (f1(prev[l]), prev[u], f2(prev) * (prev >= -3 && prev <= 3), prev) :
+               (((prev[l] < -3 && prev[u] > 3) ?
+                 (0, prev[u], 0, prev) :
+                 (0, 0, 0, 0))))))));
 }
 
-# Counter Example respectively: [prev_l,prev_u]=[-2,-0.2]
-# Learn from the failed generation above and revise your output accordingly. Output the DSL only."
+Counterexample: Incorrect when prev[l]<-1.5 <prev[u]
+
+
+# Learn from the unsound generation above and revise your output accordingly. Output the DSL only."
 
 """
-    CONSTRAINTFLOW = """
-You are a formal methods expert working on neural network verification.
-Your task is to generate the IBP transformers for DNN operators.
-Generate the transformer in Constraintflow DSL.
 
-Here is the grammar of Constraintflow DSL:
-
-'''
-expr_list : expr COMMA expr_list
-    |   expr ;
-
-exprs: expr exprs
-    | expr;
-
-metadata: WEIGHT
-    |   BIAS
-    |   EQUATIONS
-    |   LAYER ;
-
-expr: FALSE                                         #false
-    | TRUE                                          #true
-    | IntConst                                      #int
-    | FloatConst                                    #float
-    | VAR                                           #varExp
-    | EPSILON                                       #epsilon
-    | CURR                                          #curr
-    | PREV                                          #prev
-    | PREV_0                                        #prev_0
-    | PREV_1                                        #prev_1
-    | CURRLIST                                      #curr_list
-    | LPAREN expr RPAREN                            #parenExp
-    | LSQR expr_list RSQR                           #exprarray
-    | expr LSQR metadata RSQR                       #getMetadata
-    | expr LSQR VAR RSQR                            #getElement
-    | expr binop expr                               #binopExp
-    | NOT expr                                      #not
-    | MINUS expr                                    #neg
-    | expr QUES expr COLON expr                     #cond
-    | expr DOT TRAV LPAREN direction COMMA expr COMMA expr COMMA expr RPAREN LBRACE expr RBRACE     #traverse
-    | argmax_op LPAREN expr COMMA expr RPAREN       #argmaxOp
-    | max_op LPAREN expr RPAREN                     #maxOpList
-    | max_op LPAREN expr COMMA expr RPAREN          #maxOp
-    | list_op LPAREN expr RPAREN                    #listOp
-    | expr DOT MAP LPAREN expr RPAREN               #map
-    | expr DOT MAPLIST LPAREN expr RPAREN           #map_list
-    | expr DOT DOTT LPAREN expr RPAREN              #dot
-    | expr DOT CONCAT LPAREN expr RPAREN            #concat
-    | LP LPAREN lp_op COMMA expr COMMA expr RPAREN  #lp
-    | VAR LPAREN expr_list RPAREN                   #funcCall
-    | VAR exprs                                     #curry
-;
-
-trans_ret :
-    expr QUES trans_ret COLON trans_ret #condtrans
-    | LPAREN trans_ret RPAREN #parentrans
-    | expr_list #trans
-;
-'''
-
-IBP certifier uses two kinds of bounds to overapproximate the operator: (Float l, Float u).
-They must follow the constraints that: curr[l] <= curr <= curr[u]. `curr` here means the current neuron, `prev` means the inputs to the operator.
-When the operator takes multiple inputs, use `prev_0`, `prev_1`, ... to refer to each input.
-So every transformer in each case of the case analysis must return two values. Use any functions below if needed instead of using arithmetic operators.
-
-Functions you can use:
-- func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
-- func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
-- func abs(Float x) = x > 0 ? x : -x;
-- func max_lower(Neuron n1, Neuron n2) = n1[l]>=n2[l] ? n1[l] : n2[l];
-- func max_upper(Neuron n1, Neuron n2) = n1[u]>=n2[u] ? n1[u] : n2[u];
-- func min_lower(Neuron n1, Neuron n2) = n1[l]<=n2[l] ? n1[l] : n2[l];
-- func min_upper(Neuron n1, Neuron n2) = n1[u]<=n2[u] ? n1[u] : n2[u];
-- func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
-- func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
-- func sigma(Float x) = 1/(1+eps(-x));
-- func erf(Float x)
-- func priority(Neuron n) = n[layer];
-
-Don't add comments to DSL.
-"""
+    op_appen = op_appendix.get("HardSwish", "")
 
     message1 = [
         {
             "role": "system",
-            "content": f"{CONSTRAINTFLOW}",
+            "content": f"{DEEPPOLY_CONSTRAINTFLOW}",
         },
         {"role": "user", "content": "Generate the transformer for `relu` operator "},
-        {"role": "assistant", "content": f"{prmpt_relu_ibp}"},
+        {"role": "assistant", "content": f"{prmpt_relu_deeppoly}"},
         {"role": "user", "content": "Generate the transformer for `abs` operator "},
-        {"role": "assistant", "content": f"{prmpt_abs_ibp}"},
+        {"role": "assistant", "content": f"{prmpt_abs_deeppoly}"},
         {"role": "user", "content": "Generate the transformer for `affine` operator "},
-        {"role": "assistant", "content": f"{prmpt_affine_ibp}"},
+        {"role": "assistant", "content": f"{prmpt_affine_deeppoly}"},
         {
             "role": "user",
-            "content": f"Generate the transformer for `gelu` operator. {cex}",
+            "content": f"Generate the transformer for `HardSwish` operator. {op_appen}",
         },
     ]
 
     prompt1 = f"""
-    {IBP_CONSTRAINTFLOW}
+    {DEEPPOLY_CONSTRAINTFLOW}
 
     ### Example: ReLU operator
     Input: Generate the transformer for `relu` operator
     Output:
-    {prmpt_relu_ibp}
+    {prmpt_relu_deeppoly}
 
     ### Example: Abs operator
     Input: Generate the transformer for `abs` operator
     Output:
-    {prmpt_abs_ibp}
+    {prmpt_abs_deeppoly}
 
     ### Example: Affine operator
     Input: Generate the transformer for `affine` operator
     Output:
-    {prmpt_affine_ibp}
+    {prmpt_affine_deeppoly}
 
-    ### Now generate the transformer for `Gelu` operator
-    Input: Generate the transformer for `Gelu` operator
+    ### Now generate the transformer for `HardSwish` operator with transition points -3 and 3
+    Input: Generate the transformer for `HardSwish` operator. {op_appen} {cex}
     Output:
+
+
     """
 
-    try:
-        output = client.chat(messages=message1)
+    # try:
+    #    output = client.chat(messages=message1)
 
-    except:
-        try:
-            output = client.textgen(prompt=prompt1)
-        except:
-            print("Wrong model API call.")
+    # except:
+    #    try:
+    output = client.textgen(prompt=prompt1)
+    #    except:
+    #        print("Wrong model API call.")
 
     print(output)

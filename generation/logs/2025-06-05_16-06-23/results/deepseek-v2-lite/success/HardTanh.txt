@@ -1,9 +1,0 @@
-transformer deeppoly{
-    HardTanh -> (
-        (prev[l] >= 1) ? (1, 1, 1, 1) :
-        ((prev[u] <= -1) ? (-1, -1, -1, -1) :
-        (prev[l] <= -1) ? (-1, prev[u], -1, prev[u]) :
-        (prev[u] >= 1) ? (prev[l], 1, prev[l], 1) :
-        (prev[l], prev[u], backsubs_lower(min(max(prev[l], -1), 1), curr), backsubs_upper(min(max(prev[u], -1), 1), curr))
-    ));
-}

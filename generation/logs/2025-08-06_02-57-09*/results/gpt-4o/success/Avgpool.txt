@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Avgpool -> ( (sum(prev[l]) / len(prev)), (sum(prev[u]) / len(prev)), (sum(prev) / len(prev)), (sum(prev) / len(prev)) );
-}

@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Neuron_min -> (min((prev[l]), (prev[u])), min((prev[u]), (prev[l])), min((prev[L]), (prev[U])), min((prev[U]), (prev[L])));
-}

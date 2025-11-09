@@ -1,3 +1,0 @@
-transformer deeppoly{
-    RevRelu6 -> ((prev[l]) >= 0) ? ((prev[l]), (prev[u]), (prev), (prev)) : (((prev[u]) <= 6) ? (0, 6, 0, 6) : (((prev[u]) >= 0) ? ((6 - (prev[u] / (prev[u] - prev[l]))) * (prev - (prev[u] / (prev[u] - prev[l]) * prev[l])), (0 - (prev[u] / (prev[u] - prev[l]))) * (prev - (prev[u] / (prev[u] - prev[l]) * prev[l])), (prev), (prev)) : ((6 - (prev[l] / (prev[l] - prev[u]))) * (prev - (prev[l] / (prev[l] - prev[u]) * prev[u])), (0 - (prev[l] / (prev[l] - prev[u]))) * (prev - (prev[l] / (prev[l] - prev[u]) * prev[u])), (prev), (prev)) );
-}

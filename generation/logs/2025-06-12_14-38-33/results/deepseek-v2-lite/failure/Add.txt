@@ -1,3 +1,0 @@
-transformer ibp{
-    Add -> (((prev_0[l] + prev_1[l]).map(max_lower), (prev_0[u] + prev_1[u]).map(max_upper)));
-}

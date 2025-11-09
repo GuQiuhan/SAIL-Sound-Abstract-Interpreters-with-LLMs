@@ -35,7 +35,7 @@ TOKENS_FILE = "./miniDSL/miniDSLLexer.tokens"
 class SyntaxChecker:
     """
     - Only supports DSLs with one transformer and one op_stmt.
-    Hard Coding.
+    Hard Coded.
 
     Returns: (success: bool, fixed_code: str, err: Optional[str])
     """
@@ -325,13 +325,8 @@ class SyntaxChecker:
 
 if __name__ == "__main__":
     dsl = """
-transformer deeppoly{
-    Abs ->
-        let l = f1(prev[l]);
-        let u = f1(prev[u]);
-        let L = backsubs_lower((prev * f3(curr)) + curr, curr);
-        let U = backsubs_upper((prev * f3(curr)) + curr, curr);
-        (l, u, L, U);
+ transformer deeppoly{
+    Avgpool -> (backsubs_lower(prev.dot(curr[equations]), curr), backsubs_upper(prev.dot(curr[equations]), curr), prev.dot(curr[equations]), prev.dot(curr[equations]));
 }
     """
 

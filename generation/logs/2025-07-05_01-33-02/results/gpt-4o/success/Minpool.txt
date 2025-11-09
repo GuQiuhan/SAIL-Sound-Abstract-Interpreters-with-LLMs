@@ -1,8 +1,0 @@
-transformer deeppoly{
-    Minpool -> (
-        min(prev[l]),                                 // lower float bound
-        min(prev[u]),                                 // upper float bound
-        min(prev[l]),                                 // lower poly bound (approximate)
-        min(prev[u])                                  // upper poly bound (approximate)
-    );
-}

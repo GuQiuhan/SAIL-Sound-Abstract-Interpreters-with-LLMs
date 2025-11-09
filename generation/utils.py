@@ -6,14 +6,6 @@ HOST = "ggnds-serv-01.cs.illinois.edu"
 # for models.py
 # set models to use
 MODEL_PORT_PAIRS = [
-    # {"model": "meta-llama/Llama-3.3-70B-Instruct", "port": 8081, "type": "hf", "mode": "text"},
-    # {"model": "meta-llama/Llama-4-Scout-17B-16E-Instruct", "port": 8080, "type": "hf", "mode": "text"},
-    # {
-    #    "model": "/share/.cache/.../DeepSeek-Coder-V2-Lite-Instruct/…",
-    #    "port": 8082,
-    #    "type": "vllm",
-    #    "mode": "text",
-    # },
     {"model": "gpt-4.1", "port": 8083, "type": "openai", "mode": "chat"},
     {"model": "gpt-4o", "port": 8084, "type": "openai", "mode": "chat"},
     {"model": "o4-mini", "port": 8085, "type": "openai", "mode": "chat"},
@@ -53,24 +45,24 @@ MODEL_PORT_PAIRS = [
     # {"model": "anthropic.claude-3-haiku-20240307-v1:0",  "type": "aws", "port": 6021, "mode": "chat"},
     # {"model": "anthropic.claude-3-5-sonnet-20240620-v1:0","type": "aws", "port": 6022, "mode": "chat"},
     # {"model": "anthropic.claude-3-7-sonnet-20250219-v1:0", "type": "aws", "port": 6025, "mode": "chat"},
-    {
-        "model": "us.anthropic.claude-sonnet-4-20250514-v1:0",
-        "type": "aws",
-        "port": 6026,
-        "mode": "chat",
-    },
+    # {
+    #    "model": "us.anthropic.claude-sonnet-4-20250514-v1:0",
+    #    "type": "aws",
+    #    "port": 6026,
+    #    "mode": "chat",
+    # },
     {
         "model": "us.anthropic.claude-opus-4-1-20250805-v1:0",
         "type": "aws",
         "port": 6027,
         "mode": "chat",
     },
-    {
-        "model": "us.anthropic.claude-opus-4-20250514-v1:0",
-        "type": "aws",
-        "port": 6028,
-        "mode": "chat",
-    },
+    # {
+    #    "model": "us.anthropic.claude-opus-4-20250514-v1:0",
+    #    "type": "aws",
+    #    "port": 6028,
+    #    "mode": "chat",
+    # },
     # DeepSeek
     # mostly reansoing
     {"model": "deepseek.deepseek-r1-v1:0", "type": "aws", "port": 6035, "mode": "text"},
@@ -83,18 +75,18 @@ MODEL_PORT_PAIRS = [
     # {"model": "meta.llama3-2-3b-instruct-v1:0", "type": "aws", "port": 6041, "mode": "text"},
     # {"model": "meta.llama3-2-11b-vision-instruct-v1:0", "type": "aws", "port": 6042, "mode": "text"},
     # {"model": "meta.llama3-2-90b-vision-instruct-v1:0", "type": "aws", "port": 6043, "mode": "text"},
-    {
-        "model": "us.meta.llama3-3-70b-instruct-v1:0",
-        "type": "aws",
-        "port": 6044,
-        "mode": "text",
-    },
-    {
-        "model": "us.meta.llama4-scout-17b-instruct-v1:0",
-        "type": "aws",
-        "port": 6045,
-        "mode": "text",
-    },
+    # {
+    #    "model": "us.meta.llama3-3-70b-instruct-v1:0",
+    #    "type": "aws",
+    #    "port": 6044,
+    #    "mode": "text",
+    # },
+    # {
+    #    "model": "us.meta.llama4-scout-17b-instruct-v1:0",
+    #    "type": "aws",
+    #    "port": 6045,
+    #    "mode": "text",
+    # },
     {
         "model": "us.meta.llama4-maverick-17b-instruct-v1:0",
         "type": "aws",
@@ -165,30 +157,30 @@ PORT_MAP = {
         "url": "http://ggnds-serv-01.cs.illinois.edu:6013",
         "mode": "text",
     },
-    "us.anthropic.claude-sonnet-4-20250514-v1:0": {
-        "url": "http://ggnds-serv-01.cs.illinois.edu:6026",
-        "mode": "chat",
-    },
+    # "us.anthropic.claude-sonnet-4-20250514-v1:0": {
+    #    "url": "http://ggnds-serv-01.cs.illinois.edu:6026",
+    #    "mode": "chat",
+    # },
     "us.anthropic.claude-opus-4-1-20250805-v1:0": {
         "url": "http://ggnds-serv-01.cs.illinois.edu:6027",
         "mode": "chat",
     },
-    "us.anthropic.claude-opus-4-20250514-v1:0": {
-        "url": "http://ggnds-serv-01.cs.illinois.edu:6028",
-        "mode": "chat",
-    },
+    # "us.anthropic.claude-opus-4-20250514-v1:0": {
+    #    "url": "http://ggnds-serv-01.cs.illinois.edu:6028",
+    #    "mode": "chat",
+    # },
     "deepseek.deepseek-r1-v1:0": {
         "url": "http://ggnds-serv-01.cs.illinois.edu:6035",
         "mode": "text",
     },
-    "us.meta.llama3-3-70b-instruct-v1:0": {
-        "url": "http://ggnds-serv-01.cs.illinois.edu:6044",
-        "mode": "text",
-    },
-    "us.meta.llama4-scout-17b-instruct-v1:0": {
-        "url": "http://ggnds-serv-01.cs.illinois.edu:6045",
-        "mode": "text",
-    },
+    # "us.meta.llama3-3-70b-instruct-v1:0": {
+    #    "url": "http://ggnds-serv-01.cs.illinois.edu:6044",
+    #    "mode": "text",
+    # },
+    # "us.meta.llama4-scout-17b-instruct-v1:0": {
+    #    "url": "http://ggnds-serv-01.cs.illinois.edu:6045",
+    #    "mode": "text",
+    # },
     "us.meta.llama4-maverick-17b-instruct-v1:0": {
         "url": "http://ggnds-serv-01.cs.illinois.edu:6046",
         "mode": "text",
@@ -212,7 +204,7 @@ PORT_MAP = {
 }
 
 # set max retry time every turn
-MAX_RETRIES = 10
+MAX_RETRIES = 15
 
 
 # prompting configuration
@@ -291,6 +283,9 @@ Function you can use:
 - func stop_traverse(Neuron n, Float c) = false;
 - func backsubs_lower(PolyExp e, Neuron n) = (e.traverse(backward, priority2, stop_traverse, replace_lower){e <= n}).map(simplify_lower);
 - func backsubs_upper(PolyExp e, Neuron n) = (e.traverse(backward, priority2, stop_traverse, replace_upper){e >= n}).map(simplify_upper);
+- func stop(Int x, Neuron n, Float coeff) = true;
+- func backsubs_lower(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_lower){e <= n}).map(simplify_lower);
+- func backsubs_upper(PolyExp e, Neuron n, Int x) = (e.traverse(backward, priority2, stop(x), replace_upper){e >= n}).map(simplify_upper);
 - func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
 - func slope(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
 - func intercept(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (slope(x1, x2) * x1);
@@ -702,8 +697,7 @@ flow(forward, priority, true, deeppoly);
 
 
 op_list_test = [
-    "Avgpool",
-    "HardSwish",
+    "HardSigmoid",
 ]
 
 
@@ -711,3 +705,9 @@ class GlobalState:
     gen_rounds_now = 0
     repair_rounds_now = 0
     ce_number_now = 0
+
+
+op_appendix = {
+    "HardSwish": "\nHardSwish opertor is f(x)=x(x+3)/6 for -3<x<3, 0 for x<-3, x for x>3. \nHardSwish has the global minimum at x = -1.5 with f(x)=-0.375. It's non-increasing when x<-1.5 and non-decreasing when x>-1.5.  ",
+    "HardSigmoid": "\n HardSigmoid operator is f(x)=(x+3)/6 for -3<x<3, 0 for x<-3, x for x>3. HardSigmoid is a monotonically non-decreasing function.",
+}

@@ -1,3 +1,0 @@
-transformer deepz{
-    Maxpool -> ((curr[l]), (curr[u]), (curr[z]));
-}

@@ -1,8 +1,0 @@
-transformer deeppoly {
-    Minpool = (
-        min(prev_list.map(x -> x[l])),
-        min(prev_list.map(x -> x[u])),
-        argmin_op(prev_list.map(x -> x[L]), prev_list.map(x -> x[l])),
-        argmin_op(prev_list.map(x -> x[U]), prev_list.map(x -> x[u]))
-    );
-}

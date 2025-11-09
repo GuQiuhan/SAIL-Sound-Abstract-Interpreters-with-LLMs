@@ -1,3 +1,0 @@
-transformer deeppoly{
-    Add -> (prev[l] + prev2[l], prev[u] + prev2[u], prev[L] + prev2[L], prev[U] + prev2[U]);
-}

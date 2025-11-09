@@ -41,6 +41,8 @@ from validator.soundness_check import *
 op_eval = {}  # for monitoring the progress
 op_curr = None
 
+LAMDA = 0.0001
+
 
 class Step:
     def __init__(
@@ -157,6 +159,10 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                     f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}\n"
                 )
 
+                logging.info(
+                    f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Parsed DSL:\n{code}\n"
+                )
+
                 if code == "":
                     logging.warning(
                         f"[STEP {index}] Sample {sample_id}: No valid generation: \n{completion}\n"
@@ -192,7 +198,19 @@ def step_by_step_gen(client: Client, steps: List[Step], is_chat: bool):
                             )
 
                             score = step.evaluator(code)
-                            if score < best_score:
+
+                            if score == 0:
+                                success = True
+                                best_code = code
+
+                                op_eval[op_curr].append(0)
+
+                                logging.info(
+                                    f"[RETRY {retry_count} STEP {index}] Sample {sample_id}: Validation passed for code: \n{best_code}."
+                                )
+                                return True, best_code, ""
+
+                            if score <= best_score - LAMDA:
                                 logging.info(
                                     f"best_score : score = {best_score} : {score}",
                                 )
@@ -374,7 +392,7 @@ if __name__ == "__main__":
             TimeRemainingColumn(),
         )
 
-        prefix = os.path.join(os.path.dirname(__file__), "prompt/prompts")
+        # prefix = os.path.join(os.path.dirname(__file__), "prompt/prompts")
 
         with progress_bar as p:
             for model_name, endpoint_info in MODEL_ENDPOINTS.items():
@@ -500,6 +518,8 @@ if __name__ == "__main__":
                         )
                         evaluator = make_constraintflow_evaluator(certifier)
 
+                        op_appen = op_appendix.get(api, "")
+
                         if is_chat:
 
                             def chat_prompter(code: Optional[str]) -> List[dict]:
@@ -525,7 +545,7 @@ if __name__ == "__main__":
                                     {"role": "assistant", "content": prmpt_affine},
                                     {
                                         "role": "user",
-                                        "content": f"Generate the transformer for `{api}` operator ",
+                                        "content": f"Generate the transformer for `{api}` operator. {op_appen}",
                                     },
                                 ]
 
@@ -552,7 +572,7 @@ if __name__ == "__main__":
     {prmpt_affine}
 
     ### Now generate the transformer for `{api}` operator
-    Input: Generate the transformer for `{api}` operator
+    Input: Generate the transformer for `{api}` operator. {op_appen}.
     Output:
     """
 
@@ -614,3 +634,6 @@ if __name__ == "__main__":
                     json.dump(op_eval, f, indent=2)
 
                 draw_all(statistic, statistic_dir)
+
+                for op in op_eval:
+                    draw_cost_curve(op, op_eval[op], statistic_dir)
