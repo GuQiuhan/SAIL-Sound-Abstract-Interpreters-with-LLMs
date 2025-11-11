@@ -105,9 +105,11 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
         nd_inps = node.input
         index += 1
 
-        # gelu_flag = True
-        # if gelu_flag and operation!="Gemm": continue
-
+        gelu_flag = True
+        if gelu_flag and (operation not in ["Gemm", "Flatten"]): 
+            index -= 1
+            continue
+        print(operation)
         if operation == "Conv":
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
             parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
@@ -167,7 +169,10 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
 
         elif operation == "Gemm":
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
-            parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
+            if gelu_flag:
+                parents[index] = [index-1]
+            else:
+                parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
 
             # Making some weird assumption that the weight is always 1th index
             layer = Layer(
@@ -185,10 +190,15 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
             o_3 = 1
             o_4 = 1
             layer.shape = [o_1, o_2, o_3, o_4]
-            # if gelu_flag:
-            #     layer = Layer(type=LayerType.GeLU, identifier=index, parents=parents[index])
-            #     layers.append(layer)
-            #     layer.shape = layers[parents[index][0]].shape
+            if gelu_flag:
+                index += 1
+                names_hash['gelu_'+str(index)] = index
+                parents[index] = [index-1]
+                layer = Layer(type=LayerType.Gelu, identifier=index, parents=parents[index])
+                layers.append(layer)
+                print(parents)
+                print(layers)
+                layer.shape = layers[parents[index][0]].shape
 
         elif operation == "Relu":
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
