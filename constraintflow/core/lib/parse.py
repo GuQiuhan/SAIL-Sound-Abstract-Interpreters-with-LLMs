@@ -105,7 +105,9 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
         nd_inps = node.input
         index += 1
 
-        gelu_flag = True
+        gelu_flag = False
+        hardtanh_flag = False
+        relu6_flag = False
         if gelu_flag and (operation not in ["Gemm", "Flatten"]): 
             index -= 1
             continue
@@ -247,6 +249,24 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
             layer = Layer(
                 type=LayerType.Relu6, identifier=index, parents=parents[index]
             )
+            layers.append(layer)
+            layer.shape = layers[parents[index][0]].shape
+
+        # new
+        elif operation == "Clip":
+            names_hash[str(net.graph.node[cur_layer].output[0])] = index
+            parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
+
+            if hardtanh_flag:
+                layer = Layer(
+                    type=LayerType.HardTanh, identifier=index, parents=parents[index]
+                )
+            elif relu6_flag:
+                layer = Layer(
+                    type=LayerType.Relu6, identifier=index, parents=parents[index]
+                )
+            else:
+                raise Exception("Unknown layer type for Clip")
             layers.append(layer)
             layer.shape = layers[parents[index][0]].shape
 
