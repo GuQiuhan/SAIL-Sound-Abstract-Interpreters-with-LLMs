@@ -37,14 +37,17 @@ class PolyExpSparse:
     def get_mat(self, abs_elem, dense=False):
 
         if isinstance(self.mat, float):
-            # return self.mat
-            if self.mat == 0:
-                sp_mat = SparseTensor(
-                    [torch.tensor([0] * block.dim())],
-                    [SparseBlock(block)],
-                    block.dim(),
-                    torch.tensor(block.shape),
+            if self.mat == 0.0:
+                end = torch.nonzero(abs_elem.d["llist"]).flatten().tolist()[-1]
+                end = self.network[end].end
+                mat = SparseTensor(
+                    [],
+                    [],
+                    self.const.dims + 1,
+                    torch.tensor(list(self.const.total_size) + [end]),
                 )
+                return mat
+            return self.mat
 
         if dense:
             block = self.mat.get_dense()
