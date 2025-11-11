@@ -10,9 +10,6 @@ from generation.validator.syntax_check import SyntaxChecker
 # from generation import gen
 
 
-MAX_RETRIES = 3
-
-
 def make_block_extractor(certifier: str, cmpl: str):
     """
     Extract everything starting from the correct transformer keyword (deeppoly, ibp, deepz)
@@ -280,10 +277,10 @@ def model_repair(
     client: Client, is_chat: bool, certifier: str, dsl: str, err: str
 ) -> str:
 
-    client = TGIClient(
-        model="http://ggnds-serv-01.cs.illinois.edu:8086"
-    )  # always use gpt5
-    is_chat = True
+    # client = TGIClient(
+    #    model="http://ggnds-serv-01.cs.illinois.edu:8086"
+    # )  # always use gpt5
+    # is_chat = True
 
     prmpt = ""
     if certifier == "deeppoly":

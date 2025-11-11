@@ -64,6 +64,7 @@ operator :
     | ELU
     | SELU
     | MISH
+    | GELU
 ;
 
 trans_ret :
@@ -261,6 +262,7 @@ SOFTSIGN: 'Softsign' ;
 ELU: 'Elu';
 SELU: 'Selu';
 MISH: 'Mish';
+GELU: 'Gelu';
 SHAPE: 'def Shape as' ;
 FUNC: 'func' ;
 EPSILON: 'eps' ;

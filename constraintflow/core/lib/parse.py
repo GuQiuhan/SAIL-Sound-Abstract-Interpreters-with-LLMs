@@ -105,7 +105,8 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
         nd_inps = node.input
         index += 1
 
-        # print(operation)
+        # gelu_flag = True
+        # if gelu_flag and operation!="Gemm": continue
 
         if operation == "Conv":
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
@@ -184,6 +185,10 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
             o_3 = 1
             o_4 = 1
             layer.shape = [o_1, o_2, o_3, o_4]
+            # if gelu_flag:
+            #     layer = Layer(type=LayerType.GeLU, identifier=index, parents=parents[index])
+            #     layers.append(layer)
+            #     layer.shape = layers[parents[index][0]].shape
 
         elif operation == "Relu":
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
@@ -230,8 +235,25 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
             parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
 
             layer = Layer(
-                type=LayerType.HardTanh, identifier=index, parents=parents[index]
+                type=LayerType.Relu6, identifier=index, parents=parents[index]
             )
+            layers.append(layer)
+            layer.shape = layers[parents[index][0]].shape
+
+        # new
+        elif operation == "Gelu":
+            names_hash[str(net.graph.node[cur_layer].output[0])] = index
+            parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
+
+            layer = Layer(type=LayerType.Gelu, identifier=index, parents=parents[index])
+            layers.append(layer)
+            layer.shape = layers[parents[index][0]].shape
+
+        elif operation == "Elu":
+            names_hash[str(net.graph.node[cur_layer].output[0])] = index
+            parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
+
+            layer = Layer(type=LayerType.Elu, identifier=index, parents=parents[index])
             layers.append(layer)
             layer.shape = layers[parents[index][0]].shape
 
@@ -334,6 +356,8 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
         layers.size += layer.size
         layer.end = layers.size
         shape = layer.shape
+
+    # layers = layers[:-1]
 
     if True or layers[-1].type != LayerType.Linear:
         layer = Layer(

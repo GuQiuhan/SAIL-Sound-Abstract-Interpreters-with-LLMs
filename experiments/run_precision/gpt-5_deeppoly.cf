@@ -88,4 +88,4 @@ transformer deeppoly{
 : (0, 1, 0, 1));
 }
 
-flow(forward, priority, true, deeppoly);
+flow(forward, priority, stop, deeppoly);

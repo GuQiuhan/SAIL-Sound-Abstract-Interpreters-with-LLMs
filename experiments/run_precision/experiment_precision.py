@@ -491,17 +491,16 @@ if __name__ == "__main__":
     # compile_code(program_file = "gpt-5_deeppoly_relu.cf")
     # compile_code(program_file = "test.cf")
 
-    # compile_code(program_file = "llama4_deeppoly.cf")
+    # compile_code(program_file = "gpt-5_deeppoly_nonlinear.cf")
 
     # run_all(file = "gpt-5_deeppoly.cf")
     # run_all(file = "constraintflow_deepz.cf")
     # run_all(file = "gpt-5_deepz.cf")
-    run_all(file="llama4_deeppoly.cf")
+    # run_all(file="llama4_deeppoly.cf")
 
-    """
     precision, duration = run(
-        program_file="llama4_deeppoly.cf",
-        network="nets/mnist/mnist_fcn3x50_hardtanh_standard_eps0.3.onnx",
+        program_file="gpt-5_deeppoly_nonlinear.cf",
+        network="nets/mnist/mnist_fcn3x100_gelu_standard_eps0.3.onnx",
         network_format="onnx",
         dataset="mnist",
         batch_size=100,
@@ -514,4 +513,3 @@ if __name__ == "__main__":
     )
 
     print(f"Duration: {duration}")
-    """

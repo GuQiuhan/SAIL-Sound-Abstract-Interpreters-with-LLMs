@@ -781,6 +781,8 @@ class ConvertToIr(astVisitor.ASTVisitor):
             "Tanh",
             "Relu6",
             "HardSwish",
+            "Gelu",
+            "Elu",
         ]:
             # if ast_node.op.op_name == 'Relu' or ast_node.op.op_name == 'Abs' or ast_node.op.op_name == 'HardSigmoid' or ast_node.op.op_name == 'HardTanh' or ast_node.op.op_name == 'Sigmoid':
             self.store["curr"] = IrVar(

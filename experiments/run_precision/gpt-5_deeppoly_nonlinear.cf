@@ -1,0 +1,39 @@
+def Shape as (Float l, Float u, PolyExp L, PolyExp U){[(curr[l]<=curr),(curr[u]>=curr),(curr[L]<=curr),(curr[U]>=curr)]};
+
+func priority(Neuron n) = n[layer];
+
+func stop(Neuron n) = false;
+
+func gelu(Float x) =
+    0.5 * x * (1
+        + 0.79788456 * x
+        + 0.03567741 * x * x*x
+        + 0.00097001 * x * x * x * x * x);
+
+func slope_gelu(Float l, Float u) =
+    (gelu(u) - gelu(l)) / (u - l);
+
+func intercept_gelu(Float l, Float u) =
+    gelu(l) - slope_gelu(l, u) * l;
+
+
+transformer deeppoly{
+    Gelu -> (
+        (prev[u] <= 0) ?
+            ( 0.5 * prev[l], 0,
+              0.5 * prev, 0 )
+
+        : ( (prev[l] >= 0) ?
+            ( 0.5 * prev[l], prev[u],
+              0.5 * prev, prev )
+
+          :
+            ( 0.5 * prev[l],
+              (slope_gelu(prev[l], prev[u]) * prev[u]) + intercept_gelu(prev[l], prev[u]),
+              0.5 * prev,
+              (slope_gelu(prev[l], prev[u]) * prev) + intercept_gelu(prev[l], prev[u]) )
+          )
+    );
+}
+
+flow(forward, priority, stop, deeppoly);

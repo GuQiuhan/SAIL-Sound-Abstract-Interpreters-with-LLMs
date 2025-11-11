@@ -204,7 +204,7 @@ PORT_MAP = {
 }
 
 # set max retry time every turn
-MAX_RETRIES = 15
+MAX_RETRIES = 70
 
 
 # prompting configuration

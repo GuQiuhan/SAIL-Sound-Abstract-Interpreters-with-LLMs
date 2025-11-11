@@ -97,3 +97,5 @@ class LayerType(Enum):
     # new
     HardSwish = 15
     Relu6 = 16
+    Gelu = 17
+    Elu = 18

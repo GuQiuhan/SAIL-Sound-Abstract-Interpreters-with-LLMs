@@ -795,6 +795,10 @@ class ASTTC(astVisitor.ASTVisitor):
             self.Gamma["prev"] = "Neuron"
         elif node.op.op_name == "rev_Relu6":
             self.Gamma["prev"] = "Neuron"
+        elif node.op.op_name == "Gelu":
+            self.Gamma["prev"] = "Neuron"
+        elif node.op.op_name == "Elu":
+            self.Gamma["prev"] = "Neuron"
         elif node.op.op_name == "rev_Affine":
             self.Gamma["curr_list"] = ArrayType("Neuron")
             self.Gamma["prev"] = "Neuron"

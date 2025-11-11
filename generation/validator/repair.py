@@ -280,10 +280,10 @@ def model_repair(
     client: Client, is_chat: bool, certifier: str, dsl: str, err: str
 ) -> str:
 
-    client = TGIClient(
-        model="http://ggnds-serv-01.cs.illinois.edu:8086"
-    )  # always use gpt5
-    is_chat = True
+    # client = TGIClient(
+    #    model="http://ggnds-serv-01.cs.illinois.edu:8086"
+    # )  # always use gpt5
+    # is_chat = True
 
     prmpt = ""
     if certifier == "deeppoly":

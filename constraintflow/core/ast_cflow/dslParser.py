@@ -15,7 +15,7 @@ def serializedATN():
     return [
         4,
         1,
-        117,
+        118,
         327,
         2,
         0,
@@ -718,7 +718,7 @@ def serializedATN():
         1,
         0,
         65,
-        99,
+        100,
         1,
         0,
         57,
@@ -751,8 +751,8 @@ def serializedATN():
         0,
         61,
         64,
-        112,
-        112,
+        113,
+        113,
         1,
         0,
         8,
@@ -917,7 +917,7 @@ def serializedATN():
         48,
         49,
         5,
-        100,
+        101,
         0,
         0,
         49,
@@ -1025,7 +1025,7 @@ def serializedATN():
         66,
         67,
         5,
-        115,
+        116,
         0,
         0,
         67,
@@ -1049,7 +1049,7 @@ def serializedATN():
         70,
         71,
         5,
-        101,
+        102,
         0,
         0,
         71,
@@ -1163,7 +1163,7 @@ def serializedATN():
         86,
         87,
         5,
-        115,
+        116,
         0,
         0,
         87,
@@ -1313,7 +1313,7 @@ def serializedATN():
         110,
         111,
         5,
-        115,
+        116,
         0,
         0,
         111,
@@ -1589,7 +1589,7 @@ def serializedATN():
         146,
         147,
         5,
-        115,
+        116,
         0,
         0,
         147,
@@ -1619,7 +1619,7 @@ def serializedATN():
         151,
         152,
         5,
-        115,
+        116,
         0,
         0,
         152,
@@ -1745,67 +1745,67 @@ def serializedATN():
         169,
         243,
         5,
-        104,
+        105,
         0,
         0,
         170,
         243,
         5,
-        103,
+        104,
         0,
         0,
         171,
         243,
         5,
-        113,
+        114,
         0,
         0,
         172,
         243,
         5,
-        114,
+        115,
         0,
         0,
         173,
         243,
         5,
-        115,
+        116,
         0,
         0,
         174,
         243,
         5,
-        102,
+        103,
         0,
         0,
         175,
         243,
         5,
-        105,
+        106,
         0,
         0,
         176,
         243,
         5,
-        106,
+        107,
         0,
         0,
         177,
         243,
         5,
-        107,
+        108,
         0,
         0,
         178,
         243,
         5,
-        108,
+        109,
         0,
         0,
         179,
         243,
         5,
-        109,
+        110,
         0,
         0,
         180,
@@ -2087,7 +2087,7 @@ def serializedATN():
         226,
         227,
         5,
-        110,
+        111,
         0,
         0,
         227,
@@ -2141,7 +2141,7 @@ def serializedATN():
         235,
         236,
         5,
-        115,
+        116,
         0,
         0,
         236,
@@ -2171,7 +2171,7 @@ def serializedATN():
         240,
         241,
         5,
-        115,
+        116,
         0,
         0,
         241,
@@ -2435,7 +2435,7 @@ def serializedATN():
         261,
         262,
         5,
-        115,
+        116,
         0,
         0,
         262,
@@ -2681,7 +2681,7 @@ def serializedATN():
         302,
         303,
         5,
-        111,
+        112,
         0,
         0,
         303,
@@ -3003,6 +3003,7 @@ class dslParser(Parser):
         "'Elu'",
         "'Selu'",
         "'Mish'",
+        "'Gelu'",
         "'def Shape as'",
         "'func'",
         "'eps'",
@@ -3119,6 +3120,7 @@ class dslParser(Parser):
         "ELU",
         "SELU",
         "MISH",
+        "GELU",
         "SHAPE",
         "FUNC",
         "EPSILON",
@@ -3287,24 +3289,25 @@ class dslParser(Parser):
     ELU = 97
     SELU = 98
     MISH = 99
-    SHAPE = 100
-    FUNC = 101
-    EPSILON = 102
-    TRUE = 103
-    FALSE = 104
-    CURR = 105
-    PREV = 106
-    PREV_0 = 107
-    PREV_1 = 108
-    CURRLIST = 109
-    LP = 110
-    CONCAT = 111
-    EQUATIONS = 112
-    IntConst = 113
-    FloatConst = 114
-    VAR = 115
-    WS = 116
-    LineComment = 117
+    GELU = 100
+    SHAPE = 101
+    FUNC = 102
+    EPSILON = 103
+    TRUE = 104
+    FALSE = 105
+    CURR = 106
+    PREV = 107
+    PREV_0 = 108
+    PREV_1 = 109
+    CURRLIST = 110
+    LP = 111
+    CONCAT = 112
+    EQUATIONS = 113
+    IntConst = 114
+    FloatConst = 115
+    VAR = 116
+    WS = 117
+    LineComment = 118
 
     def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
         super().__init__(input, output)
@@ -3642,7 +3645,7 @@ class dslParser(Parser):
                 self.state = 68
                 self.match(dslParser.SEMI)
                 pass
-            elif token in [101]:
+            elif token in [102]:
                 localctx = dslParser.FuncstmtContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
@@ -4111,6 +4114,9 @@ class dslParser(Parser):
         def MISH(self):
             return self.getToken(dslParser.MISH, 0)
 
+        def GELU(self):
+            return self.getToken(dslParser.GELU, 0)
+
         def getRuleIndex(self):
             return dslParser.RULE_operator
 
@@ -4138,7 +4144,7 @@ class dslParser(Parser):
             self.state = 112
             _la = self._input.LA(1)
             if not (
-                ((((_la - 65)) & ~0x3F) == 0 and ((1 << (_la - 65)) & 34359738367) != 0)
+                ((((_la - 65)) & ~0x3F) == 0 and ((1 << (_la - 65)) & 68719476735) != 0)
             ):
                 self._errHandler.recoverInline(self)
             else:
@@ -6586,7 +6592,7 @@ class dslParser(Parser):
             if not (
                 (
                     (((_la - 61)) & ~0x3F) == 0
-                    and ((1 << (_la - 61)) & 2251799813685263) != 0
+                    and ((1 << (_la - 61)) & 4503599627370511) != 0
                 )
             ):
                 self._errHandler.recoverInline(self)

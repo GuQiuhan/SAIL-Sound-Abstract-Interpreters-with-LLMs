@@ -74,7 +74,37 @@ class Flow:
             elif layer.type == LayerType.HardSwish:
                 prev = Llist(self.model, [1], None, None, layer.parents)
                 curr = Llist(self.model, [1], None, None, [tmp])
-                abs_shape = self.transformer.HardSigmoid(
+                abs_shape = self.transformer.HardSwish(
+                    self.abs_elem,
+                    prev,
+                    curr,
+                    poly_size,
+                    curr_size,
+                    prev_size,
+                    self.input_size,
+                    self.batch_size,
+                )
+
+            # new
+            elif layer.type == LayerType.Elu:
+                prev = Llist(self.model, [1], None, None, layer.parents)
+                curr = Llist(self.model, [1], None, None, [tmp])
+                abs_shape = self.transformer.Elu(
+                    self.abs_elem,
+                    prev,
+                    curr,
+                    poly_size,
+                    curr_size,
+                    prev_size,
+                    self.input_size,
+                    self.batch_size,
+                )
+
+            # new
+            elif layer.type == LayerType.Gelu:
+                prev = Llist(self.model, [1], None, None, layer.parents)
+                curr = Llist(self.model, [1], None, None, [tmp])
+                abs_shape = self.transformer.Gelu(
                     self.abs_elem,
                     prev,
                     curr,
@@ -89,7 +119,7 @@ class Flow:
             elif layer.type == LayerType.Relu6:
                 prev = Llist(self.model, [1], None, None, layer.parents)
                 curr = Llist(self.model, [1], None, None, [tmp])
-                abs_shape = self.transformer.HardSigmoid(
+                abs_shape = self.transformer.Relu6(
                     self.abs_elem,
                     prev,
                     curr,
