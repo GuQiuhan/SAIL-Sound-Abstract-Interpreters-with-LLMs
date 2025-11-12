@@ -105,13 +105,13 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
         nd_inps = node.input
         index += 1
 
-        gelu_flag = False
+        gelu_flag = True
         hardtanh_flag = False
         relu6_flag = False
         if gelu_flag and (operation not in ["Gemm", "Flatten"]): 
             index -= 1
             continue
-        print(operation)
+        # print(operation)
         if operation == "Conv":
             names_hash[str(net.graph.node[cur_layer].output[0])] = index
             parents[index] = [names_hash[str(net.graph.node[cur_layer].input[0])]]
@@ -193,13 +193,18 @@ def parse_onnx_layers(net, spec_weight, spec_bias, no_sparsity):
             o_4 = 1
             layer.shape = [o_1, o_2, o_3, o_4]
             if gelu_flag:
+                layer.size = compute_size(layer.shape)
+                layer.start = layers.size
+                layers.size += layer.size
+                layer.end = layers.size
+                shape = layer.shape
+
+
                 index += 1
                 names_hash['gelu_'+str(index)] = index
                 parents[index] = [index-1]
                 layer = Layer(type=LayerType.Gelu, identifier=index, parents=parents[index])
                 layers.append(layer)
-                print(parents)
-                print(layers)
                 layer.shape = layers[parents[index][0]].shape
 
         elif operation == "Relu":

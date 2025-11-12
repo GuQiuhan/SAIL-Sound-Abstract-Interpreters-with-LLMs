@@ -499,7 +499,9 @@ if __name__ == "__main__":
     # run_all(file="llama4_deeppoly.cf")
 
     precision, duration = run(
+        # program_file="constraintflow_deeppoly.cf",
         program_file="gpt-5_deeppoly_nonlinear.cf",
+        # network="nets/mnist/mnist_fcn3x50_hardsigmoid_standard_eps0.3.onnx",
         network="nets/mnist/mnist_fcn3x100_gelu_standard_eps0.3.onnx",
         network_format="onnx",
         dataset="mnist",
