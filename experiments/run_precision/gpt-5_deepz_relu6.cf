@@ -33,6 +33,12 @@ transformer deepZ{
                             (0, ((prev[u] + 3) / 6), ((((prev[u] + 3) / 12)) + ((((prev[u] + 3) / 12)) * eps))) :
                             (0, 1, (0.5 + (0.5 * eps))))));
 
+    HardTanh -> ((prev[u]) <= -1) ? (-1, -1, -1)
+                 : (((prev[l]) >= 1) ? (1, 1, 1)
+                 : (((prev[l]) >= -1) ? (((prev[u]) <= 1) ? ((prev[l]), (prev[u]), (prev[Z]))
+                                        : ((prev[l]), 1, (((prev[l]) + 1) / 2) + ((((1) - (prev[l])) / 2) * eps)))
+                                      : (((prev[u]) <= 1) ? (-1, (prev[u]), ((((-1) + (prev[u])) / 2) + ((((prev[u]) - (-1)) / 2) * eps)))
+                                                         : (-1, 1, eps))));
 
 
     Relu -> (((prev[l]) >= 0) ?
@@ -44,6 +50,11 @@ transformer deepZ{
                          + ((((- (prev[l]) * (prev[u])) / ((prev[u]) - (prev[l]))) / 2)
                          + (((( - (prev[l]) * (prev[u])) / ((prev[u]) - (prev[l]))) / 2) * eps))))));
 
+    Relu6 -> (prev[u] <= 0) ? (0, 0, 0) :
+             ((prev[l] >= 6) ? (6, 6, 6) :
+             ((prev[l] >= 0) ?
+                 ((prev[u] <= 6) ? (prev[l], prev[u], prev[Z]) : (prev[l], 6, (((prev[l] + 6) / 2) + (((6 - prev[l]) / 2) * eps)))) :
+                 ((prev[u] <= 6) ? (0, prev[u], (((prev[u]) / 2) + (((prev[u]) / 2) * eps))) : (0, 6, (3 + (3 * eps))))));
 
 
     }

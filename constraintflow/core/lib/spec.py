@@ -73,6 +73,95 @@ class ImageDataset:
         bias = torch.zeros(num_classes - 1, dtype=torch.float32)
         return weight, bias
 
+    def create_l_patch(
+        image,
+        network_size,
+        batch_size,
+        eps=0.01,
+        dataset="mnist",
+        no_sparsity=False,
+        patch_top: int = 6,
+        patch_left: int = 6,
+        patch_h: int = 10,
+        patch_w: int = 10,
+    ):
+
+        # [patch_top:patch_top+patch_h, patch_left:patch_left+patch_w] do [x-eps]，
+
+        # image: [B, C, H, W]
+        assert image.dim() == 4, f"Expected image to be 4D [B,C,H,W], got {image.shape}"
+        B, C, H, W = image.shape
+
+        patch_h = H - patch_top
+        patch_w = W - patch_left
+
+        assert 0 <= patch_top < H
+        assert 0 <= patch_left < W
+        assert patch_top + patch_h <= H
+        assert patch_left + patch_w <= W
+
+        l_img = image.clone()
+
+        patch = torch.clip(
+            image[:, :, patch_top : patch_top + 1, patch_left : patch_left + 1] - eps,
+            min=0.0,
+            max=1.0,
+        )
+        l_img[:, :, patch_top : patch_top + 1, patch_left : patch_left + 1] = patch
+
+        if dataset == "mnist":
+            l_img = (l_img - ImageDataset.mnist_mean) / ImageDataset.mnist_std
+        else:
+            mean = ImageDataset.cifar10_mean.expand(l_img.shape)
+            std = ImageDataset.cifar10_std.expand(l_img.shape)
+            l_img = (l_img - mean) / std
+
+        l = l_img.reshape(batch_size, -1)
+        l = create_sparse_init(l, float("-inf"), batch_size, network_size, no_sparsity)
+        return l
+
+    def create_u_patch(
+        image,
+        network_size,
+        batch_size,
+        eps=0.01,
+        dataset="mnist",
+        no_sparsity=False,
+        patch_top: int = 6,
+        patch_left: int = 6,
+        patch_h: int = 10,
+        patch_w: int = 10,
+    ):
+
+        assert image.dim() == 4, f"Expected image to be 4D [B,C,H,W], got {image.shape}"
+        B, C, H, W = image.shape
+
+        patch_h = H - patch_top
+        patch_w = W - patch_left
+
+        assert 0 <= patch_top < H
+        assert 0 <= patch_left < W
+        assert patch_top + patch_h <= H
+        assert patch_left + patch_w <= W
+
+        u_img = image.clone()
+
+        patch = torch.clip(
+            image[:, :, patch_top : patch_top + 1, patch_left : patch_left + 1] + eps,
+            min=0.0,
+            max=1.0,
+        )
+        u_img[:, :, patch_top : patch_top + 1, patch_left : patch_left + 1] = patch
+
+        if dataset == "mnist":
+            u_img = (u_img - ImageDataset.mnist_mean) / ImageDataset.mnist_std
+        else:
+            u_img = (u_img - ImageDataset.cifar10_mean) / ImageDataset.cifar10_std
+
+        u = u_img.reshape(batch_size, -1)
+        u = create_sparse_init(u, float("inf"), batch_size, network_size, no_sparsity)
+        return u
+
 
 def create_sparse_init(x, dense_const, batch_size, network_size, no_sparsity):
     start_indices = [torch.tensor([0, 0])]
@@ -181,8 +270,19 @@ def get_network_and_input_spec(
 
     spec_weight, spec_bias = ImageDataset.get_output_spec_weight_and_bias(X, y, dataset)
     network = get_net(network_file, spec_weight, spec_bias, no_sparsity)
-    l = ImageDataset.create_l(X, network.size, batch_size, eps, dataset, no_sparsity)
-    u = ImageDataset.create_u(X, network.size, batch_size, eps, dataset, no_sparsity)
+
+    # @qiuhan: uncomment here if testing MNIST
+    # l = ImageDataset.create_l(X, network.size, batch_size, eps, dataset, no_sparsity)
+    # u = ImageDataset.create_u(X, network.size, batch_size, eps, dataset, no_sparsity)
+
+    # @qiuhan: uncomment here if testing CIFAR10
+    l = ImageDataset.create_l_patch(
+        X, network.size, batch_size, eps, dataset, no_sparsity
+    )
+    u = ImageDataset.create_u_patch(
+        X, network.size, batch_size, eps, dataset, no_sparsity
+    )
+
     L = create_L(l, network, batch_size, no_sparsity)
     U = create_U(u, network, batch_size, no_sparsity)
     Z = create_Z(l, u, network, no_sparsity)

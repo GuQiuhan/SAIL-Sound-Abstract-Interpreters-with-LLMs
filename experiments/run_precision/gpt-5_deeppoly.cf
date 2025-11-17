@@ -27,6 +27,15 @@ func f3(Neuron n) = max(f2(n[l]), f2(n[u]));
 func compute_l(Neuron n1, Neuron n2) = min([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 func compute_u(Neuron n1, Neuron n2) = max([n1[l]*n2[l], n1[l]*n2[u], n1[u]*n2[l], n1[u]*n2[u]]);
 
+
+func elu(Float x) = (x >= 0) ? x : (sigma(x)/(1-sigma(x))- 1);
+
+
+func slope_elu(Float l, Float u) = (elu(u) - elu(l)) / (u - l);
+
+func intercept_elu(Float l, Float u) = elu(l) - slope_elu(l, u) * l;
+
+
 transformer deeppoly{
     Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
 
@@ -65,27 +74,36 @@ transformer deeppoly{
         (max(((prev[l] <= -3) ? 0 : ((prev[l] < 3) ? f2(prev[l]) : prev[l])), max(((prev[u] <= -3) ? 0 : ((prev[u] < 3) ? f2(prev[u]) : prev[u])), 0)))
     )));
 
-    Relu6 -> ((prev[u]) <= 0) ? (0, 0, 0, 0) : (((prev[l]) >= 6) ? (6, 6, 6, 6) : (((prev[l]) >= 0) ? (((prev[u]) <= 6) ? ((prev[l]), (prev[u]), (prev), (prev)) : ((prev[l]), 6, ((((6 - (prev[l])) / ((prev[u]) - (prev[l]))) * (prev)) + (((prev[l]) * ((prev[u]) - 6)) / ((prev[u]) - (prev[l])))), 6)) : (((prev[u]) <= 6) ? (0, (prev[u]), 0, (((prev[u]) / ((prev[u]) - (prev[l]))) * (prev)) - (((prev[u]) * (prev[l])) / ((prev[u]) - (prev[l])))) : (0, 6, 0, 6))));
 
 
-    HardTanh -> ( (prev[u] <= -1) ? (-1, -1, -1, -1)
-        : ( (prev[l] >= 1) ? (1, 1, 1, 1)
-        : ( (prev[l] >= -1)
-            ? ( (prev[u] <= 1)
-                ? (prev[l], prev[u], prev, prev)
-                : (prev[l], 1, (((1 - prev[l]) / (prev[u] - prev[l])) * prev) + (1 - (((1 - prev[l]) / (prev[u] - prev[l])) * prev[u])), prev)
-              )
-            : ( (prev[u] <= 1)
-                ? (-1, prev[u], prev, (((prev[u] + 1) / (prev[u] - prev[l])) * prev) + (-1 - (((prev[u] + 1) / (prev[u] - prev[l])) * prev[l])))
-                : (-1, 1, ((2 / (prev[u] + 1)) * prev) + (-1 + (2 / (prev[u] + 1))), ((2 / (1 - prev[l])) * prev) + (-1 - ((2 / (1 - prev[l])) * prev[l])))
-              )
-          )
-      )
-
-);
     Sigmoid -> ((prev[u]) <= 0) ? (0, 0.5, (0.25 * (prev)) + 0.5, 0.5)
 : (((prev[l]) >= 0) ? (0.5, 1, 0.5, (0.25 * (prev)) + 0.5)
 : (0, 1, 0, 1));
+
+
+
+        Elu -> (
+        (prev[u] <= 0) ?
+            (
+              -1, elu(prev[u]),
+            -1,  slope_elu(prev[l], prev[u]) * prev + intercept_elu(prev[l], prev[u])
+            )
+
+
+        : ( (prev[l] >= 0) ?
+            (
+              prev[l], prev[u],
+              prev,   prev
+            )
+
+          :
+            (
+              -1,        prev[u],
+               prev,     slope_elu(prev[l], prev[u]) * prev + intercept_elu(prev[l], prev[u])
+            )
+          )
+    );
+
 }
 
 flow(forward, priority, stop, deeppoly);

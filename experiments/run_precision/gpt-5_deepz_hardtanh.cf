@@ -1,0 +1,32 @@
+def Shape as (Float l, Float u, SymExp Z){[(curr[u]>=curr),(curr In curr[Z]),(curr[l]<=curr)]};
+
+func simplify_lower(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[l]) : (coeff * n[u]);
+func simplify_upper(Neuron n, Float coeff) = (coeff >= 0) ? (coeff * n[u]) : (coeff * n[l]);
+
+func priority(Neuron n) = n[layer];
+func f(Neuron n1, Neuron n2) = n1[l] >= n2[u];
+
+func s1(Float x1, Float x2) = ((x1 * (x1 + 3))-(x2 * (x2 + 3))) / (6 * (x1-x2));
+func i1(Float x1, Float x2) = x1 * ((x1 + 3) / 6) - (s1(x1, x2) * x1);
+
+func f1(Float x) = x < 3 ? x * ((x + 3) / 6) : x;
+func f2(Float x) = x * ((x + 3) / 6);
+
+func stop(Neuron n) = false;
+
+transformer deepZ{
+    Affine -> ((prev.dot(curr[weight]) + curr[bias]).map(simplify_lower), (prev.dot(curr[weight]) + curr[bias]).map(simplify_upper), prev[Z].dot(curr[weight]) + (curr[bias]));
+
+
+
+    HardTanh -> ((prev[u]) <= -1) ? (-1, -1, -1)
+                 : (((prev[l]) >= 1) ? (1, 1, 1)
+                 : (((prev[l]) >= -1) ? (((prev[u]) <= 1) ? ((prev[l]), (prev[u]), (prev[Z]))
+                                        : ((prev[l]), 1, (((prev[l]) + 1) / 2) + ((((1) - (prev[l])) / 2) * eps)))
+                                      : (((prev[u]) <= 1) ? (-1, (prev[u]), ((((-1) + (prev[u])) / 2) + ((((prev[u]) - (-1)) / 2) * eps)))
+                                                         : (-1, 1, eps))));
+
+
+    }
+
+flow(forward, priority, stop, deepZ);

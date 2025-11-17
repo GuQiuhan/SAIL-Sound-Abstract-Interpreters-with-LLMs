@@ -30,6 +30,9 @@ func intercept_gelu(Float l, Float u) =
     gelu(l) - slope_gelu(l, u) * l;
 
 
+
+
+
 transformer deeppoly{
 
     Affine -> (backsubs_lower(prev.dot(curr[weight]) + curr[bias], curr), backsubs_upper(prev.dot(curr[weight]) + curr[bias], curr), prev.dot(curr[weight]) + curr[bias], prev.dot(curr[weight]) + curr[bias]);
@@ -51,6 +54,11 @@ transformer deeppoly{
               (slope_gelu(prev[l], prev[u]) * prev) + intercept_gelu(prev[l], prev[u]) )
           )
     );
+
+
 }
+
+
+
 
 flow(forward, priority, stop, deeppoly);
