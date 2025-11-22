@@ -1,5 +1,10 @@
 # ⛵ Cost-Driven Synthesis of Sound Abstract Interpreters
 
+[![arXiv](https://img.shields.io/badge/arXiv-2511.13663-b31b1b.svg)](https://arxiv.org/abs/2511.13663)
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![License](https://img.shields.io/github/license/GuQiuhan/SAIL-Sound-Abstract-Interpreters-with-LLMs)
+![Stars](https://img.shields.io/github/stars/GuQiuhan/SAIL-Sound-Abstract-Interpreters-with-LLMs?style=social)
+
 ![workflow](experiments/run_tables/general_workflow.png)
 
 > The overview of SAIL.
@@ -7,10 +12,6 @@
 How to construct **globally sound** abstract interpreters to safely approximate program behaviors remains a bottleneck in abstract interpretation. We show the potential of using state-of-the-art LLMs to automate this tedious process. Focusing on the neural network verification area, we synthesize non-trivial sound abstract transformers across diverse abstract domains using LLMs to search within **infinite space** from scratch. We formalize the synthesis task as a constrained optimization problem, for which we design a novel mathematically grounded cost function that measures the degree of unsoundness of each generated candidate transformer, while enforcing hard syntactic and semantic validity constraints.
 
 ---
-[![arXiv](https://img.shields.io/badge/arXiv-2511.13663-b31b1b.svg)](https://arxiv.org/abs/2511.13663)
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![License](https://img.shields.io/github/license/GuQiuhan/SAIL-Sound-Abstract-Interpreters-with-LLMs)
-![Stars](https://img.shields.io/github/stars/GuQiuhan/SAIL-Sound-Abstract-Interpreters-with-LLMs?style=social)
 
 ## 📁 Project Structure
 
