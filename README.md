@@ -13,6 +13,22 @@ How to construct **globally sound** abstract interpreters to safely approximate 
 
 ---
 
+## 📚 Table of Contents
+- [📁 Project Structure](#-project-structure)
+- [🚀 Usage](#-usage)
+  - [🔨 Project Configuration](#-project-configuration)
+    - [Constraintflow Configuration](#constraintflow-configuration)
+    - [Model Configuration](#model-configuration)
+  - [📦 Run the Pipeline](#-run-the-pipeline)
+    - [1. Model Deployment](#1-model-deployment)
+    - [2. Transformer Synthesis](#2-transformer-synthesis)
+    - [3. Validation and Repair Modules](#3-you-can-also-test-each-module-separately)
+- [📈 Evaluation](#-evaluation)
+  - [1. Train Neural Networks](#1-train-neural-networks-for-testing-the-precision)
+  - [2. Test Precision](#2-test-precision)
+  - [3. Run Ablation Study](#3-run-ablation-study)
+
+
 ## 📁 Project Structure
 
 ```
